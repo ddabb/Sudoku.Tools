@@ -1,0 +1,119 @@
+{
+  "format": 1,
+  "restore": {
+    "E:\\Soduku.Tools\\Soduku.Tools\\Sudoku.Console\\Sudoku.Console.csproj": {}
+  },
+  "projects": {
+    "E:\\Soduku.Tools\\Soduku.Tools\\Soduku.Tools\\Sudoku.Tools.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\Soduku.Tools\\Soduku.Tools\\Soduku.Tools\\Sudoku.Tools.csproj",
+        "projectName": "Sudoku.Tools",
+        "projectPath": "E:\\Soduku.Tools\\Soduku.Tools\\Soduku.Tools\\Sudoku.Tools.csproj",
+        "packagesPath": "C:\\Users\\stoneliu\\.nuget\\packages\\",
+        "outputPath": "E:\\Soduku.Tools\\Soduku.Tools\\Soduku.Tools\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\stoneliu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.1": {
+          "dependencies": {
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.1.0, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    },
+    "E:\\Soduku.Tools\\Soduku.Tools\\Sudoku.Console\\Sudoku.Console.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\Soduku.Tools\\Soduku.Tools\\Sudoku.Console\\Sudoku.Console.csproj",
+        "projectName": "Sudoku.Console",
+        "projectPath": "E:\\Soduku.Tools\\Soduku.Tools\\Sudoku.Console\\Sudoku.Console.csproj",
+        "packagesPath": "C:\\Users\\stoneliu\\.nuget\\packages\\",
+        "outputPath": "E:\\Soduku.Tools\\Soduku.Tools\\Sudoku.Console\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\stoneliu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.1": {
+            "projectReferences": {
+              "E:\\Soduku.Tools\\Soduku.Tools\\Soduku.Tools\\Sudoku.Tools.csproj": {
+                "projectPath": "E:\\Soduku.Tools\\Soduku.Tools\\Soduku.Tools\\Sudoku.Tools.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.1": {
+          "dependencies": {
+            "Autofac": {
+              "target": "Package",
+              "version": "[4.9.4, )"
+            },
+            "Microsoft.NETCore.App": {
+              "target": "Package",
+              "version": "[2.1.0, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    }
+  }
+}

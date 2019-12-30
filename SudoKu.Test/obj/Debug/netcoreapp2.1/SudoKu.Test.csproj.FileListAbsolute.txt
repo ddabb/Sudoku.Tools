@@ -1,0 +1,14 @@
+E:\Soduku.Tools\Soduku.Tools\SudoKu.Test\bin\Debug\netcoreapp2.1\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+E:\Soduku.Tools\Soduku.Tools\SudoKu.Test\bin\Debug\netcoreapp2.1\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+E:\Soduku.Tools\Soduku.Tools\SudoKu.Test\bin\Debug\netcoreapp2.1\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+E:\Soduku.Tools\Soduku.Tools\SudoKu.Test\bin\Debug\netcoreapp2.1\SudoKu.Test.deps.json
+E:\Soduku.Tools\Soduku.Tools\SudoKu.Test\bin\Debug\netcoreapp2.1\SudoKu.Test.runtimeconfig.json
+E:\Soduku.Tools\Soduku.Tools\SudoKu.Test\bin\Debug\netcoreapp2.1\SudoKu.Test.runtimeconfig.dev.json
+E:\Soduku.Tools\Soduku.Tools\SudoKu.Test\bin\Debug\netcoreapp2.1\SudoKu.Test.dll
+E:\Soduku.Tools\Soduku.Tools\SudoKu.Test\bin\Debug\netcoreapp2.1\SudoKu.Test.pdb
+E:\Soduku.Tools\Soduku.Tools\SudoKu.Test\obj\Debug\netcoreapp2.1\SudoKu.Test.csprojAssemblyReference.cache
+E:\Soduku.Tools\Soduku.Tools\SudoKu.Test\obj\Debug\netcoreapp2.1\SudoKu.Test.csproj.CoreCompileInputs.cache
+E:\Soduku.Tools\Soduku.Tools\SudoKu.Test\obj\Debug\netcoreapp2.1\SudoKu.Test.AssemblyInfoInputs.cache
+E:\Soduku.Tools\Soduku.Tools\SudoKu.Test\obj\Debug\netcoreapp2.1\SudoKu.Test.AssemblyInfo.cs
+E:\Soduku.Tools\Soduku.Tools\SudoKu.Test\obj\Debug\netcoreapp2.1\SudoKu.Test.dll
+E:\Soduku.Tools\Soduku.Tools\SudoKu.Test\obj\Debug\netcoreapp2.1\SudoKu.Test.pdb

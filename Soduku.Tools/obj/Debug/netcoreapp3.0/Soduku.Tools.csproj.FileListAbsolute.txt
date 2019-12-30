@@ -1,0 +1,8 @@
+C:\Users\stoneliu\source\repos\Soduku.Tools\Soduku.Tools\bin\Debug\netcoreapp3.0\Soduku.Tools.deps.json
+C:\Users\stoneliu\source\repos\Soduku.Tools\Soduku.Tools\bin\Debug\netcoreapp3.0\Soduku.Tools.dll
+C:\Users\stoneliu\source\repos\Soduku.Tools\Soduku.Tools\bin\Debug\netcoreapp3.0\Soduku.Tools.pdb
+C:\Users\stoneliu\source\repos\Soduku.Tools\Soduku.Tools\obj\Debug\netcoreapp3.0\Soduku.Tools.csprojAssemblyReference.cache
+C:\Users\stoneliu\source\repos\Soduku.Tools\Soduku.Tools\obj\Debug\netcoreapp3.0\Soduku.Tools.AssemblyInfoInputs.cache
+C:\Users\stoneliu\source\repos\Soduku.Tools\Soduku.Tools\obj\Debug\netcoreapp3.0\Soduku.Tools.AssemblyInfo.cs
+C:\Users\stoneliu\source\repos\Soduku.Tools\Soduku.Tools\obj\Debug\netcoreapp3.0\Soduku.Tools.dll
+C:\Users\stoneliu\source\repos\Soduku.Tools\Soduku.Tools\obj\Debug\netcoreapp3.0\Soduku.Tools.pdb
