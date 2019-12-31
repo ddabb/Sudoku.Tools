@@ -12,7 +12,7 @@ namespace Sudoku.Console
         {
 
             var assembly = typeof(ISudokuSolveHelper).Assembly;
-            var types = assembly.GetTypes().Where(t => typeof(ISudokuSolveHelper).IsAssignableFrom(t));
+            var types = assembly.GetTypes().Where(t => typeof(ISudokuSolveHelper).IsAssignableFrom(t)&&t.IsAbstract==false);
             var notimplemented = 0;
             foreach (var type in types)
             {
@@ -70,7 +70,7 @@ namespace Sudoku.Console
 
             var a = new DanceLink().isValid(newGens);
             if (!a) return false;
-            foreach (var subString in StaticTools.GetSubString(newGens))
+            foreach (var subString in GetSubString(newGens))
             {
                 if (!new DanceLink().isValid(subString)) continue;
                 return false;
@@ -81,10 +81,10 @@ namespace Sudoku.Console
         public static List<string> GetSubString(string str)
         {
             var result = new List<string>();
-            var locations = StaticTools.GetCuesLocations(str);
+            var locations = GetCuesLocations(str);
             foreach (var location in locations)
             {
-                result.Add(StaticTools.SetZero(str, location));
+                result.Add(SetZero(str, location));
             }
 
             return result;
