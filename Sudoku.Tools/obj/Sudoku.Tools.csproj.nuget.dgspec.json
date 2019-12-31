@@ -1,26 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Git\\Sudoku.Tools\\Soduku.Tools\\Sudoku.Tools.csproj": {}
+    "E:\\Soduku.Tools\\Soduku.Tools\\Sudoku.Tools\\Sudoku.Tools.csproj": {}
   },
   "projects": {
-    "E:\\Git\\Sudoku.Tools\\Soduku.Tools\\Sudoku.Tools.csproj": {
+    "E:\\Soduku.Tools\\Soduku.Tools\\Sudoku.Tools\\Sudoku.Tools.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Git\\Sudoku.Tools\\Soduku.Tools\\Sudoku.Tools.csproj",
+        "projectUniqueName": "E:\\Soduku.Tools\\Soduku.Tools\\Sudoku.Tools\\Sudoku.Tools.csproj",
         "projectName": "Sudoku.Tools",
-        "projectPath": "E:\\Git\\Sudoku.Tools\\Soduku.Tools\\Sudoku.Tools.csproj",
+        "projectPath": "E:\\Soduku.Tools\\Soduku.Tools\\Sudoku.Tools\\Sudoku.Tools.csproj",
         "packagesPath": "C:\\Users\\stoneliu\\.nuget\\packages\\",
-        "outputPath": "E:\\Git\\Sudoku.Tools\\Soduku.Tools\\obj\\",
+        "outputPath": "E:\\Soduku.Tools\\Soduku.Tools\\Sudoku.Tools\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "E:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
           "C:\\Users\\stoneliu\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.1"
@@ -51,16 +49,10 @@
             }
           },
           "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48"
+            "net461"
           ],
           "assetTargetFallback": true,
-          "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+          "warn": true
         }
       }
     }
