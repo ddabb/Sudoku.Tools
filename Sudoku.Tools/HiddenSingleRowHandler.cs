@@ -6,9 +6,9 @@ using System.Text;
 namespace Sudoku.Tools
 {
     [Example("900400613320190700000000009000017008000000000700360000800000000009045086253001004")]
-    public class HiddenSingleRowHandler : ISudokuSolveHelper
+    public class HiddenSingleRowHandler :SolverHandlerBase
     {
-        public List<CellInfo> Excute(QSudoku qSoduku)
+        public override List<CellInfo> Excute(QSudoku qSoduku)
         {
             List<CellInfo> cells = new List<CellInfo>();
 

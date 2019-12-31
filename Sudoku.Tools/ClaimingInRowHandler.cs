@@ -11,10 +11,10 @@ namespace Sudoku.Tools
     /// 候选数X若在R行仅存在一个宫B中，则该B宫中的非R行排除候选数X。
     /// </summary>
     [Example("200007450537420008419050723000040075170000046640070000004060537700084092000700004")]
-    public class ClaimingInRowHandler : ISudokuSolveHelper
+    public class ClaimingInRowHandler :SolverHandlerBase
     {
 
-        public List<CellInfo> Excute(QSudoku qSoduku)
+        public override List<CellInfo> Excute(QSudoku qSoduku)
         {
             List<CellInfo> cells = new List<CellInfo>();
             Func<CellInfo, bool> predicate = c => c.Value == 0;
@@ -72,7 +72,9 @@ namespace Sudoku.Tools
             //同宮不同行的未知单元格是否仅有两个候选数
             foreach (var item in list)
             {
-                foreach (var item1 in rests.Where(c => c.Block == item.Block && c.Row != item.Row))
+                var speacilValue = item.Value;
+                var negativeCells = rests.Where(c => c.Block == item.Block && c.Row != item.Row).ToList();
+                foreach (var item1 in negativeCells)
                 {
                     var cellrest = qSoduku.GetRest(item1.index);
                     if (cellrest.Count == 2 && cellrest.Contains(item.Value))
@@ -80,24 +82,17 @@ namespace Sudoku.Tools
                         item1.Value = cellrest.First(c => c != item.Value);
                         cells.Add(item1);
                     }
+                    var PositiveCellsInRow = rests.Where(c => (c.index != item1.index && c.Block != item1.Block) && (c.Row == item1.Row)).ToList();
+                    cells.AddRange(GetNakedSingleCell(qSoduku, speacilValue, PositiveCellsInRow));
+                    var PositiveCellsInColumn = rests.Where(c => (c.index != item1.index && c.Block != item1.Block) && (c.Column == item1.Column)).ToList();
+                    cells.AddRange(GetNakedSingleCell(qSoduku, speacilValue, PositiveCellsInColumn));
                 }
+
             }
             return cells;
         }
 
-        public class RowBlockDto
-        {
-            public int Row;
-            public int Block;
-            public List<int> AllRests = new List<int>();
-        }
 
-        public class RowBlockSingle
-        {
-            public int Row;
-            public int Block;
-            public int Value;
-        }
 
     }
 }

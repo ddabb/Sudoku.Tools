@@ -1,26 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
 
 namespace Sudoku.Tools
 {
 
     [Example("030150209000360050700490603001273800000519000003684700100000008320040000409001060")]
-    public class ClaimingInColumnHandler : ISudokuSolveHelper
+    public class ClaimingInColumnHandler : SolverHandlerBase
     {
 
-        public List<CellInfo> Excute(QSudoku qSoduku)
+        public override List<CellInfo> Excute(QSudoku qSoduku)
         {
             List<CellInfo> cells = new List<CellInfo>();
             Func<CellInfo, bool> predicate = c => c.Value == 0;
             var rests = qSoduku.GetFilterCell(predicate).ToList();
-            var columnBlockDtos = rests.Select(c => new {c.Column, c.Block}).Distinct().ToList();
+            var columnBlockDtos = rests.Select(c => new { c.Column, c.Block }).Distinct().ToList();
             List<ColumnBlockDto> allDtos = new List<ColumnBlockDto>();
             foreach (var dto in columnBlockDtos)
             {
-                ColumnBlockDto temp = new ColumnBlockDto {Block = dto.Block, Column = dto.Column};
+                ColumnBlockDto temp = new ColumnBlockDto { Block = dto.Block, Column = dto.Column };
                 var filter = rests.Where(c => c.Block == dto.Block && c.Column == dto.Column);
                 foreach (var filterItem in filter)
                 {
@@ -58,41 +56,40 @@ namespace Sudoku.Tools
                     {
                         list.Add(new ColumnBlockSingle
                         {
-                            Column = kv.Key, Value = groupItem.Key,
+                            Column = kv.Key,
+                            Value = groupItem.Key,
                             Block = allDtos.First(c => c.Column == kv.Key && c.AllRests.Contains(groupItem.Key)).Block
                         });
 
                     }
                 }
             }
-            //同宮不同列的未知单元格是否仅有两个候选数
+            //同宮不同行的未知单元格是否仅有两个候选数
             foreach (var item in list)
             {
-                foreach (var item1 in rests.Where(c => c.Block == item.Block && c.Column != item.Column))
+
+                int speacilValue = item.Value;
+                var negativeCells = rests.Where(c => c.Block == item.Block && c.Column != item.Column).ToList();
+                foreach (var item1 in negativeCells)
                 {
                     var cellrest = qSoduku.GetRest(item1.index);
-                    if (cellrest.Count == 2 && cellrest.Contains(item.Value))
+                    if (cellrest.Count == 2 && cellrest.Contains(speacilValue))
                     {
-                        item1.Value = cellrest.First(c => c != item.Value);
+                        item1.Value = cellrest.First(c => c != speacilValue);
                         cells.Add(item1);
                     }
+                    var PositiveCellsInRow = rests.Where(c => (c.index != item1.index && c.Block != item1.Block) && (c.Row == item1.Row)).ToList();
+                    cells.AddRange(GetNakedSingleCell(qSoduku, speacilValue, PositiveCellsInRow));
+                    var PositiveCellsInColumn = rests.Where(c => (c.index != item1.index && c.Block != item1.Block) && (c.Column == item1.Column)).ToList();
+                    cells.AddRange(GetNakedSingleCell(qSoduku, speacilValue, PositiveCellsInColumn));
                 }
+
             }
             return cells;
         }
 
-        public class ColumnBlockDto
-        {
-            public int Column;
-            public int Block;
-            public List<int> AllRests = new List<int>();
-        }
 
-        public class ColumnBlockSingle
-        {
-            public int Column;
-            public int Block;
-            public int Value;
-        }
+
+
     }
 }
