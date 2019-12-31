@@ -694,11 +694,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Soduku.Tools\\Soduku.Tools\\Soduku.Tools\\Sudoku.Tools.csproj",
+      "projectUniqueName": "E:\\Soduku.Tools\\Soduku.Tools\\Sudoku.Tools\\Sudoku.Tools.csproj",
       "projectName": "Sudoku.Tools",
-      "projectPath": "E:\\Soduku.Tools\\Soduku.Tools\\Soduku.Tools\\Sudoku.Tools.csproj",
+      "projectPath": "E:\\Soduku.Tools\\Soduku.Tools\\Sudoku.Tools\\Sudoku.Tools.csproj",
       "packagesPath": "C:\\Users\\stoneliu\\.nuget\\packages\\",
-      "outputPath": "E:\\Soduku.Tools\\Soduku.Tools\\Soduku.Tools\\obj\\",
+      "outputPath": "E:\\Soduku.Tools\\Soduku.Tools\\Sudoku.Tools\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

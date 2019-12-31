@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Soduku.Tools\Sudoku.Tools.csproj" />
+    <ProjectReference Include="..\Sudoku.Tools\Sudoku.Tools.csproj" />
   </ItemGroup>
 
 </Project>

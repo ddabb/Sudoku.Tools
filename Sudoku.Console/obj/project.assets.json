@@ -722,8 +722,8 @@
     },
     "Sudoku.Tools/1.0.0": {
       "type": "project",
-      "path": "../Soduku.Tools/Sudoku.Tools.csproj",
-      "msbuildProject": "../Soduku.Tools/Sudoku.Tools.csproj"
+      "path": "../Sudoku.Tools/Sudoku.Tools.csproj",
+      "msbuildProject": "../Sudoku.Tools/Sudoku.Tools.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -765,6 +765,9 @@
           "projectReferences": {
             "E:\\Soduku.Tools\\Soduku.Tools\\Soduku.Tools\\Sudoku.Tools.csproj": {
               "projectPath": "E:\\Soduku.Tools\\Soduku.Tools\\Soduku.Tools\\Sudoku.Tools.csproj"
+            },
+            "E:\\Soduku.Tools\\Soduku.Tools\\Sudoku.Tools\\Sudoku.Tools.csproj": {
+              "projectPath": "E:\\Soduku.Tools\\Soduku.Tools\\Sudoku.Tools\\Sudoku.Tools.csproj"
             }
           }
         }

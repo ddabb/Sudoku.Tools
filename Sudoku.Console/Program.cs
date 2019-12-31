@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using Soduku.Tools;
 using Sudoku.Tools;
 using System;
 using System.Collections.Generic;
@@ -53,7 +52,7 @@ namespace Sudoku.Console
 
 
             return;
-        ｝
+        }
 
 
 
