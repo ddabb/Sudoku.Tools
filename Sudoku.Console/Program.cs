@@ -43,6 +43,7 @@ namespace Sudoku.Console
 
                             Debug.WriteLine(type + "   " + ex.Message);
 
+
                         }
 
                     }
