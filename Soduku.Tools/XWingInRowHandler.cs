@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Sudoku.Tools
 {
-    [Example("860035900700068351530074020070810530005307100183540200020650703057400002010700495")]
-    public class XYWingHandler : ISudokuSolveHelper
+    [Example("030150209000360050700490603001273800000519000003684700100000008320040000409001060")]
+    public class XWingInRowHandler : ISudokuSolveHelper
     {
         public List<CellInfo> Excute(QSudoku qSoduku)
         {
