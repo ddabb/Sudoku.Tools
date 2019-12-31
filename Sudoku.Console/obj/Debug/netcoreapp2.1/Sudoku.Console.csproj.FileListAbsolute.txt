@@ -12,3 +12,8 @@ E:\Soduku.Tools\Soduku.Tools\Sudoku.Console\bin\Debug\netcoreapp2.1\Sudoku.Tools
 E:\Soduku.Tools\Soduku.Tools\Sudoku.Console\obj\Debug\netcoreapp2.1\Sudoku.Console.csproj.CopyComplete
 E:\Soduku.Tools\Soduku.Tools\Sudoku.Console\obj\Debug\netcoreapp2.1\Sudoku.Console.dll
 E:\Soduku.Tools\Soduku.Tools\Sudoku.Console\obj\Debug\netcoreapp2.1\Sudoku.Console.pdb
+E:\Git\Sudoku.Tools\Sudoku.Console\obj\Debug\netcoreapp2.1\Sudoku.Console.csprojAssemblyReference.cache
+E:\Git\Sudoku.Tools\Sudoku.Console\obj\Debug\netcoreapp2.1\Sudoku.Console.AssemblyInfoInputs.cache
+E:\Git\Sudoku.Tools\Sudoku.Console\obj\Debug\netcoreapp2.1\Sudoku.Console.AssemblyInfo.cs
+E:\Git\Sudoku.Tools\Sudoku.Console\obj\Debug\netcoreapp2.1\Sudoku.Console.dll
+E:\Git\Sudoku.Tools\Sudoku.Console\obj\Debug\netcoreapp2.1\Sudoku.Console.pdb

@@ -1,24 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Soduku.Tools\\Soduku.Tools\\Sudoku.Console\\Sudoku.Console.csproj": {}
+    "E:\\Git\\Sudoku.Tools\\Sudoku.Console\\Sudoku.Console.csproj": {}
   },
   "projects": {
-    "E:\\Soduku.Tools\\Soduku.Tools\\Soduku.Tools\\Sudoku.Tools.csproj": {
+    "E:\\Git\\Sudoku.Tools\\Soduku.Tools\\Sudoku.Tools.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Soduku.Tools\\Soduku.Tools\\Soduku.Tools\\Sudoku.Tools.csproj",
+        "projectUniqueName": "E:\\Git\\Sudoku.Tools\\Soduku.Tools\\Sudoku.Tools.csproj",
         "projectName": "Sudoku.Tools",
-        "projectPath": "E:\\Soduku.Tools\\Soduku.Tools\\Soduku.Tools\\Sudoku.Tools.csproj",
+        "projectPath": "E:\\Git\\Sudoku.Tools\\Soduku.Tools\\Sudoku.Tools.csproj",
         "packagesPath": "C:\\Users\\stoneliu\\.nuget\\packages\\",
-        "outputPath": "E:\\Soduku.Tools\\Soduku.Tools\\Soduku.Tools\\obj\\",
+        "outputPath": "E:\\Git\\Sudoku.Tools\\Soduku.Tools\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
+          "E:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
           "C:\\Users\\stoneliu\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.1"
@@ -49,28 +51,36 @@
             }
           },
           "imports": [
-            "net461"
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
           ],
           "assetTargetFallback": true,
-          "warn": true
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\Soduku.Tools\\Soduku.Tools\\Sudoku.Console\\Sudoku.Console.csproj": {
+    "E:\\Git\\Sudoku.Tools\\Sudoku.Console\\Sudoku.Console.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Soduku.Tools\\Soduku.Tools\\Sudoku.Console\\Sudoku.Console.csproj",
+        "projectUniqueName": "E:\\Git\\Sudoku.Tools\\Sudoku.Console\\Sudoku.Console.csproj",
         "projectName": "Sudoku.Console",
-        "projectPath": "E:\\Soduku.Tools\\Soduku.Tools\\Sudoku.Console\\Sudoku.Console.csproj",
+        "projectPath": "E:\\Git\\Sudoku.Tools\\Sudoku.Console\\Sudoku.Console.csproj",
         "packagesPath": "C:\\Users\\stoneliu\\.nuget\\packages\\",
-        "outputPath": "E:\\Soduku.Tools\\Soduku.Tools\\Sudoku.Console\\obj\\",
+        "outputPath": "E:\\Git\\Sudoku.Tools\\Sudoku.Console\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
+          "E:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
           "C:\\Users\\stoneliu\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.1"
@@ -82,8 +92,8 @@
         "frameworks": {
           "netcoreapp2.1": {
             "projectReferences": {
-              "E:\\Soduku.Tools\\Soduku.Tools\\Soduku.Tools\\Sudoku.Tools.csproj": {
-                "projectPath": "E:\\Soduku.Tools\\Soduku.Tools\\Soduku.Tools\\Sudoku.Tools.csproj"
+              "E:\\Git\\Sudoku.Tools\\Soduku.Tools\\Sudoku.Tools.csproj": {
+                "projectPath": "E:\\Git\\Sudoku.Tools\\Soduku.Tools\\Sudoku.Tools.csproj"
               }
             }
           }
@@ -102,16 +112,23 @@
               "version": "[4.9.4, )"
             },
             "Microsoft.NETCore.App": {
+              "suppressParent": "All",
               "target": "Package",
               "version": "[2.1.0, )",
               "autoReferenced": true
             }
           },
           "imports": [
-            "net461"
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
           ],
           "assetTargetFallback": true,
-          "warn": true
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }
