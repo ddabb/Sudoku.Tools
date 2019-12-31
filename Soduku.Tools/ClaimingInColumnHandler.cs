@@ -15,7 +15,7 @@ namespace Sudoku.Tools
         {
             List<CellInfo> cells = new List<CellInfo>();
             Func<CellInfo, bool> predicate = c => c.Value == 0;
-            var rests = qSoduku.GetFilterCell(predicate).OrderBy(c => c.Column).ThenBy(c => c.Block).ToList();
+            var rests = qSoduku.GetFilterCell(predicate).ToList();
             var columnBlockDtos = rests.Select(c => new {c.Column, c.Block}).Distinct().ToList();
             List<ColumnBlockDto> allDtos = new List<ColumnBlockDto>();
             foreach (var dto in columnBlockDtos)
@@ -24,48 +24,48 @@ namespace Sudoku.Tools
                 var filter = rests.Where(c => c.Block == dto.Block && c.Column == dto.Column);
                 foreach (var filterItem in filter)
                 {
-                    temp.rests.AddRange(qSoduku.GetRest(filterItem.index));
+                    temp.AllRests.AddRange(qSoduku.GetRest(filterItem.index));
                 }
 
-                temp.rests = temp.rests.Distinct().ToList();
+                temp.AllRests = temp.AllRests.Distinct().ToList();
                 allDtos.Add(temp);
             }
 
 
 
             var columns = allDtos.Select(c => c.Column).Distinct().ToList();
-            Dictionary<int, List<int>> columnmap = new Dictionary<int, List<int>>();
-            foreach (var eColumnindex in columns)
+            Dictionary<int, List<int>> columnMap = new Dictionary<int, List<int>>();
+            foreach (var columnIndex in columns)
             {
                 List<int> allRestInt = new List<int>();
-                var allrest = allDtos.Where(c => c.Column == eColumnindex).ToList();
-                foreach (var eachRest in allrest)
+                var eachRests = allDtos.Where(c => c.Column == columnIndex).ToList();
+                foreach (var eachRest in eachRests)
                 {
-                    allRestInt.AddRange(eachRest.rests);
+                    allRestInt.AddRange(eachRest.AllRests);
                 }
 
-                columnmap.Add(eColumnindex, allRestInt);
+                columnMap.Add(columnIndex, allRestInt);
 
             }
 
             List<ColumnBlockSingle> list = new List<ColumnBlockSingle>();
 
-            foreach (var kv in columnmap)
+            foreach (var kv in columnMap)
             {
-                foreach (var groupItem in kv.Value.GroupBy(c => c).Distinct().ToList())
+                foreach (var groupItem in kv.Value.GroupBy(c => c).ToList())
                 {
                     if (groupItem.Count() == 1)
                     {
                         list.Add(new ColumnBlockSingle
                         {
                             Column = kv.Key, Value = groupItem.Key,
-                            Block = allDtos.First(c => c.Column == kv.Key && c.rests.Contains(groupItem.Key)).Block
+                            Block = allDtos.First(c => c.Column == kv.Key && c.AllRests.Contains(groupItem.Key)).Block
                         });
 
                     }
                 }
             }
-            //Debug.WriteLine("候选数" + item.Value + " 在列 " + item.Column + "在宮" + item.Block + "只出现了一次");
+            //同宮不同列的未知单元格是否仅有两个候选数
             foreach (var item in list)
             {
                 foreach (var item1 in rests.Where(c => c.Block == item.Block && c.Column != item.Column))
@@ -85,7 +85,7 @@ namespace Sudoku.Tools
         {
             public int Column;
             public int Block;
-            public List<int> rests = new List<int>();
+            public List<int> AllRests = new List<int>();
         }
 
         public class ColumnBlockSingle
