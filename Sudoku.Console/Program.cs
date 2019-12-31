@@ -24,8 +24,9 @@ namespace Sudoku.Console
                     {
                         try
                         {
-                            var cellinfo = ((ISudokuSolveHelper)Activator.CreateInstance(type, true)).
-                                Excute(new QSudoku(a.queryString));
+                            var cellinfo =
+                                ((ISudokuSolveHelper) Activator.CreateInstance(type, true)).Excute(
+                                    new QSudoku(a.queryString));
                             Debug.WriteLine("解题方法：  " + type.ToString());
                             Debug.WriteLine("测试用例  " + a.queryString);
                             foreach (var item in cellinfo)
@@ -39,8 +40,8 @@ namespace Sudoku.Console
                             {
                                 notimplemented += 1;
                             }
-                       
-                            Debug.WriteLine(type+"   " +ex.Message);
+
+                            Debug.WriteLine(type + "   " + ex.Message);
 
                         }
 
@@ -49,11 +50,12 @@ namespace Sudoku.Console
 
 
             }
+
             Debug.WriteLine(" 未实现方法个数为：  " + notimplemented);
 
 
             return;
-        ｝
+        }
 
 
 

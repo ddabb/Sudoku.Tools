@@ -17,3 +17,11 @@ E:\Git\Sudoku.Tools\Sudoku.Console\obj\Debug\netcoreapp2.1\Sudoku.Console.Assemb
 E:\Git\Sudoku.Tools\Sudoku.Console\obj\Debug\netcoreapp2.1\Sudoku.Console.AssemblyInfo.cs
 E:\Git\Sudoku.Tools\Sudoku.Console\obj\Debug\netcoreapp2.1\Sudoku.Console.dll
 E:\Git\Sudoku.Tools\Sudoku.Console\obj\Debug\netcoreapp2.1\Sudoku.Console.pdb
+E:\Git\Sudoku.Tools\Sudoku.Console\bin\Debug\netcoreapp2.1\Sudoku.Console.deps.json
+E:\Git\Sudoku.Tools\Sudoku.Console\bin\Debug\netcoreapp2.1\Sudoku.Console.runtimeconfig.json
+E:\Git\Sudoku.Tools\Sudoku.Console\bin\Debug\netcoreapp2.1\Sudoku.Console.runtimeconfig.dev.json
+E:\Git\Sudoku.Tools\Sudoku.Console\bin\Debug\netcoreapp2.1\Sudoku.Console.dll
+E:\Git\Sudoku.Tools\Sudoku.Console\bin\Debug\netcoreapp2.1\Sudoku.Console.pdb
+E:\Git\Sudoku.Tools\Sudoku.Console\bin\Debug\netcoreapp2.1\Sudoku.Tools.dll
+E:\Git\Sudoku.Tools\Sudoku.Console\bin\Debug\netcoreapp2.1\Sudoku.Tools.pdb
+E:\Git\Sudoku.Tools\Sudoku.Console\obj\Debug\netcoreapp2.1\Sudoku.Console.csproj.CopyComplete
