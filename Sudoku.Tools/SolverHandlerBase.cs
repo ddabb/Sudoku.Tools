@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
 using System.Linq;
 using System.ComponentModel;
 using System.Reflection;
@@ -51,6 +49,37 @@ namespace Sudoku.Tools
             return cells;
         }
 
+        public List<CellInfo> GetNakedSingleCell(QSudoku qSoduku, List<int> exceptIndex, int direactionIndex, Direction direction)
+        {
+            List<CellInfo> cells = new List<CellInfo>();
+            Func<CellInfo, bool> where = c => GetFilter(c, direction, direactionIndex) && c.Value == 0 && !exceptIndex.Contains(c.index);
+            Func<CellInfo, bool> directionwhere = c => GetFilter(c, direction, direactionIndex) && c.Value == 0;
+
+            var cellList = qSoduku.GetFilterCell(where);
+            //Debug.WriteLine("exceptIndex" + string.Join(",", exceptIndex));
+            //Debug.WriteLine("exceptValues" + string.Join(",", exceptValues));
+            List<int> allrest = new List<int>();
+            foreach (var cell in cellList)
+            {
+                allrest.AddRange(qSoduku.GetRest(cell.index));
+            }
+            allrest = allrest.Distinct().ToList();
+            foreach (var speacialValue in allrest)
+            {
+                var leftIndexs = GetPossibleIndex(qSoduku, speacialValue, directionwhere);
+                var leftIndexs1 = leftIndexs.Except(exceptIndex);
+                if (leftIndexs.Count > 1 && leftIndexs1.Count() == 1)
+                {
+                    //Debug.WriteLine("speacialValue" + speacialValue + "location  " + string.Join(",", leftIndexs1));
+                    cells.Add(new CellInfo(leftIndexs1.First(), speacialValue));
+                }
+
+            }
+
+
+            return cells;
+        }
+
         /// <summary>
         /// 获取可能的坐标。
         /// </summary>
@@ -61,7 +90,7 @@ namespace Sudoku.Tools
         public List<int> GetPossibleIndex(QSudoku qSoduku, int speacialValue, Func<CellInfo, bool> whereCondition)
         {
             List<int> indexs = new List<int>();
-          
+
             var cell = qSoduku.GetFilterCell(whereCondition).OrderBy(c => c.index);
             foreach (var item in cell)
             {
@@ -71,19 +100,17 @@ namespace Sudoku.Tools
                 }
             }
             return indexs;
-
-
         }
         public static readonly List<Direction> allDireaction = new List<Direction> { Direction.Row, Direction.Column, Direction.Block };
 
-        public bool GetFilter(CellInfo cell,Direction direction,int index)
+        public bool GetFilter(CellInfo cell, Direction direction, int index)
         {
 
-            bool r=false;
+            bool r = false;
             switch (direction)
             {
                 case Direction.Row:
-                    r=cell.Row == index;
+                    r = cell.Row == index;
                     break;
                 case Direction.Column:
                     r = cell.Column == index;
@@ -120,7 +147,7 @@ namespace Sudoku.Tools
 
         public override string ToString()
         {
-            return "在" +direactionIndex +""+ SolverHandlerBase.GetEnumDescription(direction)+   "值" + SpeacialValue+"可能位置"+ IndexsString;
+            return "在" + direactionIndex + "" + SolverHandlerBase.GetEnumDescription(direction) + "值" + SpeacialValue + "可能位置" + IndexsString + "direction value" + direction;
         }
 
 

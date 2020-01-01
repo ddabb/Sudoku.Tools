@@ -15,9 +15,10 @@ namespace Sudoku.Tools
             var rows = qSoduku.GetFilterCell(c => true).ToList().Select(c => c.Row).Distinct();
             var columns = qSoduku.GetFilterCell(c => true).ToList().Select(c => c.Column).Distinct();
             var blocks = qSoduku.GetFilterCell(c => true).ToList().Select(c => c.Block).Distinct();
-            List<PossibleIndex> possbleIndexs = new List<PossibleIndex>();
+
             foreach (var direaction in allDireaction)
             {
+                List<PossibleIndex> possbleIndexs = new List<PossibleIndex>();
                 foreach (var index in QSudoku.baseIndexs)
                 {
                     foreach (var speacilValue in QSudoku.baseFillList)
@@ -26,9 +27,22 @@ namespace Sudoku.Tools
                         var indexs = GetPossibleIndex(qSoduku, speacilValue, rowCondition);
                         if (indexs.Count == 2)
                         {
-                            Debug.WriteLine("候选数" + speacilValue + "在"+ GetEnumDescription(direaction)+""+  + index + "方向的可能位置是" + string.Join(",", indexs));
                             possbleIndexs.Add(new PossibleIndex { IndexsString = string.Join(",", indexs), direactionIndex = index, SpeacialValue = speacilValue });
                         }
+                    }
+                }
+                var coupleIndexs = possbleIndexs.Where(c => c.direction == direaction).GroupBy(c => c.IndexsString).Where(c => c.Count() > 1).ToList();
+                foreach (var item in coupleIndexs)
+                {
+
+                    var indexs = ConvertToIndexs(item.Key);
+                    if (indexs.Exists(c => qSoduku.GetRest(c).Count() > 2))//和显性数对区分
+                    {
+
+                        //Debug.WriteLine("关联数组区块坐标：" + item.Key);
+                        var pairIndexs = possbleIndexs.Where(c => c.IndexsString == item.Key).ToList();
+                        //Debug.WriteLine("values  " + string.Join(",", pairIndexs.Select(c => c.SpeacialValue)) + "  " + GetEnumDescription(direaction) + "   locations " + item.Key + "方向索引号" + pairIndexs.First().direactionIndex);
+                        cells.AddRange(GetNakedSingleCell(qSoduku, indexs, pairIndexs.First().direactionIndex, direaction));
                     }
                 }
                 Debug.WriteLine("");
