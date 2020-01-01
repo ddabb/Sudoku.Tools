@@ -36,7 +36,7 @@ namespace Sudoku.Tools
         public List<CellInfo> GetNakedSingleCell(QSudoku qSoduku, int speacilValue, List<CellInfo> PositiveCellsInColumn)
         {
             List<CellInfo> cells = new List<CellInfo>();
-            var indexs = GetPossibleIndex(qSoduku, speacilValue, c => PositiveCellsInColumn.Select(x => x.index).Contains(c.index));
+            var indexs = GetPossibleIndex(qSoduku, speacilValue, c => PositiveCellsInColumn.Select(x => x.Index).Contains(c.Index));
             if (indexs.Count() == 1)
             {
                 cells.Add(new CellInfo(indexs.First(), speacilValue));
@@ -56,13 +56,13 @@ namespace Sudoku.Tools
         public List<CellInfo> GetNakedSingleCell(QSudoku qSoduku, List<int> exceptIndex, int direactionIndex, Direction direction)
         {
             List<CellInfo> cells = new List<CellInfo>();
-            Func<CellInfo, bool> where = c => GetFilter(c, direction, direactionIndex) && c.Value == 0 && !exceptIndex.Contains(c.index);
+            Func<CellInfo, bool> where = c => GetFilter(c, direction, direactionIndex) && c.Value == 0 && !exceptIndex.Contains(c.Index);
             Func<CellInfo, bool> directionwhere = c => GetFilter(c, direction, direactionIndex) && c.Value == 0;
             var cellList = qSoduku.GetFilterCell(where);
             List<int> allrest = new List<int>();
             foreach (var cell in cellList)
             {
-                allrest.AddRange(qSoduku.GetRest(cell.index));
+                allrest.AddRange(qSoduku.GetRest(cell.Index));
             }
             allrest = allrest.Distinct().ToList();
             foreach (var speacialValue in allrest)
@@ -93,12 +93,12 @@ namespace Sudoku.Tools
         {
             List<int> indexs = new List<int>();
 
-            var cell = qSoduku.GetFilterCell(whereCondition).OrderBy(c => c.index);
+            var cell = qSoduku.GetFilterCell(whereCondition).OrderBy(c => c.Index);
             foreach (var item in cell)
             {
-                if (qSoduku.GetRest(item.index).Contains(speacialValue))
+                if (qSoduku.GetRest(item.Index).Contains(speacialValue))
                 {
-                    indexs.Add(item.index);
+                    indexs.Add(item.Index);
                 }
             }
             return indexs;
@@ -107,31 +107,21 @@ namespace Sudoku.Tools
         public List<CellInfo> GetHiddenSingleCellInfo(QSudoku qSoduku, Func<CellInfo, bool> predicate)
         {
             List<CellInfo> cells = new List<CellInfo>();
-            var rests = qSoduku.GetUnSetInfo(predicate);
-            List<int> cues = new List<int>();
-            foreach (var item in rests)
-            {
-                if (item.Value.Count > 1)
-                {
-                    cues.AddRange(item.Value);
-                }
+            var rests = qSoduku.GetFilterCell(predicate);
 
-
-            }
-            var temp = cues.GroupBy(c => c).Where(c => c.Count() == 1).ToList();
-            foreach (var item in temp)
+            foreach (var spricevalue in QSudoku.baseFillList)
             {
-                var cellValue = item.Key;
-                foreach (var restCell in rests)
+                if (rests.Count(c=>qSoduku.GetRest(c.Index).Contains(spricevalue))==1)
                 {
-                    if (restCell.Value.Contains(cellValue))
+                  var cell=    rests.Where(c => qSoduku.GetRest(c.Index).Contains(spricevalue)).First();
+                    if (qSoduku.GetRest(cell.Index).Count>1)
                     {
-                        cells.Add(new CellInfo(restCell.Key, cellValue));
+                   
+                        cells.Add(new CellInfo(cell.Index, spricevalue));
                     }
                 }
-
-
             }
+   
             return cells;
         }
         public bool GetFilter(CellInfo cell, Direction direction, int index)
@@ -161,44 +151,6 @@ namespace Sudoku.Tools
             return new DanceLink().isValid(queryString);
         }
 
-        public static bool IsPearl(string newGens)
-        {
-
-            var a = new DanceLink().isValid(newGens);
-            if (!a) return false;
-            foreach (var subString in GetSubString(newGens))
-            {
-                if (!new DanceLink().isValid(subString)) continue;
-                return false;
-
-            }
-            return true;
-        }
-        public static List<string> GetSubString(string str)
-        {
-            var result = new List<string>();
-            var locations = GetCuesLocations(str);
-            foreach (var location in locations)
-            {
-                result.Add(SetZero(str, location));
-            }
-
-            return result;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="str"></param>
-        /// <param name="location"></param>
-        /// <returns></returns>
-        public static string SetZero(string str, int location)
-        {
-            var chars = str.ToCharArray();
-            chars[location] = '0';
-            return new string(chars);
-
-        }
 
 
         /// <summary>
@@ -219,25 +171,6 @@ namespace Sudoku.Tools
 
         }
 
-        /// <summary>
-        /// 获取数独字符串的所有非0的位置
-        /// </summary>
-        /// <param name="initValues"></param>
-        /// <returns></returns>
-        public static List<int> GetCuesLocations(string initValues)
-        {
-            var tempList = new List<int>();
-            var chars = initValues.ToCharArray();
-            for (int i = 0; i < chars.Length; i++)
-            {
-                if (chars[i] != '0')
-                {
-                    tempList.Add(i);
-                }
-
-            }
-            return tempList;
-        }
 
 
 

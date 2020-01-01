@@ -101,7 +101,7 @@ namespace Sudoku.Core
             var chars = QueryString.Select(c=>""+c).ToList();
             foreach (var item in cells)
             {
-                chars[item.index] = "" + item.Value;
+                chars[item.Index] = "" + item.Value;
             }
 
             return new QSudoku(string.Join("", chars));
@@ -156,7 +156,7 @@ namespace Sudoku.Core
         {
             var cells = GetFilterCell(whereCondition);
             List<int> setCell = cells.Where(c => c.Value != 0).Select(c => c.Value).ToList();
-            List<int> unsetIndexs = cells.Where(c => c.Value == 0).Select(c => c.index).ToList();
+            List<int> unsetIndexs = cells.Where(c => c.Value == 0).Select(c => c.Index).ToList();
             List<int> unsetCell = baseFillList.Except(setCell).ToList();
             Dictionary<int, List<int>> rests = new Dictionary<int, List<int>>();
             foreach (var item in unsetIndexs)
@@ -171,11 +171,14 @@ namespace Sudoku.Core
             return cellInfos.Where(whereCondition).ToList();
         }
 
-
+        public string GetRestString(int cellIndex)
+        {
+            return string.Join(",", GetRest(cellIndex));
+        }
 
         public List<int> GetRest(int cellIndex)
         {
-            var cell = cellInfos.Where(c => c.index == cellIndex).First();
+            var cell = cellInfos.Where(c => c.Index == cellIndex).First();
             var relatedCells = cellInfos.Where(c => c.Value != 0 && (c.Row == cell.Row || c.Column == cell.Column || c.Block == cell.Block));
             return baseFillList.Except(relatedCells.Select(c => c.Value)).ToList();
         }

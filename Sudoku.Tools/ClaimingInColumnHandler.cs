@@ -24,7 +24,7 @@ namespace Sudoku.Tools
                 var filter = rests.Where(c => c.Block == dto.Block && c.Column == dto.Column);
                 foreach (var filterItem in filter)
                 {
-                    temp.AllRests.AddRange(qSoduku.GetRest(filterItem.index));
+                    temp.AllRests.AddRange(qSoduku.GetRest(filterItem.Index));
                 }
 
                 temp.AllRests = temp.AllRests.Distinct().ToList();
@@ -74,15 +74,15 @@ namespace Sudoku.Tools
                 var negativeCells = rests.Where(c => c.Block == item.Block && c.Column != item.Column).ToList();
                 foreach (var item1 in negativeCells)
                 {
-                    var cellrest = qSoduku.GetRest(item1.index);
+                    var cellrest = qSoduku.GetRest(item1.Index);
                     if (cellrest.Count == 2 && cellrest.Contains(speacilValue))
                     {
                         item1.Value = cellrest.First(c => c != speacilValue);
                         cells.Add(item1);
                     }
-                    var PositiveCellsInRow = rests.Where(c => (c.index != item1.index && c.Block != item1.Block) && (c.Row == item1.Row)).ToList();
+                    var PositiveCellsInRow = rests.Where(c => (c.Index != item1.Index && c.Block != item1.Block) && (c.Row == item1.Row)).ToList();
                     cells.AddRange(GetNakedSingleCell(qSoduku, speacilValue, PositiveCellsInRow));
-                    var PositiveCellsInColumn = rests.Where(c => (c.index != item1.index && c.Block != item1.Block) && (c.Column == item1.Column)).ToList();
+                    var PositiveCellsInColumn = rests.Where(c => (c.Index != item1.Index && c.Block != item1.Block) && (c.Column == item1.Column)).ToList();
                     cells.AddRange(GetNakedSingleCell(qSoduku, speacilValue, PositiveCellsInColumn));
                 }
 

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Sudoku.Tools
 {
-    [Example("900400613320190700000000009000017008000000000700360000800000000009045086253001004")]
+    [Example("000000000000040329000651840000000000000000473008473296004000900000005180060180700")]
     public class HiddenSingleRowHandler :SolverHandlerBase
     {
         public override List<CellInfo> Excute(QSudoku qSoduku)
@@ -15,7 +15,7 @@ namespace Sudoku.Tools
             var direction = Direction.Row;
             foreach (var index in QSudoku.baseIndexs)
             {
-                cells.AddRange(GetHiddenSingleCellInfo(qSoduku, c => GetFilter(c, direction, index)));
+                cells.AddRange(GetHiddenSingleCellInfo(qSoduku, c => GetFilter(c, direction, index)&&c.Value==0));
             }
             return cells;
         }

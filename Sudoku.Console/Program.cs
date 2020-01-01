@@ -12,8 +12,8 @@ namespace Sudoku.Console
     {
         static void Main(string[] args)
         {
-
-            tryFindSudoku(50);
+            
+            tryFindSudoku(10);
             return ;
             var assembly = typeof(SolverHandlerBase).Assembly;
             var types = assembly.GetTypes().Where(t => typeof(ISudokuSolveHelper).IsAssignableFrom(t) && t.IsAbstract == false);
@@ -63,68 +63,87 @@ namespace Sudoku.Console
 
         public static void tryFindSudoku(int count=50)
         {
-            var queryString = "000020080040009003000005700000000000805070020037004000070080056090000300100040000";
-            Debug.WriteLine("DanceLinkvalid" + new DanceLink().isValid(queryString));
-            QSudoku correct = new QSudoku(new DanceLink().do_solve(queryString));
-            correct.SaveTohtml();
-            QSudoku example = new QSudoku(queryString);
+            List<QSudoku> qsodukus = new List<QSudoku>();
 
-            var assembly = typeof(SolverHandlerBase).Assembly;
-            var types = assembly.GetTypes().Where(t => typeof(ISudokuSolveHelper).IsAssignableFrom(t) && t.IsAbstract == false);
-            var tryagain = false;
-            List<Type> types1 = new List<Type>();
             do
             {
-                tryagain = false;
-                foreach (var type in types)
+                QSudoku example;
+                if (qsodukus.Count==0)
                 {
-                    object[] objs = type.GetCustomAttributes(typeof(ExampleAttribute), true);
-                    try
-                    {
-                        if (!types1.Contains(type))
-                        {
-                            var cellinfos =
-                                ((ISudokuSolveHelper)Activator.CreateInstance(type, true)).Excute(
-                                  example);
-
-                            if (cellinfos.Count != 0)
-                            {
-                                Debug.WriteLine("type" + type+"\r\n");
-                                Debug.WriteLine("cellinfo" + string.Join("\r\n", cellinfos));
-                                Debug.WriteLine("example before" + example.QueryString);
-                           
-                                example = example.ApplyCells(cellinfos);
-                                Debug.WriteLine("example after " + example.QueryString);
-                                if (!example.IsAllSeted)
-                                {
-                                    tryagain = true;
-                                }
-
-                            }
-                        }
-
-
-                    }
-                    catch (Exception ex)
-                    {
-                        if (ex.Message.Contains("is not implemented"))
-                        {
-                            types1.Add(type);
-                        }
-
-
-
-
-                    }
-
-
+                    var queryString = "000020080040009003000005700000000000805070020037004000070080056090000300100040000";              
+                    Debug.WriteLine("DanceLinkvalid" + new DanceLink().isValid(queryString));
+                    QSudoku correct = new QSudoku(new DanceLink().do_solve(queryString));
+                    correct.SaveTohtml();
+                    example = new QSudoku(queryString);
                 }
-            } while (tryagain);
-            if (!example.IsAllSeted)
-            {
-                Debug.WriteLine("example SaveTohtml in" );
-                example.SaveTohtml();
-            }
+                else
+                {
+                    example = new MinimalPuzzleFactory().Make(new SudokuBuilder().MakeWholeSudoku());
+                }
+                Debug.WriteLine("example init "+ example.QueryString);
+                var assembly = typeof(SolverHandlerBase).Assembly;
+                var types = assembly.GetTypes().Where(t => typeof(ISudokuSolveHelper).IsAssignableFrom(t) && t.IsAbstract == false);
+                var tryagain = false;
+                List<Type> types1 = new List<Type>();
+                do
+                {
+                    tryagain = false;
+                    foreach (var type in types)
+                    {
+                        object[] objs = type.GetCustomAttributes(typeof(ExampleAttribute), true);
+                        try
+                        {
+                            if (!types1.Contains(type))
+                            {
+                                var cellinfos =
+                                    ((ISudokuSolveHelper)Activator.CreateInstance(type, true)).Excute(
+                                      example);
+
+                                if (cellinfos.Count != 0)
+                                {
+                                    Debug.WriteLine("type" + type);
+                                    Debug.WriteLine("cellinfo" + string.Join("\r\n", cellinfos));
+                                    Debug.WriteLine("example before" + example.QueryString + "isvalid"+new DanceLink().isValid(example.QueryString));
+
+                                    example = example.ApplyCells(cellinfos);
+                                    Debug.WriteLine("example after " + example.QueryString + "isvalid" + new DanceLink().isValid(example.QueryString));
+                                    if (!example.IsAllSeted)
+                                    {
+                                        tryagain = true;
+                                    }
+                                    Debug.WriteLine("\r\n");
+
+                                }
+                            }
+
+
+                        }
+                        catch (Exception ex)
+                        {
+                            if (ex.Message.Contains("is not implemented"))
+                            {
+                                types1.Add(type);
+                            }
+
+
+
+
+                        }
+
+
+                    }
+                } while (tryagain);
+                if (!example.IsAllSeted)
+                {
+                    Debug.WriteLine("example SaveTohtml in");
+                    qsodukus.Add(example);
+                    Debug.WriteLine("qsodukus count"+ qsodukus.Count);
+                    example.SaveTohtml();
+                }
+              
+
+            } while (qsodukus.Count<count);
+         
 
         }
 

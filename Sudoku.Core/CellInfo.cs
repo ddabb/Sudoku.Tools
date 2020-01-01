@@ -11,11 +11,11 @@
         private int mIndex;
         public CellInfo(int index, int value)
         {
-            this.index = index;
+            this.Index = index;
             Value = value;
         }
 
-        public int index
+        public int Index
         {
             get { return mIndex; }
             set
@@ -29,7 +29,7 @@
         }
         public override string ToString()
         {
-            return "index  " + index + "  row  " + Row + "  column  " + Column + "  block  " + Block + "  value  " + Value;
+            return "index  " + Index + "  row  " + Row + "  column  " + Column + "  block  " + Block + "  value  " + Value;
         }
         public int Value;
 
@@ -37,7 +37,7 @@
         {
             if (obj is CellInfo cell)
             {
-                if (cell.index == index && cell.Value == Value)
+                if (cell.Index == Index && cell.Value == Value)
                 {
                     return true;
 

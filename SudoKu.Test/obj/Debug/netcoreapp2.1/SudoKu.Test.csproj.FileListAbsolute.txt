@@ -25,3 +25,8 @@ E:\Soduku.Tools\Soduku.Tools\SudoKu.Test\obj\Debug\netcoreapp2.1\SudoKu.Test.Ass
 E:\Soduku.Tools\Soduku.Tools\SudoKu.Test\obj\Debug\netcoreapp2.1\SudoKu.Test.AssemblyInfo.cs
 E:\Soduku.Tools\Soduku.Tools\SudoKu.Test\obj\Debug\netcoreapp2.1\SudoKu.Test.dll
 E:\Soduku.Tools\Soduku.Tools\SudoKu.Test\obj\Debug\netcoreapp2.1\SudoKu.Test.pdb
+E:\Soduku.Tools\Soduku.Tools\SudoKu.Test\bin\Debug\netcoreapp2.1\Sudoku.Core.dll
+E:\Soduku.Tools\Soduku.Tools\SudoKu.Test\bin\Debug\netcoreapp2.1\Sudoku.Tools.dll
+E:\Soduku.Tools\Soduku.Tools\SudoKu.Test\bin\Debug\netcoreapp2.1\Sudoku.Tools.pdb
+E:\Soduku.Tools\Soduku.Tools\SudoKu.Test\bin\Debug\netcoreapp2.1\Sudoku.Core.pdb
+E:\Soduku.Tools\Soduku.Tools\SudoKu.Test\obj\Debug\netcoreapp2.1\SudoKu.Test.csproj.CopyComplete

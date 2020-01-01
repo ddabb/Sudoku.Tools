@@ -81,10 +81,10 @@ namespace Sudoku.Tools
                 {
                     if (!subCells.Exists(c => c.Row == item.Row && c.Column == item.Column))
                     {
-                        var rests = qSoduku.GetRest(item.index);
+                        var rests = qSoduku.GetRest(item.Index);
                         if (rests.Contains(speacilValue) && rests.Where(x => x != speacilValue).Count() == 1)
                         {
-                            cells.Add(new CellInfo(item.index, rests.Where(x => x != speacilValue).First()));
+                            cells.Add(new CellInfo(item.Index, rests.Where(x => x != speacilValue).First()));
                         }
                     }
                 }

@@ -14,7 +14,7 @@ namespace Soduku.Tools
         public override List<CellInfo> Excute(QSudoku qSoduku)
         {
             List<CellInfo> cellInfo = new List<CellInfo>();
-            foreach (var index in qSoduku.GetFilterCell(c=>c.Value==0).Select(c=>c.index))
+            foreach (var index in qSoduku.GetFilterCell(c=>c.Value==0).Select(c=>c.Index))
             {
                 var restList = qSoduku.GetRest(index);
                 if (restList.Count==1)
