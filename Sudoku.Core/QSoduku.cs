@@ -48,7 +48,7 @@ namespace Sudoku.Core
 
         public QSudoku(string queryString)
         {
-            this.queryString = queryString;
+            this.QueryString = queryString;
             Init();
            
         }
@@ -76,8 +76,13 @@ namespace Sudoku.Core
             {
                 Directory.CreateDirectory(saveDirectory);
             }
-           string filePath= Path.Combine(saveDirectory, this.queryString + ".html");
-            File.WriteAllText(filePath, str2.Replace("replaceMark", this.queryString));
+            saveDirectory = Path.Combine(saveDirectory, DateTime.Now.ToString("yyyy-MM-dd"));
+            if (!Directory.Exists(saveDirectory))
+            {
+                Directory.CreateDirectory(saveDirectory);
+            }
+            string filePath= Path.Combine(saveDirectory, this.QueryString + ".html");
+            File.WriteAllText(filePath, str2.Replace("replaceMark", this.QueryString));
             Debug.WriteLine("文件"+filePath+" 已生成");
           
 
@@ -88,9 +93,12 @@ namespace Sudoku.Core
         {
             get { return !this.cellInfos.Exists(c => c.Value == 0); }
         }
+
+        public string QueryString { get => queryString; set => queryString = value; }
+
         public QSudoku ApplyCells(List<CellInfo> cells)
         {
-            var chars = queryString.Select(c=>""+c).ToList();
+            var chars = QueryString.Select(c=>""+c).ToList();
             foreach (var item in cells)
             {
                 chars[item.index] = "" + item.Value;
@@ -108,7 +116,7 @@ namespace Sudoku.Core
         public void Init()
         {
 
-            var chars = queryString.ToCharArray();
+            var chars = QueryString.ToCharArray();
             foreach (var location in allLocations)
             {
                 cellInfos.Add(new CellInfo(location, Convert.ToInt32("" + chars[location])));

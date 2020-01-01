@@ -13,7 +13,7 @@ namespace Sudoku.Core
         /// 制作完整的数独
         /// </summary>
         /// <returns></returns>
-        public RSudoku MakeSudoku()
+        public RSudoku MakeWholeSudoku()
         {
             Random rm = new Random();
             var list1 = RandomHelper.GetRandom(1, true, 9, true, 9, rm, false);

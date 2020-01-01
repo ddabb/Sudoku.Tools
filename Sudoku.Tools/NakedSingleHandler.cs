@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
-
+using System.Linq;
 namespace Soduku.Tools
 {
     [Example("900400613320190700000000009000017008000000000700360000800000000009045086253001004")]
@@ -14,7 +14,7 @@ namespace Soduku.Tools
         public override List<CellInfo> Excute(QSudoku qSoduku)
         {
             List<CellInfo> cellInfo = new List<CellInfo>();
-            foreach (var index in QSudoku.allLocations)
+            foreach (var index in qSoduku.GetFilterCell(c=>c.Value==0).Select(c=>c.index))
             {
                 var restList = qSoduku.GetRest(index);
                 if (restList.Count==1)

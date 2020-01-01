@@ -13,6 +13,7 @@ namespace Sudoku.Tools
         public override List<CellInfo> Excute(QSudoku qSoduku)
         {
             List<CellInfo> cells = new List<CellInfo>();
+            return cells;
             Func<CellInfo, bool> predicate = c => c.Value == 0;
             var rests = qSoduku.GetFilterCell(predicate).ToList();
             var columnBlockDtos = rests.Select(c => new { c.Column, c.Block }).Distinct().ToList();
