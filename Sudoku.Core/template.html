@@ -1,0 +1,58 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml">     
+<head>     
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />     
+<title>Untitled 1</title>     
+<style type="text/css">     
+.style1 {     
+    font-size: xx-large;     
+}     
+</style>     
+</head>     
+  
+<body>     
+<span class="style1">     
+<script type="text/javascript">        
+function makeTable2(cols,a){     
+    var t2=new Date().getTime();     
+     
+    var l=a.length;     
+    var outStr="<table border=\"1\" align=\"center\">";     
+    for(var i=0;i<l;i++){     
+        var temp=(i+1)%cols;     
+        if(i==0||temp==1){     
+            outStr+="<tr>";     
+        }    
+             if(a[i]!='0')
+{
+        outStr+=("<td width=\"80\" height=\"80\" align=\"center\">"+a[i]+"</td>");     
+}
+else
+{
+ outStr+=("<td width=\"80\" height=\"80\" align=\"center\"></td>");     
+}
+             
+        if(temp==0){     
+            outStr+="</tr>";     
+        }     
+    }     
+         
+    var x=i%cols;     
+    if(x!=0){     
+        for(var i=0;i<(cols-x);i++){     
+            outStr+="<td> </td>";     
+        }     
+        outStr+="</tr>"    
+    }     
+    outStr+="</table>"    
+    document.write(outStr+"</br><center>执行时间："+(new Date().getTime()-t2)+"</center></br>");     
+}   
+  
+
+//var queryString="618437295952168734347592861573219648129846357486753912891674523235981476764325180";     
+var queryString="replaceMark";   
+makeTable2(9,queryString);     
+</script>     
+</span>     
+</body>     
+  
+</html>

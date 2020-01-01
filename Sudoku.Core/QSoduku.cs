@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using Sudoku.Core;
 
@@ -48,8 +50,57 @@ namespace Sudoku.Core
         {
             this.queryString = queryString;
             Init();
+           
+        }
+
+        public  void SaveTohtml()
+        {
+            string str2 = "";
+            var names1 = typeof(QSudoku).Assembly.GetManifestResourceNames();
+            var name = names1.Where(c => c.Contains("template.html")).First();
+            Stream manifestResourceStream = typeof(QSudoku).Assembly.GetManifestResourceStream(name);
+            if (manifestResourceStream != null)
+            {
+                StreamReader reader = new StreamReader(manifestResourceStream);
+
+                str2 = reader.ReadToEnd();
+                reader.Close();
+                manifestResourceStream.Close();
+
+            }
+        
+            dynamic type = typeof(QSudoku);
+            string currentDirectory = Path.GetDirectoryName(type.Assembly.Location);
+            string saveDirectory = Path.Combine(currentDirectory, "UnSolveSudoku");
+            if (!Directory.Exists(saveDirectory))
+            {
+                Directory.CreateDirectory(saveDirectory);
+            }
+           string filePath= Path.Combine(saveDirectory, this.queryString + ".html");
+            File.WriteAllText(filePath, str2.Replace("replaceMark", this.queryString));
+            Debug.WriteLine("文件"+filePath+" 已生成");
+          
 
         }
+
+
+        public bool IsAllSeted
+        {
+            get { return !this.cellInfos.Exists(c => c.Value == 0); }
+        }
+        public QSudoku ApplyCells(List<CellInfo> cells)
+        {
+            var chars = queryString.Select(c=>""+c).ToList();
+            foreach (var item in cells)
+            {
+                chars[item.index] = "" + item.Value;
+            }
+
+            return new QSudoku(string.Join("", chars));
+
+
+        }
+
 
         /// <summary>
         /// 根据查询字符串，计算出坐标以及值的初始化信息。

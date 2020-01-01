@@ -5,6 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="template.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="template.html" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MathNet.Numerics" Version="4.9.0" />
   </ItemGroup>
 

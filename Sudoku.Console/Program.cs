@@ -2,15 +2,18 @@
 using Sudoku.Core;
 using Sudoku.Tools;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+
 namespace Sudoku.Console
 {
     class StaticTools
     {
         static void Main(string[] args)
         {
+            RSudoku s = new SudokuBuilder().MakeSudoku();
+             new QSudoku(s.answerString).SaveTohtml();
+
             for (int i = 0; i < 10; i++)
             {
                 new SudokuBuilder().MakeSudoku();
@@ -61,7 +64,6 @@ namespace Sudoku.Console
 
             return;
         }
-
 
 
 
