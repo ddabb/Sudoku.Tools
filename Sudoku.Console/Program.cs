@@ -73,7 +73,7 @@ namespace Sudoku.Console
                     var queryString = "000020080040009003000005700000000000805070020037004000070080056090000300100040000";              
                     Debug.WriteLine("DanceLinkvalid" + new DanceLink().isValid(queryString));
                     QSudoku correct = new QSudoku(new DanceLink().do_solve(queryString));
-                    correct.SaveTohtml();
+                  
                     example = new QSudoku(queryString);
                 }
                 else

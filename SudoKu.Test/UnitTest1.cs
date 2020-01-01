@@ -23,5 +23,38 @@ namespace SudoKu.Test
             Debug.WriteLine(qsudu.QueryString);
             Assert.AreEqual(true, new DanceLink().isValid(qsudu.QueryString));
         }
+
+        [TestMethod]
+        public void TestClaimingInRowHandler()
+        {
+            ClaimingInRowHandler hander = new ClaimingInRowHandler();
+            QSudoku qsudu = new QSudoku("000000360000000427000563810000000040000000936005630081006300000080406193031872054");
+            Debug.WriteLine(new DanceLink().do_solve(qsudu.QueryString));
+            var cells = hander.Excute(qsudu);
+            foreach (var item in cells)
+            {
+                Debug.WriteLine("" + item);
+            }
+            qsudu = qsudu.ApplyCells(cells);
+            Debug.WriteLine(qsudu.QueryString);
+            Assert.AreEqual(true, new DanceLink().isValid(qsudu.QueryString));
+        }
+
+        [TestMethod]
+        public void TestClaimingInColumnHandler()
+        {
+            ClaimingInColumnHandler hander = new ClaimingInColumnHandler();
+            QSudoku qsudu = new QSudoku("000020080040009003000005700000000030805070020037004000070080056090000300100040000");
+            Debug.WriteLine(new DanceLink().do_solve(qsudu.QueryString));
+            var cells = hander.Excute(qsudu);
+            foreach (var item in cells)
+            {
+                Debug.WriteLine("" + item);
+            }
+            qsudu = qsudu.ApplyCells(cells);
+            Debug.WriteLine(qsudu.QueryString);
+            Assert.AreEqual(true, new DanceLink().isValid(qsudu.QueryString));
+        }
+
     }
 }
