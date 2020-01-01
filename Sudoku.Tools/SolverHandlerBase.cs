@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ComponentModel;
 using System.Reflection;
+using System.Diagnostics;
 
 namespace Sudoku.Tools
 {
@@ -79,6 +80,7 @@ namespace Sudoku.Tools
             return cells;
         }
 
+
         /// <summary>
         /// 返回候选数在过滤条件下筛选出来的可能存在的坐标位置。
         /// </summary>
@@ -101,7 +103,36 @@ namespace Sudoku.Tools
             return indexs;
         }
         public static readonly List<Direction> allDireaction = new List<Direction> { Direction.Row, Direction.Column, Direction.Block };
+        public List<CellInfo> GetHiddenSingleCellInfo(QSudoku qSoduku, Func<CellInfo, bool> predicate)
+        {
+            List<CellInfo> cells = new List<CellInfo>();
+            var rests = qSoduku.GetUnSetInfo(predicate);
+            List<int> cues = new List<int>();
+            foreach (var item in rests)
+            {
+                if (item.Value.Count > 1)
+                {
+                    cues.AddRange(item.Value);
+                }
 
+
+            }
+            var temp = cues.GroupBy(c => c).Where(c => c.Count() == 1).ToList();
+            foreach (var item in temp)
+            {
+                var cellValue = item.Key;
+                foreach (var restCell in rests)
+                {
+                    if (restCell.Value.Contains(cellValue))
+                    {
+                        cells.Add(new CellInfo(restCell.Key, cellValue));
+                    }
+                }
+
+
+            }
+            return cells;
+        }
         public bool GetFilter(CellInfo cell, Direction direction, int index)
         {
 
@@ -124,6 +155,90 @@ namespace Sudoku.Tools
 
 
 
+        public static bool IsVaildSudoku(string queryString)
+        {
+            return new DanceLink().isValid(queryString);
+        }
+
+        public static bool IsPearl(string newGens)
+        {
+
+            var a = new DanceLink().isValid(newGens);
+            if (!a) return false;
+            foreach (var subString in GetSubString(newGens))
+            {
+                if (!new DanceLink().isValid(subString)) continue;
+                return false;
+
+            }
+            return true;
+        }
+        public static List<string> GetSubString(string str)
+        {
+            var result = new List<string>();
+            var locations = GetCuesLocations(str);
+            foreach (var location in locations)
+            {
+                result.Add(SetZero(str, location));
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="location"></param>
+        /// <returns></returns>
+        public static string SetZero(string str, int location)
+        {
+            var chars = str.ToCharArray();
+            chars[location] = '0';
+            return new string(chars);
+
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="location"></param>
+        /// <returns></returns>
+        public static string SetZero(string str, IEnumerable<int> location)
+        {
+            var chars = str.ToCharArray();
+            foreach (var zeroloction in location)
+            {
+                chars[zeroloction] = '0';
+            }
+
+            return new string(chars);
+
+        }
+
+        /// <summary>
+        /// 获取数独字符串的所有非0的位置
+        /// </summary>
+        /// <param name="initValues"></param>
+        /// <returns></returns>
+        public static List<int> GetCuesLocations(string initValues)
+        {
+            var tempList = new List<int>();
+            var chars = initValues.ToCharArray();
+            for (int i = 0; i < chars.Length; i++)
+            {
+                if (chars[i] != '0')
+                {
+                    tempList.Add(i);
+                }
+
+            }
+            return tempList;
+        }
+
+
 
         /// <summary>
         /// 将坐标的拼接字符串解析成坐标链表
@@ -143,7 +258,16 @@ namespace Sudoku.Tools
         public int direactionIndex;
         public int SpeacialValue;
         public string IndexsString;
+        public List<int> indexs;
 
+        public void SetIndexs(List<int> indexs)
+        {
+            indexs.Sort();
+            this.indexs = indexs;
+            IndexsString = string.Join(",", indexs);
+        }
+
+              
         public override string ToString()
         {
             return "在" + direactionIndex + "" + SolverHandlerBase.GetEnumDescription(direction) + "值" + SpeacialValue + "可能位置" + IndexsString + "direction value" + direction;

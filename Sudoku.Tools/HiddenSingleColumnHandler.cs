@@ -10,38 +10,12 @@ namespace Sudoku.Tools
         public override List<CellInfo> Excute(QSudoku qSoduku)
         {
             List<CellInfo> cells = new List<CellInfo>();
-
-            for (int i = 0; i < 9; i++)
-            {
-                Func<CellInfo, bool> predicate = c => c.Column == i;
-                var rests = qSoduku.GetUnSetInfo(predicate);
-                List<int> cues = new List<int>();
-                foreach (var item in rests)
-                {
-                    if (item.Value.Count > 1)
-                    {
-                        cues.AddRange(item.Value);
-                    }
-
-
-                }
-                var temp = cues.GroupBy(c => c).Where(c => c.Count() == 1).ToList();
-                foreach (var item in temp)
-                {
-                    var cellValue = item.Key;
-                    foreach (var restCell in rests)
-                    {
-                        if (restCell.Value.Contains(cellValue))
-                        {
-                            cells.Add(new CellInfo(restCell.Key, cellValue));
-                        }
-                    }
-
-
-                }
-
+            var direction = Direction.Column;
+            foreach (var index in QSudoku.baseIndexs)
+            {        
+                cells.AddRange(GetHiddenSingleCellInfo(qSoduku, c => GetFilter(c, direction, index)));
             }
-            return cells;// qSoduku.GetBlockSetInfo();
+            return cells;
         }
     }
 }
