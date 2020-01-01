@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using System.Diagnostics;
+using Sudoku.Core;
 
 namespace Sudoku.Tools
 {
@@ -11,6 +12,8 @@ namespace Sudoku.Tools
     {
         public override List<CellInfo> Excute(QSudoku qSoduku)
         {
+            var indexscount = 2;
+            var restCount = 2;
             List<CellInfo> cells = new List<CellInfo>();
             foreach (var direaction in allDireaction)
             {
@@ -21,7 +24,7 @@ namespace Sudoku.Tools
                     {
                         Func<CellInfo, bool> rowCondition = c => GetFilter(c, direaction, index) && c.Value == 0;
                         var indexs = GetPossibleIndex(qSoduku, speacilValue, rowCondition);
-                        if (indexs.Count == 2)
+                        if (indexs.Count == indexscount)
                         {
                             possbleIndexs.Add(new PossibleIndex { IndexsString = string.Join(",", indexs), direactionIndex = index, SpeacialValue = speacilValue });
                         }
@@ -32,7 +35,7 @@ namespace Sudoku.Tools
                 {
 
                     var indexs = ConvertToIndexs(item.Key);
-                    if (indexs.Exists(c => qSoduku.GetRest(c).Count() > 2))//和显性数对区分
+                    if (indexs.Exists(c => qSoduku.GetRest(c).Count() > restCount))//和显性数对区分
                     {
 
                         //Debug.WriteLine("关联数组区块坐标：" + item.Key);

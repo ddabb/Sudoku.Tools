@@ -7,14 +7,27 @@
   "targets": {
     ".NETCoreApp,Version=v2.1": {
       "Sudoku.Tools/1.0.0": {
+        "dependencies": {
+          "Sudoku.Core": "1.0.0"
+        },
         "runtime": {
           "Sudoku.Tools.dll": {}
+        }
+      },
+      "Sudoku.Core/1.0.0": {
+        "runtime": {
+          "Sudoku.Core.dll": {}
         }
       }
     }
   },
   "libraries": {
     "Sudoku.Tools/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Sudoku.Core/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

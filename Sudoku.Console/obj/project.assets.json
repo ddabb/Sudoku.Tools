@@ -217,9 +217,22 @@
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
       },
+      "Sudoku.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.1",
+        "compile": {
+          "bin/placeholder/Sudoku.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Sudoku.Core.dll": {}
+        }
+      },
       "Sudoku.Tools/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.1",
+        "dependencies": {
+          "Sudoku.Core": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/Sudoku.Tools.dll": {}
         },
@@ -719,6 +732,11 @@
         "netstandard.library.2.0.3.nupkg.sha512",
         "netstandard.library.nuspec"
       ]
+    },
+    "Sudoku.Core/1.0.0": {
+      "type": "project",
+      "path": "../Sudoku.Core/Sudoku.Core.csproj",
+      "msbuildProject": "../Sudoku.Core/Sudoku.Core.csproj"
     },
     "Sudoku.Tools/1.0.0": {
       "type": "project",

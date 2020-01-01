@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Sudoku.Core;
 using Sudoku.Tools;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace Sudoku.Console
         static void Main(string[] args)
         {
 
-            var assembly = typeof(ISudokuSolveHelper).Assembly;
+            var assembly = typeof(SolverHandlerBase).Assembly;
             var types = assembly.GetTypes().Where(t => typeof(ISudokuSolveHelper).IsAssignableFrom(t)&&t.IsAbstract==false);
             var notimplemented = 0;
             foreach (var type in types)

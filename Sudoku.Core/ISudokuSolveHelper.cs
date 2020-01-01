@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Sudoku.Core;
+using System.Collections.Generic;
 
-namespace Sudoku.Tools
+namespace Sudoku.Core
 {
 
     public interface ISudokuSolveHelper

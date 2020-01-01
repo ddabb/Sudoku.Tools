@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using Sudoku.Tools;
+using Sudoku.Core;
 
-namespace Sudoku.Tools
+namespace Sudoku.Core
 {
     /// <summary>
     /// 数独题

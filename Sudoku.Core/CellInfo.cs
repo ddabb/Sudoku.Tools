@@ -1,4 +1,4 @@
-﻿namespace Sudoku.Tools
+﻿namespace Sudoku.Core
 {
     /// <summary>
     /// 
@@ -9,10 +9,10 @@
         public int Column;
         public int Block;
         private int mIndex;
-        public CellInfo(int index,int value)
+        public CellInfo(int index, int value)
         {
             this.index = index;
-            this.Value = value;
+            Value = value;
         }
 
         public int index
@@ -23,13 +23,13 @@
                 mIndex = value;
                 Row = value / 9;
                 Column = value % 9;
-                Block = (Row / 3) * 3 + (Column / 3);
+                Block = Row / 3 * 3 + Column / 3;
             }
 
         }
         public override string ToString()
         {
-            return "index  " + this.index + "  row  " + Row + "  column  " + Column + "  block  " + Block + "  value  " + Value;
+            return "index  " + index + "  row  " + Row + "  column  " + Column + "  block  " + Block + "  value  " + Value;
         }
         public int Value;
 
@@ -37,7 +37,7 @@
         {
             if (obj is CellInfo cell)
             {
-                if (cell.index==this.index&&cell.Value==this.Value)
+                if (cell.index == index && cell.Value == Value)
                 {
                     return true;
 

@@ -1,4 +1,5 @@
-﻿using Sudoku.Tools;
+﻿using Sudoku.Core;
+using Sudoku.Tools;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

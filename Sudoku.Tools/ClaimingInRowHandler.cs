@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using System.Linq;
+using Sudoku.Core;
 
 namespace Sudoku.Tools
 {

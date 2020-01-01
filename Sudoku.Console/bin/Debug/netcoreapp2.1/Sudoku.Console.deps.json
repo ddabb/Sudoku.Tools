@@ -23,7 +23,15 @@
           }
         }
       },
+      "Sudoku.Core/1.0.0": {
+        "runtime": {
+          "Sudoku.Core.dll": {}
+        }
+      },
       "Sudoku.Tools/1.0.0": {
+        "dependencies": {
+          "Sudoku.Core": "1.0.0"
+        },
         "runtime": {
           "Sudoku.Tools.dll": {}
         }
@@ -42,6 +50,11 @@
       "sha512": "sha512-dYiDG4yoV7GDCoOc66d1sqMmg2gwDyomHKgATuMfhFzYxVpWEltToHVHXI3I9vOEvIXE55S4OZPY0ldiZmZtpA==",
       "path": "autofac/4.9.4",
       "hashPath": "autofac.4.9.4.nupkg.sha512"
+    },
+    "Sudoku.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "Sudoku.Tools/1.0.0": {
       "type": "project",
