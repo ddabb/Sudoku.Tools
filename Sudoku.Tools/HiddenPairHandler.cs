@@ -12,10 +12,6 @@ namespace Sudoku.Tools
         public override List<CellInfo> Excute(QSudoku qSoduku)
         {
             List<CellInfo> cells = new List<CellInfo>();
-            var rows = qSoduku.GetFilterCell(c => true).ToList().Select(c => c.Row).Distinct();
-            var columns = qSoduku.GetFilterCell(c => true).ToList().Select(c => c.Column).Distinct();
-            var blocks = qSoduku.GetFilterCell(c => true).ToList().Select(c => c.Block).Distinct();
-
             foreach (var direaction in allDireaction)
             {
                 List<PossibleIndex> possbleIndexs = new List<PossibleIndex>();

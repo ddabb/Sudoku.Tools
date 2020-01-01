@@ -85,6 +85,8 @@ namespace Sudoku.Tools
                 }
 
             }
+
+            cells = cells.Distinct().ToList();
             return cells;
         }
 

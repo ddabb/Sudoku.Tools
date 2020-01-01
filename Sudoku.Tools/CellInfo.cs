@@ -32,5 +32,18 @@
             return "index  " + this.index + "  row  " + Row + "  column  " + Column + "  block  " + Block + "  value  " + Value;
         }
         public int Value;
+
+        public override bool Equals(object obj)
+        {
+            if (obj is CellInfo cell)
+            {
+                if (cell.index==this.index&&cell.Value==this.Value)
+                {
+                    return true;
+
+                }
+            }
+            return false; ;
+        }
     }
 }

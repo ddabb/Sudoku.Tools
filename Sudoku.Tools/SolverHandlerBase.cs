@@ -34,30 +34,29 @@ namespace Sudoku.Tools
         public List<CellInfo> GetNakedSingleCell(QSudoku qSoduku, int speacilValue, List<CellInfo> PositiveCellsInColumn)
         {
             List<CellInfo> cells = new List<CellInfo>();
-            var columnCount = 0;
-            foreach (var positiveCell in PositiveCellsInColumn)
+            var indexs = GetPossibleIndex(qSoduku, speacilValue, c => PositiveCellsInColumn.Select(x => x.index).Contains(c.index));
+            if (indexs.Count() == 1)
             {
-                columnCount += (qSoduku.GetRest(positiveCell.index).Contains(speacilValue) ? 1 : 0);
+                cells.Add(new CellInfo(indexs.First(), speacilValue));
             }
-            if (columnCount == 1)
-            {
-                var postiveCell = PositiveCellsInColumn.Where(c => qSoduku.GetRest(c.index).Contains(speacilValue)).First();
-
-                postiveCell.Value = speacilValue;
-                cells.Add(postiveCell);
-            }
+            
             return cells;
         }
 
+        /// <summary>
+        /// 在指定方向上的指定(行,列，宫)，排除掉不能填入的位置，剩余候选数可以填写的位置。
+        /// </summary>
+        /// <param name="qSoduku"></param>
+        /// <param name="exceptIndex"></param>
+        /// <param name="direactionIndex"></param>
+        /// <param name="direction"></param>
+        /// <returns></returns>
         public List<CellInfo> GetNakedSingleCell(QSudoku qSoduku, List<int> exceptIndex, int direactionIndex, Direction direction)
         {
             List<CellInfo> cells = new List<CellInfo>();
             Func<CellInfo, bool> where = c => GetFilter(c, direction, direactionIndex) && c.Value == 0 && !exceptIndex.Contains(c.index);
             Func<CellInfo, bool> directionwhere = c => GetFilter(c, direction, direactionIndex) && c.Value == 0;
-
             var cellList = qSoduku.GetFilterCell(where);
-            //Debug.WriteLine("exceptIndex" + string.Join(",", exceptIndex));
-            //Debug.WriteLine("exceptValues" + string.Join(",", exceptValues));
             List<int> allrest = new List<int>();
             foreach (var cell in cellList)
             {
@@ -81,11 +80,11 @@ namespace Sudoku.Tools
         }
 
         /// <summary>
-        /// 获取可能的坐标。
+        /// 返回候选数在过滤条件下筛选出来的可能存在的坐标位置。
         /// </summary>
-        /// <param name="qSoduku"></param>
-        /// <param name="speacialValue"></param>
-        /// <param name="rowIndex"></param>
+        /// <param name="qSoduku">数独原题</param>
+        /// <param name="speacialValue">候选数</param>
+        /// <param name="whereCondition">过滤条件</param>
         /// <returns></returns>
         public List<int> GetPossibleIndex(QSudoku qSoduku, int speacialValue, Func<CellInfo, bool> whereCondition)
         {
