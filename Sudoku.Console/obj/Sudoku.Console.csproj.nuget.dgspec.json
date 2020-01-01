@@ -49,6 +49,10 @@
               "target": "Package",
               "version": "[4.9.4, )"
             },
+            "MathNet.Numerics": {
+              "target": "Package",
+              "version": "[4.9.0, )"
+            },
             "Microsoft.NETCore.App": {
               "target": "Package",
               "version": "[2.1.0, )",
@@ -100,6 +104,10 @@
       "frameworks": {
         "netcoreapp2.1": {
           "dependencies": {
+            "MathNet.Numerics": {
+              "target": "Package",
+              "version": "[4.9.0, )"
+            },
             "Microsoft.NETCore.App": {
               "suppressParent": "All",
               "target": "Package",
