@@ -171,6 +171,15 @@ namespace Sudoku.Core
             return cellInfos.Where(whereCondition).ToList();
         }
 
+        public List<int> GetRest(CellInfo cellInfo)
+        {
+            return GetRest(cellInfo.Index);
+        }
+
+        public string GetRestString(CellInfo cellInfo)
+        {
+            return GetRestString(cellInfo.Index);
+        }
         public string GetRestString(int cellIndex)
         {
             return string.Join(",", GetRest(cellIndex));

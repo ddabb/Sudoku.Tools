@@ -10,7 +10,11 @@ namespace Sudoku.Tools
     {
         public override List<CellInfo> Excute(QSudoku qSoduku)
         {
-            throw new NotImplementedException();
+            List < CellInfo > cells=new List<CellInfo>();
+            var checkcells= qSoduku.GetFilterCell(c => c.Value == 0 && (qSoduku.GetRest(c.Index).Count == 2));
+     
+            return cells;
+         
         }
     }
 }
