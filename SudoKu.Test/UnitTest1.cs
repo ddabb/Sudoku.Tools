@@ -56,5 +56,22 @@ namespace SudoKu.Test
             Assert.AreEqual(true, new DanceLink().isValid(qsudu.QueryString));
         }
 
+        [TestMethod]
+        public void TestXYWingHandler()
+        {
+            XYWingHandler hander = new XYWingHandler();
+            QSudoku qsudu = new QSudoku("860035900700068351530074020070810530005307100183540200020650703057400002010700495");
+            Debug.WriteLine(new DanceLink().do_solve(qsudu.QueryString));
+            var cells = hander.Excute(qsudu);
+            foreach (var item in cells)
+            {
+                Debug.WriteLine("" + item);
+            }
+            qsudu = qsudu.ApplyCells(cells);
+            Debug.WriteLine(qsudu.QueryString);
+            Assert.AreEqual(true, new DanceLink().isValid(qsudu.QueryString));
+        }
+
+        
     }
 }

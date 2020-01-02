@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Sudoku.Tools
 {
-    [Example("030150209000360050700490603001273800000519000003684700100000008320040000409001060")]
+    [Example("000900100039014500002000003900400008050078030080090005470809300090000457320047000")] //已调整
     public class BugType1Handler :SolverHandlerBase
     {
         public override List<CellInfo> Excute(QSudoku qSoduku)

@@ -15,13 +15,14 @@ namespace Sudoku.Core
         {
             var queryString = rsudoku.answerString;
             var flag = false;
+            Random rm = new Random();
             do
             {
-
                 flag = IsMinimalPuzzle(queryString);
                 if (!flag)
                 {
-                    queryString= GetSubString(queryString).First(c => new DanceLink().isValid(c));
+                   var allVaildQueryString= GetSubString(queryString).Where(c => new DanceLink().isValid(c)).ToList();
+                   queryString = allVaildQueryString[rm.Next(0, allVaildQueryString.Count)];
                 }
 
             } while (!flag);
