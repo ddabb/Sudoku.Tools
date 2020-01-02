@@ -10,6 +10,7 @@
 *.dll
 *.pdb
 *.cache
+*.FileListAbsolute.txt
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
