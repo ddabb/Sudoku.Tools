@@ -13,7 +13,7 @@ namespace Sudoku.Tools
         public override List<CellInfo> Excute(QSudoku qSoduku)
         {
             List<CellInfo> cells = new List<CellInfo>();
-            return cells;
+    
             Func<CellInfo, bool> predicate = c => c.Value == 0;
             var rests = qSoduku.GetFilterCell(predicate).ToList();
             var columnBlockDtos = rests.Select(c => new { c.Column, c.Block }).Distinct().ToList();
@@ -80,10 +80,10 @@ namespace Sudoku.Tools
                         item1.Value = cellrest.First(c => c != speacilValue);
                         cells.Add(item1);
                     }
-                    var PositiveCellsInRow = rests.Where(c => (c.Index != item1.Index && c.Block != item1.Block) && (c.Row == item1.Row)).ToList();
-                    cells.AddRange(GetNakedSingleCell(qSoduku, speacilValue, PositiveCellsInRow));
-                    var PositiveCellsInColumn = rests.Where(c => (c.Index != item1.Index && c.Block != item1.Block) && (c.Column == item1.Column)).ToList();
-                    cells.AddRange(GetNakedSingleCell(qSoduku, speacilValue, PositiveCellsInColumn));
+                    //var PositiveCellsInRow = rests.Where(c => (c.Index != item1.Index && c.Block != item1.Block) && (c.Row == item1.Row)).ToList();
+                    //cells.AddRange(GetNakedSingleCell(qSoduku, speacilValue, PositiveCellsInRow));
+                    //var PositiveCellsInColumn = rests.Where(c => (c.Index != item1.Index && c.Block != item1.Block) && (c.Column == item1.Column)).ToList();
+                    //cells.AddRange(GetNakedSingleCell(qSoduku, speacilValue, PositiveCellsInColumn));
                 }
 
             }
