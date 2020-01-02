@@ -6,7 +6,7 @@ using System.Text;
 namespace Sudoku.Tools
 {
 
-    [Example("072000498040702365600408712260900184093000627010020953020000839706000241080240576")]
+    [AssignmentExample("072000498040702365600408712260900184093000627010020953020000839706000241080240576")]
     public class SkyscraperHandler : SolverHandlerBase
     {
         public override List<CellInfo> Assignment(QSudoku qSudoku)

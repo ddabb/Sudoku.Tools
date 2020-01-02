@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Sudoku.Tools
 {
-    [Example("980006375376850140000700860569347218000000537723581496000205780000000950000008620")]
+    [AssignmentExample("980006375376850140000700860569347218000000537723581496000205780000000950000008620")]
     public class NakedPairHandller :SolverHandlerBase
     {
         public override List<CellInfo> Assignment(QSudoku qSudoku)

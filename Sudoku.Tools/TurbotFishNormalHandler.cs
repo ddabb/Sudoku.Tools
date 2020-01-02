@@ -5,14 +5,17 @@ using System.Text;
 
 namespace Sudoku.Tools
 {
-    [AssignmentExample("030150209000360050700490603001273800000519000003684700100000008320040000409001060")]
-    public class NakedQuadrupleHandler :SolverHandlerBase
+
+    
+     [EliminationExample("094782130782103009100094728041920873920807514807001962279318000318000297465279381")]
+     [AssignmentExample("000080000506030080980500102200758000004090058058614000400070860000805000800020009")]
+    public class TurbotFishNormalHandler : SolverHandlerBase
     {
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             throw new NotImplementedException();
         }
-
+        //000080000506030080980500102200758000004090058058614000400070860000805000800020009
         public override List<NegativeCellInfo> Elimination(QSudoku qSudoku)
         {
             throw new NotImplementedException();

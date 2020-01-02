@@ -6,7 +6,7 @@ using System.Text;
 namespace Sudoku.Tools
 {
 
-    [Example("000436517000280000006170000000061070001000000050804100000043761003610000000000394")]
+    [AssignmentExample("000436517000280000006170000000061070001000000050804100000043761003610000000000394")]
     public class DirectPointingHandler : SolverHandlerBase
     {
         public override List<CellInfo> Assignment(QSudoku qSudoku)

@@ -9,7 +9,7 @@ using System.Linq;
 namespace SudoKu.Test
 {
     [TestClass]
-    public class UnitTest1
+    public class TestAssignment
     {
         [TestMethod]
         public void TestHiddenSingleColumnHandler()
@@ -42,6 +42,28 @@ namespace SudoKu.Test
             Debug.WriteLine(qsudu.QueryString);
             Assert.AreEqual(true, new DanceLink().isValid(qsudu.QueryString));
         }
+
+        [TestMethod]
+        public void TestXYWingHandler1()
+        {
+            XYWingHandler hander = new XYWingHandler();
+            QSudoku qsudu = new QSudoku("056200970749536812028079000000003129000920040290607008815792060902304080000005290");
+            Debug.WriteLine(new DanceLink().do_solve(qsudu.QueryString));
+            var cells = hander.Assignment(qsudu);
+            Assert.AreEqual(true, cells.Count > 0);
+            Assert.AreEqual(true, cells.Exists(c => c.Value == 1));
+            Assert.AreEqual(true, cells.Exists(c => c.Value == 8));
+            foreach (var item in cells)
+            {
+                Debug.WriteLine("" + item);
+            }
+            qsudu = qsudu.ApplyCells(cells);
+            Debug.WriteLine(qsudu.QueryString);
+            Assert.AreEqual(true, new DanceLink().isValid(qsudu.QueryString));
+        }
+
+
+        
 
         [TestMethod]
         public void TestClaimingInColumnHandler()
@@ -134,7 +156,7 @@ namespace SudoKu.Test
             Assert.AreEqual(true, new DanceLink().isValid(qsudu.QueryString));
             Debug.WriteLine(new DanceLink().do_solve(qsudu.QueryString));
             var cells = hander.Assignment(qsudu);
-            Assert.AreEqual(true, cells.Count>0);
+            Assert.AreEqual(true, cells.Count > 0);
             Debug.WriteLine(qsudu.QueryString);
             Assert.AreEqual(true, new DanceLink().isValid(qsudu.QueryString));
         }
@@ -216,88 +238,66 @@ namespace SudoKu.Test
             Assert.AreEqual(true, new DanceLink().isValid(qsudu.QueryString));
         }
 
+        [TestMethod]
+        public void TestTwoStringsKiteHandler()
+        {
+            TwoStringsKiteHandler hander = new TwoStringsKiteHandler();
+            QSudoku qsudu = new QSudoku("081020600042060089056800240693142758428357916175689324510036892230008460860200000");
+            Assert.AreEqual(true, new DanceLink().isValid(qsudu.QueryString));
+            Debug.WriteLine(new DanceLink().do_solve(qsudu.QueryString));
+            var cells = hander.Assignment(qsudu);
+            Assert.AreEqual(true, cells.Exists(c => c.Value == 7));
+
+            foreach (var item in cells)
+            {
+                Debug.WriteLine("" + item);
+            }
+            qsudu = qsudu.ApplyCells(cells);
+            Debug.WriteLine(qsudu.QueryString);
+            Assert.AreEqual(true, new DanceLink().isValid(qsudu.QueryString));
+        }
+        [TestMethod]
+        public void TestTwoStringsKiteHandler1()
+        {
+            TwoStringsKiteHandler hander = new TwoStringsKiteHandler();
+            QSudoku qsudu = new QSudoku("256009170010000003400001500645007281000182465821564739000210000102003807500008012");
+            Assert.AreEqual(true, new DanceLink().isValid(qsudu.QueryString));
+            Debug.WriteLine(new DanceLink().do_solve(qsudu.QueryString));
+            var cells = hander.Assignment(qsudu);
+            Assert.AreEqual(true, cells.Exists(c => c.Value == 4));
+
+            foreach (var item in cells)
+            {
+                Debug.WriteLine("" + item);
+            }
+            qsudu = qsudu.ApplyCells(cells);
+            Debug.WriteLine(qsudu.QueryString);
+            Assert.AreEqual(true, new DanceLink().isValid(qsudu.QueryString));
+        }
+
         
 
-
-        /// <summary>
-        /// 最终测试,所有数独都要通过现有方法能够解出来。
-        /// </summary>
         [TestMethod]
-        public void TestFinally()
+        public void TestWXYZWingHandler()
         {
-            List<string> queryString = new List<string>
+            WXYZWingHandler hander = new WXYZWingHandler();
+            QSudoku qsudu = new QSudoku("000037501152000600000500000070102000400750100218000750000305000829476315000090000");
+            Assert.AreEqual(true, new DanceLink().isValid(qsudu.QueryString));
+            Debug.WriteLine(new DanceLink().do_solve(qsudu.QueryString));
+            var cells = hander.Assignment(qsudu);
+            Assert.AreEqual(true, cells.Exists(c => c.Value == 8));
+
+            foreach (var item in cells)
             {
-                "100000005008020000403870200000400600765030000004000002340050076007003090000010023",
-                "000070146000006329006300875000463298603200750000000000100600087062900010800014002",
-                "072000498040702365600408712260900184093000627010020953020000839706000241080240576"
-            };
-            foreach (var item in queryString)
-            {
-                Assert.AreEqual(true, new DanceLink().isValid(item));
+                Debug.WriteLine("" + item);
             }
-            foreach (var item in queryString)
-            {
-                var assembly = typeof(SolverHandlerBase).Assembly;
-                var types = assembly.GetTypes().Where(t => typeof(ISudokuSolveHelper).IsAssignableFrom(t) && t.IsAbstract == false);
-                var tryagain = false;
-                QSudoku example=new QSudoku(item);
-                List<Type> types1 = new List<Type>();
-                do
-                {
-
-                    tryagain = false;
-                    foreach (var type in types)
-                    {
-                        object[] objs = type.GetCustomAttributes(typeof(ExampleAttribute), true);
-                        try
-                        {
-                            if (!types1.Contains(type))
-                            {
-                                var cellinfos =
-                                    ((ISudokuSolveHelper)Activator.CreateInstance(type, true)).Assignment(
-                                      example);
-
-                                if (cellinfos.Count != 0)
-                                {
-                                    Debug.WriteLine("type" + type);
-                                    Debug.WriteLine("cellinfo" + string.Join("\r\n", cellinfos));
-                                    Debug.WriteLine("example before" + example.QueryString + "isvalid" + new DanceLink().isValid(example.QueryString));
-
-                                    example = example.ApplyCells(cellinfos);
-                                    Debug.WriteLine("example after " + example.QueryString + "isvalid" + new DanceLink().isValid(example.QueryString));
-                                    if (!example.IsAllSeted)
-                                    {
-                                        tryagain = true;
-                                    }
-                                    Debug.WriteLine("\r\n");
-
-                                }
-                            }
-
-
-                        }
-                        catch (Exception ex)
-                        {
-                            if (ex.Message.Contains("is not implemented"))
-                            {
-                                types1.Add(type);
-                            }
-
-
-
-
-                        }
-
-
-                    }
-                } while (tryagain);
-
-                Assert.AreEqual(true, example.IsAllSeted);
-                Assert.AreEqual(true, new DanceLink().isValid(example.QueryString));
-            }
-
-
+            qsudu = qsudu.ApplyCells(cells);
+            Debug.WriteLine(qsudu.QueryString);
+            Assert.AreEqual(true, new DanceLink().isValid(qsudu.QueryString));
         }
+
+
+
 
 
     }

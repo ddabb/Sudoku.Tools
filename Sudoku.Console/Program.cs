@@ -20,10 +20,10 @@ namespace Sudoku.Console
             var notimplemented = 0;
             foreach (var type in types)
             {
-                object[] objs = type.GetCustomAttributes(typeof(ExampleAttribute), true);
+                object[] objs = type.GetCustomAttributes(typeof(AssignmentExampleAttribute), true);
                 if (objs.Count() == 1)
                 {
-                    if (objs[0] is ExampleAttribute a)
+                    if (objs[0] is AssignmentExampleAttribute a)
                     {
                         try
                         {
@@ -90,7 +90,7 @@ namespace Sudoku.Console
                     tryagain = false;
                     foreach (var type in types)
                     {
-                        object[] objs = type.GetCustomAttributes(typeof(ExampleAttribute), true);
+                        object[] objs = type.GetCustomAttributes(typeof(AssignmentExampleAttribute), true);
                         try
                         {
                             if (!types1.Contains(type))

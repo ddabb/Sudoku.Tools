@@ -4,15 +4,31 @@ using System.Text;
 
 namespace Sudoku.Tools
 {
-    
- public   class ExampleAttribute: Attribute
+    /// <summary>
+    /// 出数用例
+    /// </summary>
+    public class AssignmentExampleAttribute : Attribute
     {
         public string queryString;
 
-        public ExampleAttribute(string queryString)
+        public AssignmentExampleAttribute(string queryString)
         {
             this.queryString = queryString;
-        
+
+        }
+    }
+
+    /// <summary>
+    /// 删数用例
+    /// </summary>
+    public class EliminationExampleAttribute : Attribute
+    {
+        public string queryString;
+
+        public EliminationExampleAttribute(string queryString)
+        {
+            this.queryString = queryString;
+
         }
     }
 }

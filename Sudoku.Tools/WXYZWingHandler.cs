@@ -5,8 +5,8 @@ using System.Text;
 
 namespace Sudoku.Tools
 {
-    [Example("030150209000360050700490603001273800000519000003684700100000008320040000409001060")]
-    public class WXYZWingHandler :SolverHandlerBase
+    [AssignmentExample("000037501152000600000500000070102000400750100218000750000305000829476315000090000")]
+    public class WXYZWingHandler : SolverHandlerBase
     {
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {

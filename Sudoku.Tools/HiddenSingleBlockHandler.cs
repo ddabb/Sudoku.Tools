@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Soduku.Tools
 {
-    [Example("900400613320190700000000009000017008000000000700360000800000000009045086253001004")]
+    [AssignmentExample("900400613320190700000000009000017008000000000700360000800000000009045086253001004")]
     public class HiddenSingleBlockHandler : SolverHandlerBase
     {
         public override List<CellInfo> Assignment(QSudoku qSudoku)
