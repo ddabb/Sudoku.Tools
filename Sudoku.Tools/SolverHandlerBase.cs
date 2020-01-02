@@ -14,7 +14,12 @@ namespace Sudoku.Tools
     public abstract class SolverHandlerBase : ISudokuSolveHelper
 
     {
-        public abstract List<CellInfo> Excute(QSudoku qSoduku);
+        /// <summary>
+        /// 出数
+        /// </summary>
+        /// <param name="qSudoku"></param>
+        /// <returns></returns>
+        public abstract List<CellInfo> Assignment(QSudoku qSudoku);
 
         public static string GetEnumDescription(Enum enumSubitem)
         {
@@ -38,10 +43,10 @@ namespace Sudoku.Tools
         /// 0到8，坐标从0开始，到8结束，每个方向都一致。
         /// </summary>
         public static readonly List<int> baseIndexs = new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
-        public List<CellInfo> GetNakedSingleCell(QSudoku qSoduku, int speacilValue, List<CellInfo> PositiveCellsInColumn)
+        public List<CellInfo> GetNakedSingleCell(QSudoku qSudoku, int speacilValue, List<CellInfo> PositiveCellsInColumn)
         {
             List<CellInfo> cells = new List<CellInfo>();
-            var indexs = GetPossibleIndex(qSoduku, speacilValue, c => PositiveCellsInColumn.Select(x => x.Index).Contains(c.Index));
+            var indexs = GetPossibleIndex(qSudoku, speacilValue, c => PositiveCellsInColumn.Select(x => x.Index).Contains(c.Index));
             if (indexs.Count() == 1)
             {
                 cells.Add(new CellInfo(indexs.First(), speacilValue));
@@ -53,26 +58,26 @@ namespace Sudoku.Tools
         /// <summary>
         /// 在指定方向上的指定(行,列，宫)，排除掉不能填入的位置，剩余候选数可以填写的位置。
         /// </summary>
-        /// <param name="qSoduku"></param>
+        /// <param name="qSudoku"></param>
         /// <param name="exceptIndex"></param>
         /// <param name="direactionIndex"></param>
         /// <param name="direction"></param>
         /// <returns></returns>
-        public List<CellInfo> GetNakedSingleCell(QSudoku qSoduku, List<int> exceptIndex, int direactionIndex, Direction direction)
+        public List<CellInfo> GetNakedSingleCell(QSudoku qSudoku, List<int> exceptIndex, int direactionIndex, Direction direction)
         {
             List<CellInfo> cells = new List<CellInfo>();
             Func<CellInfo, bool> where = c => GetFilter(c, direction, direactionIndex) && c.Value == 0 && !exceptIndex.Contains(c.Index);
             Func<CellInfo, bool> directionwhere = c => GetFilter(c, direction, direactionIndex) && c.Value == 0;
-            var cellList = qSoduku.GetFilterCell(where);
+            var cellList = qSudoku.GetFilterCell(where);
             List<int> allrest = new List<int>();
             foreach (var cell in cellList)
             {
-                allrest.AddRange(qSoduku.GetRest(cell.Index));
+                allrest.AddRange(qSudoku.GetRest(cell.Index));
             }
             allrest = allrest.Distinct().ToList();
             foreach (var speacialValue in allrest)
             {
-                var leftIndexs = GetPossibleIndex(qSoduku, speacialValue, directionwhere);
+                var leftIndexs = GetPossibleIndex(qSudoku, speacialValue, directionwhere);
                 var leftIndexs1 = leftIndexs.Except(exceptIndex);
                 if (leftIndexs.Count > 1 && leftIndexs1.Count() == 1)
                 {
@@ -90,18 +95,18 @@ namespace Sudoku.Tools
         /// <summary>
         /// 返回候选数在过滤条件下筛选出来的可能存在的坐标位置。
         /// </summary>
-        /// <param name="qSoduku">数独原题</param>
+        /// <param name="qSudoku">数独原题</param>
         /// <param name="speacialValue">候选数</param>
         /// <param name="whereCondition">过滤条件</param>
         /// <returns></returns>
-        public List<int> GetPossibleIndex(QSudoku qSoduku, int speacialValue, Func<CellInfo, bool> whereCondition)
+        public List<int> GetPossibleIndex(QSudoku qSudoku, int speacialValue, Func<CellInfo, bool> whereCondition)
         {
             List<int> indexs = new List<int>();
 
-            var cell = qSoduku.GetFilterCell(whereCondition).OrderBy(c => c.Index);
+            var cell = qSudoku.GetFilterCell(whereCondition).OrderBy(c => c.Index);
             foreach (var item in cell)
             {
-                if (qSoduku.GetRest(item.Index).Contains(speacialValue))
+                if (qSudoku.GetRest(item.Index).Contains(speacialValue))
                 {
                     indexs.Add(item.Index);
                 }
@@ -109,17 +114,17 @@ namespace Sudoku.Tools
             return indexs;
         }
         public static readonly List<Direction> allDirection = new List<Direction> { Direction.Row, Direction.Column, Direction.Block };
-        public List<CellInfo> GetHiddenSingleCellInfo(QSudoku qSoduku, Func<CellInfo, bool> predicate)
+        public List<CellInfo> GetHiddenSingleCellInfo(QSudoku qSudoku, Func<CellInfo, bool> predicate)
         {
             List<CellInfo> cells = new List<CellInfo>();
-            var rests = qSoduku.GetFilterCell(predicate);
+            var rests = qSudoku.GetFilterCell(predicate);
 
             foreach (var spricevalue in QSudoku.baseFillList)
             {
-                if (rests.Count(c=>qSoduku.GetRest(c.Index).Contains(spricevalue))==1)
+                if (rests.Count(c=>qSudoku.GetRest(c.Index).Contains(spricevalue))==1)
                 {
-                  var cell=    rests.Where(c => qSoduku.GetRest(c.Index).Contains(spricevalue)).First();
-                    if (qSoduku.GetRest(cell.Index).Count>1)
+                  var cell=    rests.Where(c => qSudoku.GetRest(c.Index).Contains(spricevalue)).First();
+                    if (qSudoku.GetRest(cell.Index).Count>1)
                     {
                    
                         cells.Add(new CellInfo(cell.Index, spricevalue));

@@ -28,7 +28,7 @@ namespace Sudoku.Console
                         try
                         {
                             var cellinfo =
-                                ((ISudokuSolveHelper)Activator.CreateInstance(type, true)).Excute(
+                                ((ISudokuSolveHelper)Activator.CreateInstance(type, true)).Assignment(
                                     new QSudoku(a.queryString));
                             Debug.WriteLine("解题方法：  " + type.ToString());
                             Debug.WriteLine("测试用例  " + a.queryString);
@@ -63,12 +63,12 @@ namespace Sudoku.Console
 
         public static void tryFindSudoku(int count=50)
         {
-            List<QSudoku> qsodukus = new List<QSudoku>();
+            List<QSudoku> qSudokus = new List<QSudoku>();
 
             do
             {
                 QSudoku example;
-                if (qsodukus.Count==0)
+                if (qSudokus.Count==0)
                 {
                     var queryString = "000020080040009003000005700000000000805070020037004000070080056090000300100040000";              
                     Debug.WriteLine("DanceLinkvalid" + new DanceLink().isValid(queryString));
@@ -96,7 +96,7 @@ namespace Sudoku.Console
                             if (!types1.Contains(type))
                             {
                                 var cellinfos =
-                                    ((ISudokuSolveHelper)Activator.CreateInstance(type, true)).Excute(
+                                    ((ISudokuSolveHelper)Activator.CreateInstance(type, true)).Assignment(
                                       example);
 
                                 if (cellinfos.Count != 0)
@@ -137,12 +137,12 @@ namespace Sudoku.Console
                 {
                     Debug.WriteLine("example SaveTohtml in");
                     SaveTohtml(example);
-                    qsodukus.Add(example);
+                    qSudokus.Add(example);
                     example.SaveTohtml();
                 }
               
 
-            } while (qsodukus.Count<count);
+            } while (qSudokus.Count<count);
             Debug.WriteLine("tryFindSudoku end");
 
         }

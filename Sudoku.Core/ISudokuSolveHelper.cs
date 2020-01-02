@@ -6,6 +6,6 @@ namespace Sudoku.Core
 
     public interface ISudokuSolveHelper
     {
-        List<CellInfo> Excute(QSudoku qSoduku);
+        List<CellInfo> Assignment(QSudoku qSudoku);
     }
 }

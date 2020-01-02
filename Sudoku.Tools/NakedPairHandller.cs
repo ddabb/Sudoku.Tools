@@ -10,25 +10,25 @@ namespace Sudoku.Tools
     [Example("980006375376850140000700860569347218000000537723581496000205780000000950000008620")]
     public class NakedPairHandller :SolverHandlerBase
     {
-        public override List<CellInfo> Excute(QSudoku qSoduku)
+        public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
-            var checkCells = qSoduku.GetFilterCell(c => c.Value == 0 && qSoduku.GetRest(c).Count ==2);
+            var checkCells = qSudoku.GetFilterCell(c => c.Value == 0 && qSudoku.GetRest(c).Count ==2);
             foreach (var direction in allDirection)
             {
                 foreach (var index in baseIndexs)
                 {
-                    var subcells = qSoduku.AllUnSetCell.Where(c => GetFilter(c, direction, index)).ToList();
+                    var subcells = qSudoku.AllUnSetCell.Where(c => GetFilter(c, direction, index)).ToList();
                     if (subcells.Count>2)
                     {
-                        var temp = checkCells.Where(c => GetFilter(c, direction, index)).GroupBy(c => qSoduku.GetRestString(c)).Where(c => c.Count() == 2);
+                        var temp = checkCells.Where(c => GetFilter(c, direction, index)).GroupBy(c => qSudoku.GetRestString(c)).Where(c => c.Count() == 2);
                         foreach (var sub in temp)
                         {
-                            var removeCells = subcells.Where(c => qSoduku.GetRestString(c) != sub.Key);
+                            var removeCells = subcells.Where(c => qSudoku.GetRestString(c) != sub.Key);
                             var removeValues = ConvertToInts(sub.Key);
                             foreach (var cell in removeCells)
                             {
-                                var rests = qSoduku.GetRest(cell);
+                                var rests = qSudoku.GetRest(cell);
                                 if (rests.Count>1&&rests.Intersect(removeValues).Count()>0)
                                 {
                                     foreach (var value in removeValues)

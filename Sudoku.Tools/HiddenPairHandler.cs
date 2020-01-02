@@ -10,7 +10,7 @@ namespace Sudoku.Tools
     [Example("400090700007810400080060050800130007000070000170028005068051024513249876042080501")]//已调整
     public class HiddenPairHandler : SolverHandlerBase
     {
-        public override List<CellInfo> Excute(QSudoku qSoduku)
+        public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             var indexscount = 2;
             var restCount = 2;
@@ -23,7 +23,7 @@ namespace Sudoku.Tools
                     foreach (var speacilValue in QSudoku.baseFillList)
                     {
                         Func<CellInfo, bool> rowCondition = c => GetFilter(c, direaction, index) && c.Value == 0;
-                        var indexs = GetPossibleIndex(qSoduku, speacilValue, rowCondition);
+                        var indexs = GetPossibleIndex(qSudoku, speacilValue, rowCondition);
                         if (indexs.Count == indexscount)
                         {
                             possbleIndexs.Add(new PossibleIndex { IndexsString = string.Join(",", indexs), direactionIndex = index, SpeacialValue = speacilValue });
@@ -35,13 +35,13 @@ namespace Sudoku.Tools
                 {
 
                     var indexs = ConvertToInts(item.Key);
-                    if (indexs.Exists(c => qSoduku.GetRest(c).Count() > restCount))//和显性数对区分
+                    if (indexs.Exists(c => qSudoku.GetRest(c).Count() > restCount))//和显性数对区分
                     {
 
                         //Debug.WriteLine("关联数组区块坐标：" + item.Key);
                         var pairIndexs = possbleIndexs.Where(c => c.IndexsString == item.Key).ToList();
                         //Debug.WriteLine("values  " + string.Join(",", pairIndexs.Select(c => c.SpeacialValue)) + "  " + GetEnumDescription(direaction) + "   locations " + item.Key + "方向索引号" + pairIndexs.First().direactionIndex);
-                        cells.AddRange(GetNakedSingleCell(qSoduku, indexs, pairIndexs.First().direactionIndex, direaction));
+                        cells.AddRange(GetNakedSingleCell(qSudoku, indexs, pairIndexs.First().direactionIndex, direaction));
                     }
                 }
                 Debug.WriteLine("");

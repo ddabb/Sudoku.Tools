@@ -11,7 +11,7 @@ namespace Sudoku.Tools
 
     public class XWingHandler : SolverHandlerBase
     {
-        public override List<CellInfo> Excute(QSudoku qSoduku)
+        public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
             foreach (var direction in allDirection.Where(c => c != Direction.Block))
@@ -21,7 +21,7 @@ namespace Sudoku.Tools
                 {
                     foreach (var speacilValue in QSudoku.baseFillList)
                     {
-                        var indexs = GetPossibleIndex(qSoduku, speacilValue, c => GetFilter(c, direction, DireactionIndex) && c.Value == 0);
+                        var indexs = GetPossibleIndex(qSudoku, speacilValue, c => GetFilter(c, direction, DireactionIndex) && c.Value == 0);
                         if (indexs.Count() == 2)
                         {
                             PossibleIndex index = new PossibleIndex();
@@ -54,7 +54,7 @@ namespace Sudoku.Tools
                                     && subCells.Select(c => c.Column).Distinct().Count() == 2
                                     ) //4个格子位于4个宫，两行 两列
                                 {
-                                    cells.AddRange(XwingWithNakeSingle(qSoduku, subCells, item));
+                                    cells.AddRange(XwingWithNakeSingle(qSudoku, subCells, item));
                                 }
 
                             }
@@ -68,20 +68,20 @@ namespace Sudoku.Tools
         }
 
 
-        internal List<CellInfo> XwingWithNakeSingle(QSudoku qSoduku, List<CellInfo> subCells, int speacilValue)
+        internal List<CellInfo> XwingWithNakeSingle(QSudoku qSudoku, List<CellInfo> subCells, int speacilValue)
         {
             List<CellInfo> cells = new List<CellInfo>();
             if (true)
             {
                 var distinctrow = subCells.Select(c => c.Row).Distinct().ToList();
                 var distinctcolumn = subCells.Select(c => c.Column).Distinct().ToList();
-                var FilterCells = qSoduku.GetFilterCell(c => c.Value == 0 && (distinctcolumn.Contains(c.Column) || distinctrow.Contains(c.Row)));
+                var FilterCells = qSudoku.GetFilterCell(c => c.Value == 0 && (distinctcolumn.Contains(c.Column) || distinctrow.Contains(c.Row)));
 
                 foreach (var item in FilterCells)
                 {
                     if (!subCells.Exists(c => c.Row == item.Row && c.Column == item.Column))
                     {
-                        var rests = qSoduku.GetRest(item.Index);
+                        var rests = qSudoku.GetRest(item.Index);
                         if (rests.Contains(speacilValue) && rests.Where(x => x != speacilValue).Count() == 1)
                         {
                             cells.Add(new CellInfo(item.Index, rests.Where(x => x != speacilValue).First()));

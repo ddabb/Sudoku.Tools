@@ -5,8 +5,9 @@ using System.Text;
 
 namespace Sudoku.Tools
 {
-    [Example("015070000900040105834651000050097018108065000000180526403518000060030851581026043")]
-    public class HiddenTripleHandler :SolverHandlerBase
+
+    [Example("000436517000280000006170000000061070001000000050804100000043761003610000000000394")]
+    public class DirectPointingHandler : SolverHandlerBase
     {
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {

@@ -10,7 +10,7 @@ namespace Soduku.Tools
 
     public class LockedCandidatesHandler :SolverHandlerBase
     {
-        public override List<CellInfo> Excute(QSudoku qSoduku)
+        public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             throw new NotImplementedException();
         }

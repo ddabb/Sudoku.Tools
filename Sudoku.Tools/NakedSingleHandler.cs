@@ -11,12 +11,12 @@ namespace Soduku.Tools
     public  class NakedSingleHandler:SolverHandlerBase
     {
 
-        public override List<CellInfo> Excute(QSudoku qSoduku)
+        public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cellInfo = new List<CellInfo>();
-            foreach (var index in qSoduku.GetFilterCell(c=>c.Value==0).Select(c=>c.Index))
+            foreach (var index in qSudoku.GetFilterCell(c=>c.Value==0).Select(c=>c.Index))
             {
-                var restList = qSoduku.GetRest(index);
+                var restList = qSudoku.GetRest(index);
                 if (restList.Count==1)
                 {
                     cellInfo.Add(new CellInfo(index, restList[0]));
