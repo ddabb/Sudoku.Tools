@@ -41,7 +41,14 @@ namespace Sudoku.Tools
                                     !GetFilter(c, direction, index)&&(c.Block==block1||c.Block==block2)).ToList();
                                 if (findcell.Count==1)
                                 {
-                                    Debug.WriteLine("在" + index + GetEnumDescription(direction) + "  xy  " + (x + "" + y) + "  xz  " + (x + "" + z) + " yz " + (y + "" + z) + "  findcell    " + string.Join(",", findcell));
+                                    var cell3 = findcell[0];
+                                    List<CellInfo> allCell=new List<CellInfo>{cell1,cell2,cell3};
+                                    var removeNumber = qSoduku.GetRest(allCell.First(c => !GetFilter(c, direction, index))).First(c => c != x);
+                                    
+                                    Debug.WriteLine("关联单元格的待删除数是   " + removeNumber + "   在" + index + GetEnumDescription(direction) +"  找到 "+cell3+"  满足  "+ "  xy  " + (x + "" + y) + "  xz  " + (x + "" + z) + " yz " + (y + "" + z) );
+
+                                    
+
 
                                 }
 
