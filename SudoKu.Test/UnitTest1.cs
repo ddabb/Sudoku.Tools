@@ -105,6 +105,25 @@ namespace SudoKu.Test
             Assert.AreEqual(true, new DanceLink().isValid(qsudu.QueryString));
         }
 
+        [TestMethod]
+        public void TestNakedTripleHandler()
+        {
+            NakedTripleHandler hander = new NakedTripleHandler();
+            QSudoku qsudu = new QSudoku("390000700000000650507000349049380506601054983853000400900800134002940865400000297");
+            Assert.AreEqual(true, new DanceLink().isValid(qsudu.QueryString));
+            Debug.WriteLine(new DanceLink().do_solve(qsudu.QueryString));
+            var cells = hander.Excute(qsudu);
+            Assert.AreEqual(23, cells[0].Index);
+            foreach (var item in cells)
+            {
+                Debug.WriteLine("" + item);
+            }
+            qsudu = qsudu.ApplyCells(cells);
+            Debug.WriteLine(qsudu.QueryString);
+            Assert.AreEqual(true, new DanceLink().isValid(qsudu.QueryString));
+        }
+
+        
 
 
 

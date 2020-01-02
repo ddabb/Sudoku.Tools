@@ -4,6 +4,7 @@ using Sudoku.Tools;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 
 namespace Sudoku.Console
@@ -12,10 +13,6 @@ namespace Sudoku.Console
     {
         static void Main(string[] args)
         {
-            QSudoku qsudu = new QSudoku("980006375376850140000700860569347218000000537723581496000205780000000950000008620");
-            Debug.WriteLine(""+ new DanceLink().isValid(qsudu.QueryString));
-            new NakedPairHandller().Excute(qsudu);
-            return;
             tryFindSudoku(10);
             return ;
             var assembly = typeof(SolverHandlerBase).Assembly;
@@ -139,14 +136,51 @@ namespace Sudoku.Console
                 if (!example.IsAllSeted)
                 {
                     Debug.WriteLine("example SaveTohtml in");
+                    SaveTohtml(example);
                     qsodukus.Add(example);
-                    Debug.WriteLine("qsodukus count"+ qsodukus.Count);
                     example.SaveTohtml();
                 }
               
 
             } while (qsodukus.Count<count);
-         
+            Debug.WriteLine("tryFindSudoku end");
+
+        }
+
+        public static void SaveTohtml(QSudoku sudoku)
+        {
+            string str2 = "";
+            var names1 = typeof(QSudoku).Assembly.GetManifestResourceNames();
+            var name = names1.Where(c => c.Contains("template.html")).First();
+            Stream manifestResourceStream = typeof(QSudoku).Assembly.GetManifestResourceStream(name);
+            if (manifestResourceStream != null)
+            {
+                StreamReader reader = new StreamReader(manifestResourceStream);
+
+                str2 = reader.ReadToEnd();
+                reader.Close();
+                manifestResourceStream.Close();
+
+            }
+
+            dynamic type = typeof(QSudoku);
+            string currentDirectory = Path.GetDirectoryName(type.Assembly.Location);
+            string saveDirectory = Path.Combine(currentDirectory, "UnSolveSudoku");
+            if (!Directory.Exists(saveDirectory))
+            {
+                Directory.CreateDirectory(saveDirectory);
+            }
+            saveDirectory = Path.Combine(saveDirectory, DateTime.Now.ToString("yyyy-MM-dd"));
+            if (!Directory.Exists(saveDirectory))
+            {
+                Directory.CreateDirectory(saveDirectory);
+            }
+            string filePath = Path.Combine(saveDirectory, sudoku.QueryString + ".html");
+            File.WriteAllText(filePath, str2.Replace("replaceMark", sudoku.QueryString));
+            string filePath2 = Path.Combine(saveDirectory, sudoku.QueryString + ".txt");
+            File.WriteAllText(filePath2, sudoku.QueryString);
+            Debug.WriteLine("文件" + filePath + " 已生成");
+
 
         }
 
