@@ -30,3 +30,8 @@ E:\Soduku.Tools\Soduku.Tools\SudoKu.Test\bin\Debug\netcoreapp2.1\Sudoku.Tools.dl
 E:\Soduku.Tools\Soduku.Tools\SudoKu.Test\bin\Debug\netcoreapp2.1\Sudoku.Tools.pdb
 E:\Soduku.Tools\Soduku.Tools\SudoKu.Test\bin\Debug\netcoreapp2.1\Sudoku.Core.pdb
 E:\Soduku.Tools\Soduku.Tools\SudoKu.Test\obj\Debug\netcoreapp2.1\SudoKu.Test.csproj.CopyComplete
+E:\Git\Sudoku.Tools\SudoKu.Test\bin\Debug\netcoreapp2.1\Sudoku.Core.dll
+E:\Git\Sudoku.Tools\SudoKu.Test\bin\Debug\netcoreapp2.1\Sudoku.Tools.dll
+E:\Git\Sudoku.Tools\SudoKu.Test\bin\Debug\netcoreapp2.1\Sudoku.Tools.pdb
+E:\Git\Sudoku.Tools\SudoKu.Test\bin\Debug\netcoreapp2.1\Sudoku.Core.pdb
+E:\Git\Sudoku.Tools\SudoKu.Test\obj\Debug\netcoreapp2.1\SudoKu.Test.csproj.CopyComplete

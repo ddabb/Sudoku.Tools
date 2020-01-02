@@ -27,3 +27,5 @@ E:\Soduku.Tools\Soduku.Tools\Sudoku.Console\obj\Debug\netcoreapp2.1\Sudoku.Conso
 E:\Soduku.Tools\Soduku.Tools\Sudoku.Console\obj\Debug\netcoreapp2.1\Sudoku.Console.csproj.CopyComplete
 E:\Soduku.Tools\Soduku.Tools\Sudoku.Console\obj\Debug\netcoreapp2.1\Sudoku.Console.dll
 E:\Soduku.Tools\Soduku.Tools\Sudoku.Console\obj\Debug\netcoreapp2.1\Sudoku.Console.pdb
+E:\Git\Sudoku.Tools\Sudoku.Console\bin\Debug\netcoreapp2.1\Sudoku.Core.dll
+E:\Git\Sudoku.Tools\Sudoku.Console\bin\Debug\netcoreapp2.1\Sudoku.Core.pdb
