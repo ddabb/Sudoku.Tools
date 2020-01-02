@@ -14,10 +14,10 @@ namespace Sudoku.Tools
         public override List<CellInfo> Excute(QSudoku qSoduku)
         {
             List<CellInfo> cells = new List<CellInfo>();
-            foreach (var direction in allDireaction.Where(c => c != Direction.Block))
+            foreach (var direction in allDirection.Where(c => c != Direction.Block))
             {
                 List<PossibleIndex> possibleIndexs = new List<PossibleIndex>();
-                foreach (var DireactionIndex in QSudoku.baseIndexs)
+                foreach (var DireactionIndex in baseIndexs)
                 {
                     foreach (var speacilValue in QSudoku.baseFillList)
                     {

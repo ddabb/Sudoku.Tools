@@ -15,10 +15,10 @@ namespace Sudoku.Tools
             var indexscount = 2;
             var restCount = 2;
             List<CellInfo> cells = new List<CellInfo>();
-            foreach (var direaction in allDireaction)
+            foreach (var direaction in allDirection)
             {
                 List<PossibleIndex> possbleIndexs = new List<PossibleIndex>();
-                foreach (var index in QSudoku.baseIndexs)
+                foreach (var index in baseIndexs)
                 {
                     foreach (var speacilValue in QSudoku.baseFillList)
                     {
@@ -34,7 +34,7 @@ namespace Sudoku.Tools
                 foreach (var item in coupleIndexs)
                 {
 
-                    var indexs = ConvertToIndexs(item.Key);
+                    var indexs = ConvertToInts(item.Key);
                     if (indexs.Exists(c => qSoduku.GetRest(c).Count() > restCount))//和显性数对区分
                     {
 

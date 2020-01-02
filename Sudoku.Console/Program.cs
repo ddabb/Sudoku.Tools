@@ -12,6 +12,10 @@ namespace Sudoku.Console
     {
         static void Main(string[] args)
         {
+            QSudoku qsudu = new QSudoku("980006375376850140000700860569347218000000537723581496000205780000000950000008620");
+            Debug.WriteLine(""+ new DanceLink().isValid(qsudu.QueryString));
+            new NakedPairHandller().Excute(qsudu);
+            return;
             tryFindSudoku(10);
             return ;
             var assembly = typeof(SolverHandlerBase).Assembly;

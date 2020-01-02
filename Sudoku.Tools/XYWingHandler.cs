@@ -15,9 +15,9 @@ namespace Sudoku.Tools
             List<CellInfo> cells = new List<CellInfo>();
             var checkcells = qSoduku.GetFilterCell(c => c.Value == 0 && (qSoduku.GetRest(c.Index).Count == 2));
 
-            foreach (var direction in allDireaction.Where(c => c != Direction.Block)) //从行或列的角度出发
+            foreach (var direction in allDirection.Where(c => c != Direction.Block)) //从行或列的角度出发
             {
-                foreach (var index in QSudoku.baseIndexs)
+                foreach (var index in baseIndexs)
                 {
                     var specialRowOrColumn = checkcells.Where(c => GetFilter(c, direction, index)).ToList(); //特定行或列
                     foreach (var specialValue in QSudoku.baseFillList)

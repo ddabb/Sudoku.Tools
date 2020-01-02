@@ -15,7 +15,7 @@ namespace Soduku.Tools
         {
             List<CellInfo> cells = new List<CellInfo>();
             var direction = Direction.Block;
-            foreach (var index in QSudoku.baseIndexs)
+            foreach (var index in baseIndexs)
             {
                 cells.AddRange(GetHiddenSingleCellInfo(qSoduku, c => GetFilter(c, direction, index) && c.Value == 0));
             }

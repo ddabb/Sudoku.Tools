@@ -33,6 +33,11 @@ namespace Sudoku.Tools
             }
 
         }
+
+        /// <summary>
+        /// 0到8，坐标从0开始，到8结束，每个方向都一致。
+        /// </summary>
+        public static readonly List<int> baseIndexs = new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         public List<CellInfo> GetNakedSingleCell(QSudoku qSoduku, int speacilValue, List<CellInfo> PositiveCellsInColumn)
         {
             List<CellInfo> cells = new List<CellInfo>();
@@ -103,7 +108,7 @@ namespace Sudoku.Tools
             }
             return indexs;
         }
-        public static readonly List<Direction> allDireaction = new List<Direction> { Direction.Row, Direction.Column, Direction.Block };
+        public static readonly List<Direction> allDirection = new List<Direction> { Direction.Row, Direction.Column, Direction.Block };
         public List<CellInfo> GetHiddenSingleCellInfo(QSudoku qSoduku, Func<CellInfo, bool> predicate)
         {
             List<CellInfo> cells = new List<CellInfo>();
@@ -175,11 +180,11 @@ namespace Sudoku.Tools
 
 
         /// <summary>
-        /// 将坐标的拼接字符串解析成坐标链表
+        /// 将','拼接的整数组成的字符串，还原成List<int>类型
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public List<int> ConvertToIndexs(string index)
+        public List<int> ConvertToInts(string index)
         {
             return index.Split(',').Select(c => Convert.ToInt32(c)).ToList();
         }

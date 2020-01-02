@@ -15,6 +15,7 @@ namespace Sudoku.Core
     public class QSudoku
     {
 
+
         public static readonly List<int> allLocations = new List<int>
         {
          0,1,2,3,4,5,6,7,8,
@@ -34,10 +35,7 @@ namespace Sudoku.Core
         /// </summary>
         public static readonly List<int> baseFillList = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
-        /// <summary>
-        /// 0到8，坐标从0开始，到8结束，每个方向都一致。
-        /// </summary>
-        public static readonly List<int> baseIndexs = new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+      
 
         private string queryString;
 
@@ -52,6 +50,11 @@ namespace Sudoku.Core
             Init();
            
         }
+
+        /// <summary>
+        /// 记录ID，如果ID相同，表示最终解一致。
+        /// </summary>
+        public Guid RecordId { get; set; }
 
         public  void SaveTohtml()
         {
@@ -147,6 +150,12 @@ namespace Sudoku.Core
             return new Dictionary<int, List<int>>();
         }
 
+        public List<CellInfo> AllUnSetCell
+        {
+            get {
+                return cellInfos.Where(c => c.Value == 0).ToList();
+            }
+        }
         /// <summary>
         /// 用于HiddenSingleBlockHandler
         /// </summary>
@@ -189,7 +198,9 @@ namespace Sudoku.Core
         {
             var cell = cellInfos.Where(c => c.Index == cellIndex).First();
             var relatedCells = cellInfos.Where(c => c.Value != 0 && (c.Row == cell.Row || c.Column == cell.Column || c.Block == cell.Block));
-            return baseFillList.Except(relatedCells.Select(c => c.Value)).ToList();
+            var result = baseFillList.Except(relatedCells.Select(c => c.Value)).ToList();
+            result.Sort();
+            return result;
         }
 
         public Dictionary<int, List<int>> GetColumnUnSetInfo(int columnIndex)
