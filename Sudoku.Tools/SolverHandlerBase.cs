@@ -21,6 +21,13 @@ namespace Sudoku.Tools
         /// <returns></returns>
         public abstract List<CellInfo> Assignment(QSudoku qSudoku);
 
+        /// <summary>
+        /// 删数
+        /// </summary>
+        /// <param name="qSudoku"></param>
+        /// <returns></returns>
+        public abstract List<NegativeCellInfo> Elimination(QSudoku qSudoku);
+
         public static string GetEnumDescription(Enum enumSubitem)
         {
             string strValue = enumSubitem.ToString();

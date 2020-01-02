@@ -14,5 +14,13 @@ namespace Sudoku.Tools
             List<CellInfo> cells = new List<CellInfo>();
             return cells;
         }
+
+        public override List<NegativeCellInfo> Elimination(QSudoku qSudoku)
+        {
+            List<NegativeCellInfo> cells = new List<NegativeCellInfo>();
+            return cells;
+        }
+
+        
     }
 }

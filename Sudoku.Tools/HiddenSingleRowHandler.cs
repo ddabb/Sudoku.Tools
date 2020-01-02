@@ -20,6 +20,9 @@ namespace Sudoku.Tools
             return cells;
         }
 
-
+        public override List<NegativeCellInfo> Elimination(QSudoku qSudoku)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

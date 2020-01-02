@@ -12,5 +12,10 @@ namespace Sudoku.Tools
         {
             throw new NotImplementedException();
         }
+
+        public List<NegativeCellInfo> Elimination(QSudoku qSudoku)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

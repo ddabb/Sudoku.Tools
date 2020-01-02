@@ -14,5 +14,10 @@ namespace Soduku.Tools
         {
             throw new NotImplementedException();
         }
+
+        public override List<NegativeCellInfo> Elimination(QSudoku qSudoku)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

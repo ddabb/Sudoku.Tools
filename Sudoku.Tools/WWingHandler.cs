@@ -5,12 +5,13 @@ using System.Text;
 
 namespace Sudoku.Tools
 {
-    [Example("030150209000360050700490603001273800000519000003684700100000008320040000409001060")]
-    public class ULSize14Handler :SolverHandlerBase
+    [Example("012009600600012094749635821428397100397156482156020009904573210070261940201900007")]
+    public  class WWingHandler : SolverHandlerBase
     {
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
-            throw new NotImplementedException();
+            List<CellInfo> cells = new List<CellInfo>();
+            return cells;
         }
 
         public override List<NegativeCellInfo> Elimination(QSudoku qSudoku)

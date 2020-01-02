@@ -25,5 +25,10 @@ namespace Soduku.Tools
             return cellInfo;
 
         }
+
+        public override List<NegativeCellInfo> Elimination(QSudoku qSudoku)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
