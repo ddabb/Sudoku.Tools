@@ -44,10 +44,12 @@ namespace Sudoku.Tools
                                 {
                                     var cell3 = findcell[0];
                                     List<CellInfo> allCell = new List<CellInfo> {cell1, cell2, cell3};
-                                    var removeNumber = qSoduku
-                                        .GetRest(allCell.First(c => !GetFilter(c, direction, index)))
-                                        .First(c => c != x);
-                     
+                                    var cell3Rest = qSoduku.GetRest(cell3);
+                                    var sameBlock = qSoduku.GetRest(allCell
+                                        .First(c => c.Block == cell3.Block && c.Index != cell3.Index));
+                                    var removeNumber =
+                                        cell3Rest.First(c => c != cell3Rest.Intersect(sameBlock).First());
+                                    Debug.WriteLine("removeNumber"+ removeNumber);
                                     var intersectCells = allCell.Where(c => qSoduku.GetRest(c).Contains(removeNumber))
                                         .ToList();
 
@@ -69,8 +71,14 @@ namespace Sudoku.Tools
 
                                     }
 
+                                    foreach (var relatedCell in allCell)
+                                    {
+                                        Debug.WriteLine("relatedCell"+relatedCell + qSoduku.GetRestString(relatedCell));
+                                    }
+
                                     foreach (var removeCell in tryRemoveCells)
                                     {
+                                        Debug.WriteLine(removeCell);
                                         var rest = qSoduku.GetRest(removeCell);
                                         if (rest.Contains(removeNumber))
                                         {
