@@ -27,7 +27,7 @@ namespace Sudoku.Tools
                         if (list.Count == 2)
                         {
                             var cell1 = list[0];
-                            var cell2= list[1];
+                            var cell2 = list[1];
                             var block1 = cell1.Block;
                             var block2 = cell2.Block;
                             if (block1 != block2 &&
@@ -37,23 +37,50 @@ namespace Sudoku.Tools
                                 var y = qSoduku.GetRest(cell1).First(c => c != x);
                                 var z = qSoduku.GetRest(cell2).First(c => c != x);
                                 var findcell = checkcells.Where(c =>
-                                    qSoduku.GetRest(c).Contains(y) && qSoduku.GetRest(c).Contains(z) &&
-                                    !GetFilter(c, direction, index)&&(c.Block==block1||c.Block==block2)).ToList();
-                                if (findcell.Count==1)
+                                        qSoduku.GetRest(c).Contains(y) && qSoduku.GetRest(c).Contains(z) &&
+                                        !GetFilter(c, direction, index) && (c.Block == block1 || c.Block == block2))
+                                    .ToList();
+                                if (findcell.Count == 1)
                                 {
                                     var cell3 = findcell[0];
-                                    List<CellInfo> allCell=new List<CellInfo>{cell1,cell2,cell3};
-                                    var removeNumber = qSoduku.GetRest(allCell.First(c => !GetFilter(c, direction, index))).First(c => c != x);
-                                    
-                                    Debug.WriteLine("关联单元格的待删除数是   " + removeNumber + "   在" + index + GetEnumDescription(direction) +"  找到 "+cell3+"  满足  "+ "  xy  " + (x + "" + y) + "  xz  " + (x + "" + z) + " yz " + (y + "" + z) );
+                                    List<CellInfo> allCell = new List<CellInfo> {cell1, cell2, cell3};
+                                    var removeNumber = qSoduku
+                                        .GetRest(allCell.First(c => !GetFilter(c, direction, index)))
+                                        .First(c => c != x);
+                     
+                                    var intersectCells = allCell.Where(c => qSoduku.GetRest(c).Contains(removeNumber))
+                                        .ToList();
 
-                                    
+                                    List<CellInfo> tryRemoveCells;
+                                    if (direction == Direction.Row)
+                                    {
+                                        tryRemoveCells = checkcells.Where(c =>
+                                                (c.Block == intersectCells[0].Block && c.Row == intersectCells[1].Row)
+                                                || (c.Block == intersectCells[1].Block &&
+                                                    c.Row == intersectCells[0].Row))
+                                            .ToList();
+                                    }
+                                    else
+                                    {
+                                        tryRemoveCells = checkcells.Where(c =>
+                                            (c.Block == intersectCells[0].Block && c.Column == intersectCells[1].Column)
+                                            || (c.Block == intersectCells[1].Block &&
+                                                c.Column == intersectCells[0].Column)).ToList();
 
+                                    }
+
+                                    foreach (var removeCell in tryRemoveCells)
+                                    {
+                                        var rest = qSoduku.GetRest(removeCell);
+                                        if (rest.Contains(removeNumber))
+                                        {
+                                            cells.Add(
+                                                new CellInfo(removeCell.Index, rest.First(c => c != removeNumber)));
+                                        }
+                                    }
 
                                 }
-
                             }
-
                         }
                     }
                 }
