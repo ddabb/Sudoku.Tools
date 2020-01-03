@@ -48,7 +48,8 @@ namespace Sudoku.Tools
                                         allindexs.AddRange(kv.Value);
                                     }
 
-                                    if (allindexs.Distinct().Count()==3)
+                                    var exceptIndexs = allindexs.Distinct();
+                                    if (exceptIndexs.Count()==3)
                                     {
                                         
                                     }
