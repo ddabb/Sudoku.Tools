@@ -28,6 +28,20 @@ namespace Sudoku.Tools
         /// <returns></returns>
         public abstract List<NegativeCellInfo> Elimination(QSudoku qSudoku);
 
+        public List<CellInfo> GetIntersectCells(List<CellInfo> cells, CellInfo cell1, CellInfo cell2)
+        {
+            return cells.Where(c => (c.Row == cell1.Row && c.Block == cell2.Block
+                                 || (c.Row == cell2.Row && c.Block == cell1.Block)  //row block
+                           
+                                 || (c.Column == cell1.Column && c.Block == cell2.Block)
+                                 || (c.Column == cell2.Column && c.Block == cell1.Block) //column block
+
+                                 || (c.Column == cell1.Column && c.Row == cell2.Row)
+                                 || (c.Column == cell2.Column && c.Row == cell1.Row)           
+            ) && c.Index != cell1.Index && c.Index != cell2.Index
+            ).ToList();
+        }
+
         public static string GetEnumDescription(Enum enumSubitem)
         {
             string strValue = enumSubitem.ToString();

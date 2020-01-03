@@ -13,87 +13,55 @@ namespace Sudoku.Tools
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
-            var checkcells = qSudoku.GetFilterCell(c => c.Value == 0 && (qSudoku.GetRest(c.Index).Count == 2));
+            var checkCells = qSudoku.AllUnSetCell.Where(c => qSudoku.GetRest(c).Count == 2).ToList();
 
-            foreach (var direction in allDirection.Where(c => c != Direction.Block)) //从行或列的角度出发
+            var temp = (from x in checkCells
+                        join y in checkCells on 1 equals 1
+                        where qSudoku.GetRest(x).Intersect(qSudoku.GetRest(y)).Count()==1
+                        select new { x, y }).ToList();
+            foreach (var pair in temp)
             {
-                foreach (var index in baseIndexs)
+             var intestectCells=   checkCells.Intersect(GetIntersectCells(checkCells, pair.x, pair.y)).ToList();
+                if (intestectCells.Count()>0)
                 {
-                    var specialRowOrColumn = checkcells.Where(c => GetFilter(c, direction, index)).ToList(); //特定行或列
-                    foreach (var specialValue in QSudoku.AllBaseValues)
+
+
+                    var restX = qSudoku.GetRest(pair.x);
+                    var restY = qSudoku.GetRest(pair.y);
+                    List<int> all = new List<int>();
+                    all.AddRange(restX);
+                    all.AddRange(restY);
+                    var IntersectValue = restX.Intersect(restY).First();
+                    all = all.Where(x => x != IntersectValue).OrderBy(c => c).ToList();
+                    var allString = string.Join(",", all);
+                    
+                    if (intestectCells.Exists(c=> qSudoku.GetRestString(c)==allString))
                     {
-                        var list = specialRowOrColumn.Where(c => qSudoku.GetRest(c.Index).Contains(specialValue))
-                            .ToList();
-                        if (list.Count == 2)
+                        foreach (var cell in intestectCells)
                         {
-                            var cell1 = list[0];
-                            var cell2 = list[1];
-                            var block1 = cell1.Block;
-                            var block2 = cell2.Block;
-                            if (block1 != block2 &&
-                                qSudoku.GetRestString(cell1) != qSudoku.GetRestString(cell2)) //xy  xz 同行(列)不同宮
+                            if (qSudoku.GetRestString(cell) != allString)
                             {
-                                var x = specialValue;
-                                var y = qSudoku.GetRest(cell1).First(c => c != x);
-                                var z = qSudoku.GetRest(cell2).First(c => c != x);
-                                var findcell = checkcells.Where(c =>
-                                        qSudoku.GetRest(c).Contains(y) && qSudoku.GetRest(c).Contains(z) &&
-                                        !GetFilter(c, direction, index) && (c.Block == block1 || c.Block == block2))
-                                    .ToList();
-                                if (findcell.Count == 1)
+                                var rests = qSudoku.GetRest(cell);
+                                if (rests.Contains(IntersectValue)&&rests.Count==2)
                                 {
-                                    var cell3 = findcell[0];
-                                    List<CellInfo> allCell = new List<CellInfo> {cell1, cell2, cell3};
-                                    var cell3Rest = qSudoku.GetRest(cell3);
-                                    var sameBlock = qSudoku.GetRest(allCell
-                                        .First(c => c.Block == cell3.Block && c.Index != cell3.Index));
-                                    var removeNumber =
-                                        cell3Rest.First(c => c != cell3Rest.Intersect(sameBlock).First());
-                                    Debug.WriteLine("removeNumber"+ removeNumber);
-                                    var intersectCells = allCell.Where(c => qSudoku.GetRest(c).Contains(removeNumber))
-                                        .ToList();
-
-                                    List<CellInfo> tryRemoveCells;
-                                    if (direction == Direction.Row)
-                                    {
-                                        tryRemoveCells = checkcells.Where(c =>
-                                                (c.Block == intersectCells[0].Block && c.Row == intersectCells[1].Row)
-                                                || (c.Block == intersectCells[1].Block &&
-                                                    c.Row == intersectCells[0].Row))
-                                            .ToList();
-                                    }
-                                    else
-                                    {
-                                        tryRemoveCells = checkcells.Where(c =>
-                                            (c.Block == intersectCells[0].Block && c.Column == intersectCells[1].Column)
-                                            || (c.Block == intersectCells[1].Block &&
-                                                c.Column == intersectCells[0].Column)).ToList();
-
-                                    }
-
-                                    foreach (var relatedCell in allCell)
-                                    {
-                                        Debug.WriteLine("relatedCell"+relatedCell + qSudoku.GetRestString(relatedCell));
-                                    }
-
-                                    foreach (var removeCell in tryRemoveCells)
-                                    {
-                                        Debug.WriteLine(removeCell);
-                                        var rest = qSudoku.GetRest(removeCell);
-                                        if (rest.Contains(removeNumber))
-                                        {
-                                            cells.Add(
-                                                new CellInfo(removeCell.Index, rest.First(c => c != removeNumber)));
-                                        }
-                                    }
-
+                                    Debug.WriteLine("allString"+ allString);
+                                    Debug.WriteLine("pair.x" + pair.x + "  restX" + string.Join(",",restX) );
+                                    Debug.WriteLine("pair.y" + pair.y+  "  restY" + string.Join(",", restY));
+                                    cells.Add(new CellInfo(cell.Index, rests.First(c => c != IntersectValue)));
                                 }
                             }
                         }
-                    }
-                }
-            }
+               
 
+    
+                    }
+
+           
+                 
+
+                }
+
+            }
             return cells;
         }
 

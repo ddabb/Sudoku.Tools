@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Sudoku.Tools
 {
-    [AssignmentExample("030150209000360050700490603001273800000519000003684700100000008320040000409001060")]
+    [AssignmentExample("000074200200906740004520009100457928547892000002600574400705092005209403629040057")]
     public class SwordfishHandler :SolverHandlerBase
     {
         public override List<CellInfo> Assignment(QSudoku qSudoku)

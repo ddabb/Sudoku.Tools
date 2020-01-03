@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Sudoku.Tools
 {
-    [AssignmentExample("030150209000360050700490603001273800000519000003684700100000008320040000409001060")]
+    [AssignmentExample("390002804120864039048739012273000008080327145451698327032080006814976253760203081")] //出数
     public class ULSize6Type2Handler :SolverHandlerBase
     {
         public override List<CellInfo> Assignment(QSudoku qSudoku)

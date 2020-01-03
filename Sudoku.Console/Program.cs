@@ -13,12 +13,7 @@ namespace Sudoku.Console
     {
         static void Main(string[] args)
         {
-            DirectPointingHandler hander = new DirectPointingHandler();
-            QSudoku qsudoku = new QSudoku("000436517000280000006170000000061070001000000050804100000043761003610000000000394");
           
-            Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString));
-            var cells = hander.Assignment(qsudoku);
-            return;
             tryFindSudoku(10);
             return ;
             var assembly = typeof(SolverHandlerBase).Assembly;
@@ -70,7 +65,7 @@ namespace Sudoku.Console
         public static void tryFindSudoku(int count=50)
         {
             List<QSudoku> qSudokus = new List<QSudoku>();
-
+            var solveCount = 0;
             do
             {
                 QSudoku example;
@@ -117,6 +112,10 @@ namespace Sudoku.Console
                                     {
                                         tryagain = true;
                                     }
+                                    else
+                                    {
+                                        solveCount += 1;
+                                    }
                                     Debug.WriteLine("\r\n");
 
                                 }
@@ -149,6 +148,7 @@ namespace Sudoku.Console
               
 
             } while (qSudokus.Count<count);
+            Debug.WriteLine("solveCount "+ solveCount);
             Debug.WriteLine("tryFindSudoku end");
 
         }

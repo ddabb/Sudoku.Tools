@@ -1,6 +1,7 @@
 ﻿using Sudoku.Core;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
@@ -18,47 +19,65 @@ namespace Sudoku.Tools
                 {
                     //待检查的单元格
                     var checkCells = qSudoku.AllUnSetCell.Where(GetDirectionCells(direction, index)).ToList();
+                    if (direction==Direction.Block&&index==2)
+                    {
+
+                    }
 
                     if (checkCells.Count>3)
                     {
 
                         var allRests = new List<int>();
-                        foreach (var cell in cells)
+                        foreach (var cell in checkCells)
                         {
                             allRests.AddRange(qSudoku.GetRest(cell));
-                            var restValues = allRests.Distinct().ToList();
-                            if (restValues.Count>3)
+                  
+                        }
+                        var restValues = allRests.Distinct().ToList();
+                        if (restValues.Count > 3)
+                        {
+                            var values = (from a in restValues
+                                          join b in restValues on 1 equals 1
+                                          join c in restValues on 1 equals 1
+                                          where new List<int> { a, b, c }.Select(c => c).Distinct().Count() == 3 &&a<b&&b<c
+                                          select new List<int> { a, b, c }).ToList();
+                            foreach (var eachTriple in values)
                             {
-                                var values = (from a in restValues
-                                    join b in restValues on 1 equals 1
-                                    join c in restValues on 1 equals 1
-                                    where new List<int> { a, b, c }.Select(c => c).Distinct().Count() == 3
-                                    select new List<int> { a, b, c }).ToList();
-                                foreach (var eachTriple in values)
+                                Dictionary<int, List<int>> a = new Dictionary<int, List<int>>();
+                                foreach (var value in eachTriple)
                                 {
-                                    Dictionary<int,List<int>> a=new Dictionary<int, List<int>>();
-                                    foreach (var value in eachTriple)
+                                    a.Add(value, qSudoku.GetPossibleIndex(value, checkCells));
+                                }
+
+                                var allindexs = new List<int>();
+                                foreach (var kv in a)
+                                {
+                                    allindexs.AddRange(kv.Value);
+                                }
+
+                                var exceptIndexs = allindexs.Distinct().ToList();
+                                if (exceptIndexs.Count() == 3)
+                                {
+                                    foreach (var item in restValues.Where(c => !eachTriple.Contains(c)))
                                     {
-                                        a.Add(value, qSudoku.GetPossibleIndex(value, checkCells)); 
+                                        var leftIndexs = qSudoku.GetPossibleIndex(item, checkCells).Where(c => !exceptIndexs.Contains(c)).ToList();
+                                        if (leftIndexs.Count == 1)
+                                        {
+
+                                            var cellinfo = new CellInfo(leftIndexs.First(), item);
+                                            cells.Add(cellinfo);
+                                        }
+
                                     }
 
-                                    var allindexs=new List<int>();
-                                    foreach (var kv in a)
-                                    {
-                                        allindexs.AddRange(kv.Value);
-                                    }
-
-                                    var exceptIndexs = allindexs.Distinct();
-                                    if (exceptIndexs.Count()==3)
-                                    {
-                                        
-                                    }
-                             
 
                                 }
-                            }
-                        }
 
+
+                            }
+
+
+                        }
                     }
      
 
