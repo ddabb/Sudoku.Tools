@@ -24,19 +24,17 @@ namespace Sudoku.Tools
                     var checkCells = twoOrThreeRests.Where(c => GetFilter(c, direction, index)).ToList() ;
                     if (checkCells.Count() <= 2) continue;
                     {
-                        foreach (var cell1 in checkCells)
+                        var list = (from a in checkCells
+                            join b in checkCells on 1 equals 1
+                            join c in checkCells on 1 equals 1
+                            where new List<CellInfo> { a, b, c }.Select(c=>c.Index).Distinct().Count()==3
+                                    select new List<CellInfo> {a, b, c}).ToList();
+                        foreach (var item in list)
                         {
-                            foreach (var cell2 in checkCells)
-                            {
-                                foreach (var cell3 in checkCells)
-                                {
-
-                                    cells.AddRange(GetCells(qSudoku, new List<CellInfo> {cell1, cell2, cell3},
-                                        direction, index)); 
-                                }
-                            }
-           
+                            cells.AddRange(GetCells(qSudoku, item,
+                                direction, index));
                         }
+
                     }
                 }
 
@@ -49,38 +47,34 @@ namespace Sudoku.Tools
         {
             var allUnSetCell = qSudoku.AllUnSetCell;
             List<CellInfo> cells =new List<CellInfo>();
-            if (checkCellInfos.Select(c => c.Index).Distinct().Count() == 3) 
+            var exceptIndexs = checkCellInfos.Select(c => c.Index).ToList();
+            var allRest = new List<int>();
+            foreach (var checkCellInfo in checkCellInfos)
             {
-                var exceptIndexs = checkCellInfos.Select(c => c.Index).ToList();
-                var allRest = new List<int>();
-                foreach (var checkCellInfo in checkCellInfos)
-                {
-                    allRest.AddRange(qSudoku.GetRest(checkCellInfo));
-                }
+                allRest.AddRange(qSudoku.GetRest(checkCellInfo));
+            }
 
-                if (allRest.Distinct().Count() == 3 && allRest.Count >=8) 
-                {
-                    var subCheckCells = allUnSetCell
-                        .Where(c => GetFilter(c, direction, index) && !exceptIndexs.Contains(c.Index))
-                        .ToList();
+            if (allRest.Distinct().Count() == 3 && allRest.Count >= 8)
+            {
+                var subCheckCells = allUnSetCell
+                    .Where(c => GetFilter(c, direction, index) && !exceptIndexs.Contains(c.Index))
+                    .ToList();
 
-                    foreach (var subCheckCell in subCheckCells)
+                foreach (var subCheckCell in subCheckCells)
+                {
+                    var rests = qSudoku.GetRest(subCheckCell);
+                    if (rests.Intersect(allRest).Count() <= 1) continue;
+                    foreach (var value in allRest)
                     {
-                        var rests = qSudoku.GetRest(subCheckCell);
-                        if (rests.Intersect(allRest).Count() <= 1) continue;
-                        foreach (var value in allRest)
-                        {
-                            rests.Remove(value);
-                        }
+                        rests.Remove(value);
+                    }
 
-                        if (rests.Count == 1)
-                        {
-                            cells.Add(new CellInfo(subCheckCell.Index, rests[0]));
-                        }
+                    if (rests.Count == 1)
+                    {
+                        cells.Add(new CellInfo(subCheckCell.Index, rests[0]));
                     }
                 }
             }
-
             return cells;
         }
 
