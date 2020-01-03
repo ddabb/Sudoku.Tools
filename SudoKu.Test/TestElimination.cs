@@ -15,16 +15,16 @@ namespace SudoKu.Test
         public void TestForcingChainHandler()
         {
             ForcingChainHandler hander = new ForcingChainHandler();
-            QSudoku qsudu = new QSudoku("716000289298176543534928761000490108080607904945812376403089612809201437020000895");
-            Debug.WriteLine(new DanceLink().do_solve(qsudu.QueryString));
-            var cells = hander.Assignment(qsudu);
+            QSudoku qsudoku = new QSudoku("716000289298176543534928761000490108080607904945812376403089612809201437020000895");
+            Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString));
+            var cells = hander.Assignment(qsudoku);
             foreach (var item in cells)
             {
                 Debug.WriteLine("" + item);
             }
-            qsudu = qsudu.ApplyCells(cells);
-            Debug.WriteLine(qsudu.QueryString);
-            Assert.AreEqual(true, new DanceLink().isValid(qsudu.QueryString));
+            qsudoku = qsudoku.ApplyCells(cells);
+            Debug.WriteLine(qsudoku.QueryString);
+            Assert.AreEqual(true, new DanceLink().isValid(qsudoku.QueryString));
         }
 
     }
