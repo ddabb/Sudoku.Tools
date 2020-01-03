@@ -20,7 +20,7 @@ namespace Sudoku.Tools
                 foreach (var index in baseIndexs)
                 {
                     var specialRowOrColumn = checkcells.Where(c => GetFilter(c, direction, index)).ToList(); //特定行或列
-                    foreach (var specialValue in QSudoku.baseFillList)
+                    foreach (var specialValue in QSudoku.AllBaseValues)
                     {
                         var list = specialRowOrColumn.Where(c => qSudoku.GetRest(c.Index).Contains(specialValue))
                             .ToList();

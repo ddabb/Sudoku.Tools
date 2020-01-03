@@ -53,7 +53,7 @@ namespace Sudoku.Tools
         public List<CellInfo> GetNakedSingleCell(QSudoku qSudoku, int speacilValue, List<CellInfo> PositiveCellsInColumn)
         {
             List<CellInfo> cells = new List<CellInfo>();
-            var indexs = GetPossibleIndex(qSudoku, speacilValue, c => PositiveCellsInColumn.Select(x => x.Index).Contains(c.Index));
+            var indexs = qSudoku.GetPossibleIndex(speacilValue, c => PositiveCellsInColumn.Select(x => x.Index).Contains(c.Index));
             if (indexs.Count() == 1)
             {
                 cells.Add(new CellInfo(indexs.First(), speacilValue));
@@ -84,7 +84,7 @@ namespace Sudoku.Tools
             allrest = allrest.Distinct().ToList();
             foreach (var speacialValue in allrest)
             {
-                var leftIndexs = GetPossibleIndex(qSudoku, speacialValue, directionwhere);
+                var leftIndexs = qSudoku.GetPossibleIndex( speacialValue, directionwhere);
                 var leftIndexs1 = leftIndexs.Except(exceptIndex);
                 if (leftIndexs.Count > 1 && leftIndexs1.Count() == 1)
                 {
@@ -106,7 +106,7 @@ namespace Sudoku.Tools
             List<CellInfo> cells = new List<CellInfo>();
             var rests = qSudoku.GetFilterCell(predicate);
 
-            foreach (var spricevalue in QSudoku.baseFillList)
+            foreach (var spricevalue in QSudoku.AllBaseValues)
             {
                 if (rests.Count(c=>qSudoku.GetRest(c.Index).Contains(spricevalue))==1)
                 {
@@ -124,7 +124,24 @@ namespace Sudoku.Tools
 
 
 
-
+        public Func<CellInfo, int> Selector(Direction direction)
+        {
+            switch (direction)
+            {
+                case Direction.Row:
+                    return c => c.Row;
+                    break;
+                case Direction.Column:
+                    return c => c.Column;
+                    break;
+                case Direction.Block:
+                    return c => c.Block;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
+            }
+      
+        }
         public bool GetFilter(CellInfo cell, Direction direction, int index)
         {
 

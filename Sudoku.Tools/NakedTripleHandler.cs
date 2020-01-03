@@ -12,41 +12,75 @@ namespace Sudoku.Tools
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
-            var checkCells = qSudoku.GetFilterCell(c => c.Value == 0 && qSudoku.GetRest(c).Count == 3);
+            var allUnSetCell = qSudoku.AllUnSetCell;
+            List<int> possibleCount=new List<int>{2,3};
+            //只有2或3个候选数的单元格
+            var twoOrThreeRests = allUnSetCell.Where(c=>possibleCount.Contains(qSudoku.GetRest(c).Count)).ToList();
             foreach (var direction in allDirection)
             {
                 foreach (var index in baseIndexs)
                 {
-                    var subcells = qSudoku.AllUnSetCell.Where(c => GetFilter(c, direction, index)).ToList();
-                    if (subcells.Count > 3)
+                    //待检查的单元格
+                    var checkCells = twoOrThreeRests.Where(c => GetFilter(c, direction, index)).ToList() ;
+                    if (checkCells.Count() <= 2) continue;
                     {
-                        var temp = checkCells.Where(c => GetFilter(c, direction, index)).GroupBy(c => qSudoku.GetRestString(c)).Where(c => c.Count() == 3);
-                        foreach (var sub in temp)
+                        foreach (var cell1 in checkCells)
                         {
-                            var removeCells = subcells.Where(c => qSudoku.GetRestString(c) != sub.Key);
-                            var removeValues = ConvertToInts(sub.Key);
-                            foreach (var cell in removeCells)
+                            foreach (var cell2 in checkCells)
                             {
-                                var rests = qSudoku.GetRest(cell);
-                                if (rests.Count > 1 && rests.Intersect(removeValues).Count() > 0)
+                                foreach (var cell3 in checkCells)
                                 {
-                                    foreach (var value in removeValues)
-                                    {
-                                        rests.Remove(value);
-                                    }
-                                    if (rests.Count == 1)
-                                    {
-                                        cells.Add(new CellInfo(cell.Index, rests[0]));
-                                    }
+
+                                    cells.AddRange(GetCells(qSudoku, new List<CellInfo> {cell1, cell2, cell3},
+                                        direction, index)); 
                                 }
                             }
-
+           
                         }
                     }
-
                 }
 
             }
+            return cells;
+        }
+
+        private List<CellInfo> GetCells(QSudoku qSudoku, List<CellInfo> checkCellInfos, Direction direction, int index
+            )
+        {
+            var allUnSetCell = qSudoku.AllUnSetCell;
+            List<CellInfo> cells =new List<CellInfo>();
+            if (checkCellInfos.Select(c => c.Index).Distinct().Count() == 3) 
+            {
+                var exceptIndexs = checkCellInfos.Select(c => c.Index).ToList();
+                var allRest = new List<int>();
+                foreach (var checkCellInfo in checkCellInfos)
+                {
+                    allRest.AddRange(qSudoku.GetRest(checkCellInfo));
+                }
+
+                if (allRest.Distinct().Count() == 3 && allRest.Count >=8) 
+                {
+                    var subCheckCells = allUnSetCell
+                        .Where(c => GetFilter(c, direction, index) && !exceptIndexs.Contains(c.Index))
+                        .ToList();
+
+                    foreach (var subCheckCell in subCheckCells)
+                    {
+                        var rests = qSudoku.GetRest(subCheckCell);
+                        if (rests.Intersect(allRest).Count() <= 1) continue;
+                        foreach (var value in allRest)
+                        {
+                            rests.Remove(value);
+                        }
+
+                        if (rests.Count == 1)
+                        {
+                            cells.Add(new CellInfo(subCheckCell.Index, rests[0]));
+                        }
+                    }
+                }
+            }
+
             return cells;
         }
 

@@ -13,6 +13,12 @@ namespace Sudoku.Console
     {
         static void Main(string[] args)
         {
+            DirectPointingHandler hander = new DirectPointingHandler();
+            QSudoku qsudoku = new QSudoku("000436517000280000006170000000061070001000000050804100000043761003610000000000394");
+          
+            Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString));
+            var cells = hander.Assignment(qsudoku);
+            return;
             tryFindSudoku(10);
             return ;
             var assembly = typeof(SolverHandlerBase).Assembly;

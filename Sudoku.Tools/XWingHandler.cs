@@ -19,7 +19,7 @@ namespace Sudoku.Tools
                 List<PossibleIndex> possibleIndexs = new List<PossibleIndex>();
                 foreach (var DireactionIndex in baseIndexs)
                 {
-                    foreach (var speacilValue in QSudoku.baseFillList)
+                    foreach (var speacilValue in QSudoku.AllBaseValues)
                     {
                         var indexs = qSudoku.GetPossibleIndex(speacilValue, c => GetFilter(c, direction, DireactionIndex) && c.Value == 0);
                         if (indexs.Count() == 2)
@@ -36,7 +36,7 @@ namespace Sudoku.Tools
 
                     }
                 }
-                foreach (var item in QSudoku.baseFillList)
+                foreach (var item in QSudoku.AllBaseValues)
                 {
                     var signleRowOrColumnIndexs = possibleIndexs.Where(c => c.SpeacialValue == item);
 

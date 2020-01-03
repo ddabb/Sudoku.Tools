@@ -20,10 +20,10 @@ namespace Sudoku.Tools
                 List<PossibleIndex> possbleIndexs = new List<PossibleIndex>();
                 foreach (var index in baseIndexs)
                 {
-                    foreach (var speacilValue in QSudoku.baseFillList)
+                    foreach (var speacilValue in QSudoku.AllBaseValues)
                     {
                         Func<CellInfo, bool> rowCondition = c => GetFilter(c, direaction, index) && c.Value == 0;
-                        var indexs = GetPossibleIndex(qSudoku, speacilValue, rowCondition);
+                        var indexs = qSudoku.GetPossibleIndex( speacilValue, rowCondition);
                         if (indexs.Count == indexscount)
                         {
                             possbleIndexs.Add(new PossibleIndex { IndexsString = string.Join(",", indexs), direactionIndex = index, SpeacialValue = speacilValue });
