@@ -99,27 +99,7 @@ namespace Sudoku.Tools
         }
 
 
-        /// <summary>
-        /// 返回候选数在过滤条件下筛选出来的可能存在的坐标位置。
-        /// </summary>
-        /// <param name="qSudoku">数独原题</param>
-        /// <param name="speacialValue">候选数</param>
-        /// <param name="whereCondition">过滤条件</param>
-        /// <returns></returns>
-        public List<int> GetPossibleIndex(QSudoku qSudoku, int speacialValue, Func<CellInfo, bool> whereCondition)
-        {
-            List<int> indexs = new List<int>();
 
-            var cell = qSudoku.GetFilterCell(whereCondition).OrderBy(c => c.Index);
-            foreach (var item in cell)
-            {
-                if (qSudoku.GetRest(item.Index).Contains(speacialValue))
-                {
-                    indexs.Add(item.Index);
-                }
-            }
-            return indexs;
-        }
         public static readonly List<Direction> allDirection = new List<Direction> { Direction.Row, Direction.Column, Direction.Block };
         public List<CellInfo> GetHiddenSingleCellInfo(QSudoku qSudoku, Func<CellInfo, bool> predicate)
         {

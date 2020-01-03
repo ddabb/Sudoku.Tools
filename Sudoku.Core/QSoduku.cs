@@ -53,18 +53,42 @@ namespace Sudoku.Core
         /// <summary>
         /// 获取出现了重复times的坐标。
         /// </summary>
-        /// <param name="predicate">刷选条件</param>
+        /// <param name="indexCondition">位置的过滤提哦啊金</param>
         /// <param name="times"></param>
         /// <returns></returns>
-        public List<int> PossibleIndex(Func<CellInfo, bool> predicate, int speacilValue, int times)
+        public List<int> PossibleIndex(Func<CellInfo, bool> indexCondition, int speacilValue, int times)
         {
             List<CellInfo> cells = new List<CellInfo>();
-
-            return cells.Select(c => c.Index).ToList();
+            var list = GetPossibleIndex(speacilValue, indexCondition);
+            if (list.Count== times)
+            {
+                return cells.Select(c => c.Index).ToList();  
+            }
+            return new List<int>();
 
         }
 
+        /// <summary>
+        /// 返回候选数在过滤条件下筛选出来的可能存在的坐标位置。
+        /// </summary>
+        /// <param name="qSudoku">数独原题</param>
+        /// <param name="speacialValue">候选数</param>
+        /// <param name="whereCondition">过滤条件</param>
+        /// <returns></returns>
+        public List<int> GetPossibleIndex( int speacialValue, Func<CellInfo, bool> whereCondition)
+        {
+            List<int> indexs = new List<int>();
 
+            var cell = this.GetFilterCell(whereCondition).OrderBy(c => c.Index);
+            foreach (var item in cell)
+            {
+                if (this.GetRest(item.Index).Contains(speacialValue))
+                {
+                    indexs.Add(item.Index);
+                }
+            }
+            return indexs;
+        }
         /// <summary>
         /// 获取出现了重复times的坐标。
         /// </summary>

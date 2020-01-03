@@ -1,24 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Sudoku.Tools\\Sudoku.Console\\Sudoku.Console.csproj": {}
+    "E:\\Sudoku.Tools\\Sudoku.Console\\Sudoku.Console.csproj": {}
   },
   "projects": {
-    "D:\\Sudoku.Tools\\Sudoku.Console\\Sudoku.Console.csproj": {
+    "E:\\Sudoku.Tools\\Sudoku.Console\\Sudoku.Console.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Sudoku.Tools\\Sudoku.Console\\Sudoku.Console.csproj",
+        "projectUniqueName": "E:\\Sudoku.Tools\\Sudoku.Console\\Sudoku.Console.csproj",
         "projectName": "Sudoku.Console",
-        "projectPath": "D:\\Sudoku.Tools\\Sudoku.Console\\Sudoku.Console.csproj",
+        "projectPath": "E:\\Sudoku.Tools\\Sudoku.Console\\Sudoku.Console.csproj",
         "packagesPath": "C:\\Users\\stoneliu\\.nuget\\packages\\",
-        "outputPath": "D:\\Sudoku.Tools\\Sudoku.Console\\obj\\",
+        "outputPath": "E:\\Sudoku.Tools\\Sudoku.Console\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
+          "E:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
           "C:\\Users\\stoneliu\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.1"
@@ -30,8 +32,8 @@
         "frameworks": {
           "netcoreapp2.1": {
             "projectReferences": {
-              "D:\\Sudoku.Tools\\Sudoku.Tools\\Sudoku.Tools.csproj": {
-                "projectPath": "D:\\Sudoku.Tools\\Sudoku.Tools\\Sudoku.Tools.csproj"
+              "E:\\Sudoku.Tools\\Sudoku.Tools\\Sudoku.Tools.csproj": {
+                "projectPath": "E:\\Sudoku.Tools\\Sudoku.Tools\\Sudoku.Tools.csproj"
               }
             }
           }
@@ -54,34 +56,43 @@
               "version": "[4.9.0, )"
             },
             "Microsoft.NETCore.App": {
+              "suppressParent": "All",
               "target": "Package",
               "version": "[2.1.0, )",
               "autoReferenced": true
             }
           },
           "imports": [
-            "net461"
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
           ],
           "assetTargetFallback": true,
-          "warn": true
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Sudoku.Tools\\Sudoku.Core\\Sudoku.Core.csproj": {
+    "E:\\Sudoku.Tools\\Sudoku.Core\\Sudoku.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Sudoku.Tools\\Sudoku.Core\\Sudoku.Core.csproj",
+        "projectUniqueName": "E:\\Sudoku.Tools\\Sudoku.Core\\Sudoku.Core.csproj",
         "projectName": "Sudoku.Core",
-        "projectPath": "D:\\Sudoku.Tools\\Sudoku.Core\\Sudoku.Core.csproj",
+        "projectPath": "E:\\Sudoku.Tools\\Sudoku.Core\\Sudoku.Core.csproj",
         "packagesPath": "C:\\Users\\stoneliu\\.nuget\\packages\\",
-        "outputPath": "D:\\Sudoku.Tools\\Sudoku.Core\\obj\\",
+        "outputPath": "E:\\Sudoku.Tools\\Sudoku.Core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
+          "E:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
           "C:\\Users\\stoneliu\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.1"
@@ -116,28 +127,36 @@
             }
           },
           "imports": [
-            "net461"
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
           ],
           "assetTargetFallback": true,
-          "warn": true
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Sudoku.Tools\\Sudoku.Tools\\Sudoku.Tools.csproj": {
+    "E:\\Sudoku.Tools\\Sudoku.Tools\\Sudoku.Tools.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Sudoku.Tools\\Sudoku.Tools\\Sudoku.Tools.csproj",
+        "projectUniqueName": "E:\\Sudoku.Tools\\Sudoku.Tools\\Sudoku.Tools.csproj",
         "projectName": "Sudoku.Tools",
-        "projectPath": "D:\\Sudoku.Tools\\Sudoku.Tools\\Sudoku.Tools.csproj",
+        "projectPath": "E:\\Sudoku.Tools\\Sudoku.Tools\\Sudoku.Tools.csproj",
         "packagesPath": "C:\\Users\\stoneliu\\.nuget\\packages\\",
-        "outputPath": "D:\\Sudoku.Tools\\Sudoku.Tools\\obj\\",
+        "outputPath": "E:\\Sudoku.Tools\\Sudoku.Tools\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
+          "E:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
           "C:\\Users\\stoneliu\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.1"
@@ -149,8 +168,8 @@
         "frameworks": {
           "netcoreapp2.1": {
             "projectReferences": {
-              "D:\\Sudoku.Tools\\Sudoku.Core\\Sudoku.Core.csproj": {
-                "projectPath": "D:\\Sudoku.Tools\\Sudoku.Core\\Sudoku.Core.csproj"
+              "E:\\Sudoku.Tools\\Sudoku.Core\\Sudoku.Core.csproj": {
+                "projectPath": "E:\\Sudoku.Tools\\Sudoku.Core\\Sudoku.Core.csproj"
               }
             }
           }
@@ -172,10 +191,16 @@
             }
           },
           "imports": [
-            "net461"
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
           ],
           "assetTargetFallback": true,
-          "warn": true
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

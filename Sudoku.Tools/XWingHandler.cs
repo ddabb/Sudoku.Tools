@@ -21,13 +21,15 @@ namespace Sudoku.Tools
                 {
                     foreach (var speacilValue in QSudoku.baseFillList)
                     {
-                        var indexs = GetPossibleIndex(qSudoku, speacilValue, c => GetFilter(c, direction, DireactionIndex) && c.Value == 0);
+                        var indexs = qSudoku.GetPossibleIndex(speacilValue, c => GetFilter(c, direction, DireactionIndex) && c.Value == 0);
                         if (indexs.Count() == 2)
                         {
-                            PossibleIndex index = new PossibleIndex();
-                            index.direactionIndex = DireactionIndex;
-                            index.direction = direction;
-                            index.SpeacialValue = speacilValue;
+                            PossibleIndex index = new PossibleIndex
+                            {
+                                direactionIndex = DireactionIndex,
+                                direction = direction,
+                                SpeacialValue = speacilValue
+                            };
                             index.SetIndexs(indexs);
                             possibleIndexs.Add(index);
                         }
