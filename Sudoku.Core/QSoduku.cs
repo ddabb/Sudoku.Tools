@@ -89,6 +89,23 @@ namespace Sudoku.Core
             }
             return indexs;
         }
+
+        public List<int> GetPossibleIndex(int speacialValue, List<CellInfo> cellInfos)
+        {
+            List<int> indexs = new List<int>();
+
+            var cell = cellInfos.OrderBy(c => c.Index);
+            foreach (var item in cell)
+            {
+                if (this.GetRest(item.Index).Contains(speacialValue))
+                {
+                    indexs.Add(item.Index);
+                }
+            }
+            return indexs;
+        }
+
+
         /// <summary>
         /// 获取出现了重复times的坐标。
         /// </summary>

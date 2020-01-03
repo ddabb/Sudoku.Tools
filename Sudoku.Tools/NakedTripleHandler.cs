@@ -21,7 +21,7 @@ namespace Sudoku.Tools
                 foreach (var index in baseIndexs)
                 {
                     //待检查的单元格
-                    var checkCells = twoOrThreeRests.Where(c => GetFilter(c, direction, index)).ToList() ;
+                    var checkCells = twoOrThreeRests.Where(GetDirectionCells(direction, index)).ToList() ;
                     if (checkCells.Count() <= 2) continue;
                     {
                         var list = (from a in checkCells
@@ -41,6 +41,8 @@ namespace Sudoku.Tools
             }
             return cells;
         }
+
+
 
         private List<CellInfo> GetCells(QSudoku qSudoku, List<CellInfo> checkCellInfos, Direction direction, int index
             )

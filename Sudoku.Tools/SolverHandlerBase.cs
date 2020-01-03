@@ -142,6 +142,11 @@ namespace Sudoku.Tools
             }
       
         }
+
+        public Func<CellInfo, bool> GetDirectionCells(Direction direction, int index)
+        {
+            return c => GetFilter(c, direction, index);
+        }
         public bool GetFilter(CellInfo cell, Direction direction, int index)
         {
 
