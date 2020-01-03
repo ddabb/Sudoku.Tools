@@ -50,7 +50,34 @@ namespace Sudoku.Core
             Init();
            
         }
+        /// <summary>
+        /// 获取出现了重复times的坐标。
+        /// </summary>
+        /// <param name="predicate">刷选条件</param>
+        /// <param name="times"></param>
+        /// <returns></returns>
+        public List<int> PossibleIndex(Func<CellInfo, bool> predicate, int speacilValue, int times)
+        {
+            List<CellInfo> cells = new List<CellInfo>();
 
+            return cells.Select(c => c.Index).ToList();
+
+        }
+
+
+        /// <summary>
+        /// 获取出现了重复times的坐标。
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <param name="times"></param>
+        /// <returns></returns>
+        public List<int> PossibleIndex(Func<CellInfo, bool> predicate, int times)
+        {
+            List<CellInfo> cells = new List<CellInfo>();
+
+            return cells.Select(c => c.Index).ToList();
+
+        }
         /// <summary>
         /// 记录ID，如果ID相同，表示最终解一致。
         /// </summary>

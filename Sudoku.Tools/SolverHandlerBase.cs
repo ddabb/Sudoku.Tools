@@ -141,6 +141,10 @@ namespace Sudoku.Tools
    
             return cells;
         }
+
+
+
+
         public bool GetFilter(CellInfo cell, Direction direction, int index)
         {
 
