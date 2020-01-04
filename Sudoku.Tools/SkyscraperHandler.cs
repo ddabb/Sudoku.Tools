@@ -57,27 +57,7 @@ namespace Sudoku.Tools
             return cells;
         }
 
-        public bool IsSameRowOrSameColumn(int index1,int index2)
-        {
-            if (new CellInfo(index1,0).Column== new CellInfo(index2, 0).Column)
-            {
-                return true;
-            }
-            if (new CellInfo(index1, 0).Row == new CellInfo(index2, 0).Row)
-            {
-                return true;
-            }
-            return false;
-        }
 
-        public bool IsSameBlock(int index1, int index2)
-        {
-            if (new CellInfo(index1, 0).Block == new CellInfo(index2, 0).Block)
-            {
-                return true;
-            }
-            return false;
-        }
 
         public override List<NegativeCellInfo> Elimination(QSudoku qSudoku)
         {

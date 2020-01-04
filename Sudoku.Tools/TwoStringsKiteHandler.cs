@@ -17,24 +17,54 @@ namespace Sudoku.Tools
         {
             List<CellInfo> cells = new List<CellInfo>();
             var allunsetCell = qSudoku.AllUnSetCell;
+            var possileIndex = GetAllAorBInRowOrColumnIndex(qSudoku, 2);
 
-            foreach (var direction in allDirection)
+            var pairs = (from chaina in possileIndex
+                         join chainb in possileIndex on chaina.SpeacialValue equals chainb.SpeacialValue
+                         where chaina.direction!=chainb.direction
+                         select new { chaina , chainb }
+                         ).ToList();
+            foreach (var item in pairs)
             {
-                foreach (var directionIndex in G.baseIndexs)
+                var rest = item.chaina.SpeacialValue;
+                var allIndex = new List<int> { item.chaina.indexs[0], item.chaina.indexs[1], item.chainb.indexs[0], item.chainb.indexs[1] };
+                var Blocks = allIndex.Select(c => new CellInfo(c, 0)).Select(c => c.Block);
+                if (allIndex.Distinct().Count()==4&& Blocks.Distinct().Count() == 3)
                 {
-                    //待检查的单元格
-                    var checkDirectionCells = qSudoku.AllUnSetCell.Where(GetDirectionCells(direction, directionIndex)).ToList();
-
-                    var temp = (from value in G.AllBaseValues
-                                where qSudoku.GetPossibleIndex(value, checkDirectionCells).Count == 2
-                                select new {direction,directionIndex,value }
-                                ).ToList();
-                    if(temp.Count>0)
+                    Dictionary<int, int> blockCount = new Dictionary<int, int>();
+                    foreach (var index in allIndex)
                     {
-
+                        var eachBlock = new CellInfo(index, 0).Block;
+                        if (blockCount.ContainsKey(eachBlock))
+                        {
+                            blockCount[eachBlock] += 1;
+                        }
+                        else
+                        {
+                            blockCount.Add(eachBlock, 1);
+                        }
                     }
 
-                } }
+                   var intersectIndex= allIndex.Where(c => blockCount[new CellInfo(c, 0).Block] != 2).ToList();
+                    var restCells = GetIntersectCells(allunsetCell, intersectIndex[0], intersectIndex[1]);
+                    foreach (var cell in restCells)
+                    {
+                        var rests = qSudoku.GetRest(cell);
+                        if (rests.Count == 2 && rests.Contains(rest))
+                        {
+                            cells.Add(new CellInfo(cell.Index, rests.First(c => c != rest)));
+                        }
+                    }
+
+
+
+
+
+                }   
+            }
+
+
+
 
             return cells;
         }

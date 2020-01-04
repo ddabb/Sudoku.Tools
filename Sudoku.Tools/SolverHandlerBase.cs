@@ -82,7 +82,64 @@ namespace Sudoku.Tools
 
         }
 
+        public bool IsSameRowOrSameColumn(int index1, int index2)
+        {
+            return IsSameRow(index1,index2) || IsSameColumn(index1, index2);
+        }
 
+        public bool IsSameBlock(int index1, int index2)
+        {
+            if (new CellInfo(index1, 0).Block == new CellInfo(index2, 0).Block)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool IsSameRow(int index1, int index2)
+        {
+            if (new CellInfo(index1, 0).Row == new CellInfo(index2, 0).Row)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool IsSameColumn(int index1, int index2)
+        {
+            if (new CellInfo(index1, 0).Column == new CellInfo(index2, 0).Column)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool IsSameRow(CellInfo index1, CellInfo index2)
+        {
+            if (index1.Row == index2.Row)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool IsSameColumn(CellInfo index1, CellInfo index2)
+        {
+            if (index1.Column == index2.Column)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool IsSameBlock(CellInfo index1, CellInfo index2)
+        {
+            if (index1.Block == index2.Block)
+            {
+                return true;
+            }
+            return false;
+        }
 
         /// <summary>
         /// 获取所有不在A位置就在B位置的候选数

@@ -13,53 +13,68 @@ namespace Sudoku.Console
     {
         static void Main(string[] args)
         {
-
-            tryFindSudoku(10);
-            return ;
-            var assembly = typeof(SolverHandlerBase).Assembly;
-            var types = assembly.GetTypes().Where(t => typeof(ISudokuSolveHelper).IsAssignableFrom(t) && t.IsAbstract == false);
-            var notimplemented = 0;
-            foreach (var type in types)
+            var runtest = true;
+            //runtest = false;
+            if (runtest)
             {
-                object[] objs = type.GetCustomAttributes(typeof(AssignmentExampleAttribute), true);
-                if (objs.Count() == 1)
+                TwoStringsKiteHandler hander = new TwoStringsKiteHandler();
+                QSudoku qsudoku = new QSudoku("081020600042060089056800240693142758428357916175689324510036892230008460860200000");
+  
+                Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString));
+                var cells = hander.Assignment(qsudoku);
+            }
+            else
+            {
+                tryFindSudoku(10);
+                return;
+
+                var assembly = typeof(SolverHandlerBase).Assembly;
+                var types = assembly.GetTypes().Where(t => typeof(ISudokuSolveHelper).IsAssignableFrom(t) && t.IsAbstract == false);
+                var notimplemented = 0;
+                foreach (var type in types)
                 {
-                    if (objs[0] is AssignmentExampleAttribute a)
+                    object[] objs = type.GetCustomAttributes(typeof(AssignmentExampleAttribute), true);
+                    if (objs.Count() == 1)
                     {
-                        try
+                        if (objs[0] is AssignmentExampleAttribute a)
                         {
-                            var cellinfo =
-                                ((ISudokuSolveHelper)Activator.CreateInstance(type, true)).Assignment(
-                                    new QSudoku(a.queryString));
-                            Debug.WriteLine("解题方法：  " + type.ToString());
-                            Debug.WriteLine("测试用例  " + a.queryString);
-                            foreach (var item in cellinfo)
+                            try
                             {
-                                Debug.WriteLine("   " + item);
+                                var cellinfo =
+                                    ((ISudokuSolveHelper)Activator.CreateInstance(type, true)).Assignment(
+                                        new QSudoku(a.queryString));
+                                Debug.WriteLine("解题方法：  " + type.ToString());
+                                Debug.WriteLine("测试用例  " + a.queryString);
+                                foreach (var item in cellinfo)
+                                {
+                                    Debug.WriteLine("   " + item);
+                                }
                             }
-                        }
-                        catch (Exception ex)
-                        {
-                            if (ex.Message.Contains("is not implemented"))
+                            catch (Exception ex)
                             {
-                                notimplemented += 1;
+                                if (ex.Message.Contains("is not implemented"))
+                                {
+                                    notimplemented += 1;
+                                }
+
+                                Debug.WriteLine(type + "   " + ex.Message);
+
+
                             }
 
-                            Debug.WriteLine(type + "   " + ex.Message);
-
-
                         }
-
                     }
+
+
                 }
 
+                Debug.WriteLine(" 未实现方法个数为：  " + notimplemented);
 
+                return;
             }
 
-            Debug.WriteLine(" 未实现方法个数为：  " + notimplemented);
 
 
-            return;
         }
 
         public static void tryFindSudoku(int count=50)
