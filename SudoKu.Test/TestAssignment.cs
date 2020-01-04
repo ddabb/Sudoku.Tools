@@ -421,6 +421,29 @@ namespace SudoKu.Test
 
 
 
+        [TestMethod]
+        public void TestTurbotFishNormalHandler1()
+        {
+            TurbotFishNormalHandler hander = new TurbotFishNormalHandler();
+            QSudoku qsudoku = new QSudoku("700002600000000900090615074009100703400020859073059100040000500927500400600001097");
+            Assert.AreEqual(true, new DanceLink().isValid(qsudoku.QueryString));
+            Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString));
+            var cells = hander.Assignment(qsudoku);
+            Assert.AreEqual(true, cells.Exists(c => c.Value == 2));
+
+            foreach (var item in cells)
+            {
+                Debug.WriteLine("" + item);
+            }
+            qsudoku = qsudoku.ApplyCells(cells);
+            Debug.WriteLine(qsudoku.QueryString);
+            Assert.AreEqual(true, new DanceLink().isValid(qsudoku.QueryString));
+        }
+
+
+
+
+
 
 
     }

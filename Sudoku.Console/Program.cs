@@ -14,7 +14,7 @@ namespace Sudoku.Console
         static void Main(string[] args)
         {
             var runtest = true;
-            //runtest = false;
+            runtest = false;
             if (runtest)
             {
                 TwoStringsKiteHandler hander = new TwoStringsKiteHandler();
@@ -81,6 +81,7 @@ namespace Sudoku.Console
         {
             List<QSudoku> qSudokus = new List<QSudoku>();
             var solveCount = 0;
+            List<Type> types1 = new List<Type>();
             do
             {
                 QSudoku example;
@@ -100,7 +101,7 @@ namespace Sudoku.Console
                 var assembly = typeof(SolverHandlerBase).Assembly;
                 var types = assembly.GetTypes().Where(t => typeof(ISudokuSolveHelper).IsAssignableFrom(t) && t.IsAbstract == false);
                 var tryagain = false;
-                List<Type> types1 = new List<Type>();
+
                 do
                 {
                     tryagain = false;
