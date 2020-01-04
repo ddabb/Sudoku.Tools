@@ -13,7 +13,7 @@ namespace Sudoku.Console
     {
         static void Main(string[] args)
         {
-          
+
             tryFindSudoku(10);
             return ;
             var assembly = typeof(SolverHandlerBase).Assembly;
@@ -103,7 +103,7 @@ namespace Sudoku.Console
                                 if (cellinfos.Count != 0)
                                 {
                                     Debug.WriteLine("type" + type);
-                                    Debug.WriteLine("cellinfo" + string.Join("\r\n", cellinfos));
+                                    Debug.WriteLine("cellinfo" + cellinfos.JoinString());
                                     Debug.WriteLine("example before" + example.QueryString + "isvalid"+new DanceLink().isValid(example.QueryString));
 
                                     example = example.ApplyCells(cellinfos);

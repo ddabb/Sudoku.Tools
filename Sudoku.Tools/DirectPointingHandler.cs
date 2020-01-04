@@ -18,7 +18,7 @@ namespace Sudoku.Tools
 
             foreach (var blockindex in blocks)
             {
-                foreach (var value in QSudoku.AllBaseValues)
+                foreach (var value in G.AllBaseValues)
                 {
                     foreach (var direction in allDirection.Where(c=>c!= Direction.Block))
                     {

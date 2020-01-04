@@ -18,7 +18,7 @@ namespace Sudoku.Tools
             var twoOrThreeRests = allUnSetCell.Where(c=>possibleCount.Contains(qSudoku.GetRest(c).Count)).ToList();
             foreach (var direction in allDirection)
             {
-                foreach (var index in baseIndexs)
+                foreach (var index in G.baseIndexs)
                 {
                     //待检查的单元格
                     var checkCells = twoOrThreeRests.Where(GetDirectionCells(direction, index)).ToList() ;

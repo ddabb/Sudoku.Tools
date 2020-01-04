@@ -290,12 +290,12 @@ namespace SudoKu.Test
         public void TestSkyscraperHandler()
         {
             SkyscraperHandler hander = new SkyscraperHandler();
-            QSudoku qsudoku = new QSudoku("072000498040702365600408712260900184093000627010020953020000839706000241080240576");
+            QSudoku qsudoku = new QSudoku("805630070003705800027081305236894157481257030579163284702300000304000700198076023");
             Assert.AreEqual(true, new DanceLink().isValid(qsudoku.QueryString));
             Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString));
             var cells = hander.Assignment(qsudoku);
-            Assert.AreEqual(true, cells.Exists(c => c.Value == 4));
-            Assert.AreEqual(true, cells.Exists(c => c.Index == 8));
+            Assert.AreEqual(true, cells.Exists(c => c.Value == 9));
+            Assert.AreEqual(true, cells.Exists(c => c.Index == 6));
             foreach (var item in cells)
             {
                 Debug.WriteLine("" + item);

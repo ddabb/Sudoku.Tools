@@ -15,14 +15,10 @@ namespace Sudoku.Tools
             List<CellInfo> cells = new List<CellInfo>();
             foreach (var direction in allDirection)
             {
-                foreach (var index in baseIndexs)
+                foreach (var index in G.baseIndexs)
                 {
                     //待检查的单元格
                     var checkCells = qSudoku.AllUnSetCell.Where(GetDirectionCells(direction, index)).ToList();
-                    if (direction==Direction.Block&&index==2)
-                    {
-
-                    }
 
                     if (checkCells.Count>3)
                     {

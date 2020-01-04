@@ -18,19 +18,19 @@ namespace Sudoku.Tools
             foreach (var direaction in allDirection)
             {
                 List<PossibleIndex> possbleIndexs = new List<PossibleIndex>();
-                foreach (var index in baseIndexs)
+                foreach (var index in G.baseIndexs)
                 {
-                    foreach (var speacilValue in QSudoku.AllBaseValues)
+                    foreach (var speacilValue in G.AllBaseValues)
                     {
                         Func<CellInfo, bool> rowCondition = c => GetFilter(c, direaction, index) && c.Value == 0;
                         var indexs = qSudoku.GetPossibleIndex( speacilValue, rowCondition);
                         if (indexs.Count == indexscount)
                         {
-                            possbleIndexs.Add(new PossibleIndex { IndexsString = string.Join(",", indexs), direactionIndex = index, SpeacialValue = speacilValue });
+                            possbleIndexs.Add(new PossibleIndex(direaction,index, speacilValue, indexs) );
                         }
                     }
                 }
-                var coupleIndexs = possbleIndexs.Where(c => c.direction == direaction).GroupBy(c => c.IndexsString).Where(c => c.Count() > 1).ToList();
+                var coupleIndexs = possbleIndexs.Where(c => c.direction == direaction).GroupBy(c => c.indexs.JoinString()).Where(c => c.Count() > 1).ToList();
                 foreach (var item in coupleIndexs)
                 {
 
@@ -39,9 +39,9 @@ namespace Sudoku.Tools
                     {
 
                         //Debug.WriteLine("关联数组区块坐标：" + item.Key);
-                        var pairIndexs = possbleIndexs.Where(c => c.IndexsString == item.Key).ToList();
-                        //Debug.WriteLine("values  " + string.Join(",", pairIndexs.Select(c => c.SpeacialValue)) + "  " + GetEnumDescription(direaction) + "   locations " + item.Key + "方向索引号" + pairIndexs.First().direactionIndex);
-                        cells.AddRange(GetNakedSingleCell(qSudoku, indexs, pairIndexs.First().direactionIndex, direaction));
+                        var pairIndexs = possbleIndexs.Where(c => c.indexs.JoinString() == item.Key).ToList();
+                        //Debug.WriteLine("values  " + string.Join(",", pairIndexs.Select(c => c.SpeacialValue)) + "  " + GetEnumDescription(direaction) + "   locations " + item.Key + "方向索引号" + pairIndexs.First().directionIndex);
+                        cells.AddRange(GetNakedSingleCell(qSudoku, indexs, pairIndexs.First().directionIndex, direaction));
                     }
                 }
                 Debug.WriteLine("");

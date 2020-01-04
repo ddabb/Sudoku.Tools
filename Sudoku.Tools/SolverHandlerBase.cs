@@ -28,6 +28,26 @@ namespace Sudoku.Tools
         /// <returns></returns>
         public abstract List<NegativeCellInfo> Elimination(QSudoku qSudoku);
 
+
+        /// <summary>
+        /// 获取两个单元格的共同影响区域
+        /// </summary>
+        /// <param name="cells"></param>
+        /// <param name="cell1"></param>
+        /// <param name="cell2"></param>
+        /// <returns></returns>
+        public List<CellInfo> GetIntersectCells(List<CellInfo> cells, int index1,int index2)
+        {
+            return GetIntersectCells(cells, new CellInfo(index1, 0), new CellInfo(index2, 0));
+        }
+
+        /// <summary>
+        /// 获取两个单元格的共同影响区域
+        /// </summary>
+        /// <param name="cells"></param>
+        /// <param name="cell1"></param>
+        /// <param name="cell2"></param>
+        /// <returns></returns>
         public List<CellInfo> GetIntersectCells(List<CellInfo> cells, CellInfo cell1, CellInfo cell2)
         {
             return cells.Where(c => (c.Row == cell1.Row && c.Block == cell2.Block
@@ -37,10 +57,12 @@ namespace Sudoku.Tools
                                  || (c.Column == cell2.Column && c.Block == cell1.Block) //column block
 
                                  || (c.Column == cell1.Column && c.Row == cell2.Row)
-                                 || (c.Column == cell2.Column && c.Row == cell1.Row)           
+                                 || (c.Column == cell2.Column && c.Row == cell1.Row)    //column row         
             ) && c.Index != cell1.Index && c.Index != cell2.Index
             ).ToList();
         }
+
+
 
         public static string GetEnumDescription(Enum enumSubitem)
         {
@@ -60,10 +82,41 @@ namespace Sudoku.Tools
 
         }
 
+
+
         /// <summary>
-        /// 0到8，坐标从0开始，到8结束，每个方向都一致。
+        /// 获取所有不在A位置就在B位置的候选数
         /// </summary>
-        public static readonly List<int> baseIndexs = new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+        /// <param name="qSudoku"></param>
+        /// <param name="times"></param>
+        /// <returns></returns>
+        public List<PossibleIndex> GetAllAorBInRowOrColumnIndex(QSudoku qSudoku, int times)
+        {
+            List<PossibleIndex> allPossibleindex = new List<PossibleIndex>();
+
+            foreach (var direction in allDirection.Where(c=>c!=Direction.Block))
+            {
+                foreach (var directionIndex in G.baseIndexs)
+                {
+                    //待检查的单元格
+                    var checkDirectionCells = qSudoku.AllUnSetCell.Where(GetDirectionCells(direction, directionIndex)).ToList();
+
+                    var temp = (from value in G.AllBaseValues
+                                where qSudoku.GetPossibleIndex(value, checkDirectionCells).Count == times
+                                select new { direction, directionIndex, value }
+                                ).ToList();
+                    foreach (var item in temp)
+                    {
+                        allPossibleindex.Add(new PossibleIndex(direction, directionIndex, item.value, qSudoku.GetPossibleIndex(item.value, checkDirectionCells)));
+
+                    }
+
+                }
+            }
+            return allPossibleindex;
+        }
+
+
         public List<CellInfo> GetNakedSingleCell(QSudoku qSudoku, int speacilValue, List<CellInfo> PositiveCellsInColumn)
         {
             List<CellInfo> cells = new List<CellInfo>();
@@ -81,14 +134,14 @@ namespace Sudoku.Tools
         /// </summary>
         /// <param name="qSudoku"></param>
         /// <param name="exceptIndex"></param>
-        /// <param name="direactionIndex"></param>
+        /// <param name="directionIndex"></param>
         /// <param name="direction"></param>
         /// <returns></returns>
-        public List<CellInfo> GetNakedSingleCell(QSudoku qSudoku, List<int> exceptIndex, int direactionIndex, Direction direction)
+        public List<CellInfo> GetNakedSingleCell(QSudoku qSudoku, List<int> exceptIndex, int directionIndex, Direction direction)
         {
             List<CellInfo> cells = new List<CellInfo>();
-            Func<CellInfo, bool> where = c => GetFilter(c, direction, direactionIndex) && c.Value == 0 && !exceptIndex.Contains(c.Index);
-            Func<CellInfo, bool> directionwhere = c => GetFilter(c, direction, direactionIndex) && c.Value == 0;
+            Func<CellInfo, bool> where = c => GetFilter(c, direction, directionIndex) && c.Value == 0 && !exceptIndex.Contains(c.Index);
+            Func<CellInfo, bool> directionwhere = c => GetFilter(c, direction, directionIndex) && c.Value == 0;
             var cellList = qSudoku.GetFilterCell(where);
             List<int> allrest = new List<int>();
             foreach (var cell in cellList)
@@ -120,7 +173,7 @@ namespace Sudoku.Tools
             List<CellInfo> cells = new List<CellInfo>();
             var rests = qSudoku.GetFilterCell(predicate);
 
-            foreach (var spricevalue in QSudoku.AllBaseValues)
+            foreach (var spricevalue in G.AllBaseValues)
             {
                 if (rests.Count(c=>qSudoku.GetRest(c.Index).Contains(spricevalue))==1)
                 {
@@ -226,22 +279,25 @@ namespace Sudoku.Tools
     public class PossibleIndex
     {
         public Direction direction;
-        public int direactionIndex;
+        public int directionIndex;
         public int SpeacialValue;
-        public string IndexsString;
+
         public List<int> indexs;
 
-        public void SetIndexs(List<int> indexs)
+        public PossibleIndex (Direction direction,int directionIndex,int SpeacialValue, List<int> indexs)
         {
+            this.direction = direction;
+            this.directionIndex = directionIndex;
+            this.SpeacialValue = SpeacialValue;
             indexs.Sort();
             this.indexs = indexs;
-            IndexsString = string.Join(",", indexs);
+        
         }
 
               
         public override string ToString()
         {
-            return "在" + direactionIndex + "" + SolverHandlerBase.GetEnumDescription(direction) + "值" + SpeacialValue + "可能位置" + IndexsString + "direction value" + direction;
+            return "在" + directionIndex + "" + SolverHandlerBase.GetEnumDescription(direction) + "值" + SpeacialValue + "可能位置" + indexs.JoinString() + "direction value" + direction;
         }
 
 

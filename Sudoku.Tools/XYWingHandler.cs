@@ -44,9 +44,9 @@ namespace Sudoku.Tools
                                 var rests = qSudoku.GetRest(cell);
                                 if (rests.Contains(IntersectValue)&&rests.Count==2)
                                 {
-                                    Debug.WriteLine("allString"+ allString);
-                                    Debug.WriteLine("pair.x" + pair.x + "  restX" + string.Join(",",restX) );
-                                    Debug.WriteLine("pair.y" + pair.y+  "  restY" + string.Join(",", restY));
+                                    //Debug.WriteLine("allString"+ allString);
+                                    //Debug.WriteLine("pair.x" + pair.x + "  restX" + string.Join(",",restX) );
+                                    //Debug.WriteLine("pair.y" + pair.y+  "  restY" + string.Join(",", restY));
                                     cells.Add(new CellInfo(cell.Index, rests.First(c => c != IntersectValue)));
                                 }
                             }

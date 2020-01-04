@@ -13,7 +13,7 @@ namespace Sudoku.Tools
         {
             List<CellInfo> cells = new List<CellInfo>();
             var direction = Direction.Row;
-            foreach (var index in baseIndexs)
+            foreach (var index in G.baseIndexs)
             {
                 cells.AddRange(GetHiddenSingleCellInfo(qSudoku, c => GetFilter(c, direction, index)&&c.Value==0));
             }

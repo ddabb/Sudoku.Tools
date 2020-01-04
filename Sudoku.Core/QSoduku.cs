@@ -30,10 +30,7 @@ namespace Sudoku.Core
 
         };
 
-        /// <summary>
-        /// 1到9的候选数
-        /// </summary>
-        public static readonly List<int> AllBaseValues = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
 
       
 
@@ -234,7 +231,7 @@ namespace Sudoku.Core
             var cells = GetFilterCell(whereCondition);
             List<int> setCell = cells.Where(c => c.Value != 0).Select(c => c.Value).ToList();
             List<int> unsetIndexs = cells.Where(c => c.Value == 0).Select(c => c.Index).ToList();
-            List<int> unsetCell = AllBaseValues.Except(setCell).ToList();
+            List<int> unsetCell = G.AllBaseValues.Except(setCell).ToList();
             Dictionary<int, List<int>> rests = new Dictionary<int, List<int>>();
             foreach (var item in unsetIndexs)
             {
@@ -266,7 +263,7 @@ namespace Sudoku.Core
         {
             var cell = cellInfos.First(c => c.Index == cellIndex);
             var relatedCells = cellInfos.Where(c => c.Value != 0 && (c.Row == cell.Row || c.Column == cell.Column || c.Block == cell.Block));
-            var result = AllBaseValues.Except(relatedCells.Select(c => c.Value)).ToList();
+            var result = G.AllBaseValues.Except(relatedCells.Select(c => c.Value)).ToList();
             result.Sort();
             return result;
         }

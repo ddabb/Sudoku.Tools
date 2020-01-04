@@ -17,52 +17,44 @@ namespace Sudoku.Tools
             foreach (var direction in allDirection.Where(c => c != Direction.Block))
             {
                 List<PossibleIndex> possibleIndexs = new List<PossibleIndex>();
-                foreach (var DireactionIndex in baseIndexs)
+                foreach (var directionIndex in G.baseIndexs)
                 {
-                    foreach (var speacilValue in QSudoku.AllBaseValues)
+                    foreach (var speacilValue in G.AllBaseValues)
                     {
-                        var indexs = qSudoku.GetPossibleIndex(speacilValue, c => GetFilter(c, direction, DireactionIndex) && c.Value == 0);
+                        var indexs = qSudoku.GetPossibleIndex(speacilValue, c => GetFilter(c, direction, directionIndex) && c.Value == 0);
                         if (indexs.Count() == 2)
                         {
-                            PossibleIndex index = new PossibleIndex
-                            {
-                                direactionIndex = DireactionIndex,
-                                direction = direction,
-                                SpeacialValue = speacilValue
-                            };
-                            index.SetIndexs(indexs);
+                            PossibleIndex index = new PossibleIndex(direction, directionIndex, speacilValue, indexs);
+        
                             possibleIndexs.Add(index);
                         }
 
                     }
                 }
-                foreach (var item in QSudoku.AllBaseValues)
+                foreach (var item in G.AllBaseValues)
                 {
                     var signleRowOrColumnIndexs = possibleIndexs.Where(c => c.SpeacialValue == item);
 
-                    foreach (var possibleIndex1 in signleRowOrColumnIndexs)
+                    var listAll = (from a in signleRowOrColumnIndexs
+                                   join b in signleRowOrColumnIndexs on 1 equals 1
+                                   where a.indexs[0] < b.indexs[0]
+                                   select new List<CellInfo> {
+                                    new CellInfo(a.indexs[0], 0),
+                                    new CellInfo(a.indexs[1], 0),
+                                    new CellInfo(b.indexs[0], 0),
+                                    new CellInfo(b.indexs[1], 0) }).ToList();
+                    foreach (var subCells in listAll)
                     {
-                        foreach (var possibleIndex2 in signleRowOrColumnIndexs)
+                        if (subCells.Select(c => c.Block).Distinct().Count() == 4
+                   && subCells.Select(c => c.Row).Distinct().Count() == 2
+                   && subCells.Select(c => c.Column).Distinct().Count() == 2
+                   ) //4个格子位于4个宫，两行 两列
                         {
-                            if (possibleIndex1.indexs[0] < possibleIndex2.indexs[0])//只计算一遍
-                            {
-                                List<CellInfo> subCells = new List<CellInfo> {
-                                    new CellInfo(possibleIndex1.indexs[0], 0),
-                                    new CellInfo(possibleIndex1.indexs[1], 0),
-                                    new CellInfo(possibleIndex2.indexs[0], 0),
-                                    new CellInfo(possibleIndex2.indexs[1], 0) };
-                                if (subCells.Select(c => c.Block).Distinct().Count() == 4
-                                    && subCells.Select(c => c.Row).Distinct().Count() == 2
-                                    && subCells.Select(c => c.Column).Distinct().Count() == 2
-                                    ) //4个格子位于4个宫，两行 两列
-                                {
-                                    cells.AddRange(XwingWithNakeSingle(qSudoku, subCells, item));
-                                }
-
-                            }
-
+                            cells.AddRange(XwingWithNakeSingle(qSudoku, subCells, item));
                         }
                     }
+
+
                 }
 
             }

@@ -16,7 +16,7 @@ namespace Sudoku.Tools
             var checkCells = qSudoku.GetFilterCell(c => c.Value == 0 && qSudoku.GetRest(c).Count ==2);
             foreach (var direction in allDirection)
             {
-                foreach (var index in baseIndexs)
+                foreach (var index in G.baseIndexs)
                 {
                     var subcells = qSudoku.AllUnSetCell.Where(c => GetFilter(c, direction, index)).ToList();
                     if (subcells.Count>2)
