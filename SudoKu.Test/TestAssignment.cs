@@ -130,9 +130,9 @@ namespace SudoKu.Test
         }
 
         [TestMethod]
-        public void TestForcingChainHandler()
+        public void TestForcingXChainHandler()
         {
-            ForcingChainHandler hander = new ForcingChainHandler();
+            ForcingXChainHandler hander = new ForcingXChainHandler();
             QSudoku qsudoku = new QSudoku("104900853385140000070358000653714298741800536800635417007580300508403000430201085");
             Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString));
             var cells = hander.Assignment(qsudoku);
@@ -142,9 +142,30 @@ namespace SudoKu.Test
             }
             qsudoku = qsudoku.ApplyCells(cells);
             Assert.AreEqual(true, cells.Exists(c=>c.Value==7));
+            Assert.AreEqual(true, cells.Exists(c => c.Index == 5));
             Debug.WriteLine(qsudoku.QueryString);
             Assert.AreEqual(true, new DanceLink().isValid(qsudoku.QueryString));
         }
+
+
+        [TestMethod]
+        public void TestForcingXChainHandler2()
+        {
+            ForcingXChainHandler hander = new ForcingXChainHandler();
+            QSudoku qsudoku = new QSudoku("007000000800439000490071000000000906002000040008103000000002308005300000000710052");
+            Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString));
+            var cells = hander.Assignment(qsudoku);
+            foreach (var item in cells)
+            {
+                Debug.WriteLine("" + item);
+            }
+            qsudoku = qsudoku.ApplyCells(cells);
+            Assert.AreEqual(true, cells.Exists(c => c.Value == 9));
+            Assert.AreEqual(true, cells.Exists(c => c.Index == 74));
+            Debug.WriteLine(qsudoku.QueryString);
+            Assert.AreEqual(true, new DanceLink().isValid(qsudoku.QueryString));
+        }
+        
 
         [TestMethod]
         public void TestForcingChainHandler1()

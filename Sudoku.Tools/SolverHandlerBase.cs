@@ -147,7 +147,7 @@ namespace Sudoku.Tools
         /// <param name="qSudoku"></param>
         /// <param name="times"></param>
         /// <returns></returns>
-        public List<PossibleIndex> GetAllPairInRowOrColumnIndex(QSudoku qSudoku, int times)
+        public List<PossibleIndex> GetAllPossibleIndexInRowOrColumn(QSudoku qSudoku, int times)
         {
             List<PossibleIndex> allPossibleindex = new List<PossibleIndex>();
             allPossibleindex.AddRange(GetAllPossibleIndexInRow(qSudoku,times));
@@ -177,6 +177,18 @@ namespace Sudoku.Tools
         {
 
             return GetAllPossibleIndex(qSudoku, times, c => c == Direction.Column);
+        }
+
+        /// <summary>
+        /// 获取所有不在A位置就在B位置的候选数
+        /// </summary>
+        /// <param name="qSudoku"></param>
+        /// <param name="times"></param>
+        /// <returns></returns>
+        public List<PossibleIndex> GetAllPossibleIndex(QSudoku qSudoku, int times)
+        {
+
+            return GetAllPossibleIndex(qSudoku, times, c => true);
         }
 
         private List<PossibleIndex> GetAllPossibleIndex(QSudoku qSudoku, int times, Func<Direction, bool> predicate)
@@ -392,7 +404,23 @@ namespace Sudoku.Tools
         
         }
 
-              
+        /// <summary>
+        /// 如果假定某个单元格指定值为false,最后得出矛盾，则该单元格的值为真
+        /// </summary>
+        /// <param name="qSudoku"></param>
+        /// <param name="cellInfo"></param>
+        /// <param name="isSame">限定同一个排除数</param>
+        /// <returns></returns>
+        public bool IsContradiction(QSudoku qSudoku, NegativeCellInfo cellInfo,bool isSame=false)
+        {
+            List<CellInfo> reductionList = new List<CellInfo>();
+            reductionList.Add(cellInfo);
+
+            return false;
+
+        }
+
+
         public override string ToString()
         {
             return "在" + directionIndex + "" + SolverHandlerBase.GetEnumDescription(direction) + "值" + SpeacialValue + "可能位置" + indexs.JoinString() + "direction value" + direction;

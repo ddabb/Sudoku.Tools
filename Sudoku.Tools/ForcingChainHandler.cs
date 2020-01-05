@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace Sudoku.Tools
 {
@@ -12,7 +13,19 @@ namespace Sudoku.Tools
     {
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
-            throw new NotImplementedException();
+            List<CellInfo> cells = new List<CellInfo>();
+            
+            
+            var possibleIndexs= GetAllPossibleIndex(qSudoku, 2);
+            var temp = (from a in possibleIndexs
+                        join b in possibleIndexs on 1 equals 1
+                        where a.indexs.Intersect(b.indexs).Count() > 0
+                        select new { a, b }).ToList();
+
+
+
+            return cells;
+
         }
 
 

@@ -8,7 +8,7 @@ namespace Sudoku.Core
     {
         public NegativeCellInfo(int index, int value) : base(index, value)
         {
-
+            
         }
     }
 }
