@@ -1,20 +1,19 @@
-﻿using Sudoku.Core;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Sudoku.Core;
 
 namespace Sudoku.Tools
 {
+    [AssignmentExample("007000000800439000490071000000000906002000040008103000000002308005300000000710052")]
+    //070000040509014807000073590006481075400007000007906408700040080000700624000108759
 
-    [AssignmentExample("716000289298176543534928761000490108080607904945812376403089612809201437020000895")]
-    //200607984700480230048000710000070598017800623580000471395000847126748359874000162
-    public class ForcingChainHandler : SolverHandlerBase
+    public class ForcingXChainHandler : SolverHandlerBase
     {
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             throw new NotImplementedException();
         }
-
 
         public override List<NegativeCellInfo> Elimination(QSudoku qSudoku)
         {

@@ -14,18 +14,18 @@ namespace Sudoku.Console
         static void Main(string[] args)
         {
             var runtest = true;
-            runtest = false;
+            //runtest = false;
             if (runtest)
             {
-                TwoStringsKiteHandler hander = new TwoStringsKiteHandler();
-                QSudoku qsudoku = new QSudoku("081020600042060089056800240693142758428357916175689324510036892230008460860200000");
+                XYZWingHandler hander = new XYZWingHandler();
+                QSudoku qsudoku = new QSudoku("869453721000921568215800439621534987407610352000200146000102803932785614100340205");
   
                 Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString));
                 var cells = hander.Assignment(qsudoku);
             }
             else
             {
-                tryFindSudoku(10);
+                tryFindSudoku(20);
                 return;
 
                 var assembly = typeof(SolverHandlerBase).Assembly;
