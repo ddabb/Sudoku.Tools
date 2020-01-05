@@ -147,11 +147,42 @@ namespace Sudoku.Tools
         /// <param name="qSudoku"></param>
         /// <param name="times"></param>
         /// <returns></returns>
-        public List<PossibleIndex> GetAllAorBInRowOrColumnIndex(QSudoku qSudoku, int times)
+        public List<PossibleIndex> GetAllPairInRowOrColumnIndex(QSudoku qSudoku, int times)
         {
             List<PossibleIndex> allPossibleindex = new List<PossibleIndex>();
+            allPossibleindex.AddRange(GetAllPossibleIndexInRow(qSudoku,times));
+            allPossibleindex.AddRange(GetAllPossibleIndexInColumn(qSudoku, times));
+            return allPossibleindex;
+        }
 
-            foreach (var direction in allDirection.Where(c=>c!=Direction.Block))
+
+        /// <summary>
+        /// 获取所有不在A位置就在B位置的候选数
+        /// </summary>
+        /// <param name="qSudoku"></param>
+        /// <param name="times"></param>
+        /// <returns></returns>
+        public List<PossibleIndex> GetAllPossibleIndexInBlock(QSudoku qSudoku, int times)
+        {
+            return GetAllPossibleIndex(qSudoku, times, c => c == Direction.Block);
+        }
+
+        /// <summary>
+        /// 获取所有不在A位置就在B位置的候选数
+        /// </summary>
+        /// <param name="qSudoku"></param>
+        /// <param name="times"></param>
+        /// <returns></returns>
+        public List<PossibleIndex> GetAllPossibleIndexInColumn(QSudoku qSudoku, int times)
+        {
+
+            return GetAllPossibleIndex(qSudoku, times, c => c == Direction.Column);
+        }
+
+        private List<PossibleIndex> GetAllPossibleIndex(QSudoku qSudoku, int times, Func<Direction, bool> predicate)
+        {
+            List<PossibleIndex> allPossibleindex = new List<PossibleIndex>();
+            foreach (var direction in allDirection.Where(predicate))
             {
                 foreach (var directionIndex in G.baseIndexs)
                 {
@@ -173,6 +204,16 @@ namespace Sudoku.Tools
             return allPossibleindex;
         }
 
+        /// <summary>
+        /// 获取所有不在A位置就在B位置的候选数
+        /// </summary>
+        /// <param name="qSudoku"></param>
+        /// <param name="times"></param>
+        /// <returns></returns>
+        public List<PossibleIndex> GetAllPossibleIndexInRow(QSudoku qSudoku, int times)
+        {
+            return GetAllPossibleIndex(qSudoku, times, c => c == Direction.Row);
+        }
 
         public List<CellInfo> GetNakedSingleCell(QSudoku qSudoku, int speacilValue, List<CellInfo> PositiveCellsInColumn)
         {

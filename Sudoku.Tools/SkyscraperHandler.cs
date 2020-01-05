@@ -17,7 +17,7 @@ namespace Sudoku.Tools
             var allunsetCell = qSudoku.AllUnSetCell;
             int times = 2;
            
-            List<PossibleIndex> allPossibleindex1 = GetAllAorBInRowOrColumnIndex(qSudoku, times);
+            List<PossibleIndex> allPossibleindex1 = GetAllPairInRowOrColumnIndex(qSudoku, times);
             var pair = (from a in allPossibleindex1
 
                           join c in allPossibleindex1 on a.SpeacialValue equals c.SpeacialValue

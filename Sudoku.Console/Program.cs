@@ -17,8 +17,8 @@ namespace Sudoku.Console
             //runtest = false;
             if (runtest)
             {
-                XYZWingHandler hander = new XYZWingHandler();
-                QSudoku qsudoku = new QSudoku("869453721000921568215800439621534987407610352000200146000102803932785614100340205");
+                TurbotFishNormalHandler hander = new TurbotFishNormalHandler();
+                QSudoku qsudoku = new QSudoku("700002600000000900090615074009100703400020859073059100040000500927500400600001097");
   
                 Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString));
                 var cells = hander.Assignment(qsudoku);

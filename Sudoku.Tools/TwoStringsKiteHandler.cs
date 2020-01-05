@@ -17,7 +17,7 @@ namespace Sudoku.Tools
         {
             List<CellInfo> cells = new List<CellInfo>();
             var allunsetCell = qSudoku.AllUnSetCell;
-            var possileIndex = GetAllAorBInRowOrColumnIndex(qSudoku, 2);
+            var possileIndex = GetAllPairInRowOrColumnIndex(qSudoku, 2);
 
             var pairs = (from chaina in possileIndex
                          join chainb in possileIndex on chaina.SpeacialValue equals chainb.SpeacialValue

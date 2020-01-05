@@ -19,7 +19,7 @@ namespace Sudoku.Tools
                              && qSudoku.GetRestString(a) == qSudoku.GetRestString(b)
                              select new { a, b }).ToList();
             int times = 2;
-            List<PossibleIndex> allPossibleindex1 = GetAllAorBInRowOrColumnIndex(qSudoku, times);
+            List<PossibleIndex> allPossibleindex1 = GetAllPairInRowOrColumnIndex(qSudoku, times);
             foreach (var ab in cellPairs)
             {
                 var restString = qSudoku.GetRestString(ab.a);
