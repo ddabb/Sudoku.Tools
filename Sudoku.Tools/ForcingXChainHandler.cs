@@ -11,7 +11,23 @@ namespace Sudoku.Tools
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
-            //IsContradiction(QSudoku qSudoku, NegativeCellInfo cellInfo, bool isSame = false)
+
+            List<PossibleIndex> allPossibleindex1 = GetAllPossibleIndex(qSudoku, 2);
+            foreach (var item in allPossibleindex1)
+            {
+                var negativeCell = new NegativeCellInfo(item.indexs[0], item.SpeacialValue);
+                if (IsContradiction(qSudoku, negativeCell, true))
+                {
+                    cells.Add(negativeCell);
+                }
+                 negativeCell = new NegativeCellInfo(item.indexs[1], item.SpeacialValue);
+                if (IsContradiction(qSudoku, negativeCell, true))
+                {
+                    cells.Add(negativeCell);
+                }
+            }
+  
+        
             return cells;
         }
 

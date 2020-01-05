@@ -384,6 +384,75 @@ namespace Sudoku.Tools
             return index.Split(',').Select(c => Convert.ToInt32(c)).ToList();
         }
 
+        /// <summary>
+        /// 如果假定某个单元格指定值为false,最后得出矛盾，则该单元格的值为真
+        /// </summary>
+        /// <param name="qSudoku"></param>
+        /// <param name="cellInfo"></param>
+        /// <param name="isSame">限定同一个排除数</param>
+        /// <returns></returns>
+        public bool IsContradiction(QSudoku qSudoku, NegativeCellInfo cellInfo, bool isSame = false)
+        {
+            List<CellInfo> reductionList = new List<CellInfo>();
+            var speacilValue = cellInfo.Value;
+            if (isSame)
+            {
+                speacilValue = cellInfo.Value;
+                reductionList.Add(cellInfo);
+                List<PossibleIndex> allPossibleindex1 = GetAllPossibleIndex(qSudoku, 2);
+
+                var list = allPossibleindex1.Where(c => c.SpeacialValue == speacilValue && c.indexs.Contains(cellInfo.Index)).First();
+                var direction = list.direction;
+                var positiveCellInfo = new PositiveCellInfo(list.indexs.First(c => c != cellInfo.Index), speacilValue);
+                reductionList.Add(positiveCellInfo);
+
+                List<NegativeCellInfo> negative = GetNegativeCells(qSudoku, positiveCellInfo, cellInfo);
+                List<PositiveCellInfo> positiveCellInfos = new List<PositiveCellInfo>();
+                foreach (var item in negative)
+                {
+                    positiveCellInfos.AddRange(GetPositiveCellInfos(allPossibleindex1, item));
+                }
+                if (positiveCellInfos.Exists(c=>c.Value==cellInfo.Value&&c.Index == cellInfo.Index))
+                {
+                    return true;
+                }
+             
+
+
+
+            }
+
+
+
+
+
+
+
+            return false;
+
+        }
+
+        public List<PositiveCellInfo> GetPositiveCellInfos(List<PossibleIndex> indexs, NegativeCellInfo cell)
+        {
+            List<PositiveCellInfo> cells = new List<PositiveCellInfo>();
+            var temp = indexs.Where(c => c.indexs.Count == 2 && c.indexs.Contains(cell.Index) && c.SpeacialValue == cell.Value).ToList();
+            foreach (var item in temp)
+            {
+                cells.Add(new PositiveCellInfo(item.indexs.First(c => c != cell.Index), cell.Value));
+            }
+            return cells;
+        }
+
+        private List<CellInfo> GetAllRelatedCell(List<CellInfo> allCellInfo,CellInfo cellinfo)
+        {
+         return   allCellInfo.Where(c => c.Index != cellinfo.Index && (c.Block == cellinfo.Block || c.Row == cellinfo.Row || c.Column == cellinfo.Column)).ToList();
+
+        }
+
+        private List<NegativeCellInfo> GetNegativeCells(QSudoku qSudoku, PositiveCellInfo positiveCellInfo, NegativeCellInfo cellInfo)
+        {
+        return    GetAllRelatedCell(qSudoku.AllUnSetCell, positiveCellInfo).Where(c => qSudoku.GetRest(c).Contains(positiveCellInfo.Value) && c.Index != cellInfo.Index).Select(c => new NegativeCellInfo(c.Index, positiveCellInfo.Value)).ToList();
+        }
     }
 
     public class PossibleIndex
@@ -404,21 +473,7 @@ namespace Sudoku.Tools
         
         }
 
-        /// <summary>
-        /// 如果假定某个单元格指定值为false,最后得出矛盾，则该单元格的值为真
-        /// </summary>
-        /// <param name="qSudoku"></param>
-        /// <param name="cellInfo"></param>
-        /// <param name="isSame">限定同一个排除数</param>
-        /// <returns></returns>
-        public bool IsContradiction(QSudoku qSudoku, NegativeCellInfo cellInfo,bool isSame=false)
-        {
-            List<CellInfo> reductionList = new List<CellInfo>();
-            reductionList.Add(cellInfo);
 
-            return false;
-
-        }
 
 
         public override string ToString()
