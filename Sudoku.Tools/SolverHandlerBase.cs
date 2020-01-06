@@ -38,7 +38,7 @@ namespace Sudoku.Tools
         /// <returns></returns>
         public List<CellInfo> GetIntersectCells(List<CellInfo> cells, int index1,int index2)
         {
-            return GetIntersectCells(cells, new CellInfo(index1, 0), new CellInfo(index2, 0));
+            return GetIntersectCells(cells, new PositiveCellInfo(index1, 0), new PositiveCellInfo(index2, 0));
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace Sudoku.Tools
 
         public bool IsSameBlock(int index1, int index2)
         {
-            if (new CellInfo(index1, 0).Block == new CellInfo(index2, 0).Block)
+            if (new PositiveCellInfo(index1, 0).Block == new PositiveCellInfo(index2, 0).Block)
             {
                 return true;
             }
@@ -98,7 +98,7 @@ namespace Sudoku.Tools
 
         public bool IsSameRow(int index1, int index2)
         {
-            if (new CellInfo(index1, 0).Row == new CellInfo(index2, 0).Row)
+            if (new PositiveCellInfo(index1, 0).Row == new PositiveCellInfo(index2, 0).Row)
             {
                 return true;
             }
@@ -107,7 +107,7 @@ namespace Sudoku.Tools
 
         public bool IsSameColumn(int index1, int index2)
         {
-            if (new CellInfo(index1, 0).Column == new CellInfo(index2, 0).Column)
+            if (new PositiveCellInfo(index1, 0).Column == new PositiveCellInfo(index2, 0).Column)
             {
                 return true;
             }
@@ -233,7 +233,7 @@ namespace Sudoku.Tools
             var indexs = qSudoku.GetPossibleIndex(speacilValue, c => PositiveCellsInColumn.Select(x => x.Index).Contains(c.Index));
             if (indexs.Count() == 1)
             {
-                cells.Add(new CellInfo(indexs.First(), speacilValue));
+                cells.Add(new PositiveCellInfo(indexs.First(), speacilValue));
             }
             
             return cells;
@@ -266,7 +266,7 @@ namespace Sudoku.Tools
                 if (leftIndexs.Count > 1 && leftIndexs1.Count() == 1)
                 {
                     //Debug.WriteLine("speacialValue" + speacialValue + "location  " + string.Join(",", leftIndexs1));
-                    cells.Add(new CellInfo(leftIndexs1.First(), speacialValue));
+                    cells.Add(new PositiveCellInfo(leftIndexs1.First(), speacialValue));
                 }
 
             }
@@ -291,7 +291,7 @@ namespace Sudoku.Tools
                     if (qSudoku.GetRest(cell.Index).Count>1)
                     {
                    
-                        cells.Add(new CellInfo(cell.Index, spricevalue));
+                        cells.Add(new PositiveCellInfo(cell.Index, spricevalue));
                     }
                 }
             }
@@ -438,7 +438,9 @@ namespace Sudoku.Tools
             var temp = indexs.Where(c => c.indexs.Count == 2 && c.indexs.Contains(cell.Index) && c.SpeacialValue == cell.Value).ToList();
             foreach (var item in temp)
             {
-                cells.Add(new PositiveCellInfo(item.indexs.First(c => c != cell.Index), cell.Value));
+                var positive = new PositiveCellInfo(item.indexs.First(c => c != cell.Index), cell.Value);
+                positive.parent = cell;
+                cells.Add(positive);
             }
             return cells;
         }
@@ -449,7 +451,7 @@ namespace Sudoku.Tools
 
         }
 
-        private List<NegativeCellInfo> GetNegativeCells(QSudoku qSudoku, PositiveCellInfo positiveCellInfo, NegativeCellInfo cellInfo)
+        public List<NegativeCellInfo> GetNegativeCells(QSudoku qSudoku, PositiveCellInfo positiveCellInfo, NegativeCellInfo cellInfo)
         {
         return    GetAllRelatedCell(qSudoku.AllUnSetCell, positiveCellInfo).Where(c => qSudoku.GetRest(c).Contains(positiveCellInfo.Value) && c.Index != cellInfo.Index).Select(c => new NegativeCellInfo(c.Index, positiveCellInfo.Value)).ToList();
         }

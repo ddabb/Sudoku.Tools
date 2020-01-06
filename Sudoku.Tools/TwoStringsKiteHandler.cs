@@ -28,13 +28,13 @@ namespace Sudoku.Tools
             {
                 var rest = item.chaina.SpeacialValue;
                 var allIndex = new List<int> { item.chaina.indexs[0], item.chaina.indexs[1], item.chainb.indexs[0], item.chainb.indexs[1] };
-                var Blocks = allIndex.Select(c => new CellInfo(c, 0)).Select(c => c.Block);
+                var Blocks = allIndex.Select(c => new PositiveCellInfo(c, 0)).Select(c => c.Block);
                 if (allIndex.Distinct().Count()==4&& Blocks.Distinct().Count() == 3)
                 {
                     Dictionary<int, int> blockCount = new Dictionary<int, int>();
                     foreach (var index in allIndex)
                     {
-                        var eachBlock = new CellInfo(index, 0).Block;
+                        var eachBlock = new PositiveCellInfo(index, 0).Block;
                         if (blockCount.ContainsKey(eachBlock))
                         {
                             blockCount[eachBlock] += 1;
@@ -45,14 +45,14 @@ namespace Sudoku.Tools
                         }
                     }
 
-                   var intersectIndex= allIndex.Where(c => blockCount[new CellInfo(c, 0).Block] != 2).ToList();
+                   var intersectIndex= allIndex.Where(c => blockCount[new PositiveCellInfo(c, 0).Block] != 2).ToList();
                     var restCells = GetIntersectCells(allunsetCell, intersectIndex[0], intersectIndex[1]);
                     foreach (var cell in restCells)
                     {
                         var rests = qSudoku.GetRest(cell);
                         if (rests.Count == 2 && rests.Contains(rest))
                         {
-                            cells.Add(new CellInfo(cell.Index, rests.First(c => c != rest)));
+                            cells.Add(new PositiveCellInfo(cell.Index, rests.First(c => c != rest)));
                         }
                     }
 

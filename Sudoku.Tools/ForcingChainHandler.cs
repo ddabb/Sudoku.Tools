@@ -21,6 +21,25 @@ namespace Sudoku.Tools
                         join b in possibleIndexs on 1 equals 1
                         where a.indexs.Intersect(b.indexs).Count() > 0
                         select new { a, b }).ToList();
+            //71 6
+
+            NegativeCellInfo test = new NegativeCellInfo(71, 6);
+            //Dictionary<int, List<CellInfo>> levelCells = new Dictionary<int, List<CellInfo>>();
+            //levelCells.Add(1, new List<CellInfo> { test });
+            //var temp2= GetPositiveCellInfos(possibleIndexs, test);
+            //test.reductionAfterCells = temp2;
+
+            //levelCells.Add(2, temp2.ToList<CellInfo>());
+
+            //levelCells.Add(3, new List<CellInfo>());
+            //foreach (var sub in test.reductionAfterCells)
+            //{
+            //    var temp3 = GetNegativeCells(qSudoku, sub, sub.reductionBeforeCell);
+            //    levelCells[3].AddRange(temp3.ToList<CellInfo>());
+            //    sub.reductionAfterCells = temp3;
+            //}
+
+
 
 
 

@@ -39,10 +39,10 @@ namespace Sudoku.Tools
                                    join b in signleRowOrColumnIndexs on 1 equals 1
                                    where a.indexs[0] < b.indexs[0]
                                    select new List<CellInfo> {
-                                    new CellInfo(a.indexs[0], 0),
-                                    new CellInfo(a.indexs[1], 0),
-                                    new CellInfo(b.indexs[0], 0),
-                                    new CellInfo(b.indexs[1], 0) }).ToList();
+                                    new PositiveCellInfo(a.indexs[0], 0),
+                                    new PositiveCellInfo(a.indexs[1], 0),
+                                    new PositiveCellInfo(b.indexs[0], 0),
+                                    new PositiveCellInfo(b.indexs[1], 0) }).ToList();
                     foreach (var subCells in listAll)
                     {
                         if (subCells.Select(c => c.Block).Distinct().Count() == 4
@@ -82,7 +82,7 @@ namespace Sudoku.Tools
                         var rests = qSudoku.GetRest(item.Index);
                         if (rests.Contains(speacilValue) && rests.Where(x => x != speacilValue).Count() == 1)
                         {
-                            cells.Add(new CellInfo(item.Index, rests.Where(x => x != speacilValue).First()));
+                            cells.Add(new PositiveCellInfo(item.Index, rests.Where(x => x != speacilValue).First()));
                         }
                     }
                 }

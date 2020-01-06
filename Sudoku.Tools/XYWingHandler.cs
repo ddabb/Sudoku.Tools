@@ -47,7 +47,7 @@ namespace Sudoku.Tools
                                     //Debug.WriteLine("allString"+ allString);
                                     //Debug.WriteLine("pair.x" + pair.x + "  restX" + string.Join(",",restX) );
                                     //Debug.WriteLine("pair.y" + pair.y+  "  restY" + string.Join(",", restY));
-                                    cells.Add(new CellInfo(cell.Index, rests.First(c => c != IntersectValue)));
+                                    cells.Add(new PositiveCellInfo(cell.Index, rests.First(c => c != IntersectValue)));
                                 }
                             }
                         }

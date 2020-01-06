@@ -37,7 +37,7 @@ namespace Sudoku.Tools
                                     }
                                     if (rests.Count==1)
                                     {
-                                        cells.Add(new CellInfo(cell.Index, rests[0]));
+                                        cells.Add(new PositiveCellInfo(cell.Index, rests[0]));
                                     }
                                 }
                             }                  

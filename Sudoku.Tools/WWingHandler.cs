@@ -42,7 +42,7 @@ namespace Sudoku.Tools
                                 var rests = qSudoku.GetRest(cell);
                                 if (rests.Count==2&& rests.Contains(rest))
                                 {
-                                    cells.Add(new CellInfo(cell.Index, rests.First(c => c != rest)));
+                                    cells.Add(new PositiveCellInfo(cell.Index, rests.First(c => c != rest)));
                                 }
                             }
                         }
@@ -60,7 +60,7 @@ namespace Sudoku.Tools
                                 var rests = qSudoku.GetRest(cell);
                                 if (rests.Count == 2 && rests.Contains(rest))
                                 {
-                                    cells.Add(new CellInfo(cell.Index, rests.First(c => c != rest)));
+                                    cells.Add(new PositiveCellInfo(cell.Index, rests.First(c => c != rest)));
                                 }
                             }
                         }

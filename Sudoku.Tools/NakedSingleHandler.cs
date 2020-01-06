@@ -19,7 +19,7 @@ namespace Soduku.Tools
                 var restList = qSudoku.GetRest(index);
                 if (restList.Count==1)
                 {
-                    cellInfo.Add(new CellInfo(index, restList[0]));
+                    cellInfo.Add(new PositiveCellInfo(index, restList[0]));
                 }
             }
             return cellInfo;

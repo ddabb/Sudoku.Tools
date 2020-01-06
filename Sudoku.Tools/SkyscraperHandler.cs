@@ -47,7 +47,7 @@ namespace Sudoku.Tools
                 var filter = rest.Where(c => qSudoku.GetRest(c).Count==2&& qSudoku.GetRest(c).Contains(SpeacialValue)).ToList();
                 foreach (var cell in filter)
                 {
-                    cells.Add(new CellInfo(cell.Index, qSudoku.GetRest(cell).First(c=>c!= SpeacialValue)));
+                    cells.Add(new PositiveCellInfo(cell.Index, qSudoku.GetRest(cell).First(c=>c!= SpeacialValue)));
                 }
         
             }

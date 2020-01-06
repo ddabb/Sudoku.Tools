@@ -187,7 +187,7 @@ namespace Sudoku.Core
             var chars = QueryString.ToCharArray();
             foreach (var location in allLocations)
             {
-                cellInfos.Add(new CellInfo(location, Convert.ToInt32("" + chars[location])));
+                cellInfos.Add(new PositiveCellInfo(location, Convert.ToInt32("" + chars[location])));
             }
 
         }

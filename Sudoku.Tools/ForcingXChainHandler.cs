@@ -12,20 +12,20 @@ namespace Sudoku.Tools
         {
             List<CellInfo> cells = new List<CellInfo>();
 
-            List<PossibleIndex> allPossibleindex1 = GetAllPossibleIndex(qSudoku, 2);
-            foreach (var item in allPossibleindex1)
-            {
-                var negativeCell = new NegativeCellInfo(item.indexs[0], item.SpeacialValue);
-                if (IsContradiction(qSudoku, negativeCell, true))
-                {
-                    cells.Add(negativeCell);
-                }
-                 negativeCell = new NegativeCellInfo(item.indexs[1], item.SpeacialValue);
-                if (IsContradiction(qSudoku, negativeCell, true))
-                {
-                    cells.Add(negativeCell);
-                }
-            }
+            //List<PossibleIndex> allPossibleindex1 = GetAllPossibleIndex(qSudoku, 2);
+            //foreach (var item in allPossibleindex1)
+            //{
+            //    var negativeCell = new NegativeCellInfo(item.indexs[0], item.SpeacialValue);
+            //    if (IsContradiction(qSudoku, negativeCell, true))
+            //    {
+            //        cells.Add(negativeCell);
+            //    }
+            //     negativeCell = new NegativeCellInfo(item.indexs[1], item.SpeacialValue);
+            //    if (IsContradiction(qSudoku, negativeCell, true))
+            //    {
+            //        cells.Add(negativeCell);
+            //    }
+            //}
   
         
             return cells;

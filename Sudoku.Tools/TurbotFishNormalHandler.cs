@@ -46,7 +46,7 @@ namespace Sudoku.Tools
                                    let rests = qSudoku.GetRest(cell)
                                    where rests.Count == 2 && rests.Contains(rest)
                                    && ab.a.indexs.Intersect(ab.b.indexs).Count()== 0 //四个单元格
-                                   select new CellInfo(cell.Index, rests.First(c => c != rest)));
+                                   select new PositiveCellInfo(cell.Index, rests.First(c => c != rest)));
                 }
 
 

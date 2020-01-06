@@ -6,18 +6,21 @@ namespace Sudoku.Core
 {
     public class PositiveCellInfo : CellInfo
     {
-        /// <summary>
-        /// 前置否定单元格
-        /// </summary>
-        public NegativeCellInfo reductionBeforeCell;
-        /// <summary>
-        /// 后置否定单元格链表
-        /// </summary>
-        public List<NegativeCellInfo> reductionAfterCells;
+
+
         public PositiveCellInfo(int index, int value) : base(index, value)
         {
+            this.cellType = CellType.Positive;
+
+        }
+
+        public override CellInfo parent { get ; set ; }
+        public override List<CellInfo> NextCells { get; set; }
 
 
+        public override List<CellInfo> GetNextCells(QSudoku sudoku)
+        {
+            throw new NotImplementedException();
         }
     }
 }

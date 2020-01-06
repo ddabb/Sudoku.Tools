@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SudoKu.Test", "SudoKu.Test\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sudoku.Tools", "Sudoku.Tools\Sudoku.Tools.csproj", "{B46EA5F1-9EA8-4D55-A6D4-5B0C65BFA092}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sudoku.Core", "Sudoku.Core\Sudoku.Core.csproj", "{17B5BECD-2253-42D4-A968-8EE69C2F2BAC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sudoku.Core", "Sudoku.Core\Sudoku.Core.csproj", "{17B5BECD-2253-42D4-A968-8EE69C2F2BAC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

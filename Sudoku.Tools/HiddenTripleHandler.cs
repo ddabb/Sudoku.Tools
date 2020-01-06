@@ -60,7 +60,7 @@ namespace Sudoku.Tools
                                         if (leftIndexs.Count == 1)
                                         {
 
-                                            var cellinfo = new CellInfo(leftIndexs.First(), item);
+                                            var cellinfo = new PositiveCellInfo(leftIndexs.First(), item);
                                             cells.Add(cellinfo);
                                         }
 

@@ -45,7 +45,7 @@ namespace Sudoku.Tools
                             if (rests.Contains(removeValue) && rests.Count == 2)
                             {
      
-                                cells.Add(new CellInfo(cell.Index, rests.First(c => c != removeValue)));
+                                cells.Add(new PositiveCellInfo(cell.Index, rests.First(c => c != removeValue)));
                             }
                   
                     }
