@@ -17,15 +17,16 @@ namespace Sudoku.Console
             //runtest = false;
             if (runtest)
             {
-                XYWingHandler hander = new XYWingHandler();
-                QSudoku qsudoku = new QSudoku("056200970749536812028079000000003129000920040290607008815792060902304080000005290");
-                Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString));
+                ForcingChainHandler hander = new ForcingChainHandler();
+                QSudoku qsudoku = new QSudoku("030050400000004000200006090007600009080000500300800041073060120020003900050001374");
+                Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString)); 
                 var cells = hander.Assignment(qsudoku);
+          
+
+
                 return;
-                //ForcingChainHandler hander = new ForcingChainHandler();
-                //QSudoku qsudoku = new QSudoku("030050400000004000200006090007600009080000500300800041073060120020003900050001374");
-                //Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString));
-                //var cells = hander.Assignment(qsudoku);
+             
+           
             }
             else
             {

@@ -1,6 +1,7 @@
 ﻿using Sudoku.Core;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Linq;
 
@@ -11,41 +12,41 @@ namespace Sudoku.Tools
     //200607984700480230048000710000070598017800623580000471395000847126748359874000162
     public class ForcingChainHandler : SolverHandlerBase
     {
+
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
-            
-            
-            var possibleIndexs= GetAllPossibleIndex(qSudoku, 2);
-            var temp = (from a in possibleIndexs
-                        join b in possibleIndexs on 1 equals 1
-                        where a.indexs.Intersect(b.indexs).Count() > 0
-                        select new { a, b }).ToList();
-            //71 6
+            NegativeCellInfo cell = new NegativeCellInfo(71, 6) {Sudoku = qSudoku, CellType = CellType.Negative,IsRoot = true};
+            List<CellInfo> foundCells = new List<CellInfo>();
+            qSudoku.cachedAnalysisCells.Clear();
 
-            NegativeCellInfo test = new NegativeCellInfo(71, 6);
-            //Dictionary<int, List<CellInfo>> levelCells = new Dictionary<int, List<CellInfo>>();
-            //levelCells.Add(1, new List<CellInfo> { test });
-            //var temp2= GetPositiveCellInfos(possibleIndexs, test);
-            //test.reductionAfterCells = temp2;
+            var result = qSudoku.Analysis(cell);
+            foreach (var found in result)
+            {
 
-            //levelCells.Add(2, temp2.ToList<CellInfo>());
+                List<string> infos = new List<string>();
+                Output(found, ref infos);
+                Debug.WriteLine("链信息如下：\r\n");
+                foreach (var info in infos)
+                {
+                    Debug.WriteLine(info);
+                }
+            }
 
-            //levelCells.Add(3, new List<CellInfo>());
-            //foreach (var sub in test.reductionAfterCells)
-            //{
-            //    var temp3 = GetNegativeCells(qSudoku, sub, sub.reductionBeforeCell);
-            //    levelCells[3].AddRange(temp3.ToList<CellInfo>());
-            //    sub.reductionAfterCells = temp3;
-            //}
-
-
-
-
-
+            var temp = qSudoku.cachedAnalysisCells;
             return cells;
 
         }
+
+        private void Output(CellInfo found, ref List<string> infoList)
+        {
+            infoList.Insert(0, found.ToString());
+            if (found.Parent != null)
+            {
+                Output(found.Parent, ref infoList);
+            }
+        }
+
 
 
         public override List<NegativeCellInfo> Elimination(QSudoku qSudoku)

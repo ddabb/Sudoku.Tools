@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 
 namespace Sudoku.Core
@@ -13,10 +14,12 @@ namespace Sudoku.Core
         public int Column;
         public int Block;
         private int mIndex;
-
+        
         public CellType CellType { get; set; }
 
         public QSudoku Sudoku;
+
+        public bool IsRoot = false;
 
         public List<int> GetRest()
         {
@@ -71,15 +74,42 @@ namespace Sudoku.Core
 
         }
 
-        public abstract CellInfo Parent { get; set; }
-        public abstract List<CellInfo> NextCells { get; set; }
+        public CellInfo Parent { get; set; }
+
+
+        public FromTo Fromto = new FromTo();
+
+        public List<CellInfo> GetAllParents()
+        {
+            List<CellInfo> refCellInfos = new List<CellInfo>();
+            if (Parent == null) return refCellInfos;
+            refCellInfos.Add(Parent);
+            refCellInfos.AddRange(Parent.GetAllParents());
+            return refCellInfos;
+
+        }
+
+        public abstract List<CellInfo> NextCells { get; }
         
         public override string ToString()
         {
-            return "index  " + Index + "  row  " + Row + "  column  " + Column + "  block  " + Block + "  value  " + Value;
+            return "index  " + Index + "  row  " + Row + "  column  " + Column + "  block  " + Block + "  value  " + Value+ "  类型："+G.GetEnumDescription(CellType)+ "  层级" + Level;
         }
 
+        public Func<CellInfo, bool> UnSetCellInSameColumn()
+        {
+            return c => c.Value == 0 && c.Index != this.Index && c.Column == this.Column;
+        }
 
+        public Func<CellInfo, bool> UnSetCellInSameRow()
+        {
+            return c => c.Value == 0 && c.Index != this.Index && c.Row == this.Row;
+        }
+
+        public Func<CellInfo, bool> UnSetCellInSameBlock()
+        {
+            return c => c.Value == 0 && c.Index != this.Index && c.Block == this.Block;
+        }
 
         public int Value;
 
@@ -107,10 +137,12 @@ namespace Sudoku.Core
         /// <summary>
         /// 否定的，即指定Index单元格的候选数一定不是Value
         /// </summary>
+        [Description("否定的")]
         Negative,
         /// <summary>
         /// 肯定的，即指定Index单元格的候选数一定是Value
         /// </summary>
+        [Description("肯定的")]
         Positive
     }
 }
