@@ -130,9 +130,9 @@ namespace SudoKu.Test
         }
 
         [TestMethod]
-        public void TestForcingXChainHandler()
+        public void TestForcingChainHandler11()
         {
-            ForcingXChainHandler hander = new ForcingXChainHandler();
+            ForcingChainHandler hander = new ForcingChainHandler();
             QSudoku qsudoku = new QSudoku("104900853385140000070358000653714298741800536800635417007580300508403000430201085");
             Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString));
             var cells = hander.Assignment(qsudoku);
@@ -149,9 +149,9 @@ namespace SudoKu.Test
 
 
         [TestMethod]
-        public void TestForcingXChainHandler2()
+        public void TestForcingChainHandler33()
         {
-            ForcingXChainHandler hander = new ForcingXChainHandler();
+            ForcingChainHandler hander = new ForcingChainHandler();
             QSudoku qsudoku = new QSudoku("007000000800439000490071000000000906002000040008103000000002308005300000000710052");
             Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString));
             var cells = hander.Assignment(qsudoku);

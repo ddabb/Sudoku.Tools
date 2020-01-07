@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 using System.Linq;
 
 namespace Sudoku.Tools
@@ -16,25 +15,60 @@ namespace Sudoku.Tools
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
-            NegativeCellInfo cell = new NegativeCellInfo(71, 6) {Sudoku = qSudoku, CellType = CellType.Negative,IsRoot = true};
-            List<CellInfo> foundCells = new List<CellInfo>();
-            qSudoku.cachedAnalysisCells.Clear();
-
-            var result = qSudoku.Analysis(cell);
-            foreach (var found in result)
+            foreach (var item in qSudoku.AllUnSetCell)
             {
-
-                List<string> infos = new List<string>();
-                Output(found, ref infos);
-                Debug.WriteLine("链信息如下：\r\n");
-                foreach (var info in infos)
+                foreach (var testValue in item.GetRest())
                 {
-                    Debug.WriteLine(info);
+                    NegativeCellInfo cell = new NegativeCellInfo(item.Index, testValue) { Sudoku = qSudoku, CellType = CellType.Negative, IsRoot = true };
+            List<CellInfo> traceCell = new List<CellInfo>();
+            Fuc(cell, ref traceCell);
+            if (traceCell.Count != 0)
+            {
+                var temp = new PositiveCellInfo(item.Index, testValue) { CellType = CellType.Positive };
+                cells.Add(temp);
+            }
+            else
+            {
+                //Debug.WriteLine("我还是可以进来");
+            }
+
+        }
+
+    }
+
+            return cells;
+
+        }
+
+        private void Fuc(CellInfo cell, ref List<CellInfo> traceCell)
+        {
+              if (traceCell.Count() > 0) return;
+                //index  70  row  7  column  7  block  8  value  5  类型：肯定的 层级17
+
+                if (cell.CellType == CellType.Positive)
+            {
+                var checkList = cell.GetAllParents().Where(c => c.Index == cell.Index && c.CellType == CellType.Positive && c.Value != cell.Value);
+                if (checkList.Count() > 0)
+                {
+                    traceCell.Add(cell);
+
+
+                }
+
+            }
+            var parents = cell.GetAllParents();
+            Debug.WriteLine(cell+  " parents.Count" + parents.Count);
+            if (parents.Where(c => c.Index == cell.Index && c.CellType == cell.CellType && c.Value == cell.Value).Count() == 0)
+            {
+                var temp = cell.NextCells;
+                foreach (var item in temp)
+                {
+                    Fuc(item, ref traceCell);
                 }
             }
 
-            var temp = qSudoku.cachedAnalysisCells;
-            return cells;
+
+
 
         }
 

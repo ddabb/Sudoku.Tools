@@ -18,10 +18,10 @@ namespace Sudoku.Console
             if (runtest)
             {
                 ForcingChainHandler hander = new ForcingChainHandler();
-                QSudoku qsudoku = new QSudoku("030050400000004000200006090007600009080000500300800041073060120020003900050001374");
-                Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString)); 
+                QSudoku qsudoku = new QSudoku("104900853385140000070358000653714298741800536800635417007580300508403000430201085");
+                Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString));
                 var cells = hander.Assignment(qsudoku);
-          
+
 
 
                 return;

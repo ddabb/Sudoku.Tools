@@ -107,41 +107,11 @@ namespace Sudoku.Core
             return this.cellInfos.First(c => c.Index == Index).GetRest();
         }
 
-        private CellInfo AnalysisRoot;
 
-        public List<CellInfo> Analysis(CellInfo cell)
-        {
-            AnalysisRoot = cell;
-            List<CellInfo> foundCells=new List<CellInfo>();
-            cachedAnalysisCells.Add(AnalysisRoot);
-            Analysis(cell, ref foundCells);
-            return foundCells;
-        }
 
-        public void Analysis(CellInfo cell, ref List<CellInfo> foundCells)
-        {
 
-            var nextCells = cell.NextCells;
-            foundCells.AddRange(nextCells.Where(c =>
-                    c.Value == AnalysisRoot.Value && c.CellType == CellType.Positive && c.Index == AnalysisRoot.Index)
-                .ToList());
-            if (foundCells.Count > 0)
-            {
-                return;
-            }
 
-            foreach (var nextCell in nextCells)
-            {
-                if (!cachedAnalysisCells.Exists(c =>
-                    c.Value == nextCell.Value && c.Index == nextCell.Index && c.CellType == nextCell.CellType &&
-                    c.Fromto.Equals(nextCell.Fromto)))
-                {
-                    Analysis(nextCell, ref foundCells);
-                    cachedAnalysisCells.Add(nextCell);
-                }
-            }
 
-        }
 
 
         /// <summary>

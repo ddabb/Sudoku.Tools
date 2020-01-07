@@ -11,6 +11,11 @@ namespace Sudoku.Core
         {
             this.CellType = CellType.Positive;
 
+            if (Index==70&&Value==5)
+            {
+
+            }
+
         }
 
         private List<CellInfo> temp;

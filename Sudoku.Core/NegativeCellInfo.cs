@@ -30,13 +30,13 @@ namespace Sudoku.Core
         {
             get
             {
-                var list = temp;
-                if (list != null)
-                {
-                    return list;
-                }
+                //var list = temp;
+                //if (list != null)
+                //{
+                //    return list;
+                //}
 
-                return (temp = GetNextCells());
+                return GetNextCells();
             }
 
         }
@@ -48,6 +48,10 @@ namespace Sudoku.Core
         /// <returns></returns>
         public override List<CellInfo> GetNextCells()
         {
+            if (Index== 32 && Value==2)
+            {
+
+            }
             List <CellInfo> cells=new List<CellInfo>();
 
             if (this.GetRest().Count==2)
@@ -76,7 +80,7 @@ namespace Sudoku.Core
             {
                 if (Parent == null || Parent.Index != Row)
                 {
-                    PositiveCellInfo positive = new PositiveCellInfo(row.First(), GetRest().First(c => c != Value))
+                    PositiveCellInfo positive = new PositiveCellInfo(row.First(), Value)
                     {
                         CellType = CellType.Positive,
                         Sudoku = this.Sudoku,

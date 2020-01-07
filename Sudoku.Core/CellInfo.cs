@@ -74,6 +74,16 @@ namespace Sudoku.Core
 
         }
 
+        public CellInfo AnalysisRoot;
+
+
+ 
+
+
+
+
+
+
         public CellInfo Parent { get; set; }
 
 
