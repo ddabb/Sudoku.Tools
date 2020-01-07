@@ -10,6 +10,8 @@ namespace Sudoku.Tools
     [AssignmentExample("000436517000280000006170000000061070001000000050804100000043761003610000000000394")]
     public class DirectPointingHandler : SolverHandlerBase
     {
+        public override SolveMethodEnum methodType => throw new NotImplementedException();
+
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();

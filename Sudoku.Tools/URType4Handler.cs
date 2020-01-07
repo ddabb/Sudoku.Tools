@@ -9,6 +9,8 @@ namespace Sudoku.Tools
     //400061070057004001160702084926007138745318000010629457580103726001076845670085010
     public class URType4Handler :SolverHandlerBase
     {
+        public override SolveMethodEnum methodType => throw new NotImplementedException();
+
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             throw new NotImplementedException();

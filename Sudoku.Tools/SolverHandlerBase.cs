@@ -14,6 +14,8 @@ namespace Sudoku.Tools
     public abstract class SolverHandlerBase : ISudokuSolveHelper
 
     {
+        public abstract SolveMethodEnum methodType { get; }
+
         /// <summary>
         /// 出数
         /// </summary>

@@ -11,6 +11,8 @@ namespace Sudoku.Tools
      [AssignmentExample("700002600000000900090615074009100703400020859073059100040000500927500400600001097")]
     public class TurbotFishNormalHandler : SolverHandlerBase
     {
+        public override SolveMethodEnum methodType => throw new NotImplementedException();
+
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();

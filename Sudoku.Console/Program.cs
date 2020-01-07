@@ -14,15 +14,13 @@ namespace Sudoku.Console
         static void Main(string[] args)
         {
             var runtest = true;
-            //runtest = false;
+            runtest = false;
             if (runtest)
             {
                 ForcingChainHandler hander = new ForcingChainHandler();
                 QSudoku qsudoku = new QSudoku("104900853385140000070358000653714298741800536800635417007580300508403000430201085");
                 Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString));
-                var cells = hander.Assignment(qsudoku);
-
-
+                var cells = hander.Assignment(qsudoku);               
 
                 return;
              
@@ -30,7 +28,7 @@ namespace Sudoku.Console
             }
             else
             {
-                tryFindSudoku(20);
+                tryFindSudoku(5);
                 return;
 
                 var assembly = typeof(SolverHandlerBase).Assembly;
@@ -102,6 +100,7 @@ namespace Sudoku.Console
                 {
                     example = new MinimalPuzzleFactory().Make(new SudokuBuilder().MakeWholeSudoku());
                 }
+                var initString = example.QueryString;
                 Debug.WriteLine("example init "+ example.QueryString);
                 var assembly = typeof(SolverHandlerBase).Assembly;
                 var types = assembly.GetTypes().Where(t => typeof(ISudokuSolveHelper).IsAssignableFrom(t) && t.IsAbstract == false);
@@ -124,7 +123,7 @@ namespace Sudoku.Console
                                 if (cellinfos.Count != 0)
                                 {
                                     Debug.WriteLine("type" + type);
-                                    Debug.WriteLine("cellinfo" + cellinfos.JoinString());
+                                    Debug.WriteLine("cellinfo" + cellinfos.JoinString("\r\n"));
                                     Debug.WriteLine("example before" + example.QueryString + "isvalid"+new DanceLink().isValid(example.QueryString));
 
                                     example = example.ApplyCells(cellinfos);
@@ -162,19 +161,51 @@ namespace Sudoku.Console
                 if (!example.IsAllSeted)
                 {
                     Debug.WriteLine("example SaveTohtml in");
-                    SaveTohtml(example);
+                    SaveTohtml(example.QueryString);
+                    SaveToTXT(example.QueryString);
+                    SaveToTXT(example.QueryString,initString);
                     qSudokus.Add(example);
                     example.SaveTohtml();
                 }
-              
+                Debug.WriteLine("solveCount " + solveCount);
+
 
             } while (qSudokus.Count<count);
-            Debug.WriteLine("solveCount "+ solveCount);
+        
             Debug.WriteLine("tryFindSudoku end");
 
         }
 
-        public static void SaveTohtml(QSudoku sudoku)
+        public static void SaveToTXT(string queryString,string initstring=null,string end=".txt")
+        {
+            string str2 = "";
+
+            dynamic type = typeof(QSudoku);
+            string currentDirectory = Path.GetDirectoryName(type.Assembly.Location);
+            string saveDirectory = Path.Combine(currentDirectory, "UnSolveSudoku");
+            saveDirectory = Path.Combine(saveDirectory, DateTime.Now.ToString("yyyy-MM-dd"));
+            if (!Directory.Exists(saveDirectory))
+            {
+                Directory.CreateDirectory(saveDirectory);
+            }
+        
+            if (string.IsNullOrEmpty(initstring))
+            {
+                initstring = queryString;
+
+            }
+            else
+            {
+                queryString += "init";
+            }
+            string filePath2 = Path.Combine(saveDirectory, queryString  + end);
+            File.WriteAllText(filePath2, initstring);
+            Debug.WriteLine("文件" + filePath2 + " 已生成");
+
+
+        }
+
+        public static void SaveTohtml(string queryString)
         {
             string str2 = "";
             var names1 = typeof(QSudoku).Assembly.GetManifestResourceNames();
@@ -202,11 +233,9 @@ namespace Sudoku.Console
             {
                 Directory.CreateDirectory(saveDirectory);
             }
-            string filePath = Path.Combine(saveDirectory, sudoku.QueryString + ".html");
-            File.WriteAllText(filePath, str2.Replace("replaceMark", sudoku.QueryString));
-            string filePath2 = Path.Combine(saveDirectory, sudoku.QueryString + ".txt");
-            File.WriteAllText(filePath2, sudoku.QueryString);
-            Debug.WriteLine("文件" + filePath + " 已生成");
+            string filePath = Path.Combine(saveDirectory, queryString + ".html");
+            File.WriteAllText(filePath, str2.Replace("replaceMark", queryString));
+             Debug.WriteLine("文件" + filePath + " 已生成");
 
 
         }

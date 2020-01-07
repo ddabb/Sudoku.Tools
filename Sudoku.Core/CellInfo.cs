@@ -89,13 +89,35 @@ namespace Sudoku.Core
 
         public FromTo Fromto = new FromTo();
 
+        private List<CellInfo> parentCache;
+
         public List<CellInfo> GetAllParents()
         {
-            List<CellInfo> refCellInfos = new List<CellInfo>();
-            if (Parent == null) return refCellInfos;
-            refCellInfos.Add(Parent);
-            refCellInfos.AddRange(Parent.GetAllParents());
-            return refCellInfos;
+            if (parentCache!=null)
+            {
+                return parentCache;
+            }
+            else
+            {
+                List<CellInfo> refCellInfos = new List<CellInfo>();
+                if (Parent == null)
+                {
+                    parentCache = refCellInfos;
+                    return refCellInfos;
+                }
+                else
+                {
+                    refCellInfos.AddRange(Parent.GetAllParents());
+                    refCellInfos.Insert(0,Parent);
+                    parentCache = refCellInfos;
+                    return refCellInfos;
+                }
+             
+             
+             
+          
+            }
+
 
         }
 

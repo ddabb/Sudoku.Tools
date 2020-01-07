@@ -8,6 +8,8 @@ namespace Sudoku.Tools
     [AssignmentExample("012009600600012094749635821428397100397156482156020009904573210070261940201900007")]
     public class WWingHandler : SolverHandlerBase
     {
+        public override SolveMethodEnum methodType => throw new NotImplementedException();
+
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();

@@ -9,6 +9,8 @@ namespace Sudoku.Tools
     [AssignmentExample("869453721000921568215800439621534987407610352000200146000102803932785614100340205")]
  public   class XYZWingHandler :SolverHandlerBase
     {
+        public override SolveMethodEnum methodType => throw new NotImplementedException();
+
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();

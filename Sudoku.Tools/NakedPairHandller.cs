@@ -10,6 +10,8 @@ namespace Sudoku.Tools
     [AssignmentExample("980006375376850140000700860569347218000000537723581496000205780000000950000008620")]
     public class NakedPairHandller :SolverHandlerBase
     {
+        public override SolveMethodEnum methodType => throw new NotImplementedException();
+
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();

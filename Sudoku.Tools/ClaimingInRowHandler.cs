@@ -14,6 +14,7 @@ namespace Sudoku.Tools
     [AssignmentExample("200007450537420008419050723000040075170000046640070000004060537700084092000700004")]
     public class ClaimingInRowHandler :SolverHandlerBase
     {
+        public override SolveMethodEnum methodType => throw new NotImplementedException();
 
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {

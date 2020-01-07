@@ -10,6 +10,8 @@ namespace Sudoku.Tools
     [AssignmentExample("400090700007810400080060050800130007000070000170028005068051024513249876042080501")]//已调整
     public class HiddenPairHandler : SolverHandlerBase
     {
+        public override SolveMethodEnum methodType => throw new NotImplementedException();
+
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             var indexscount = 2;

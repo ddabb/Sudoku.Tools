@@ -11,6 +11,8 @@ namespace Sudoku.Tools
     [AssignmentExample("805630070003705800027081305236894157481257030579163284702300000304000700198076023")]
     public class SkyscraperHandler : SolverHandlerBase
     {
+        public override SolveMethodEnum methodType => throw new NotImplementedException();
+
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
