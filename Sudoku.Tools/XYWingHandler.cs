@@ -17,7 +17,7 @@ namespace Sudoku.Tools
 
             var temp = (from x in checkCells
                         join y in checkCells on 1 equals 1
-                        where x.GetRest().Intersect(x.GetRest()).Count()==1
+                        where x.GetRest().Intersect(y.GetRest()).Count()==1
                         select new { x, y }).ToList();
             foreach (var pair in temp)
             {
@@ -44,9 +44,9 @@ namespace Sudoku.Tools
                                 var rests = cell.GetRest();
                                 if (rests.Contains(intersectValue)&&rests.Count==2)
                                 {
-                                    //Debug.WriteLine("allString"+ allString);
-                                    //Debug.WriteLine("pair.x" + pair.x + "  restX" + string.Join(",",restX) );
-                                    //Debug.WriteLine("pair.y" + pair.y+  "  restY" + string.Join(",", restY));
+                                    Debug.WriteLine("allString" + allString);
+                                    Debug.WriteLine("pair.x" + pair.x + "  restX" + string.Join(",", restX));
+                                    Debug.WriteLine("pair.y" + pair.y + "  restY" + string.Join(",", restY));
                                     cells.Add(new PositiveCellInfo(cell.Index, rests.First(c => c != intersectValue)));
                                 }
                             }
