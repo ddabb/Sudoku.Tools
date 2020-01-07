@@ -14,12 +14,12 @@ namespace Soduku.Tools
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cellInfo = new List<CellInfo>();
-            foreach (var index in qSudoku.GetFilterCell(c=>c.Value==0).Select(c=>c.Index))
+            foreach (var index in qSudoku.AllUnSetCell)
             {
-                var restList = qSudoku.GetRest(index);
+                var restList = index.GetRest();
                 if (restList.Count==1)
                 {
-                    cellInfo.Add(new PositiveCellInfo(index, restList[0]));
+                    cellInfo.Add(new PositiveCellInfo(index.Index, restList[0]));
                 }
             }
             return cellInfo;

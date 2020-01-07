@@ -28,7 +28,7 @@ namespace Sudoku.Tools
                 var filter = rests.Where(c => c.Block == dto.Block && c.Row == dto.Row);
                 foreach (var filterItem in filter)
                 {
-                    temp.AllRests.AddRange(qSudoku.GetRest(filterItem.Index));
+                    temp.AllRests.AddRange(filterItem.GetRest());
                 }
 
                 temp.AllRests = temp.AllRests.Distinct().ToList();
@@ -77,7 +77,7 @@ namespace Sudoku.Tools
                 var negativeCells = rests.Where(c => c.Block == item.Block && c.Row != item.Row).ToList();
                 foreach (var item1 in negativeCells)
                 {
-                    var cellrest = qSudoku.GetRest(item1.Index);
+                    var cellrest = item1.GetRest();
                     if (cellrest.Count == 2 && cellrest.Contains(item.Value))
                     {
                         item1.Value = cellrest.First(c => c != item.Value);

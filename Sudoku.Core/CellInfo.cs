@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Sudoku.Core
@@ -13,14 +14,39 @@ namespace Sudoku.Core
         public int Block;
         private int mIndex;
 
-        public CellType cellType { get; set; }
-        private QSudoku sudoku;
+        public CellType CellType { get; set; }
 
+        public QSudoku Sudoku;
+
+        public List<int> GetRest()
+        {
+            var relatedCells = Sudoku.AllSetCell.Where(c => c.Value != 0 && (c.Row == Row || c.Column == Column || c.Block == Block));
+            var result = G.AllBaseValues.Except(relatedCells.Select(c => c.Value)).ToList();
+            result.Sort();
+            return result;
+        }
+        
+        public string GetRestString()
+        {
+            return string.Join(",", GetRest());
+        }
         /// <summary>
         /// 推导层级
         /// </summary>
-        public int level;
+        public int Level { get; set; }=0;
 
+        /// <summary>
+        /// 关联的未设置值的单元格
+        /// </summary>
+        public List<CellInfo> RelatedUnsetCells
+        {
+            get
+            {
+                return this.Sudoku.AllUnSetCell.Where(c=>c.Index != this.Index 
+                                                          && (c.Block == this.Block || c.Row == this.Row || c.Column == this.Column)
+                                                          ).ToList();
+            }
+        }
 
         public CellInfo(int index, int value)
         {
@@ -28,6 +54,10 @@ namespace Sudoku.Core
             Value = value;
         }
 
+        public void SetSudoku(QSudoku qSudoku)
+        {
+            this.Sudoku = qSudoku;
+        }
         public int Index
         {
             get { return mIndex; }
@@ -41,7 +71,7 @@ namespace Sudoku.Core
 
         }
 
-        public abstract CellInfo parent { get; set; }
+        public abstract CellInfo Parent { get; set; }
         public abstract List<CellInfo> NextCells { get; set; }
         
         public override string ToString()
@@ -50,18 +80,14 @@ namespace Sudoku.Core
         }
 
 
-        public List<CellInfo> GetAllRelatedCell(List<CellInfo> allCellInfo)
-        {
-            return allCellInfo.Where(c => c.Index != this.Index && (c.Block == this.Block || c.Row == this.Row || c.Column == this.Column)).ToList();
 
-        }
         public int Value;
 
         public override bool Equals(object obj)
         {
             if (obj is CellInfo cell)
             {
-                if (cell.Index == Index && cell.Value == Value)
+                if (cell.Index == Index && cell.Value == Value&&cell.CellType==CellType)
                 {
                     return true;
 
@@ -70,7 +96,7 @@ namespace Sudoku.Core
             return false; ;
         }
 
-        public abstract List<CellInfo> GetNextCells(QSudoku sudoku);
+        public abstract List<CellInfo> GetNextCells();
    
     }
     /// <summary>

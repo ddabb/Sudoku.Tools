@@ -35,6 +35,7 @@ namespace Sudoku.Tools
                 {
 
                     var indexs = ConvertToInts(item.Key);
+                    
                     if (indexs.Exists(c => qSudoku.GetRest(c).Count() > restCount))//和显性数对区分
                     {
 

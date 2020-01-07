@@ -43,7 +43,7 @@ namespace Sudoku.Tools
                     cells.AddRange(from bi in indexb.Where(bi => direction == Direction.Row ? IsSameColumn(ai, bi) : IsSameRow(ai, bi)).Select(bi => bi)
                                    let restCells = GetIntersectCells(allunsetCell, ab.a.indexs.First(c => c != ai), ab.b.indexs.First(c => c != bi))
                                    from cell in restCells
-                                   let rests = qSudoku.GetRest(cell)
+                                   let rests = cell.GetRest()
                                    where rests.Count == 2 && rests.Contains(rest)
                                    && ab.a.indexs.Intersect(ab.b.indexs).Count()== 0 //四个单元格
                                    select new PositiveCellInfo(cell.Index, rests.First(c => c != rest)));

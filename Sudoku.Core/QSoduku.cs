@@ -99,6 +99,10 @@ namespace Sudoku.Core
             return indexs;
         }
 
+        public List<int> GetRest(int Index)
+        {
+            return this.cellInfos.First(c => c.Index == Index).GetRest();
+        }
 
         /// <summary>
         /// 获取出现了重复times的坐标。
@@ -209,7 +213,8 @@ namespace Sudoku.Core
             var chars = QueryString.ToCharArray();
             foreach (var location in allLocations)
             {
-                cellInfos.Add(new PositiveCellInfo(location, Convert.ToInt32("" + chars[location])));
+                var cellInit = new PositiveCellInfo(location, Convert.ToInt32("" + chars[location])) {Sudoku = this};
+                cellInfos.Add(cellInit);
             }
 
         }
@@ -243,6 +248,14 @@ namespace Sudoku.Core
                 return cellInfos.Where(c => c.Value == 0).ToList();
             }
         }
+
+        public List<CellInfo> AllSetCell
+        {
+            get
+            {
+                return cellInfos.Where(c => c.Value != 0).ToList();
+            }
+        }
         /// <summary>
         /// 用于HiddenSingleBlockHandler
         /// </summary>
@@ -267,28 +280,8 @@ namespace Sudoku.Core
             return cellInfos.Where(whereCondition).ToList();
         }
 
-        public List<int> GetRest(CellInfo cellInfo)
-        {
-            return GetRest(cellInfo.Index);
-        }
 
-        public string GetRestString(CellInfo cellInfo)
-        {
-            return GetRestString(cellInfo.Index);
-        }
-        public string GetRestString(int cellIndex)
-        {
-            return String.Join(",", GetRest(cellIndex));
-        }
 
-        public List<int> GetRest(int cellIndex)
-        {
-            var cell = cellInfos.First(c => c.Index == cellIndex);
-            var relatedCells = cellInfos.Where(c => c.Value != 0 && (c.Row == cell.Row || c.Column == cell.Column || c.Block == cell.Block));
-            var result = G.AllBaseValues.Except(relatedCells.Select(c => c.Value)).ToList();
-            result.Sort();
-            return result;
-        }
 
         public Dictionary<int, List<int>> GetColumnUnSetInfo(int columnIndex)
         {

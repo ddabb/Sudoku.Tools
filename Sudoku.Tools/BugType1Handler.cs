@@ -11,7 +11,7 @@ namespace Sudoku.Tools
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List < CellInfo > cells=new List<CellInfo>();
-            var checkcells= qSudoku.GetFilterCell(c => c.Value == 0 && (qSudoku.GetRest(c.Index).Count == 2));
+            var checkcells= qSudoku.GetFilterCell(c => c.Value == 0 && (c.GetRest().Count == 2));
      
             return cells;
          

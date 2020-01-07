@@ -10,15 +10,15 @@ namespace Sudoku.Core
 
         public PositiveCellInfo(int index, int value) : base(index, value)
         {
-            this.cellType = CellType.Positive;
+            this.CellType = CellType.Positive;
 
         }
 
-        public override CellInfo parent { get ; set ; }
+        public override CellInfo Parent { get ; set ; }
         public override List<CellInfo> NextCells { get; set; }
 
 
-        public override List<CellInfo> GetNextCells(QSudoku sudoku)
+        public override List<CellInfo> GetNextCells()
         {
             throw new NotImplementedException();
         }

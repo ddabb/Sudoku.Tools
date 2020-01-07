@@ -6,8 +6,8 @@ namespace Sudoku.Core
 {
     public interface ICellInfo
     {
-        CellInfo parent { get; set; }
-        List<CellInfo> GetNextCells(QSudoku sudoku);
+        CellInfo Parent { get; set; }
+        List<CellInfo> GetNextCells();
 
         List<CellInfo> NextCells { get; set; }
     }

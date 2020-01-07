@@ -13,7 +13,7 @@ namespace Sudoku.Tools
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
-            var checkCells = qSudoku.GetFilterCell(c => c.Value == 0 && qSudoku.GetRest(c).Count ==2);
+            var checkCells = qSudoku.GetFilterCell(c => c.Value == 0 && c.GetRest().Count ==2);
             foreach (var direction in G.AllDirection)
             {
                 foreach (var index in G.baseIndexs)
@@ -21,14 +21,14 @@ namespace Sudoku.Tools
                     var subcells = qSudoku.AllUnSetCell.Where(c => G.GetFilter(c, direction, index)).ToList();
                     if (subcells.Count>2)
                     {
-                        var temp = checkCells.Where(c => G.GetFilter(c, direction, index)).GroupBy(c => qSudoku.GetRestString(c)).Where(c => c.Count() == 2);
+                        var temp = checkCells.Where(c => G.GetFilter(c, direction, index)).GroupBy(c => c.GetRestString()).Where(c => c.Count() == 2);
                         foreach (var sub in temp)
                         {
-                            var removeCells = subcells.Where(c => qSudoku.GetRestString(c) != sub.Key);
+                            var removeCells = subcells.Where(c => c.GetRestString() != sub.Key);
                             var removeValues = ConvertToInts(sub.Key);
                             foreach (var cell in removeCells)
                             {
-                                var rests = qSudoku.GetRest(cell);
+                                var rests = cell.GetRest();
                                 if (rests.Count>1&&rests.Intersect(removeValues).Any())
                                 {
                                     foreach (var value in removeValues)

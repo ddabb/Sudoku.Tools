@@ -49,7 +49,7 @@ namespace Sudoku.Tools
                     var restCells = GetIntersectCells(allunsetCell, intersectIndex[0], intersectIndex[1]);
                     foreach (var cell in restCells)
                     {
-                        var rests = qSudoku.GetRest(cell);
+                        var rests = cell.GetRest();
                         if (rests.Count == 2 && rests.Contains(rest))
                         {
                             cells.Add(new PositiveCellInfo(cell.Index, rests.First(c => c != rest)));

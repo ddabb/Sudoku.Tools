@@ -44,10 +44,10 @@ namespace Sudoku.Tools
            
                     rest = GetIntersectCells(allunsetCell, item.a.indexs[0], item.c.indexs[0]);
                 }
-                var filter = rest.Where(c => qSudoku.GetRest(c).Count==2&& qSudoku.GetRest(c).Contains(SpeacialValue)).ToList();
+                var filter = rest.Where(c => c.GetRest().Count==2&& c.GetRest().Contains(SpeacialValue)).ToList();
                 foreach (var cell in filter)
                 {
-                    cells.Add(new PositiveCellInfo(cell.Index, qSudoku.GetRest(cell).First(c=>c!= SpeacialValue)));
+                    cells.Add(new PositiveCellInfo(cell.Index, cell.GetRest().First(c=>c!= SpeacialValue)));
                 }
         
             }

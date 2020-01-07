@@ -11,19 +11,19 @@ namespace Sudoku.Tools
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
-            var pairs = qSudoku.AllUnSetCell.Where(c => qSudoku.GetRest(c).Count == 2);
+            var pairs = qSudoku.AllUnSetCell.Where(c => c.GetRest().Count == 2);
             var cellPairs = (from a in pairs
                              join b in pairs on 1 equals 1
                              where a.Index < b.Index     
                              && !IsSameBlock(a,b)
-                             && qSudoku.GetRestString(a) == qSudoku.GetRestString(b)
+                             && a.GetRestString() == b.GetRestString()
                              select new { a, b }).ToList();
             int times = 2;
             List<PossibleIndex> allPossibleindex1 = GetAllPossibleIndexInRowOrColumn(qSudoku, times);
             foreach (var ab in cellPairs)
             {
-                var restString = qSudoku.GetRestString(ab.a);
-                var restInts = qSudoku.GetRest(ab.a);
+                var restString = ab.a.GetRestString();
+                var restInts = ab.a.GetRest();
                 var restValue = ConvertToInts(restString);
                 var filterIndexs = allPossibleindex1.Where(c => restValue.Contains(c.SpeacialValue)).ToList();
                 foreach (var IndexPairs in filterIndexs.Where(c=>!c.indexs.Contains(ab.a.Index)&& !c.indexs.Contains(ab.b.Index)))
@@ -39,7 +39,7 @@ namespace Sudoku.Tools
                         var removeCells=    GetIntersectCells(qSudoku.AllUnSetCell, ab.a, ab.b);
                             foreach (var cell in removeCells)
                             {
-                                var rests = qSudoku.GetRest(cell);
+                                var rests = cell.GetRest();
                                 if (rests.Count==2&& rests.Contains(rest))
                                 {
                                     cells.Add(new PositiveCellInfo(cell.Index, rests.First(c => c != rest)));
@@ -57,7 +57,7 @@ namespace Sudoku.Tools
                             var removeCells = GetIntersectCells(qSudoku.AllUnSetCell, ab.a, ab.b);
                             foreach (var cell in removeCells)
                             {
-                                var rests = qSudoku.GetRest(cell);
+                                var rests = cell.GetRest();
                                 if (rests.Count == 2 && rests.Contains(rest))
                                 {
                                     cells.Add(new PositiveCellInfo(cell.Index, rests.First(c => c != rest)));

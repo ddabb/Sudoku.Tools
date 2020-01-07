@@ -26,7 +26,7 @@ namespace Sudoku.Tools
                         var allRests = new List<int>();
                         foreach (var cell in checkCells)
                         {
-                            allRests.AddRange(qSudoku.GetRest(cell));
+                            allRests.AddRange(cell.GetRest());
                   
                         }
                         var restValues = allRests.Distinct().ToList();

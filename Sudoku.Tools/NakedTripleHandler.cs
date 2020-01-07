@@ -15,7 +15,7 @@ namespace Sudoku.Tools
             var allUnSetCell = qSudoku.AllUnSetCell;
             List<int> possibleCount=new List<int>{2,3};
             //只有2或3个候选数的单元格
-            var twoOrThreeRests = allUnSetCell.Where(c=>possibleCount.Contains(qSudoku.GetRest(c).Count)).ToList();
+            var twoOrThreeRests = allUnSetCell.Where(c=>possibleCount.Contains(c.GetRest().Count)).ToList();
             foreach (var direction in G.AllDirection)
             {
                 foreach (var index in G.baseIndexs)
@@ -53,7 +53,7 @@ namespace Sudoku.Tools
             var allRest = new List<int>();
             foreach (var checkCellInfo in checkCellInfos)
             {
-                allRest.AddRange(qSudoku.GetRest(checkCellInfo));
+                allRest.AddRange(checkCellInfo.GetRest());
             }
 
             if (allRest.Distinct().Count() == 3 && allRest.Count >= 8)
@@ -64,7 +64,7 @@ namespace Sudoku.Tools
 
                 foreach (var subCheckCell in subCheckCells)
                 {
-                    var rests = qSudoku.GetRest(subCheckCell);
+                    var rests = subCheckCell.GetRest();
                     if (rests.Intersect(allRest).Count() <= 1) continue;
                     foreach (var value in allRest)
                     {
