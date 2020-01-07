@@ -30,10 +30,7 @@ namespace Sudoku.Core
 
         };
 
-
-
-      
-
+   
         private string queryString;
 
         /// <summary>
@@ -172,11 +169,36 @@ namespace Sudoku.Core
                 chars[item.Index] = "" + item.Value;
             }
 
-            return new QSudoku(string.Join("", chars));
+            return new QSudoku(String.Join("", chars));
 
 
         }
 
+
+        private List<PossibleIndex> GetAllPossibleIndex( int times, Func<Direction, bool> predicate)
+        {
+            List<PossibleIndex> allPossibleindex = new List<PossibleIndex>();
+            foreach (var direction in G.AllDirection.Where(predicate))
+            {
+                foreach (var directionIndex in G.baseIndexs)
+                {
+                    //待检查的单元格
+                    var checkDirectionCells = AllUnSetCell.Where(G.GetDirectionCells(direction, directionIndex)).ToList();
+
+                    var temp = (from value in G.AllBaseValues
+                            where GetPossibleIndex(value, checkDirectionCells).Count == times
+                            select new { direction, directionIndex, value }
+                        ).ToList();
+                    foreach (var item in temp)
+                    {
+                        allPossibleindex.Add(new PossibleIndex(direction, directionIndex, item.value, GetPossibleIndex(item.value, checkDirectionCells)));
+
+                    }
+
+                }
+            }
+            return allPossibleindex;
+        }
 
         /// <summary>
         /// 根据查询字符串，计算出坐标以及值的初始化信息。
@@ -256,7 +278,7 @@ namespace Sudoku.Core
         }
         public string GetRestString(int cellIndex)
         {
-            return string.Join(",", GetRest(cellIndex));
+            return String.Join(",", GetRest(cellIndex));
         }
 
         public List<int> GetRest(int cellIndex)

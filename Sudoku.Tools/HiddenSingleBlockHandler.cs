@@ -17,7 +17,7 @@ namespace Soduku.Tools
             var direction = Direction.Block;
             foreach (var index in G.baseIndexs)
             {
-                cells.AddRange(GetHiddenSingleCellInfo(qSudoku, c => GetFilter(c, direction, index) && c.Value == 0));
+                cells.AddRange(GetHiddenSingleCellInfo(qSudoku, c => G.GetFilter(c, direction, index) && c.Value == 0));
             }
             return cells;
         }

@@ -16,12 +16,12 @@ namespace Sudoku.Tools
             List<int> possibleCount=new List<int>{2,3};
             //只有2或3个候选数的单元格
             var twoOrThreeRests = allUnSetCell.Where(c=>possibleCount.Contains(qSudoku.GetRest(c).Count)).ToList();
-            foreach (var direction in allDirection)
+            foreach (var direction in G.AllDirection)
             {
                 foreach (var index in G.baseIndexs)
                 {
                     //待检查的单元格
-                    var checkCells = twoOrThreeRests.Where(GetDirectionCells(direction, index)).ToList() ;
+                    var checkCells = twoOrThreeRests.Where(G.GetDirectionCells(direction, index)).ToList() ;
                     if (checkCells.Count() <= 2) continue;
                     {
                         var list = (from a in checkCells
@@ -59,7 +59,7 @@ namespace Sudoku.Tools
             if (allRest.Distinct().Count() == 3 && allRest.Count >= 8)
             {
                 var subCheckCells = allUnSetCell
-                    .Where(c => GetFilter(c, direction, index) && !exceptIndexs.Contains(c.Index))
+                    .Where(c => G.GetFilter(c, direction, index) && !exceptIndexs.Contains(c.Index))
                     .ToList();
 
                 foreach (var subCheckCell in subCheckCells)

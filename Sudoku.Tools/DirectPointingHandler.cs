@@ -20,7 +20,7 @@ namespace Sudoku.Tools
             {
                 foreach (var value in G.AllBaseValues)
                 {
-                    foreach (var direction in allDirection.Where(c=>c!= Direction.Block))
+                    foreach (var direction in G.AllDirection.Where(c=>c!= Direction.Block))
                     {
                         var blockUnSetCell = allunsetcell.Where(c => c.Block == blockindex).ToList();
                         var directionIndex = blockUnSetCell.Where(c => qSudoku.GetRest(c).Contains(value))
@@ -29,7 +29,7 @@ namespace Sudoku.Tools
                         if (directionIndex.Count == 1 && blockUnSetCell.Count(c => qSudoku.GetRest(c).Contains(value)) != 1)
                         {
                             var index = directionIndex.First();
-                            var checks = allunsetcell.Where(c =>GetFilter(c, direction, index) && c.Block != blockindex).ToList();
+                            var checks = allunsetcell.Where(c => G.GetFilter(c, direction, index) && c.Block != blockindex).ToList();
                             foreach (var cell in checks)
                             {
                                 var cellrest = qSudoku.GetRest(cell);
@@ -43,7 +43,7 @@ namespace Sudoku.Tools
                             var otherBlocks = checks.Select(c => c.Block).Distinct().ToList();
                             foreach (var block in otherBlocks)
                             {
-                                var otherCell = allunsetcell.Where(c => c.Block == block && !GetFilter(c, direction, index));
+                                var otherCell = allunsetcell.Where(c => c.Block == block && !G.GetFilter(c, direction, index));
                                 var containsCell = otherCell.Where(c => qSudoku.GetRest(c).Contains(value)).ToList();
                                 if (containsCell.Count() == 1)
                                 {

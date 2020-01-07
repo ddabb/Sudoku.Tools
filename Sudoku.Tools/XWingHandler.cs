@@ -14,14 +14,14 @@ namespace Sudoku.Tools
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
-            foreach (var direction in allDirection.Where(c => c != Direction.Block))
+            foreach (var direction in G.AllDirection.Where(c => c != Direction.Block))
             {
                 List<PossibleIndex> possibleIndexs = new List<PossibleIndex>();
                 foreach (var directionIndex in G.baseIndexs)
                 {
                     foreach (var speacilValue in G.AllBaseValues)
                     {
-                        var indexs = qSudoku.GetPossibleIndex(speacilValue, c => GetFilter(c, direction, directionIndex) && c.Value == 0);
+                        var indexs = qSudoku.GetPossibleIndex(speacilValue, c => G.GetFilter(c, direction, directionIndex) && c.Value == 0);
                         if (indexs.Count() == 2)
                         {
                             PossibleIndex index = new PossibleIndex(direction, directionIndex, speacilValue, indexs);
@@ -80,9 +80,9 @@ namespace Sudoku.Tools
                     if (!subCells.Exists(c => c.Row == item.Row && c.Column == item.Column))
                     {
                         var rests = qSudoku.GetRest(item.Index);
-                        if (rests.Contains(speacilValue) && rests.Where(x => x != speacilValue).Count() == 1)
+                        if (rests.Contains(speacilValue) && rests.Count(x => x != speacilValue) == 1)
                         {
-                            cells.Add(new PositiveCellInfo(item.Index, rests.Where(x => x != speacilValue).First()));
+                            cells.Add(new PositiveCellInfo(item.Index, rests.First(x => x != speacilValue)));
                         }
                     }
                 }

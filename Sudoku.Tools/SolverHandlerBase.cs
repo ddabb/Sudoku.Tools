@@ -64,23 +64,7 @@ namespace Sudoku.Tools
 
 
 
-        public static string GetEnumDescription(Enum enumSubitem)
-        {
-            string strValue = enumSubitem.ToString();
 
-            FieldInfo fieldinfo = enumSubitem.GetType().GetField(strValue);
-            Object[] objs = fieldinfo.GetCustomAttributes(typeof(DescriptionAttribute), false);
-            if (objs == null || objs.Length == 0)
-            {
-                return strValue;
-            }
-            else
-            {
-                DescriptionAttribute da = (DescriptionAttribute)objs[0];
-                return da.Description;
-            }
-
-        }
 
         public bool IsSameRowOrSameColumn(int index1, int index2)
         {
@@ -194,12 +178,12 @@ namespace Sudoku.Tools
         private List<PossibleIndex> GetAllPossibleIndex(QSudoku qSudoku, int times, Func<Direction, bool> predicate)
         {
             List<PossibleIndex> allPossibleindex = new List<PossibleIndex>();
-            foreach (var direction in allDirection.Where(predicate))
+            foreach (var direction in G.AllDirection.Where(predicate))
             {
                 foreach (var directionIndex in G.baseIndexs)
                 {
                     //待检查的单元格
-                    var checkDirectionCells = qSudoku.AllUnSetCell.Where(GetDirectionCells(direction, directionIndex)).ToList();
+                    var checkDirectionCells = qSudoku.AllUnSetCell.Where(G.GetDirectionCells(direction, directionIndex)).ToList();
 
                     var temp = (from value in G.AllBaseValues
                                 where qSudoku.GetPossibleIndex(value, checkDirectionCells).Count == times
@@ -250,8 +234,8 @@ namespace Sudoku.Tools
         public List<CellInfo> GetNakedSingleCell(QSudoku qSudoku, List<int> exceptIndex, int directionIndex, Direction direction)
         {
             List<CellInfo> cells = new List<CellInfo>();
-            Func<CellInfo, bool> where = c => GetFilter(c, direction, directionIndex) && c.Value == 0 && !exceptIndex.Contains(c.Index);
-            Func<CellInfo, bool> directionwhere = c => GetFilter(c, direction, directionIndex) && c.Value == 0;
+            Func<CellInfo, bool> where = c => G.GetFilter(c, direction, directionIndex) && c.Value == 0 && !exceptIndex.Contains(c.Index);
+            Func<CellInfo, bool> directionwhere = c => G.GetFilter(c, direction, directionIndex) && c.Value == 0;
             var cellList = qSudoku.GetFilterCell(where);
             List<int> allrest = new List<int>();
             foreach (var cell in cellList)
@@ -277,8 +261,7 @@ namespace Sudoku.Tools
 
 
 
-        public static readonly List<Direction> allDirection = new List<Direction> { Direction.Row, Direction.Column, Direction.Block };
-        public List<CellInfo> GetHiddenSingleCellInfo(QSudoku qSudoku, Func<CellInfo, bool> predicate)
+         public List<CellInfo> GetHiddenSingleCellInfo(QSudoku qSudoku, Func<CellInfo, bool> predicate)
         {
             List<CellInfo> cells = new List<CellInfo>();
             var rests = qSudoku.GetFilterCell(predicate);
@@ -320,29 +303,7 @@ namespace Sudoku.Tools
       
         }
 
-        public Func<CellInfo, bool> GetDirectionCells(Direction direction, int index)
-        {
-            return c => GetFilter(c, direction, index);
-        }
-        public bool GetFilter(CellInfo cell, Direction direction, int index)
-        {
 
-            bool r = false;
-            switch (direction)
-            {
-                case Direction.Row:
-                    r = cell.Row == index;
-                    break;
-                case Direction.Column:
-                    r = cell.Column == index;
-                    break;
-                case Direction.Block:
-                    r = cell.Block == index;
-                    break;
-            }
-            return r;
-
-        }
 
 
 
@@ -445,65 +406,17 @@ namespace Sudoku.Tools
             return cells;
         }
 
-        private List<CellInfo> GetAllRelatedCell(List<CellInfo> allCellInfo,CellInfo cellinfo)
-        {
-         return   allCellInfo.Where(c => c.Index != cellinfo.Index && (c.Block == cellinfo.Block || c.Row == cellinfo.Row || c.Column == cellinfo.Column)).ToList();
 
-        }
 
         public List<NegativeCellInfo> GetNegativeCells(QSudoku qSudoku, PositiveCellInfo positiveCellInfo, NegativeCellInfo cellInfo)
         {
-        return    GetAllRelatedCell(qSudoku.AllUnSetCell, positiveCellInfo).Where(c => qSudoku.GetRest(c).Contains(positiveCellInfo.Value) && c.Index != cellInfo.Index).Select(c => new NegativeCellInfo(c.Index, positiveCellInfo.Value)).ToList();
+        return positiveCellInfo.GetAllRelatedCell(qSudoku.AllUnSetCell).Where(c => qSudoku.GetRest(c).Contains(positiveCellInfo.Value) && c.Index != cellInfo.Index).Select(c => new NegativeCellInfo(c.Index, positiveCellInfo.Value)).ToList();
         }
     }
 
-    public class PossibleIndex
-    {
-        public Direction direction;
-        public int directionIndex;
-        public int SpeacialValue;
-
-        public List<int> indexs;
-
-        public PossibleIndex (Direction direction,int directionIndex,int SpeacialValue, List<int> indexs)
-        {
-            this.direction = direction;
-            this.directionIndex = directionIndex;
-            this.SpeacialValue = SpeacialValue;
-            indexs.Sort();
-            this.indexs = indexs;
-        
-        }
 
 
 
-
-        public override string ToString()
-        {
-            return "在" + directionIndex + "" + SolverHandlerBase.GetEnumDescription(direction) + "值" + SpeacialValue + "可能位置" + indexs.JoinString() + "direction value" + direction;
-        }
-
-
-
-    }
-
-
-    /// <summary>
-    /// 获取枚举类子项描述信息
-    /// </summary>
-    /// <param name="enumSubitem">枚举类子项</param>        
-
-
-
-    public enum Direction
-    {
-        [Description("行")]
-        Row,
-        [Description("列")]
-        Column,
-        [Description("宫")]
-        Block
-    }
 
 
     public class ColumnBlockDto

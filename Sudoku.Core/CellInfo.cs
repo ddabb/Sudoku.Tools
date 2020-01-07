@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Sudoku.Core
 {
@@ -46,6 +47,13 @@ namespace Sudoku.Core
         public override string ToString()
         {
             return "index  " + Index + "  row  " + Row + "  column  " + Column + "  block  " + Block + "  value  " + Value;
+        }
+
+
+        public List<CellInfo> GetAllRelatedCell(List<CellInfo> allCellInfo)
+        {
+            return allCellInfo.Where(c => c.Index != this.Index && (c.Block == this.Block || c.Row == this.Row || c.Column == this.Column)).ToList();
+
         }
         public int Value;
 

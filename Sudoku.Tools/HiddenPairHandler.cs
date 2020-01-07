@@ -15,14 +15,14 @@ namespace Sudoku.Tools
             var indexscount = 2;
             var restCount = 2;
             List<CellInfo> cells = new List<CellInfo>();
-            foreach (var direaction in allDirection)
+            foreach (var direaction in G.AllDirection)
             {
                 List<PossibleIndex> possbleIndexs = new List<PossibleIndex>();
                 foreach (var index in G.baseIndexs)
                 {
                     foreach (var speacilValue in G.AllBaseValues)
                     {
-                        Func<CellInfo, bool> rowCondition = c => GetFilter(c, direaction, index) && c.Value == 0;
+                        Func<CellInfo, bool> rowCondition = c => G.GetFilter(c, direaction, index) && c.Value == 0;
                         var indexs = qSudoku.GetPossibleIndex( speacilValue, rowCondition);
                         if (indexs.Count == indexscount)
                         {

@@ -13,12 +13,12 @@ namespace Sudoku.Tools
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
-            foreach (var direction in allDirection)
+            foreach (var direction in G.AllDirection)
             {
                 foreach (var index in G.baseIndexs)
                 {
                     //待检查的单元格
-                    var checkCells = qSudoku.AllUnSetCell.Where(GetDirectionCells(direction, index)).ToList();
+                    var checkCells = qSudoku.AllUnSetCell.Where(G.GetDirectionCells(direction, index)).ToList();
 
                     if (checkCells.Count>3)
                     {

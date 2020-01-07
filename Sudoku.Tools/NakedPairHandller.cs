@@ -14,14 +14,14 @@ namespace Sudoku.Tools
         {
             List<CellInfo> cells = new List<CellInfo>();
             var checkCells = qSudoku.GetFilterCell(c => c.Value == 0 && qSudoku.GetRest(c).Count ==2);
-            foreach (var direction in allDirection)
+            foreach (var direction in G.AllDirection)
             {
                 foreach (var index in G.baseIndexs)
                 {
-                    var subcells = qSudoku.AllUnSetCell.Where(c => GetFilter(c, direction, index)).ToList();
+                    var subcells = qSudoku.AllUnSetCell.Where(c => G.GetFilter(c, direction, index)).ToList();
                     if (subcells.Count>2)
                     {
-                        var temp = checkCells.Where(c => GetFilter(c, direction, index)).GroupBy(c => qSudoku.GetRestString(c)).Where(c => c.Count() == 2);
+                        var temp = checkCells.Where(c => G.GetFilter(c, direction, index)).GroupBy(c => qSudoku.GetRestString(c)).Where(c => c.Count() == 2);
                         foreach (var sub in temp)
                         {
                             var removeCells = subcells.Where(c => qSudoku.GetRestString(c) != sub.Key);
@@ -29,7 +29,7 @@ namespace Sudoku.Tools
                             foreach (var cell in removeCells)
                             {
                                 var rests = qSudoku.GetRest(cell);
-                                if (rests.Count>1&&rests.Intersect(removeValues).Count()>0)
+                                if (rests.Count>1&&rests.Intersect(removeValues).Any())
                                 {
                                     foreach (var value in removeValues)
                                     {
