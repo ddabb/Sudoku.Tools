@@ -37,7 +37,7 @@ namespace Sudoku.Core
         /// 推导层级
         /// </summary>
         public int Level { get; set; }=0;
-
+        public abstract  bool IsError { get; }
         /// <summary>
         /// 关联的未设置值的单元格
         /// </summary>

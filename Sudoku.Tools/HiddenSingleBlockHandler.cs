@@ -1,12 +1,8 @@
-﻿using Sudoku.Core;
-using Sudoku.Tools;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
+using Sudoku.Core;
 
-namespace Soduku.Tools
+namespace Sudoku.Tools
 {
     [AssignmentExample("900400613320190700000000009000017008000000000700360000800000000009045086253001004")]
     public class HiddenSingleBlockHandler : SolverHandlerBase

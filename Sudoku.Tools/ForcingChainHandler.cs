@@ -16,59 +16,90 @@ namespace Sudoku.Tools
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
-            foreach (var item in qSudoku.AllUnSetCell)
+
+            var checkIndexLists = qSudoku.AllUnSetCell.Where(c => c.GetRest().Count == 2).Select(c => c.Index).ToList();
+            var aOrBIndex = qSudoku.GetPossibleIndexByTimes(2);
+            foreach (var item in aOrBIndex)
             {
-                foreach (var testValue in item.GetRest())
+                checkIndexLists.AddRange(item.indexs);
+            }
+            Debug.WriteLine("qSudoku.AllUnSetCell " + qSudoku.AllUnSetCell.Count);
+            checkIndexLists = checkIndexLists.Distinct().ToList();
+
+            Debug.WriteLine("checkIndexLists " + checkIndexLists.Count);
+            foreach (var index in checkIndexLists)
+            {
+                foreach (var testValue in qSudoku.GetRest(index))
                 {
-                    NegativeCellInfo cell = new NegativeCellInfo(item.Index, testValue) { Sudoku = qSudoku, CellType = CellType.Negative, IsRoot = true };
-            List<CellInfo> traceCell = new List<CellInfo>();
-            Fuc(cell, ref traceCell);
-            if (traceCell.Count != 0)
-            {
-                var temp = new PositiveCellInfo(item.Index, testValue) { CellType = CellType.Positive };
-                cells.Add(temp);
-            }
-            else
-            {
-                //Debug.WriteLine("我还是可以进来");
+                    NegativeCellInfo cell = new NegativeCellInfo(index, testValue)
+                    { Sudoku = qSudoku, CellType = CellType.Negative, IsRoot = true };
+                    traceCell.Clear();
+                    Fuc(cell);
+                    if (traceCell.Count != 0)
+                    {
+                        var temp = new PositiveCellInfo(index, testValue) { CellType = CellType.Positive };
+                        cells.Add(temp);
+                    }
+                    else
+                    {
+                        //Debug.WriteLine("我还是可以进来");
+                    }
+
+                }
             }
 
-        }
+            //foreach (var item in qSudoku.AllUnSetCell)
+            //{
+            //    foreach (var testValue in item.GetRest())
+            //    {
+            //        NegativeCellInfo cell = new NegativeCellInfo(item.Index, testValue)
+            //            {Sudoku = qSudoku, CellType = CellType.Negative, IsRoot = true};
+            //        List<CellInfo> traceCell = new List<CellInfo>();
+            //        Fuc(cell, ref traceCell);
+            //        if (traceCell.Count != 0)
+            //        {
+            //            var temp = new PositiveCellInfo(item.Index, testValue) {CellType = CellType.Positive};
+            //            cells.Add(temp);
+            //        }
+            //        else
+            //        {
+            //            //Debug.WriteLine("我还是可以进来");
+            //        }
 
-    }
+            //    }
+
+            //}
 
             return cells;
 
         }
 
-        private void Fuc(CellInfo cell, ref List<CellInfo> traceCell)
+        public static List<CellInfo> traceCell = new List<CellInfo>();
+        private void Fuc(CellInfo cell)
         {
-              if (traceCell.Count() > 0) return;
-                //index  70  row  7  column  7  block  8  value  5  类型：肯定的 层级17
+            if (traceCell.Any()) return;
 
-                if (cell.CellType == CellType.Positive)
+            if (cell.IsError)
             {
-                var checkList = cell.GetAllParents().Where(c => c.Index == cell.Index && c.CellType == CellType.Positive && c.Value != cell.Value);
-                if (checkList.Count() > 0)
+                Debug.WriteLine("ForcingChainHandler  \r\n");
+
+                foreach (var parent in cell.GetAllParents().OrderBy(c => c.Level))
                 {
-                    traceCell.Add(cell);
-
-
+                    Debug.WriteLine("parent  " + parent);
                 }
-
+                Debug.WriteLine("result  " + cell);
+                traceCell.Add(cell);
+                return;
             }
 
-            if (cell.GetAllParents().Where(c => c.Index == cell.Index && c.CellType == cell.CellType && c.Value == cell.Value).Count() == 0)
+            if (!cell.GetAllParents().Any(c => c.Index == cell.Index && c.CellType == cell.CellType && c.Value == cell.Value))
             {
                 var temp = cell.NextCells;
                 foreach (var item in temp)
                 {
-                    Fuc(item, ref traceCell);
+                    Fuc(item);
                 }
             }
-
-
-
 
         }
 

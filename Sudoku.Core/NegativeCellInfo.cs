@@ -25,6 +25,11 @@ namespace Sudoku.Core
         private List<CellInfo> temp;
 
 
+        public override bool IsError
+        {
+            get { return false; }
+        }
+        
 
         public override List<CellInfo> NextCells
         {

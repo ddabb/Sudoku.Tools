@@ -1,11 +1,8 @@
-﻿using Sudoku.Core;
-using Sudoku.Tools;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
-using System.Linq;
-namespace Soduku.Tools
+using Sudoku.Core;
+
+namespace Sudoku.Tools
 {
     [AssignmentExample("900400613320190700000000009000017008000000000700360000800000000009045086253001004")]
     public  class NakedSingleHandler:SolverHandlerBase

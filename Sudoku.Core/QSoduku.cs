@@ -87,6 +87,31 @@ namespace Sudoku.Core
             return indexs;
         }
 
+        public List<PossibleIndex> GetPossibleIndexByTimes(int time)
+        {
+            List<PossibleIndex> possbleIndexs = new List<PossibleIndex>();
+            foreach (var direaction in G.AllDirection)
+            {
+               
+                foreach (var index in G.baseIndexs)
+                {
+                    foreach (var speacilValue in G.AllBaseValues)
+                    {
+                        Func<CellInfo, bool> rowCondition = c => G.GetFilter(c, direaction, index) && c.Value == 0;
+                        var indexs = GetPossibleIndex(speacilValue, rowCondition);
+                        if (indexs.Count == time)
+                        {
+                            possbleIndexs.Add(new PossibleIndex(direaction, index, speacilValue, indexs));
+                        }
+                    }
+                }
+            }
+
+            return possbleIndexs;
+
+        }
+
+
         public List<int> GetPossibleIndex(int speacialValue, List<CellInfo> cellInfos)
         {
             List<int> indexs = new List<int>();

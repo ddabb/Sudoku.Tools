@@ -14,14 +14,13 @@ namespace Sudoku.Console
         static void Main(string[] args)
         {
             var runtest = true;
-            runtest = false;
+            //runtest = false;
             if (runtest)
             {
                 ForcingChainHandler hander = new ForcingChainHandler();
-                QSudoku qsudoku = new QSudoku("104900853385140000070358000653714298741800536800635417007580300508403000430201085");
+                QSudoku qsudoku = new QSudoku("060300570052041006000605100580004267429006315607002498006207000005410620290063700");
                 Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString));
-                var cells = hander.Assignment(qsudoku);               
-
+                var cells = hander.Assignment(qsudoku);
                 return;
              
            

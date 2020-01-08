@@ -19,7 +19,15 @@ namespace Sudoku.Core
         }
 
         private List<CellInfo> temp;
- 
+
+
+        public override bool IsError {
+            get
+            {
+                return GetAllParents().Count(c => c.Index == Index && c.CellType == CellType.Positive && c.Value != Value)>0;
+            }
+
+        }
 
         public override List<CellInfo> NextCells
         {
