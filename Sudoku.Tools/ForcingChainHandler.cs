@@ -11,7 +11,7 @@ namespace Sudoku.Tools
     //200607984700480230048000710000070598017800623580000471395000847126748359874000162
     public class ForcingChainHandler : SolverHandlerBase
     {
-        public override SolveMethodEnum methodType => throw new NotImplementedException();
+        public override SolveMethodEnum methodType => SolveMethodEnum.ForcingChain;
 
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
