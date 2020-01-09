@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sudoku.Core;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,7 +16,8 @@ namespace Sudoku.UI
         public Form1()
         {
             InitializeComponent();
-        }
 
+            this.sudokuPanel1.Tag = new QSudoku("030150209000360050700490603001273800000519000003684700100000008320040000409001060");
+        }
     }
 }

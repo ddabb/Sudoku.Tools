@@ -173,7 +173,7 @@ namespace Sudoku.Core
 
             }
         
-            dynamic type = typeof(QSudoku);
+            Type type = typeof(QSudoku);
             string currentDirectory = Path.GetDirectoryName(type.Assembly.Location);
             string saveDirectory = Path.Combine(currentDirectory, "UnSolveSudoku");
             if (!Directory.Exists(saveDirectory))
