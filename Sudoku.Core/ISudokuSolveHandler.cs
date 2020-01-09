@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Sudoku.Core
 {
 
-    public interface ISudokuSolveHelper
+    public interface ISudokuSolveHandler
     {
         /// <summary>
         /// 出数

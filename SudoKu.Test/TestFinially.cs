@@ -39,7 +39,7 @@ namespace SudoKu.Test
             foreach (var item in queryString)
             {
                 var assembly = typeof(SolverHandlerBase).Assembly;
-                var types = assembly.GetTypes().Where(t => typeof(ISudokuSolveHelper).IsAssignableFrom(t) && t.IsAbstract == false);
+                var types = assembly.GetTypes().Where(t => typeof(ISudokuSolveHandler).IsAssignableFrom(t) && t.IsAbstract == false);
                 var tryagain = false;
                 QSudoku example = new QSudoku(item);
                 List<Type> types1 = new List<Type>();
@@ -55,7 +55,7 @@ namespace SudoKu.Test
                             if (!types1.Contains(type))
                             {
                                 var cellinfos =
-                                    ((ISudokuSolveHelper)Activator.CreateInstance(type, true)).Assignment(
+                                    ((ISudokuSolveHandler)Activator.CreateInstance(type, true)).Assignment(
                                       example);
 
                                 if (cellinfos.Count != 0)

@@ -11,9 +11,11 @@ namespace Sudoku.Tools
     /// <summary>
     /// 求解数独基础类
     /// </summary>
-    public abstract class SolverHandlerBase : ISudokuSolveHelper
+    public abstract class SolverHandlerBase : ISudokuSolveHandler
 
     {
+        public SolverHandlerBase()
+        { }
         public abstract SolveMethodEnum methodType { get; }
 
         /// <summary>
