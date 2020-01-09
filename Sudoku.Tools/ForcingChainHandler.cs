@@ -27,10 +27,11 @@ namespace Sudoku.Tools
             checkIndexLists = checkIndexLists.Distinct().ToList();
 
             Debug.WriteLine("checkIndexLists " + checkIndexLists.Count);
-            foreach (var index in checkIndexLists)
+            foreach (var cell1 in qSudoku.AllUnSetCell)
             {
-                foreach (var testValue in qSudoku.GetRest(index))
+                foreach (var testValue in cell1.GetRest())
                 {
+                    var index = cell1.Index;
                     NegativeCellInfo cell = new NegativeCellInfo(index, testValue)
                     { Sudoku = qSudoku, CellType = CellType.Negative, IsRoot = true };
                     traceCell.Clear();
@@ -48,27 +49,7 @@ namespace Sudoku.Tools
                 }
             }
 
-            //foreach (var item in qSudoku.AllUnSetCell)
-            //{
-            //    foreach (var testValue in item.GetRest())
-            //    {
-            //        NegativeCellInfo cell = new NegativeCellInfo(item.Index, testValue)
-            //            {Sudoku = qSudoku, CellType = CellType.Negative, IsRoot = true};
-            //        List<CellInfo> traceCell = new List<CellInfo>();
-            //        Fuc(cell, ref traceCell);
-            //        if (traceCell.Count != 0)
-            //        {
-            //            var temp = new PositiveCellInfo(item.Index, testValue) {CellType = CellType.Positive};
-            //            cells.Add(temp);
-            //        }
-            //        else
-            //        {
-            //            //Debug.WriteLine("我还是可以进来");
-            //        }
 
-            //    }
-
-            //}
 
             return cells;
 
@@ -77,6 +58,7 @@ namespace Sudoku.Tools
         public static List<CellInfo> traceCell = new List<CellInfo>();
         private void Fuc(CellInfo cell)
         {
+            Debug.WriteLine("Fuc in  " + cell);
             if (traceCell.Any()) return;
 
             if (cell.IsError)
