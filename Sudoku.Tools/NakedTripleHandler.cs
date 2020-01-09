@@ -9,7 +9,7 @@ namespace Sudoku.Tools
     [AssignmentExample("390000700000000650507000349049380506601054983853000400900800134002940865400000297")]
     public class NakedTripleHandler :SolverHandlerBase
     {
-        public override SolveMethodEnum methodType => throw new NotImplementedException();
+        public override SolveMethodEnum methodType => SolveMethodEnum.NakedTriple;
 
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {

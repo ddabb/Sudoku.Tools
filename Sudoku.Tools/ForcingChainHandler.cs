@@ -23,15 +23,15 @@ namespace Sudoku.Tools
             {
                 checkIndexLists.AddRange(item.indexs);
             }
-            Debug.WriteLine("qSudoku.AllUnSetCell " + qSudoku.AllUnSetCell.Count);
+
             checkIndexLists = checkIndexLists.Distinct().ToList();
 
-            Debug.WriteLine("checkIndexLists " + checkIndexLists.Count);
-            foreach (var cell1 in qSudoku.AllUnSetCell)
+
+            foreach (var index in checkIndexLists)
             {
-                foreach (var testValue in cell1.GetRest())
+                foreach (var testValue in qSudoku.GetRest(index))
                 {
-                    var index = cell1.Index;
+                    //var index = cell1.Index;
                     NegativeCellInfo cell = new NegativeCellInfo(index, testValue)
                     { Sudoku = qSudoku, CellType = CellType.Negative, IsRoot = true };
                     traceCell.Clear();
@@ -55,18 +55,18 @@ namespace Sudoku.Tools
         public static List<CellInfo> traceCell = new List<CellInfo>();
         private void Fuc(CellInfo cell)
         {
-            Debug.WriteLine("Fuc in  " + cell);
+            //Debug.WriteLine("Fuc in  " + cell);
             if (traceCell.Any()) return;
 
             if (cell.IsError)
             {
-                Debug.WriteLine("ForcingChainHandler  \r\n");
+                //Debug.WriteLine("ForcingChainHandler  \r\n");
 
-                foreach (var parent in cell.GetAllParents().OrderBy(c => c.Level))
-                {
-                    Debug.WriteLine("parent  " + parent);
-                }
-                Debug.WriteLine("result  " + cell);
+                //foreach (var parent in cell.GetAllParents().OrderBy(c => c.Level))
+                //{
+                //    Debug.WriteLine("parent  " + parent);
+                //}
+                //Debug.WriteLine("result  " + cell);
                 traceCell.Add(cell);
                 return;
             }

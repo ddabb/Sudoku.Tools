@@ -8,7 +8,7 @@ namespace Sudoku.Tools
     [AssignmentExample("000037501152000600000500000070102000400750100218000750000305000829476315000090000")]
     public class WXYZWingHandler : SolverHandlerBase
     {
-        public override SolveMethodEnum methodType => throw new NotImplementedException();
+        public override SolveMethodEnum methodType => SolveMethodEnum.WXYZWing;
 
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {

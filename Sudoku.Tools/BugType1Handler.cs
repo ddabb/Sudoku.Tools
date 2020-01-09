@@ -8,7 +8,7 @@ namespace Sudoku.Tools
     [AssignmentExample("000900100039014500002000003900400008050078030080090005470809300090000457320047000")] //已调整
     public class BugType1Handler :SolverHandlerBase
     {
-        public override SolveMethodEnum methodType => throw new NotImplementedException();
+        public override SolveMethodEnum methodType => SolveMethodEnum.BugType1;
 
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {

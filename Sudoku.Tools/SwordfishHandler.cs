@@ -8,7 +8,7 @@ namespace Sudoku.Tools
     [AssignmentExample("000074200200906740004520009100457928547892000002600574400705092005209403629040057")]
     public class SwordfishHandler :SolverHandlerBase
     {
-        public override SolveMethodEnum methodType => throw new NotImplementedException();
+        public override SolveMethodEnum methodType => SolveMethodEnum.Swordfish;
 
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {

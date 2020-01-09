@@ -8,7 +8,7 @@ namespace Sudoku.Tools
 
     public class LockedCandidatesHandler :SolverHandlerBase
     {
-        public override SolveMethodEnum methodType => throw new NotImplementedException();
+        public override SolveMethodEnum methodType => SolveMethodEnum.LockedCandidates;
 
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {

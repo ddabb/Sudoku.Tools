@@ -8,7 +8,7 @@ namespace Sudoku.Tools
     [AssignmentExample("030150209000360050700490603001273800000519000003684700100000008320040000409001060")]
     public class SashimiJellyfishHandler :SolverHandlerBase
     {
-        public override SolveMethodEnum methodType => throw new NotImplementedException();
+        public override SolveMethodEnum methodType => SolveMethodEnum.SashimiJellyfish;
 
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {

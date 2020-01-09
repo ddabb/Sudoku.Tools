@@ -7,7 +7,7 @@ namespace Sudoku.Tools
     [AssignmentExample("900400613320190700000000009000017008000000000700360000800000000009045086253001004")]
     public  class NakedSingleHandler:SolverHandlerBase
     {
-        public override SolveMethodEnum methodType => throw new NotImplementedException();
+        public override SolveMethodEnum methodType => SolveMethodEnum.NakedSingle;
 
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {

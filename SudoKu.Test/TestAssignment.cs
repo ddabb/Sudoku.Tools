@@ -148,6 +148,26 @@ namespace SudoKu.Test
         }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void TestForcingChainHandler55()
+        {
+            ForcingChainHandler hander = new ForcingChainHandler();
+            QSudoku qsudoku = new QSudoku("000400900324006000060500040000000600040160800600085090718003000000000080400070023");
+            Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString));
+            var cells = hander.Assignment(qsudoku);
+            foreach (var item in cells)
+            {
+                Debug.WriteLine("" + item);
+            }
+            qsudoku = qsudoku.ApplyCells(cells);
+            Assert.AreEqual(true, cells.Exists(c => c.Value == 4));
+            Assert.AreEqual(true, cells.Exists(c => c.Index == 53));
+            Debug.WriteLine(qsudoku.QueryString);
+            Assert.AreEqual(true, new DanceLink().isValid(qsudoku.QueryString));
+        }
         [TestMethod]
         public void TestForcingChainHandler33()
         {

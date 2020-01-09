@@ -13,7 +13,7 @@ namespace Sudoku.Tools
     [AssignmentExample("081020600042060089056800240693142758428357916175689324510036892230008460860200000")]
     public class TwoStringsKiteHandler : SolverHandlerBase
     {
-        public override SolveMethodEnum methodType => throw new NotImplementedException();
+        public override SolveMethodEnum methodType => SolveMethodEnum.TwoStringsKite;
 
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {

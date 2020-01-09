@@ -9,7 +9,7 @@ namespace Sudoku.Tools
     [AssignmentExample("000000000000040329000651840000000000000000473008473296004000900000005180060180700")]
     public class HiddenSingleRowHandler :SolverHandlerBase
     {
-        public override SolveMethodEnum methodType => throw new NotImplementedException();
+        public override SolveMethodEnum methodType => SolveMethodEnum.HiddenSingleRow;
 
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {

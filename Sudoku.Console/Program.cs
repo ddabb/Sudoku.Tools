@@ -14,7 +14,7 @@ namespace Sudoku.Console
         static void Main(string[] args)
         {
             var runtest = true;
-            //runtest = false;
+            runtest = false;
             if (runtest)
             {
                 ForcingChainHandler hander = new ForcingChainHandler();
@@ -84,6 +84,9 @@ namespace Sudoku.Console
             List<QSudoku> qSudokus = new List<QSudoku>();
             var solveCount = 0;
             List<Type> types1 = new List<Type>();
+            var assembly = typeof(SolverHandlerBase).Assembly;
+            var types = assembly.GetTypes().Where(t => typeof(ISudokuSolveHelper).IsAssignableFrom(t) && t.IsAbstract == false).ToList();
+            var tryagain = false;
             do
             {
                 QSudoku example;
@@ -101,16 +104,14 @@ namespace Sudoku.Console
                 }
                 var initString = example.QueryString;
                 Debug.WriteLine("example init "+ example.QueryString);
-                var assembly = typeof(SolverHandlerBase).Assembly;
-                var types = assembly.GetTypes().Where(t => typeof(ISudokuSolveHelper).IsAssignableFrom(t) && t.IsAbstract == false);
-                var tryagain = false;
+    
 
                 do
                 {
                     tryagain = false;
                     foreach (var type in types)
                     {
-                        object[] objs = type.GetCustomAttributes(typeof(AssignmentExampleAttribute), true);
+              
                         try
                         {
                             if (!types1.Contains(type))
@@ -156,6 +157,7 @@ namespace Sudoku.Console
 
 
                     }
+                 
                 } while (tryagain);
                 if (!example.IsAllSeted)
                 {
@@ -165,6 +167,10 @@ namespace Sudoku.Console
                     SaveToTXT(example.QueryString,initString);
                     qSudokus.Add(example);
                     example.SaveTohtml();
+                }
+                else
+                {
+                    Debug.WriteLine("solveCount in esle" + solveCount);
                 }
                 Debug.WriteLine("solveCount " + solveCount);
 
