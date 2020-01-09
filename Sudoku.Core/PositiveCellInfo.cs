@@ -24,7 +24,8 @@ namespace Sudoku.Core
         public override bool IsError {
             get
             {
-                return GetAllParents().Count(c => c.Index == Index && c.CellType == CellType.Positive && c.Value != Value)>0;
+                return GetAllParents().Count(c => c.Index == Index && c.CellType == CellType.Positive && c.Value != Value)>0||
+                    GetAllParents().Count(c => c.Index == Index && c.CellType == CellType.Negative && c.Value == Value) > 0;
             }
 
         }
