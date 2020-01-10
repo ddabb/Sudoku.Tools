@@ -67,6 +67,28 @@ namespace Sudoku.Tools
         }
 
 
+        /// <summary>
+        /// 获取两个单元格的共同影响区域
+        /// </summary>
+        /// <param name="cells"></param>
+        /// <param name="cell1"></param>
+        /// <param name="cell2"></param>
+        /// <returns></returns>
+        public List<int> GetIntersectCellIndexs(List<CellInfo> cells, CellInfo cell1, CellInfo cell2)
+        {
+            return cells.Where(c => (c.Row == cell1.Row && c.Block == cell2.Block
+                                 || (c.Row == cell2.Row && c.Block == cell1.Block)  //row block
+
+                                 || (c.Column == cell1.Column && c.Block == cell2.Block)
+                                 || (c.Column == cell2.Column && c.Block == cell1.Block) //column block
+
+                                 || (c.Column == cell1.Column && c.Row == cell2.Row)
+                                 || (c.Column == cell2.Column && c.Row == cell1.Row)    //column row         
+            ) && c.Index != cell1.Index && c.Index != cell2.Index
+            ).Select(c=>c.Index).ToList();
+        }
+
+
 
 
 

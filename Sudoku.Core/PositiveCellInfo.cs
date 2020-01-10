@@ -43,7 +43,16 @@ namespace Sudoku.Core
         public override List<CellInfo> GetNextCells()
         {
             List<CellInfo> cellsA = new List<CellInfo>();
-            var cells = this.RelatedUnsetCells.Where(c => c.Index != Parent.Index && c.GetRest().Contains(this.Value));
+            var cells = new List<CellInfo>();
+            if (Parent != null)
+            {
+                cells=   this.RelatedUnsetCells.Where(c => c.Index != Parent.Index && c.GetRest().Contains(this.Value)).ToList();
+            }
+            else
+            {
+                cells = this.RelatedUnsetCells.Where(c => c.GetRest().Contains(this.Value)).ToList();
+            }
+
             foreach (var cellInfo in cells)
             {
                 NegativeCellInfo cell = new NegativeCellInfo(cellInfo.Index, Value)
