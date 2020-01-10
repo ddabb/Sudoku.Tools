@@ -15,7 +15,7 @@ namespace Sudoku.Console
         static void Main(string[] args)
         {
             var runtest = true;
-            //runtest = false;
+            runtest = false;
             if (runtest)
             {
                 WXYZWingHandler hander = new WXYZWingHandler();
