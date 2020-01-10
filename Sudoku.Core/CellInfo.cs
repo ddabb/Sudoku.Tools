@@ -61,6 +61,10 @@ namespace Sudoku.Core
         {
             this.Sudoku = qSudoku;
         }
+
+        public string RrCc {
+            get { return "R"+(this.Row+1)+"C" + (this.Column+1); }
+        }
         public int Index
         {
             get { return mIndex; }
@@ -125,7 +129,7 @@ namespace Sudoku.Core
         
         public override string ToString()
         {
-            return "index  " + Index + "  row  " + Row + "  column  " + Column + "  block  " + Block + "  value  " + Value+ "  类型："+G.GetEnumDescription(CellType)+ "  层级" + Level;
+            return "index  " + Index +" "+ RrCc + "  value  " + Value+ "  类型："+G.GetEnumDescription(CellType)+ "  层级" + Level;
         }
 
         public Func<CellInfo, bool> UnSetCellInSameColumn()

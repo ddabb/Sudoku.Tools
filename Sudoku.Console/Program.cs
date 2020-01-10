@@ -18,16 +18,16 @@ namespace Sudoku.Console
             runtest = false;
             if (runtest)
             {
-                ClaimingInRowHandler hander = new ClaimingInRowHandler();
-                QSudoku qsudoku = new QSudoku("200007450537420008419050723000040075170000046640070000004060537700084092000700004");
+                ForcingChainHandler hander = new ForcingChainHandler();
+                QSudoku qsudoku = new QSudoku("000200581072001463000060279020006300743928156600300000237000014410702000008004000");
                 Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString));
                 var cells = hander.Assignment(qsudoku);
-                return;             
-           
+                return;
+
             }
             else
             {
-                tryFindSudoku(5);
+                tryFindSudoku(2);
                 return;
             }
 
@@ -35,30 +35,30 @@ namespace Sudoku.Console
 
         }
 
-        public static void tryFindSudoku(int count=50)
+        public static List<Type> types1 = new List<Type>();
+
+        public static void tryFindSudoku(int count = 50)
         {
             List<QSudoku> qSudokus = new List<QSudoku>();
             var solveCount = 0;
-            List<Type> types1 = new List<Type>();
 
-            
+
+
             var builder = new ContainerBuilder();
             Assembly[] assemblies = new Assembly[] { typeof(SolverHandlerBase).Assembly };
-            builder.RegisterAssemblyTypes(assemblies).AsImplementedInterfaces();                    
-                       
+            builder.RegisterAssemblyTypes(assemblies).AsImplementedInterfaces();
+
             IContainer container = builder.Build();
             var solveHandlers = container.Resolve<IEnumerable<ISudokuSolveHandler>>().OrderBy(c => (int)c.methodType).ToList();
-
-            var tryagain = false;
             do
             {
                 QSudoku example;
-                if (qSudokus.Count==0)
+                if (qSudokus.Count == 0)
                 {
-                    var queryString = "000020080040009003000005700000000000805070020037004000070080056090000300100040000";              
+                    var queryString = "634710829892643010751829643465090238109238406283406190040981362326074981918362004";
                     Debug.WriteLine("DanceLinkvalid" + new DanceLink().isValid(queryString));
                     QSudoku correct = new QSudoku(new DanceLink().do_solve(queryString));
-                  
+
                     example = new QSudoku(queryString);
                 }
                 else
@@ -66,85 +66,88 @@ namespace Sudoku.Console
                     example = new MinimalPuzzleFactory().Make(new SudokuBuilder().MakeWholeSudoku());
                 }
                 var initString = example.QueryString;
-                Debug.WriteLine("example init "+ example.QueryString);
-    
+                Debug.WriteLine("example init " + example.QueryString);
 
-                do
+                if (SolveSudoku(solveHandlers, example))
                 {
-                    tryagain = false;
-                    foreach (var helps in solveHandlers)
-                    {
-              
-                        try
-                        {
-                            if (!types1.Contains(helps.GetType()))
-                            {
-                                var cellinfos = new List<CellInfo>();
-                                do
-                                {
-                                    cellinfos= helps.Assignment(example);
-                                    if (cellinfos.Count != 0)
-                                    {
-                                        Debug.WriteLine("type" + helps.GetType());
-                                        Debug.WriteLine("cellinfo" + cellinfos.JoinString("\r\n"));
-                                        Debug.WriteLine("example before" + example.QueryString + "isvalid" + new DanceLink().isValid(example.QueryString));
-
-                                        example = example.ApplyCells(cellinfos);
-                                        Debug.WriteLine("example after " + example.QueryString + "isvalid" + new DanceLink().isValid(example.QueryString));
-                                        if (!example.IsAllSeted)
-                                        {
-                                            tryagain = true;
-                                        }
-                                        else
-                                        {
-                                            solveCount += 1;
-                                        }
-                                    }
-                                } while (cellinfos.Count>0);     
-
-                            }
-
-
-                        }
-                        catch (Exception ex)
-                        {
-                            if (ex.Message.Contains("is not implemented"))
-                            {
-                                types1.Add(helps.GetType());
-                            }
-
-
-
-
-                        }
-
-
-                    }
-                 
-                } while (tryagain);
-                if (!example.IsAllSeted)
+                    solveCount += 1;
+                    Debug.WriteLine("solved sudoku count " + solveCount);
+                }
+                else
                 {
                     Debug.WriteLine("example SaveTohtml in");
                     SaveTohtml(example.QueryString);
                     SaveToTXT(example.QueryString);
-                    SaveToTXT(example.QueryString,initString);
+                    SaveToTXT(example.QueryString, initString);
                     qSudokus.Add(example);
                     example.SaveTohtml();
-                }
-                else
-                {
-                    Debug.WriteLine("solveCount in esle" + solveCount);
-                }
-                Debug.WriteLine("solveCount " + solveCount);
 
+                }
 
-            } while (qSudokus.Count<count);
-        
+            } while (qSudokus.Count < count);
+
             Debug.WriteLine("tryFindSudoku end");
 
         }
 
-        public static void SaveToTXT(string queryString,string initstring=null,string end=".txt")
+        /// <summary>
+        /// 求解数独
+        /// </summary>
+        /// <param name="solveHandlers"></param>
+        /// <param name="example"></param>
+        /// <returns></returns>
+        private static bool SolveSudoku(List<ISudokuSolveHandler> solveHandlers, QSudoku example)
+        {
+            for (int i = 0; i < solveHandlers.Count; i++)
+            {
+                var helps = solveHandlers[i];
+
+                try
+                {
+                    if (!types1.Contains(helps.GetType()))
+                    {
+                        var cellinfos = new List<CellInfo>();
+
+                        cellinfos = helps.Assignment(example);
+                        if (cellinfos.Count != 0)
+                        {
+                            Debug.WriteLine("type" + helps.GetType());
+                            Debug.WriteLine("cellinfo" + cellinfos.JoinString("\r\n"));
+                            Debug.WriteLine("example before" + example.QueryString + "isvalid" + new DanceLink().isValid(example.QueryString));
+
+                            example = example.ApplyCells(cellinfos);
+                            Debug.WriteLine("example after " + example.QueryString + "isvalid" + new DanceLink().isValid(example.QueryString));
+                            if (example.IsAllSeted)
+                            {
+                                return true;
+                            }
+                            else
+                            {
+                                i = -1; //又从唯余法开始算起。
+                            }
+                        }
+                    }
+                    else
+                    {
+                        continue;
+                    }
+
+
+                }
+                catch (Exception ex)
+                {
+                    if (ex.Message.Contains("is not implemented"))
+                    {
+                        types1.Add(helps.GetType());
+                    }
+                }
+
+            }
+            return example.IsAllSeted;
+
+        }
+
+        public static void SaveToTXT(string queryString, string initstring = null, string end = ".txt")
         {
             string str2 = "";
 
@@ -156,7 +159,7 @@ namespace Sudoku.Console
             {
                 Directory.CreateDirectory(saveDirectory);
             }
-        
+
             if (string.IsNullOrEmpty(initstring))
             {
                 initstring = queryString;
@@ -166,7 +169,7 @@ namespace Sudoku.Console
             {
                 queryString += "init";
             }
-            string filePath2 = Path.Combine(saveDirectory, queryString  + end);
+            string filePath2 = Path.Combine(saveDirectory, queryString + end);
             File.WriteAllText(filePath2, initstring);
             Debug.WriteLine("文件" + filePath2 + " 已生成");
 
@@ -203,7 +206,7 @@ namespace Sudoku.Console
             }
             string filePath = Path.Combine(saveDirectory, queryString + ".html");
             File.WriteAllText(filePath, str2.Replace("replaceMark", queryString));
-             Debug.WriteLine("文件" + filePath + " 已生成");
+            Debug.WriteLine("文件" + filePath + " 已生成");
 
 
         }

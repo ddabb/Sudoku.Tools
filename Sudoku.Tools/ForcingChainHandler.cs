@@ -31,14 +31,15 @@ namespace Sudoku.Tools
             {
                 foreach (var testValue in qSudoku.GetRest(index))
                 {
-                    //var index = cell1.Index;
-                    NegativeCellInfo cell = new NegativeCellInfo(index, testValue)
+                    var index1 = index;
+                    var testValue1 = testValue;
+                    NegativeCellInfo cell = new NegativeCellInfo(index1, testValue1)
                     { Sudoku = qSudoku, CellType = CellType.Negative, IsRoot = true };
                     traceCell.Clear();
                     Fuc(cell);
                     if (traceCell.Count != 0)
                     {
-                        var temp = new PositiveCellInfo(index, testValue) { CellType = CellType.Positive };
+                        var temp = new PositiveCellInfo(index1, testValue1) { CellType = CellType.Positive };
                         cells.Add(temp);
                     }
                     else
@@ -55,7 +56,7 @@ namespace Sudoku.Tools
         public static List<CellInfo> traceCell = new List<CellInfo>();
         private void Fuc(CellInfo cell)
         {
-            //Debug.WriteLine("Fuc in  " + cell);
+            //Debug.WriteLine("Fuc in  " + cell +"cell parent" +cell.Parent);
             if (traceCell.Any()) return;
 
             if (cell.IsError)

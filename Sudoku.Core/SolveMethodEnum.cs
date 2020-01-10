@@ -30,8 +30,7 @@ namespace Sudoku.Core
         NakedQuadruple,
         ForcingXChain,
         URType1,
-        [Description("强制链")]
-        ForcingChain,
+
         TwoStringsKite,
         Skyscraper,
         TurbotFishNormal,
@@ -86,6 +85,8 @@ namespace Sudoku.Core
         SiameseJeffyfish, 
         Swordfish,
         ULSize12,
+        [Description("强制链")]
+        ForcingChain,
         ImcompletedURType4
     }
 }

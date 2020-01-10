@@ -44,15 +44,9 @@ namespace Sudoku.Core
         {
             List<CellInfo> cellsA = new List<CellInfo>();
             var cells = new List<CellInfo>();
-            if (Parent != null)
-            {
-                cells=   this.RelatedUnsetCells.Where(c => c.Index != Parent.Index && c.GetRest().Contains(this.Value)).ToList();
-            }
-            else
-            {
-                cells = this.RelatedUnsetCells.Where(c => c.GetRest().Contains(this.Value)).ToList();
-            }
+  
 
+            cells = this.RelatedUnsetCells.Where(c => c.GetRest().Contains(this.Value)).ToList();
             foreach (var cellInfo in cells)
             {
                 NegativeCellInfo cell = new NegativeCellInfo(cellInfo.Index, Value)
@@ -67,6 +61,22 @@ namespace Sudoku.Core
                 cell.Fromto.toIndex = cell.Index;
                 cellsA.Add(cell);
             }
+            foreach (var item in this.GetRest().Where(c=>c!=Value))
+            {
+                NegativeCellInfo cell = new NegativeCellInfo(Index, item)
+                {
+                    CellType = CellType.Negative,
+                    Sudoku = this.Sudoku,
+                    Parent = this,
+                    Level = this.Level + 1
+
+                };
+                cell.Fromto.fromIndex = this.Index;
+                cell.Fromto.toIndex = cell.Index;
+                cellsA.Add(cell);
+            }
+            if (this.Parent != null)
+                cellsA = cellsA.Where(c => !(c.Index == Parent.Index && c.Value == Parent.Value)).ToList();
             return cellsA;
 
         }
