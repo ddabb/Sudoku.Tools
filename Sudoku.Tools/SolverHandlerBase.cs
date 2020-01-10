@@ -412,6 +412,8 @@ namespace Sudoku.Tools
         public int Block;
         public int Value;
     }
+
+
     public interface ISolverHandlerBase
 
     {
