@@ -28,6 +28,7 @@ namespace Sudoku.Core
         NakedTriple,
         NakedQuadruple,
         ForcingXChain,
+        URType1,
         [Description("强制链")]
         ForcingChain,
         TwoStringsKite,
@@ -50,7 +51,7 @@ namespace Sudoku.Core
         ARType2,
         ARType1,
         XRSize10,
-        URType1,
+
         URType3,
         URType4,
         VWXYZWing,
