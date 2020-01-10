@@ -10,7 +10,7 @@ using System.Reflection;
 
 namespace Sudoku.Console
 {
-    class StaticTools
+  public  class StaticTools
     {
         static void Main(string[] args)
         {
@@ -27,7 +27,7 @@ namespace Sudoku.Console
             }
             else
             {
-                tryFindSudoku(2);
+                tryFindSudoku(5);
                 return;
             }
 
@@ -44,18 +44,13 @@ namespace Sudoku.Console
 
 
 
-            var builder = new ContainerBuilder();
-            Assembly[] assemblies = new Assembly[] { typeof(SolverHandlerBase).Assembly };
-            builder.RegisterAssemblyTypes(assemblies).AsImplementedInterfaces();
 
-            IContainer container = builder.Build();
-            var solveHandlers = container.Resolve<IEnumerable<ISudokuSolveHandler>>().OrderBy(c => (int)c.methodType).ToList();
             do
             {
                 QSudoku example;
                 if (qSudokus.Count == 0)
                 {
-                    var queryString = "634710829892643010751829643465090238109238406283406190040981362326074981918362004";
+                    var queryString = "000000243300080000706020000107302608200000000009040000500800004001095700000000900";
                     Debug.WriteLine("DanceLinkvalid" + new DanceLink().isValid(queryString));
                     QSudoku correct = new QSudoku(new DanceLink().do_solve(queryString));
 
@@ -68,7 +63,7 @@ namespace Sudoku.Console
                 var initString = example.QueryString;
                 Debug.WriteLine("example init " + example.QueryString);
 
-                if (SolveSudoku(solveHandlers, example))
+                if (SolveSudoku(example))
                 {
                     solveCount += 1;
                     Debug.WriteLine("solved sudoku count " + solveCount);
@@ -96,8 +91,15 @@ namespace Sudoku.Console
         /// <param name="solveHandlers"></param>
         /// <param name="example"></param>
         /// <returns></returns>
-        private static bool SolveSudoku(List<ISudokuSolveHandler> solveHandlers, QSudoku example)
+        public static bool SolveSudoku( QSudoku example)
         {
+            var builder = new ContainerBuilder();
+            Assembly[] assemblies = new Assembly[] { typeof(SolverHandlerBase).Assembly };
+            builder.RegisterAssemblyTypes(assemblies).AsImplementedInterfaces();
+
+            IContainer container = builder.Build();
+            var solveHandlers = container.Resolve<IEnumerable<ISudokuSolveHandler>>().OrderBy(c => (int)c.methodType).ToList();
+    
             for (int i = 0; i < solveHandlers.Count; i++)
             {
                 var helps = solveHandlers[i];

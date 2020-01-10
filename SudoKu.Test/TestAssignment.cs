@@ -374,7 +374,7 @@ namespace SudoKu.Test
             Assert.AreEqual(true, new DanceLink().isValid(qsudoku.QueryString));
             Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString));
             var cells = hander.Assignment(qsudoku);
-            Assert.AreEqual(23, cells[0].Index);
+            Assert.AreEqual(true, cells.Exists(c => c.Value == 8));
             foreach (var item in cells)
             {
                 Debug.WriteLine("" + item);
@@ -392,10 +392,43 @@ namespace SudoKu.Test
             Assert.AreEqual(true, new DanceLink().isValid(qsudoku.QueryString));
             Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString));
             var cells = hander.Assignment(qsudoku);
-            Assert.AreEqual(true, cells.Count > 0);
+            Assert.AreEqual(true, cells.Exists(c => c.Value == 6));
             Debug.WriteLine(qsudoku.QueryString);
             Assert.AreEqual(true, new DanceLink().isValid(qsudoku.QueryString));
         }
+
+        [TestMethod]
+        public void TestNakedTripleHandler3()
+        {
+            NakedTripleHandler hander = new NakedTripleHandler();
+            QSudoku qsudoku = new QSudoku("500000300081300000000076900000060813013400009000000000200090004690000250000007000");
+            Assert.AreEqual(true, new DanceLink().isValid(qsudoku.QueryString));
+            Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString));
+            var cells = hander.Assignment(qsudoku);
+            Assert.AreEqual(true, cells.Exists(c=>c.Value==8));
+            Debug.WriteLine(qsudoku.QueryString);
+            Assert.AreEqual(true, new DanceLink().isValid(qsudoku.QueryString));
+        }
+
+
+        [TestMethod]
+        public void TestNakedQuadrupleHandler()
+        {
+            NakedQuadrupleHandler hander = new NakedQuadrupleHandler();
+            QSudoku qsudoku = new QSudoku("390000700000000650507000349049380506601054983853000400900800134002940865400000297");
+            Assert.AreEqual(true, new DanceLink().isValid(qsudoku.QueryString));
+            Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString));
+            var cells = hander.Assignment(qsudoku);
+            Assert.AreEqual(true, cells.Exists(c => c.Value == 5));
+            foreach (var item in cells)
+            {
+                Debug.WriteLine("" + item);
+            }
+            qsudoku = qsudoku.ApplyCells(cells);
+            Debug.WriteLine(qsudoku.QueryString);
+            Assert.AreEqual(true, new DanceLink().isValid(qsudoku.QueryString));
+        }
+
 
         [TestMethod]
         public void TestDirectPointingHandler()

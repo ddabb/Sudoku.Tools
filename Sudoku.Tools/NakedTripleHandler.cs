@@ -45,7 +45,18 @@ namespace Sudoku.Tools
         }
 
 
-
+        /// <summary>
+        /// 有三种情况
+        /// <para>ab ac abc</para> 
+        /// <para>abc abc ac</para>
+        /// <para>abc abc abc</para>
+        /// <para>ab ab abc 其实是隐性数对</para>
+        /// </summary>
+        /// <param name="qSudoku"></param>
+        /// <param name="checkCellInfos"></param>
+        /// <param name="direction"></param>
+        /// <param name="index"></param>
+        /// <returns></returns>
         private List<CellInfo> GetCells(QSudoku qSudoku, List<CellInfo> checkCellInfos, Direction direction, int index
             )
         {
@@ -58,7 +69,8 @@ namespace Sudoku.Tools
                 allRest.AddRange(checkCellInfo.GetRest());
             }
 
-            if (allRest.Distinct().Count() == 3 && allRest.Count >= 8)
+
+            if (allRest.Distinct().Count() == 3 && allRest.Count >= 7)
             {
                 var subCheckCells = allUnSetCell
                     .Where(c => G.GetFilter(c, direction, index) && !exceptIndexs.Contains(c.Index))

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Sudoku.Tools
 {
-    [AssignmentExample("030150209000360050700490603001273800000519000003684700100000008320040000409001060")]
+    [AssignmentExample("390000700000000650507000349049380506601054983853000400900800134002940865400000297")] //已调整
     public class NakedQuadrupleHandler :SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.NakedQuadruple;
