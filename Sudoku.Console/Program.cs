@@ -27,7 +27,7 @@ namespace Sudoku.Console
             }
             else
             {
-                tryFindSudoku(5);
+                tryFindSudoku(20);
                 return;
             }
 
@@ -123,10 +123,7 @@ namespace Sudoku.Console
                             {
                                 return true;
                             }
-                            else
-                            {
-                                i = -1; //又从唯余法开始算起。
-                            }
+                            i = -1; //又从唯余法开始算起。
                         }
                     }
                     else
