@@ -151,7 +151,7 @@ namespace SudoKu.Test
         }
 
         [TestMethod]
-        public void TestForcingChainHandler11()
+        public void TestForcingChainHandler3()
         {
             ForcingChainHandler hander = new ForcingChainHandler();
             QSudoku qsudoku = new QSudoku("104900853385140000070358000653714298741800536800635417007580300508403000430201085");
@@ -173,7 +173,7 @@ namespace SudoKu.Test
         /// 
         /// </summary>
         [TestMethod]
-        public void TestForcingChainHandler55()
+        public void TestForcingChainHandler7()
         {
             ForcingChainHandler hander = new ForcingChainHandler();
             QSudoku qsudoku = new QSudoku("000400900324006000060500040000000600040160800600085090718003000000000080400070023");
@@ -190,7 +190,7 @@ namespace SudoKu.Test
             Assert.AreEqual(true, new DanceLink().isValid(qsudoku.QueryString));
         }
         [TestMethod]
-        public void TestForcingChainHandler33()
+        public void TestForcingChainHandler5()
         {
             ForcingChainHandler hander = new ForcingChainHandler();
             QSudoku qsudoku = new QSudoku("007000000800439000490071000000000906002000040008103000000002308005300000000710052");
@@ -260,6 +260,22 @@ namespace SudoKu.Test
             Assert.AreEqual(true, new DanceLink().isValid(qsudoku.QueryString));
         }
 
+        [TestMethod]
+        public void TestForcingChainHandler6()
+        {
+            ForcingChainHandler hander = new ForcingChainHandler();
+            QSudoku qsudoku = new QSudoku("000200581072001463000060279020006300743928156600300000237000014410702000008004000");
+            Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString));
+            var cells = hander.Assignment(qsudoku);
+            foreach (var item in cells)
+            {
+                Debug.WriteLine("" + item);
+            }
+            qsudoku = qsudoku.ApplyCells(cells);
+            Assert.AreEqual(true, cells.Exists(c => c.Value == 3));
+            Debug.WriteLine(qsudoku.QueryString);
+            Assert.AreEqual(true, new DanceLink().isValid(qsudoku.QueryString));
+        }
         
 
         [TestMethod]

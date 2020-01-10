@@ -15,7 +15,7 @@ namespace Sudoku.Console
         static void Main(string[] args)
         {
             var runtest = true;
-            //runtest = false;
+            runtest = false;
             if (runtest)
             {
                 ClaimingInRowHandler hander = new ClaimingInRowHandler();
@@ -27,7 +27,7 @@ namespace Sudoku.Console
             }
             else
             {
-                tryFindSudoku(2);
+                tryFindSudoku(5);
                 return;
             }
 
