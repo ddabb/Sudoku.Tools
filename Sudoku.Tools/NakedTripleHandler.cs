@@ -23,14 +23,14 @@ namespace Sudoku.Tools
                 foreach (var index in G.baseIndexs)
                 {
                     //待检查的单元格
-                    var checkCells = twoOrThreeRests.Where(G.GetDirectionCells(direction, index)).ToList() ;
-                    if (checkCells.Count() <= 2) continue;
+                    var checkCells = twoOrThreeRests.Where(G.GetDirectionCells(direction, index)).ToList();
+                    if (checkCells.Count() > 2)
                     {
                         var list = (from a in checkCells
-                            join b in checkCells on 1 equals 1
-                            join c in checkCells on 1 equals 1
-                            where new List<CellInfo> { a, b, c }.Select(c=>c.Index).Distinct().Count()==3
-                                    select new List<CellInfo> {a, b, c}).ToList();
+                                    join b in checkCells on 1 equals 1
+                                    join c in checkCells on 1 equals 1
+                                    where new List<CellInfo> { a, b, c }.Select(c => c.Index).Distinct().Count() == 3
+                                    select new List<CellInfo> { a, b, c }).ToList();
                         foreach (var item in list)
                         {
                             cells.AddRange(GetCells(qSudoku, item,
