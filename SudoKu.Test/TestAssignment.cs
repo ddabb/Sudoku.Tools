@@ -481,11 +481,11 @@ namespace SudoKu.Test
         public void TestWXYZWingHandler()
         {
             WXYZWingHandler hander = new WXYZWingHandler();
-            QSudoku qsudoku = new QSudoku("000037501152000600000500000070102000400750100218000750000305000829476315000090000");
+            QSudoku qsudoku = new QSudoku("000109030190700006300286001581472003900568002600391785700915008210007050050020000");
             Assert.AreEqual(true, new DanceLink().isValid(qsudoku.QueryString));
             Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString));
             var cells = hander.Assignment(qsudoku);
-            Assert.AreEqual(true, cells.Exists(c => c.Value == 8));
+            Assert.AreEqual(true, cells.Exists(c => c.Value == 7));
 
             foreach (var item in cells)
             {
