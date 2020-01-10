@@ -64,6 +64,24 @@ namespace SudoKu.Test
             Assert.AreEqual(true, new DanceLink().isValid(qsudoku.QueryString));
         }
 
+        [TestMethod]
+        public void TestULSize6Type2Handler1()
+        {
+            ULSize6Type2Handler hander = new ULSize6Type2Handler();
+            QSudoku qsudoku = new QSudoku("390002804120864039048739012273000008080327145451698327032080006814976253760203081");
+            Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString));
+            var cells = hander.Assignment(qsudoku);
+            foreach (var item in cells)
+            {
+                Debug.WriteLine("" + item);
+            }
+
+            Assert.AreEqual(true, cells.Exists(c => c.Value == 5));
+            Assert.AreEqual(true, cells.Exists(c => c.RrCc.ToUpper() == "R9C5"));
+            qsudoku = qsudoku.ApplyCells(cells);
+            Debug.WriteLine(qsudoku.QueryString);
+            Assert.AreEqual(true, new DanceLink().isValid(qsudoku.QueryString));
+        }
         
 
         [TestMethod]
