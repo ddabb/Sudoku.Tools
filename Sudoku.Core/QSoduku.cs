@@ -157,40 +157,6 @@ namespace Sudoku.Core
         /// </summary>
         public Guid RecordId { get; set; }
 
-        public  void SaveTohtml()
-        {
-            string str2 = "";
-            var names1 = typeof(QSudoku).Assembly.GetManifestResourceNames();
-            var name = names1.Where(c => c.Contains("template.html")).First();
-            Stream manifestResourceStream = typeof(QSudoku).Assembly.GetManifestResourceStream(name);
-            if (manifestResourceStream != null)
-            {
-                StreamReader reader = new StreamReader(manifestResourceStream);
-
-                str2 = reader.ReadToEnd();
-                reader.Close();
-                manifestResourceStream.Close();
-
-            }
-        
-            Type type = typeof(QSudoku);
-            string currentDirectory = Path.GetDirectoryName(type.Assembly.Location);
-            string saveDirectory = Path.Combine(currentDirectory, "UnSolveSudoku");
-            if (!Directory.Exists(saveDirectory))
-            {
-                Directory.CreateDirectory(saveDirectory);
-            }
-            saveDirectory = Path.Combine(saveDirectory, DateTime.Now.ToString("yyyy-MM-dd"));
-            if (!Directory.Exists(saveDirectory))
-            {
-                Directory.CreateDirectory(saveDirectory);
-            }
-            string filePath= Path.Combine(saveDirectory, this.QueryString + ".html");
-            File.WriteAllText(filePath, str2.Replace("replaceMark", this.QueryString));
-            Debug.WriteLine("文件"+filePath+" 已生成");
-          
-
-        }
 
 
         public bool IsAllSeted

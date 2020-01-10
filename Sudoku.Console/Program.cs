@@ -75,7 +75,7 @@ namespace Sudoku.Console
                     SaveToTXT(example.QueryString);
                     SaveToTXT(example.QueryString, initString);
                     qSudokus.Add(example);
-                    example.SaveTohtml();
+            
 
                 }
 
