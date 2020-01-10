@@ -370,52 +370,8 @@ namespace Sudoku.Tools
         {
             return index.Split(',').Select(c => Convert.ToInt32(c)).ToList();
         }
-
-
-
-
-
-
-
-
+                                   
     }
 
 
-
-
-
-
-    public class ColumnBlockDto
-    {
-        public int Column;
-        public int Block;
-        public List<int> AllRests = new List<int>();
-    }
-
-    public class ColumnBlockSingle
-    {
-        public int Column;
-        public int Block;
-        public int Value;
-    }
-
-    public class RowBlockDto
-    {
-        public int Row;
-        public int Block;
-        public List<int> AllRests = new List<int>();
-    }
-
-    public class RowBlockSingle
-    {
-        public int Row;
-        public int Block;
-        public int Value;
-    }
-
-
-    public interface ISolverHandlerBase
-
-    {
-    }
 }

@@ -15,11 +15,11 @@ namespace Sudoku.Console
         static void Main(string[] args)
         {
             var runtest = true;
-            runtest = false;
+            //runtest = false;
             if (runtest)
             {
-                WXYZWingHandler hander = new WXYZWingHandler();
-                QSudoku qsudoku = new QSudoku("000109030190700006300286001581472003900568002600391785700915008210007050050020000");
+                ClaimingInRowHandler hander = new ClaimingInRowHandler();
+                QSudoku qsudoku = new QSudoku("200007450537420008419050723000040075170000046640070000004060537700084092000700004");
                 Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString));
                 var cells = hander.Assignment(qsudoku);
                 return;             

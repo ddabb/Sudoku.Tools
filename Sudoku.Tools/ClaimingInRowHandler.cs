@@ -20,68 +20,46 @@ namespace Sudoku.Tools
         {
             List<CellInfo> cells = new List<CellInfo>();
             var AllunsetCells = qSudoku.AllUnSetCell;
-            var columnBlockDtos = AllunsetCells.Select(c => new { c.Row, c.Block }).Distinct().ToList();
-            List<RowBlockDto> allDtos = new List<RowBlockDto>();
-            foreach (var dto in columnBlockDtos)
+
+            foreach (var index in G.baseIndexs)
             {
-                RowBlockDto temp = new RowBlockDto { Block = dto.Block, Row = dto.Row };
-                var filter = AllunsetCells.Where(c => c.Block == dto.Block && c.Row == dto.Row);
-                foreach (var filterItem in filter)
+                foreach (var value in G.AllBaseValues)
                 {
-                    temp.AllRests.AddRange(filterItem.GetRest());
-                }
-
-                temp.AllRests = temp.AllRests.Distinct().ToList();
-                allDtos.Add(temp);
-            }
-
-
-
-            var rows = allDtos.Select(c => c.Row).Distinct().ToList();
-            Dictionary<int, List<int>> rowMap = new Dictionary<int, List<int>>();
-            foreach (var row in rows)
-            {
-                List<int> allRestInt = new List<int>();
-                var eachRests = allDtos.Where(c => c.Row == row).ToList();
-                foreach (var eachRest in eachRests)
-                {
-                    allRestInt.AddRange(eachRest.AllRests);
-                }
-
-                rowMap.Add(row, allRestInt);
-
-            }
-
-            List<RowBlockSingle> list = new List<RowBlockSingle>();
-
-            foreach (var kv in rowMap)
-            {
-                foreach (var groupItem in kv.Value.GroupBy(c => c).ToList())
-                {
-                    if (groupItem.Count() == 1)
+                    var blockinfo = AllunsetCells.Where(c => c.Row == index && c.GetRest().Contains(value)).ToList();
+                    var blocks = blockinfo.Select(c => c.Block).Distinct();
+                    if (blockinfo.Count>1&&blocks.Count()==1) //若blockinfo.Count==1 则是唯余法。
                     {
-                        list.Add(new RowBlockSingle
+                        var block = blocks.First();
+                        var ExistsColumns = blockinfo.Select(c => c.Column).Distinct();
+                        #region 同宫不同行
+                        var negativeCells = AllunsetCells.Where(c => c.Block == block && c.Row != index).ToList();
+                        foreach (var item1 in negativeCells)
                         {
-                            Row = kv.Key,
-                            Value = groupItem.Key,
-                            Block = allDtos.First(c => c.Row == kv.Key && c.AllRests.Contains(groupItem.Key)).Block
-                        });
+                            var cellrest = item1.GetRest();
+                            if (cellrest.Count == 2 && cellrest.Contains(value))
+                            {
+                                item1.Value = cellrest.First(c => c != value);
+                                cells.Add(item1);
+                            }
+                        }
+                        #endregion
 
-                    }
-                }
-            }
-            //同宮不同行的未知单元格是否仅有两个候选数
-            foreach (var item in list)
-            {
-                var speacilValue = item.Value;
-                var negativeCells = AllunsetCells.Where(c => c.Block == item.Block && c.Row != item.Row).ToList();
-                foreach (var item1 in negativeCells)
-                {
-                    var cellrest = item1.GetRest();
-                    if (cellrest.Count == 2 && cellrest.Contains(item.Value))
-                    {
-                        item1.Value = cellrest.First(c => c != item.Value);
-                        cells.Add(item1);
+                        #region 第三列
+                        var checkcolumn = AllunsetCells.Where(c => c.Block == block && !ExistsColumns.Contains(c.Column)).Select(c => c.Column).ToList();
+                        foreach (var column in checkcolumn)
+                        {
+                            var list1 = AllunsetCells.Where(c => c.Block != block && c.Column == column && c.GetRest().Contains(value)).ToList();
+                            if (list1.Count() == 1)
+                            {
+                                var result = list1.First();
+                                result.Value = value;
+                                cells.Add(result);
+                            }
+                        }
+                        #endregion
+
+
+
                     }
                 }
 

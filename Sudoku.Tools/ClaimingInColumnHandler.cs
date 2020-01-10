@@ -14,82 +14,50 @@ namespace Sudoku.Tools
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
-    
-            Func<CellInfo, bool> predicate = c => c.Value == 0;
-            var rests = qSudoku.GetFilterCell(predicate).ToList();
-            var columnBlockDtos = rests.Select(c => new { c.Column, c.Block }).Distinct().ToList();
-            List<ColumnBlockDto> allDtos = new List<ColumnBlockDto>();
-            foreach (var dto in columnBlockDtos)
+            var AllunsetCells = qSudoku.AllUnSetCell;
+            foreach (var index in G.baseIndexs)
             {
-                ColumnBlockDto temp = new ColumnBlockDto { Block = dto.Block, Column = dto.Column };
-                var filter = rests.Where(c => c.Block == dto.Block && c.Column == dto.Column);
-                foreach (var filterItem in filter)
+                foreach (var value in G.AllBaseValues)
                 {
-                    temp.AllRests.AddRange(filterItem.GetRest());
-                }
-
-                temp.AllRests = temp.AllRests.Distinct().ToList();
-                allDtos.Add(temp);
-            }
-
-
-
-            var columns = allDtos.Select(c => c.Column).Distinct().ToList();
-            Dictionary<int, List<int>> columnMap = new Dictionary<int, List<int>>();
-            foreach (var columnIndex in columns)
-            {
-                List<int> allRestInt = new List<int>();
-                var eachRests = allDtos.Where(c => c.Column == columnIndex).ToList();
-                foreach (var eachRest in eachRests)
-                {
-                    allRestInt.AddRange(eachRest.AllRests);
-                }
-
-                columnMap.Add(columnIndex, allRestInt);
-
-            }
-
-            List<ColumnBlockSingle> list = new List<ColumnBlockSingle>();
-
-            foreach (var kv in columnMap)
-            {
-                foreach (var groupItem in kv.Value.GroupBy(c => c).ToList())
-                {
-                    if (groupItem.Count() == 1)
+                    var blockinfo = AllunsetCells.Where(c => c.Column == index && c.GetRest().Contains(value)).ToList();
+                    var blocks = blockinfo.Select(c => c.Block).Distinct();
+                    if (blockinfo.Count > 1 && blocks.Count() == 1) //若blockinfo.Count==1 则是唯余法。
                     {
-                        list.Add(new ColumnBlockSingle
+                        var block = blocks.First();
+                        var ExistsRows = blockinfo.Select(c => c.Row).Distinct();
+                        #region 同宫不同行
+                        var negativeCells = AllunsetCells.Where(c => c.Block == block && c.Column != index).ToList();
+                        foreach (var item1 in negativeCells)
                         {
-                            Column = kv.Key,
-                            Value = groupItem.Key,
-                            Block = allDtos.First(c => c.Column == kv.Key && c.AllRests.Contains(groupItem.Key)).Block
-                        });
+                            var cellrest = item1.GetRest();
+                            if (cellrest.Count == 2 && cellrest.Contains(value))
+                            {
+                                item1.Value = cellrest.First(c => c != value);
+                                cells.Add(item1);
+                            }
+                        }
+                        #endregion
+
+                        #region 第三行
+                        var checkRow = AllunsetCells.Where(c => c.Block == block && !ExistsRows.Contains(c.Row)).Select(c => c.Row).ToList();
+                        foreach (var row in checkRow)
+                        {
+                            var list1 = AllunsetCells.Where(c => c.Block != block && c.Row == row && c.GetRest().Contains(value)).ToList();
+                            if (list1.Count() == 1)
+                            {
+                                var result = list1.First();
+                                result.Value = value;
+                                cells.Add(result);
+                            }
+                        }
+                        #endregion
+
+
 
                     }
                 }
-            }
-            //同宮不同行的未知单元格是否仅有两个候选数
-            foreach (var item in list)
-            {
-
-                int speacilValue = item.Value;
-                var negativeCells = rests.Where(c => c.Block == item.Block && c.Column != item.Column).ToList();
-                foreach (var item1 in negativeCells)
-                {
-                    var cellrest = item1.GetRest();
-                    if (cellrest.Count == 2 && cellrest.Contains(speacilValue))
-                    {
-                        item1.Value = cellrest.First(c => c != speacilValue);
-                        cells.Add(item1);
-                    }
-                    //var PositiveCellsInRow = rests.Where(c => (c.Index != item1.Index && c.Block != item1.Block) && (c.Row == item1.Row)).ToList();
-                    //cells.AddRange(GetNakedSingleCell(qSudoku, speacilValue, PositiveCellsInRow));
-                    //var PositiveCellsInColumn = rests.Where(c => (c.Index != item1.Index && c.Block != item1.Block) && (c.Column == item1.Column)).ToList();
-                    //cells.AddRange(GetNakedSingleCell(qSudoku, speacilValue, PositiveCellsInColumn));
-                }
 
             }
-
-            cells = cells.Distinct().ToList();
             return cells;
         }
 

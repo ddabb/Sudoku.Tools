@@ -56,8 +56,8 @@ namespace SudoKu.Test
             {
                 Debug.WriteLine("" + item);
             }
-            Assert.AreEqual(true, cells.Exists(c => c.Index == 1));
-            Assert.AreEqual(true, cells.Exists(c => c.Value == 4));
+            Assert.AreEqual(true, cells.Exists(c => c.Index == 4));
+            Assert.AreEqual(true, cells.Exists(c => c.Value == 1));
             qsudoku = qsudoku.ApplyCells(cells);
             Debug.WriteLine(qsudoku.QueryString);
             Assert.AreEqual(true, new DanceLink().isValid(qsudoku.QueryString));
