@@ -27,7 +27,7 @@ namespace Sudoku.Console
             }
             else
             {
-                tryFindSudoku(2);
+                tryFindSudoku(5);
                 return;
             }
 
