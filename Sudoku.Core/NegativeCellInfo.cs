@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Sudoku.Core
 {
@@ -66,50 +65,56 @@ namespace Sudoku.Core
         /// <returns></returns>
         public override List<CellInfo> GetNextCells()
         {
-            if (Index== 32 && Value==2)
-            {
 
-            }
-            List <CellInfo> cells=new List<CellInfo>();
+            List<CellInfo> cells = new List<CellInfo>();
 
-            if (this.GetRest().Count==2)
+            if (this.GetRest().Count == 2)
             {
                 PositiveCellInfo positive = new PositiveCellInfo(this.Index, GetRest().First(c => c != Value))
                 {
-                    CellType = CellType.Positive, Sudoku = this.Sudoku, Parent = this,
-                    Level = this.Level + 1
+                    CellType = CellType.Positive,
+                    Sudoku = this.Sudoku,
+                    Parent = this,
+                    Level = this.Level + 1,
+                    Fromto = { fromIndex = this.Index, toIndex = this.Index }
                 };
-                positive.Fromto.fromIndex = this.Index;
-                positive.Fromto.toIndex = this.Index;
                 cells.Add(positive);
             }
-            
-            cells.AddRange(GetPostiveCellInDirtion(UnSetCellInSameRow()));
-            cells.AddRange(GetPostiveCellInDirtion(UnSetCellInSameColumn()));
-            cells.AddRange(GetPostiveCellInDirtion(UnSetCellInSameBlock()));
-            return cells;
+
+            foreach (var item in GetPostiveCellInDirtion(UnSetCellInSameRow()).Where(item => !cells.Exists(c => c.Value == item.Value && c.Index == item.Index)))
+            {
+                cells.Add(item);
+            }
+            foreach (var item in GetPostiveCellInDirtion(UnSetCellInSameColumn()).Where(item => !cells.Exists(c => c.Value == item.Value && c.Index == item.Index)))
+            {
+                cells.Add(item);
+            }
+            foreach (var item in GetPostiveCellInDirtion(UnSetCellInSameBlock()).Where(item => !cells.Exists(c => c.Value == item.Value && c.Index == item.Index)))
+            {
+                cells.Add(item);
+            }
+
+            if (this.Parent != null)
+                cells = cells.Where(c => !(c.Index == Parent.Index && c.Value == Parent.Value)).ToList();
+            return cells.OrderBy(c => c.Value - Value).ToList();
         }
 
         private List<CellInfo> GetPostiveCellInDirtion(Func<CellInfo, bool> temp)
         {
-            List<CellInfo> cells =new List<CellInfo>();
+            List<CellInfo> cells = new List<CellInfo>();
             var row = Sudoku.GetPossibleIndex(Value, temp);
             if (row.Count == 1)
             {
-                if (Parent == null || Parent.Index != Row)
+                PositiveCellInfo positive = new PositiveCellInfo(row.First(), Value)
                 {
-                    PositiveCellInfo positive = new PositiveCellInfo(row.First(), Value)
-                    {
-                        CellType = CellType.Positive,
-                        Sudoku = this.Sudoku,
-                        Parent = this,
-                        Level = this.Level + 1,
-                   
-                    };
-                    positive.Fromto.fromIndex = this.Index;
-                    positive.Fromto.toIndex = positive.Index;
-                    cells.Add(positive);
-                }
+                    CellType = CellType.Positive,
+                    Sudoku = this.Sudoku,
+                    Parent = this,
+                    Level = this.Level + 1,
+                    Fromto = {fromIndex = this.Index},
+                };
+                positive.Fromto.toIndex = positive.Index;
+                cells.Add(positive);
             }
             return cells;
         }
@@ -119,14 +124,14 @@ namespace Sudoku.Core
         {
             foreach (var unsetCell in this.RelatedUnsetCells)
             {
-             
+
             }
             List<PositiveCellInfo> cells = new List<PositiveCellInfo>();
             var temp = indexs.Where(c => c.indexs.Count == 2 && c.indexs.Contains(cell.Index) && c.SpeacialValue == cell.Value).ToList();
             foreach (var item in temp)
             {
                 var positive =
-                    new PositiveCellInfo(item.indexs.First(c => c != cell.Index), cell.Value) {Parent = cell};
+                    new PositiveCellInfo(item.indexs.First(c => c != cell.Index), cell.Value) { Parent = cell };
                 cells.Add(positive);
             }
             return cells;

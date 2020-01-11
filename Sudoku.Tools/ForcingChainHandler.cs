@@ -26,7 +26,6 @@ namespace Sudoku.Tools
 
             checkIndexLists = checkIndexLists.Distinct().ToList();
 
-
             foreach (var index in checkIndexLists)
             {
                 foreach (var testValue in qSudoku.GetRest(index))
@@ -56,18 +55,20 @@ namespace Sudoku.Tools
         public static List<CellInfo> traceCell = new List<CellInfo>();
         private void Fuc(CellInfo cell)
         {
-            Debug.WriteLine("Fuc in  " + cell + "cell parent" + cell.Parent);
+            //Debug.WriteLine("Fuc in  " + cell + "cell parent" + cell.Parent);
             if (traceCell.Any()) return;
-
+       
             if (cell.IsError)
             {
-                //Debug.WriteLine("ForcingChainHandler  \r\n");
+  
+                Debug.WriteLine(" count  " + cell.NextCells.Count + " cellinfo   " + cell + " parent " + cell.Parent);
 
-                //foreach (var parent in cell.GetAllParents().OrderBy(c => c.Level))
-                //{
-                //    Debug.WriteLine("parent  " + parent);
-                //}
-                //Debug.WriteLine("result  " + cell);
+                Debug.WriteLine("ForcingChainHandler  \r\n");
+                foreach (var parent in cell.GetAllParents().OrderBy(c => c.Level))
+                {
+                    Debug.WriteLine("parent  " + parent);
+                }
+                Debug.WriteLine("result  " + cell);
                 traceCell.Add(cell);
                 return;
             }
@@ -75,9 +76,22 @@ namespace Sudoku.Tools
             if (!cell.GetAllParents().Any(c => c.Index == cell.Index && c.CellType == cell.CellType && c.Value == cell.Value))
             {
                 var temp = cell.NextCells;
+                foreach (var sub in temp)
+                {
+                    Debug.WriteLine( " count  "+sub.NextCells.Count+ " cellinfo   "+sub + " parent " + sub.Parent);
+
+                
+                }
+
+
                 foreach (var item in temp)
                 {
-                    Fuc(item);
+        
+                    if (traceCell.Count==0) //找到一个就跳出循环
+                    {
+                        Fuc(item);
+                    }
+                  
                 }
             }
 

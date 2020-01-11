@@ -18,7 +18,7 @@ namespace Sudoku.Core
 
         }
 
-        private List<CellInfo> temp;
+ 
 
 
         public override bool IsError {
@@ -32,7 +32,7 @@ namespace Sudoku.Core
 
         public override List<CellInfo> NextCells
         {
-            get { return temp ?? (temp = GetNextCells()); }
+            get { return GetNextCells(); }
 
         }
 
@@ -42,6 +42,10 @@ namespace Sudoku.Core
         /// <returns></returns>
         public override List<CellInfo> GetNextCells()
         {
+            if (Index == 68 && Value == 9)
+            {
+
+            }
             List<CellInfo> cellsA = new List<CellInfo>();
             var cells = new List<CellInfo>();
   
@@ -54,10 +58,11 @@ namespace Sudoku.Core
                     CellType = CellType.Negative,
                     Sudoku = this.Sudoku,
                     Parent = this,
-                    Level = this.Level+1
-                    
+             
+                    Fromto = {fromIndex = this.Index},
                 };
-                cell.Fromto.fromIndex = this.Index;
+                cell.Level = Level + 1;
+
                 cell.Fromto.toIndex = cell.Index;
                 cellsA.Add(cell);
             }
@@ -68,16 +73,17 @@ namespace Sudoku.Core
                     CellType = CellType.Negative,
                     Sudoku = this.Sudoku,
                     Parent = this,
-                    Level = this.Level + 1
+               
 
                 };
+                cell.Level = Level + 1;
                 cell.Fromto.fromIndex = this.Index;
                 cell.Fromto.toIndex = cell.Index;
                 cellsA.Add(cell);
             }
             if (this.Parent != null)
                 cellsA = cellsA.Where(c => !(c.Index == Parent.Index && c.Value == Parent.Value)).ToList();
-            return cellsA;
+            return cellsA.OrderBy(c=>c.Value-Value).ToList();
 
         }
     }
