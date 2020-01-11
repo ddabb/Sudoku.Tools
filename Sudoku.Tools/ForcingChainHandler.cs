@@ -53,11 +53,13 @@ namespace Sudoku.Tools
         }
 
         public static List<CellInfo> traceCell = new List<CellInfo>();
+        public static List<CellInfo> contactCell = new List<CellInfo>();
+        
         private void Fuc(CellInfo cell)
         {
             //Debug.WriteLine("Fuc in  " + cell + "cell parent" + cell.Parent);
             if (traceCell.Any()) return;
-       
+             contactCell.Add(cell);
             if (cell.IsError)
             {
   
@@ -89,7 +91,11 @@ namespace Sudoku.Tools
         
                     if (traceCell.Count==0) //找到一个就跳出循环
                     {
-                        Fuc(item);
+                        //if (!contactCell.Exists(c => c.Index == item.Index && c.CellType == item.CellType && c.Value == item.Value))
+                        {
+                            Fuc(item);
+                        }
+             
                     }
                   
                 }
