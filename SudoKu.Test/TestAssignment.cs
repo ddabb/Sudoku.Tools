@@ -268,6 +268,24 @@ namespace SudoKu.Test
             Debug.WriteLine(qsudoku.QueryString);
             Assert.AreEqual(true, new DanceLink().isValid(qsudoku.QueryString));
         }
+
+        [TestMethod]
+        public void TestForcingChainHandler8()
+        {
+            ForcingChainHandler hander = new ForcingChainHandler();
+            QSudoku qsudoku = new QSudoku("318652007497381005600070138849010000531026009700890051900108500100200006203067014");
+            Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString));
+            var cells = hander.Assignment(qsudoku);
+            foreach (var item in cells)
+            {
+                Debug.WriteLine("" + item);
+            }
+            qsudoku = qsudoku.ApplyCells(cells);
+            Debug.WriteLine(qsudoku.QueryString);
+            Assert.AreEqual(true, new DanceLink().isValid(qsudoku.QueryString));
+        }
+
+        
         [TestMethod]
         public void TestForcingChainHandler5()
         {
@@ -355,7 +373,25 @@ namespace SudoKu.Test
             Debug.WriteLine(qsudoku.QueryString);
             Assert.AreEqual(true, new DanceLink().isValid(qsudoku.QueryString));
         }
+
+        [TestMethod]
+        public void TestHiddenSingleBlockHandler()
+        {
+            HiddenSingleBlockHandler hander = new HiddenSingleBlockHandler();
+            QSudoku qsudoku = new QSudoku("002019008140005300000000000010050000507020080000008006800003002003041060000980000");
+            Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString));
+            var cells = hander.Assignment(qsudoku);
+            foreach (var item in cells)
+            {
+                Debug.WriteLine("" + item);
+            }
+            qsudoku = qsudoku.ApplyCells(cells);
+            Assert.AreEqual(true, cells.Exists(c => c.Value == 8));
+            Debug.WriteLine(qsudoku.QueryString);
+            Assert.AreEqual(true, new DanceLink().isValid(qsudoku.QueryString));
+        }
         
+
 
         [TestMethod]
         public void TestXYChainHandler()

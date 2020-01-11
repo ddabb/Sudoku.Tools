@@ -27,7 +27,7 @@ namespace Sudoku.Console
             }
             else
             {
-                tryFindSudoku(20);
+                tryFindSudoku(2);
                 return;
             }
 
@@ -39,28 +39,26 @@ namespace Sudoku.Console
 
         public static void tryFindSudoku(int count = 50)
         {
-            List<QSudoku> qSudokus = new List<QSudoku>();
-            var solveCount = 0;
 
+            var solveCount = 0;
+            var unsolveCount = 0;
 
 
 
             do
             {
                 QSudoku example;
-                if (qSudokus.Count == 0)
+                if (unsolveCount == 0)
                 {
-                    var queryString = "000000243300080000706020000107302608200000000009040000500800004001095700000000900";
+                    var queryString = "002019008140005300000000000010050000507020080000008006800003002003041060000980000";
                     Debug.WriteLine("DanceLinkvalid" + new DanceLink().isValid(queryString));
-                    QSudoku correct = new QSudoku(new DanceLink().do_solve(queryString));
-
                     example = new QSudoku(queryString);
                 }
                 else
                 {
                     example = new MinimalPuzzleFactory().Make(new SudokuBuilder().MakeWholeSudoku());
                 }
-                var initString = example.QueryString;
+          
                 Debug.WriteLine("example init " + example.QueryString);
 
                 if (SolveSudoku(example))
@@ -70,16 +68,13 @@ namespace Sudoku.Console
                 }
                 else
                 {
-                    Debug.WriteLine("example SaveTohtml in");
-                    SaveTohtml(example.QueryString);
-                    SaveToTXT(example.QueryString);
-                    SaveToTXT(example.QueryString, initString);
-                    qSudokus.Add(example);
-            
+                    unsolveCount += 1;
+
+
 
                 }
 
-            } while (qSudokus.Count < count);
+            } while (unsolveCount < count);
 
             Debug.WriteLine("tryFindSudoku end");
 
@@ -96,24 +91,25 @@ namespace Sudoku.Console
             var builder = new ContainerBuilder();
             Assembly[] assemblies = new Assembly[] { typeof(SolverHandlerBase).Assembly };
             builder.RegisterAssemblyTypes(assemblies).AsImplementedInterfaces();
-
+            var initString = example.QueryString;
             IContainer container = builder.Build();
             var solveHandlers = container.Resolve<IEnumerable<ISudokuSolveHandler>>().OrderBy(c => (int)c.methodType).ToList();
     
             for (int i = 0; i < solveHandlers.Count; i++)
             {
                 var helps = solveHandlers[i];
-
+                
                 try
                 {
                     if (!types1.Contains(helps.GetType()))
                     {
+                        Debug.WriteLine("type" + helps.GetType());
                         var cellinfos = new List<CellInfo>();
 
                         cellinfos = helps.Assignment(example);
                         if (cellinfos.Count != 0)
                         {
-                            Debug.WriteLine("type" + helps.GetType());
+                     
                             Debug.WriteLine("cellinfo" + cellinfos.JoinString("\r\n"));
                             Debug.WriteLine("example before" + example.QueryString + "isvalid" + new DanceLink().isValid(example.QueryString));
 
@@ -140,6 +136,15 @@ namespace Sudoku.Console
                         types1.Add(helps.GetType());
                     }
                 }
+
+            }
+            if (!example.IsAllSeted)
+            {
+                Debug.WriteLine("example SaveTohtml in");
+                SaveTohtml(example.QueryString);
+                SaveToTXT(example.QueryString);
+                SaveToTXT(example.QueryString, initString);
+              
 
             }
             return example.IsAllSeted;

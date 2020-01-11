@@ -56,7 +56,7 @@ namespace Sudoku.Tools
         public static List<CellInfo> traceCell = new List<CellInfo>();
         private void Fuc(CellInfo cell)
         {
-            //Debug.WriteLine("Fuc in  " + cell +"cell parent" +cell.Parent);
+            Debug.WriteLine("Fuc in  " + cell + "cell parent" + cell.Parent);
             if (traceCell.Any()) return;
 
             if (cell.IsError)

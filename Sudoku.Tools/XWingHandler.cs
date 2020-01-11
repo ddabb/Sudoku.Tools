@@ -11,7 +11,7 @@ namespace Sudoku.Tools
 
     public class XWingHandler : SolverHandlerBase
     {
-        public override SolveMethodEnum methodType => SolveMethodEnum.XYWing;
+        public override SolveMethodEnum methodType => SolveMethodEnum.XWing;
 
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
