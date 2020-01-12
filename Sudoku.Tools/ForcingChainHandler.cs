@@ -17,16 +17,7 @@ namespace Sudoku.Tools
         {
             List<CellInfo> cells = new List<CellInfo>();
 
-            var checkIndexLists = qSudoku.AllUnSetCell.Where(c => c.GetRest().Count == 2).Select(c => c.Index).ToList();
-            var aOrBIndex = qSudoku.GetPossibleIndexByTimes(2);
-            foreach (var item in aOrBIndex)
-            {
-                checkIndexLists.AddRange(item.indexs);
-            }
-
-            checkIndexLists = checkIndexLists.Distinct().ToList();
-
-            foreach (var index in checkIndexLists)
+            foreach (var index in qSudoku.AllChainsIndex)
             {
                 foreach (var testValue in qSudoku.GetRest(index))
                 {
@@ -53,18 +44,13 @@ namespace Sudoku.Tools
         }
 
         public static List<CellInfo> traceCell = new List<CellInfo>();
-        public static List<CellInfo> contactCell = new List<CellInfo>();
-        
         private void Fuc(CellInfo cell)
         {
             //Debug.WriteLine("Fuc in  " + cell + "cell parent" + cell.Parent);
+
             if (traceCell.Any()) return;
-             contactCell.Add(cell);
             if (cell.IsError)
             {
-  
-                Debug.WriteLine(" count  " + cell.NextCells.Count + " cellinfo   " + cell + " parent " + cell.Parent);
-
                 Debug.WriteLine("ForcingChainHandler  \r\n");
                 foreach (var parent in cell.GetAllParents().OrderBy(c => c.Level))
                 {
@@ -80,25 +66,26 @@ namespace Sudoku.Tools
                 var temp = cell.NextCells;
                 foreach (var sub in temp)
                 {
-                    Debug.WriteLine( " count  "+sub.NextCells.Count+ " cellinfo   "+sub + " parent " + sub.Parent);
+                    Debug.WriteLine(" count  " + sub.NextCells.Count + " cellinfo   " + sub + " parent " + sub.Parent);
 
-                
+
                 }
-
 
                 foreach (var item in temp)
                 {
-        
-                    if (traceCell.Count==0) //找到一个就跳出循环
+
+                    if (traceCell.Count != 0) //找到一个就跳出循环
                     {
-                        //if (!contactCell.Exists(c => c.Index == item.Index && c.CellType == item.CellType && c.Value == item.Value))
-                        {
-                            Fuc(item);
-                        }
-             
+                        //break;
                     }
-                  
+                    else
+                    {
+
+                        Fuc(item);
+                    }
+
                 }
+
             }
 
         }
