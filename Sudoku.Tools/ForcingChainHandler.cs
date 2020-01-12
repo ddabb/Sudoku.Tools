@@ -18,7 +18,9 @@ namespace Sudoku.Tools
             List<CellInfo> cells = new List<CellInfo>();
 
             foreach (var index in qSudoku.AllChainsIndex)
+            //foreach (var index in new List<int>{2,4,5,17})
             {
+                Debug.WriteLine(" index in" + index );
                 foreach (var testValue in qSudoku.GetRest(index))
                 {
                     var index1 = index;
@@ -26,10 +28,12 @@ namespace Sudoku.Tools
                     NegativeCellInfo cell = new NegativeCellInfo(index1, testValue1)
                     { Sudoku = qSudoku, CellType = CellType.Negative, IsRoot = true };
                     traceCell.Clear();
-                    Fuc(cell);
+                    List<CellInfo> initCellInfo=new List<CellInfo>();
+                    Fuc(cell,ref initCellInfo);
                     if (traceCell.Count != 0)
                     {
                         var temp = new PositiveCellInfo(index1, testValue1) { CellType = CellType.Positive };
+                        Debug.WriteLine(" result" + temp);
                         cells.Add(temp);
                     }
                     else
@@ -38,25 +42,22 @@ namespace Sudoku.Tools
                     }
 
                 }
+
+                Debug.WriteLine(" index out" + index+" Count" +cells.Count);
             }
             return cells;
 
         }
 
         public static List<CellInfo> traceCell = new List<CellInfo>();
-        private void Fuc(CellInfo cell)
+        private void Fuc(CellInfo cell,ref List<CellInfo>  initCellInfo)
         {
             //Debug.WriteLine("Fuc in  " + cell + "cell parent" + cell.Parent);
 
             if (traceCell.Any()) return;
             if (cell.IsError)
             {
-                Debug.WriteLine("ForcingChainHandler  \r\n");
-                foreach (var parent in cell.GetAllParents().OrderBy(c => c.Level))
-                {
-                    Debug.WriteLine("parent  " + parent);
-                }
-                Debug.WriteLine("result  " + cell);
+                Debug.WriteLine("result  " + cell+ "  \r\n");
                 traceCell.Add(cell);
                 return;
             }
@@ -80,8 +81,12 @@ namespace Sudoku.Tools
                     }
                     else
                     {
-
-                        Fuc(item);
+                        if (!initCellInfo.Exists(c=>c.CellType==item.CellType&&c.Index==item.Index&&item.Value==c.Value))
+                        {
+                            initCellInfo.Add(item);
+                            Fuc(item, ref initCellInfo);
+                        }
+                  
                     }
 
                 }
