@@ -83,15 +83,26 @@ namespace Sudoku.Core
 
             foreach (var item in GetPostiveCellInDirtion(UnSetCellInSameRow()).Where(item => !cells.Exists(c => c.Value == item.Value && c.Index == item.Index)))
             {
-                cells.Add(item);
+                if (Sudoku.AllChainsIndex.Contains(item.Index))
+                {
+                    cells.Add(item);
+                }
+                
             }
             foreach (var item in GetPostiveCellInDirtion(UnSetCellInSameColumn()).Where(item => !cells.Exists(c => c.Value == item.Value && c.Index == item.Index)))
             {
-                cells.Add(item);
+                if (Sudoku.AllChainsIndex.Contains(item.Index))
+                {
+                    cells.Add(item);
+                }
+
             }
             foreach (var item in GetPostiveCellInDirtion(UnSetCellInSameBlock()).Where(item => !cells.Exists(c => c.Value == item.Value && c.Index == item.Index)))
             {
-                cells.Add(item);
+                if (Sudoku.AllChainsIndex.Contains(item.Index))
+                {
+                    cells.Add(item);
+                }
             }
 
             if (this.Parent != null)

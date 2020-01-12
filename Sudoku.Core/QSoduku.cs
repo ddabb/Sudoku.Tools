@@ -250,6 +250,35 @@ namespace Sudoku.Core
             }
         }
 
+        public List<CellInfo> AllCell
+        {
+            get
+            {
+                return cellInfos.ToList();
+            }
+        }
+
+        private List<int> mAllChainsIndex;
+        public List<int> AllChainsIndex
+        {
+            get
+            {
+                if (mAllChainsIndex==null)
+                {
+                    var checkIndexLists = AllUnSetCell.Where(c => c.GetRest().Count == 2).Select(c => c.Index).ToList();
+                    var aOrBIndex = GetPossibleIndexByTimes(2);
+                    foreach (var item in aOrBIndex)
+                    {
+                        checkIndexLists.AddRange(item.indexs);
+                    }
+
+                    mAllChainsIndex = checkIndexLists.Distinct().ToList();
+                }
+
+                return mAllChainsIndex;
+            }
+        }
+
         public List<CellInfo> AllSetCell
         {
             get
