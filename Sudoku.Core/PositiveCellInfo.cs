@@ -83,7 +83,7 @@ namespace Sudoku.Core
             }
             if (this.Parent != null)
                 cellsA = cellsA.Where(c => !(c.Index == Parent.Index && c.Value == Parent.Value)).ToList();
-            return cellsA.OrderBy(c=>c.Value-Value).ToList();
+            return cellsA.ToList();
 
         }
     }

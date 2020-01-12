@@ -25,7 +25,7 @@ namespace Sudoku.Tools
             }
 
             checkIndexLists = checkIndexLists.Distinct().ToList();
-
+            Debug.WriteLine(checkIndexLists.JoinString());
             foreach (var index in checkIndexLists)
             {
                 foreach (var testValue in qSudoku.GetRest(index))
@@ -35,7 +35,7 @@ namespace Sudoku.Tools
                     NegativeCellInfo cell = new NegativeCellInfo(index1, testValue1)
                     { Sudoku = qSudoku, CellType = CellType.Negative, IsRoot = true };
                     traceCell.Clear();
-                    Fuc(cell);
+                    Fuc(cell, ref checkIndexLists);
                     if (traceCell.Count != 0)
                     {
                         var temp = new PositiveCellInfo(index1, testValue1) { CellType = CellType.Positive };
@@ -53,45 +53,53 @@ namespace Sudoku.Tools
         }
 
         public static List<CellInfo> traceCell = new List<CellInfo>();
-        private void Fuc(CellInfo cell)
+        private void Fuc(CellInfo cell, ref List<int> checkIndexLists)
         {
             //Debug.WriteLine("Fuc in  " + cell + "cell parent" + cell.Parent);
-            if (traceCell.Any()) return;
-       
-            if (cell.IsError)
-            {
-  
-                Debug.WriteLine(" count  " + cell.NextCells.Count + " cellinfo   " + cell + " parent " + cell.Parent);
-
-                Debug.WriteLine("ForcingChainHandler  \r\n");
-                foreach (var parent in cell.GetAllParents().OrderBy(c => c.Level))
-                {
-                    Debug.WriteLine("parent  " + parent);
-                }
-                Debug.WriteLine("result  " + cell);
-                traceCell.Add(cell);
-                return;
-            }
-
-            if (!cell.GetAllParents().Any(c => c.Index == cell.Index && c.CellType == cell.CellType && c.Value == cell.Value))
-            {
-                var temp = cell.NextCells;
-                foreach (var sub in temp)
-                {
-                    Debug.WriteLine( " count  "+sub.NextCells.Count+ " cellinfo   "+sub + " parent " + sub.Parent);
-
-                
-                }
-
-
-                foreach (var item in temp)
-                {
         
-                    if (traceCell.Count==0) //找到一个就跳出循环
+            if (checkIndexLists.Contains(cell.Index))
+            {
+                if (traceCell.Any()) return;
+                if (cell.IsError)
+                {
+
+                    Debug.WriteLine(" count  " + cell.NextCells.Count + " cellinfo   " + cell + " parent " + cell.Parent);
+
+                    Debug.WriteLine("ForcingChainHandler  \r\n");
+                    foreach (var parent in cell.GetAllParents().OrderBy(c => c.Level))
                     {
-                        Fuc(item);
+                        Debug.WriteLine("parent  " + parent);
                     }
-                  
+                    Debug.WriteLine("result  " + cell);
+                    traceCell.Add(cell);
+                    return;
+                }
+
+                if (!cell.GetAllParents().Any(c => c.Index == cell.Index && c.CellType == cell.CellType && c.Value == cell.Value))
+                {
+                    var temp = cell.NextCells;
+                    foreach (var sub in temp)
+                    {
+                        Debug.WriteLine(" count  " + sub.NextCells.Count + " cellinfo   " + sub + " parent " + sub.Parent);
+
+
+                    }
+
+                    foreach (var item in temp)
+                    {
+
+                        if (traceCell.Count != 0) //找到一个就跳出循环
+                        {
+                            //break;
+                        }
+                        else
+                        {
+
+                            Fuc(item, ref checkIndexLists);
+                        }
+
+                    }
+
                 }
             }
 

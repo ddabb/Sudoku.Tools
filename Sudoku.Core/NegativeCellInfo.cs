@@ -96,7 +96,7 @@ namespace Sudoku.Core
 
             if (this.Parent != null)
                 cells = cells.Where(c => !(c.Index == Parent.Index && c.Value == Parent.Value)).ToList();
-            return cells.OrderBy(c => c.Value - Value).ToList();
+            return cells.ToList();
         }
 
         private List<CellInfo> GetPostiveCellInDirtion(Func<CellInfo, bool> temp)
