@@ -9,7 +9,11 @@ namespace Sudoku.Tools
     public class FinnedSwordfishHandler :SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.FinnedSwordfish;
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="qSudoku"></param>
+        /// <returns></returns>
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             throw new NotImplementedException();

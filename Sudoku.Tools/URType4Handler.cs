@@ -1,20 +1,127 @@
 ﻿using Sudoku.Core;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Diagnostics;
+using System.Linq;
 
 namespace Sudoku.Tools
 {
     [AssignmentExample("396002451451090782782451090645230008030000045100045030003500064500904020004020500")]
     //400061070057004001160702084926007138745318000010629457580103726001076845670085010
     //318652007497381005600070138849010000531026009700890051900108500100200006203067014
-    public class URType4Handler :SolverHandlerBase
+    public class URType4Handler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.URType4;
 
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
-            throw new NotImplementedException();
+            List<CellInfo> cells = new List<CellInfo>();
+            var unCheckSell = qSudoku.AllUnSetCell;
+            var pairs = (from a in unCheckSell
+                join b in unCheckSell on a.GetRest().JoinString() equals b.GetRestString()
+                where (a.Row == b.Row || a.Column == b.Column) && a.Index < b.Index
+                                                               && a.GetRest().Count == 2
+                select new {a, b}).ToList();
+            foreach (var cell in pairs)
+            {
+                var a = cell.a;
+                var b = cell.b;
+                var restString = a.GetRestString();
+                var restInt = a.GetRest();
+                Debug.WriteLine("a  " + cell.a);
+                Debug.WriteLine("b  " + cell.b);
+                if (a.Row == b.Row)
+                {
+
+                    var pairs1 = (from c in unCheckSell
+                        join d in unCheckSell on 1 equals 1
+                        where c.Row != a.Row && c.Row == d.Row
+                                             && c.GetRestString().Contains(restString)
+                                             && d.GetRestString().Contains(restString)
+                                             && c.Column == a.Column
+                                             && d.Column == b.Column
+                                             && c.GetRest().Count > 2
+                                             && d.GetRest().Count > 2
+                        select new {c, d}).ToList();
+                    foreach (var cell2 in pairs1)
+                    {
+                        //a b 中 restvalue的x y在 c d 列只存在于对应的两行
+                        Debug.WriteLine("c  " + cell2.c);
+                        Debug.WriteLine("d  " + cell2.d);
+                        foreach (var value in restInt)
+                        {
+                            if (qSudoku.GetPossibleIndex(value, c => c.Column == cell2.c.Column).Count == 2 &&
+                                qSudoku.GetPossibleIndex(value, c => c.Column == cell2.d.Column).Count == 2)
+                            {
+                                var cellValue = restInt.First(c => c != value);
+                                var indexs = qSudoku.GetPossibleIndex(cellValue,
+                                    c => c.Value==0&&c.Row == cell2.c.Row && c.Index != cell2.c.Index && c.Index != cell2.d.Index);
+                                if (indexs.Count==1)
+                                {
+
+                                    cells.Add(new PositiveCellInfo(indexs.First(), cellValue));
+                                }
+
+                            }
+
+
+                        }
+
+                        Debug.WriteLine("");
+                    }
+
+
+
+
+                }
+
+                if (a.Column == b.Column)
+                {
+                    var pairs1 = (from c in unCheckSell
+                        join d in unCheckSell on 1 equals 1
+                        where c.Column != a.Column && c.Column == d.Column
+                                                   && c.GetRestString().Contains(restString)
+                                                   && d.GetRestString().Contains(restString)
+                                                   && c.Row == a.Row
+                                                   && d.Row == b.Row
+                                                   && c.GetRest().Count > 2
+                                                   && d.GetRest().Count > 2
+                        select new {c, d}).ToList();
+                    foreach (var cell2 in pairs1)
+                    {
+                        //a b 中 restvalue的x y在 c d 列只存在于对应的两行
+                        Debug.WriteLine("c  " + cell2.c);
+                        Debug.WriteLine("d  " + cell2.d);
+                        foreach (var value in restInt)
+                        {
+                            if (qSudoku.GetPossibleIndex(value, c => c.Row == cell2.c.Row).Count == 2 &&
+                                qSudoku.GetPossibleIndex(value, c => c.Row == cell2.d.Row).Count == 2)
+                            {
+                                var cellValue = restInt.First(c => c != value);
+                                var indexs = qSudoku.GetPossibleIndex(cellValue,
+                                    c => c.Value == 0 && c.Column == cell2.c.Column && c.Index != cell2.c.Index && c.Index != cell2.d.Index);
+                                if (indexs.Count == 1)
+                                {
+
+                                    cells.Add(new PositiveCellInfo(indexs.First(), cellValue));
+                                }
+
+                            }
+
+
+                        }
+
+                        Debug.WriteLine("");
+
+                    }
+                }
+
+            }
+
+
+
+
+            return cells;
         }
 
         public override List<NegativeCellInfo> Elimination(QSudoku qSudoku)

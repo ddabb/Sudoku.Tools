@@ -122,7 +122,26 @@ namespace SudoKu.Test
         }
 
 
-        
+        [TestMethod]
+        public void TestURType4Handler()
+        {
+            URType2Handler hander = new URType2Handler();
+            QSudoku qsudoku = new QSudoku("396002451451090782782451090645230008030000045100045030003500064500904020004020500");
+            Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString));
+            var cells = hander.Assignment(qsudoku);
+            foreach (var item in cells)
+            {
+                Debug.WriteLine("" + item);
+            }
+
+            Assert.AreEqual(true, cells.Exists(c => c.Value == 6));
+            Assert.AreEqual(true, cells.Exists(c => c.RrCc.ToUpper() == "R9C2"));
+            qsudoku = qsudoku.ApplyCells(cells);
+            Debug.WriteLine(qsudoku.QueryString);
+            Assert.AreEqual(true, new DanceLink().isValid(qsudoku.QueryString));
+        }
+
+
 
         [TestMethod]
         public void TestClaimingInRowHandler1()
@@ -471,9 +490,9 @@ namespace SudoKu.Test
 
 
         [TestMethod]
-        public void TestSwordfishHandler()
+        public void TestFinnedSwordfishHandler()
         {
-            SwordfishHandler hander = new SwordfishHandler();
+            FinnedSwordfishHandler hander = new FinnedSwordfishHandler();
             QSudoku qsudoku = new QSudoku("000074200200906740004520009100457928547892000002600574400705092005209403629040057");
             Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString));
             var cells = hander.Assignment(qsudoku);
