@@ -22,27 +22,30 @@ namespace Sudoku.Tools
                     //待检查的单元格
                     var checkCells = qSudoku.AllUnSetCell.Where(G.GetDirectionCells(direction, index)).ToList();
 
-                    if (checkCells.Count>3)
+                    if (checkCells.Count > 3)
                     {
 
                         var allRests = new List<int>();
                         foreach (var cell in checkCells)
                         {
                             allRests.AddRange(cell.GetRest());
-                  
+
                         }
+
                         var restValues = allRests.Distinct().ToList();
                         if (restValues.Count > 3)
                         {
                             var values = (from a in restValues
                                           join b in restValues on 1 equals 1
                                           join c in restValues on 1 equals 1
-                                          where new List<int> { a, b, c }.Select(c => c).Distinct().Count() == 3 &&a<b&&b<c
-                                          select new List<int> { a, b, c }).ToList();
-                            foreach (var eachTriple in values)
+                                        
+                                          where new List<int> { a, b, c }.Select(c => c).Distinct().Count() == 3 && a < b &&
+                                                b < c 
+                                          select new List<int> { a, b, c}).ToList();
+                            foreach (var eachQuadruple in values)
                             {
                                 Dictionary<int, List<int>> a = new Dictionary<int, List<int>>();
-                                foreach (var value in eachTriple)
+                                foreach (var value in eachQuadruple)
                                 {
                                     a.Add(value, qSudoku.GetPossibleIndex(value, checkCells));
                                 }
@@ -56,31 +59,42 @@ namespace Sudoku.Tools
                                 var exceptIndexs = allindexs.Distinct().ToList();
                                 if (exceptIndexs.Count() == 3)
                                 {
-                                    foreach (var item in restValues.Where(c => !eachTriple.Contains(c)))
+
+                                    var rows = exceptIndexs.Select(c => new PositiveCellInfo(c, 0)).Select(c => c.Row)
+                                        .Distinct().ToList();
+                                    var blocks = exceptIndexs.Select(c => new PositiveCellInfo(c, 0))
+                                        .Select(c => c.Block).Distinct().ToList();
+                                    var columns = exceptIndexs.Select(c => new PositiveCellInfo(c, 0))
+                                        .Select(c => c.Column).Distinct().ToList();
+
+                                    var checkValues = G.AllBaseValues.Except(eachQuadruple).ToList();
+                                    foreach (var checkValue in checkValues)
                                     {
-                                        var leftIndexs = qSudoku.GetPossibleIndex(item, checkCells).Where(c => !exceptIndexs.Contains(c)).ToList();
-                                        if (leftIndexs.Count == 1)
-                                        {
-
-                                            var cellinfo = new PositiveCellInfo(leftIndexs.First(), item);
-                                            cells.Add(cellinfo);
-                                        }
-
+                                        cells.AddRange((from row in rows
+                                                        select qSudoku.GetPossibleIndex(checkValue,
+                                                            c => c.Value == 0 && c.Row == row && !exceptIndexs.Contains(c.Index))
+                                            into count
+                                                        where count.Count == 1
+                                                        select new PositiveCellInfo(count.First(), checkValue)).Cast<CellInfo>());
+                                        cells.AddRange((from column in columns
+                                                        select qSudoku.GetPossibleIndex(checkValue,
+                                                            c => c.Value == 0 && c.Column == column &&
+                                                                 !exceptIndexs.Contains(c.Index))
+                                            into count
+                                                        where count.Count == 1
+                                                        select new PositiveCellInfo(count.First(), checkValue)).Cast<CellInfo>());
+                                        cells.AddRange((from block in blocks
+                                                        select qSudoku.GetPossibleIndex(checkValue,
+                                                            c => c.Value == 0 && c.Block == block &&
+                                                                 !exceptIndexs.Contains(c.Index))
+                                            into count
+                                                        where count.Count == 1
+                                                        select new PositiveCellInfo(count.First(), checkValue)).Cast<CellInfo>());
                                     }
-
-
                                 }
-
-
                             }
-
-
                         }
                     }
-     
-
-
-
                 }
             }
 
