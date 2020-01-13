@@ -5,10 +5,11 @@ using System.Text;
 
 namespace Sudoku.Tools
 {
-    [AssignmentExample("748359126001726840026400705200040087074030000180070004402007608017003402805204070")]
-    public class LockedURType1Handler :SolverHandlerBase
+
+    [AssignmentExample("030150209000360050700490603001273800000519000003684700100000008320040000409001060")]
+    public class URType3NakedQuadrupleHandler : SolverHandlerBase
     {
-        public override SolveMethodEnum methodType => SolveMethodEnum.LockedURType1;
+        public override SolveMethodEnum methodType => SolveMethodEnum.URType3NakedQuadruple;
 
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {

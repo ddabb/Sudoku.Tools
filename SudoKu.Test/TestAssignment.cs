@@ -142,6 +142,63 @@ namespace SudoKu.Test
         }
 
         [TestMethod]
+        public void TestLockedURType1Handler()
+        {
+            LockedURType1Handler hander = new LockedURType1Handler();
+            QSudoku qsudoku = new QSudoku("748359126001726840026400705200040087074030000180070004402007608017003402805204070");
+            Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString));
+            var cells = hander.Assignment(qsudoku);
+            foreach (var item in cells)
+            {
+                Debug.WriteLine("" + item);
+            }
+
+            Assert.AreEqual(true, cells.Exists(c => c.Value == 5));
+            Assert.AreEqual(true, cells.Exists(c => c.RrCc.ToUpper() == "R5C5"));
+            qsudoku = qsudoku.ApplyCells(cells);
+            Debug.WriteLine(qsudoku.QueryString);
+            Assert.AreEqual(true, new DanceLink().isValid(qsudoku.QueryString));
+        }
+
+        [TestMethod]
+        public void TestULSize8Handler()
+        {
+            ULSize8Handler hander = new ULSize8Handler();
+            QSudoku qsudoku = new QSudoku("914526300620081459508940162209008510486159723150200890361095240045002901092010635");
+            Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString));
+            var cells = hander.Assignment(qsudoku);
+            foreach (var item in cells)
+            {
+                Debug.WriteLine("" + item);
+            }
+
+            Assert.AreEqual(true, cells.Exists(c => c.Value == 4));
+            Assert.AreEqual(true, cells.Exists(c => c.RrCc.ToUpper() == "R9C4"));
+            qsudoku = qsudoku.ApplyCells(cells);
+            Debug.WriteLine(qsudoku.QueryString);
+            Assert.AreEqual(true, new DanceLink().isValid(qsudoku.QueryString));
+        }
+        [TestMethod]
+        public void TestULSize10Handler()
+        {
+            ULSize10Handler hander = new ULSize10Handler();
+            QSudoku qsudoku = new QSudoku("003400879008093002902068534009800007325047908087009000750284093294316785830975240");
+            Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString));
+            var cells = hander.Assignment(qsudoku);
+            foreach (var item in cells)
+            {
+                Debug.WriteLine("" + item);
+            }
+
+            Assert.AreEqual(true, cells.Exists(c => c.Value == 4));
+            Assert.AreEqual(true, cells.Exists(c => c.RrCc.ToUpper() == "R9C4"));
+            qsudoku = qsudoku.ApplyCells(cells);
+            Debug.WriteLine(qsudoku.QueryString);
+            Assert.AreEqual(true, new DanceLink().isValid(qsudoku.QueryString));
+        }
+        
+
+        [TestMethod]
         public void TestURType4Handler1()
         {
             URType4Handler hander = new URType4Handler();

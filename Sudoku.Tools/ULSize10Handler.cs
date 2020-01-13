@@ -5,8 +5,8 @@ using System.Text;
 
 namespace Sudoku.Tools
 {
-    [AssignmentExample("030150209000360050700490603001273800000519000003684700100000008320040000409001060")]
-    public class ULSize10Handler :SolverHandlerBase
+    [AssignmentExample("003400879008093002902068534009800007325047908087009000750284093294316785830975240")]
+    public class ULSize10Handler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.ULSize10;
 

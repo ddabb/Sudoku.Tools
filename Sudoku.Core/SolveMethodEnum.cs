@@ -14,6 +14,7 @@ namespace Sudoku.Core
         HiddenSingleBlock,
         HiddenSingleColumn,
         HiddenSingleRow,
+        [DifficultuRating(2.6)]
         DirectPointing,
         [Description("隐藏数对")]
         HiddenPair,
@@ -21,7 +22,9 @@ namespace Sudoku.Core
         HiddenQuadruple,
         [Description("显性数对")]
         NakedPair,
+        [DifficultuRating(3.6)]
         NakedTriple,
+        [DifficultuRating(5.0)]
         NakedQuadruple,
         ClaimingInRow,
         ClaimingInColumn,
@@ -31,11 +34,11 @@ namespace Sudoku.Core
         XYZWing,
         WXYZWing,
         XYChain, 
-
         ForcingXChain,
         URType1,  
         ULSize6Type1,
         ULSize6Type2,
+        [DifficultuRating(4.1)]
         TwoStringsKite,
         Skyscraper,
         TurbotFishNormal,
@@ -55,7 +58,13 @@ namespace Sudoku.Core
         ARType2,
         ARType1,
         XRSize10,
-        URType3,
+        [DifficultuRating(4.5)]
+        URType3NakedPair,
+        [DifficultuRating(4.5)]
+        URType3NakedQuadruple,
+        [DifficultuRating(4.5)]
+        URType3NakedTriple,
+        [DifficultuRating(4.5)]
         URType4,
         VWXYZWing,
         XRSize6Type3,
@@ -69,7 +78,6 @@ namespace Sudoku.Core
         FinnedJeffyfish,
         FinnedSwordfish,
         FinnedXwing,
-
         ImcompletedURType1,
         ImcompletedURType3,
         LockedCandidates,
@@ -77,10 +85,10 @@ namespace Sudoku.Core
         LockedURType2,  
         SiameseSwordfish,
         SiameseXwing,
+        [DifficultuRating(5.0)]
         ULSize10,
         ULSize8,
         ULSize6Type4,
-
         ULSize14,
         RemotePair,
         SashimiJellyfish,
@@ -90,6 +98,7 @@ namespace Sudoku.Core
         ULSize12,
         [Description("强制链")]
         ForcingChain,
-        ImcompletedURType4
+        ImcompletedURType4,
+
     }
 }
