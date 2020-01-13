@@ -15,11 +15,11 @@ namespace Sudoku.Console
         static void Main(string[] args)
         {
             var runtest = true;
-            runtest = false;
+            //runtest = false;
             if (runtest)
             {
-                ForcingChainHandler hander = new ForcingChainHandler();
-                QSudoku qsudoku = new QSudoku("670000010931746000520009700462538070197624008853971000716400003389067400245003007");
+                HiddenQuadrupleHandler hander = new HiddenQuadrupleHandler();
+                QSudoku qsudoku = new QSudoku("900164080070983215813200964080020000500001070002000042040716000000000000007092000");
                 Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString));
                 var cells = hander.Assignment(qsudoku);
                 return;

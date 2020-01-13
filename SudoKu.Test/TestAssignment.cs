@@ -417,7 +417,7 @@ namespace SudoKu.Test
         public void TestHiddenQuadrupleHandler()
         {
             HiddenQuadrupleHandler hander = new HiddenQuadrupleHandler();
-            QSudoku qsudoku = new QSudoku("900164080070983215813200964080020000500001070002000042040716000000000000007892000");
+            QSudoku qsudoku = new QSudoku("900164080070983215813200964080020000500001070001000042040716000000000000007092000");
             Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString));
             var cells = hander.Assignment(qsudoku);
             foreach (var item in cells)

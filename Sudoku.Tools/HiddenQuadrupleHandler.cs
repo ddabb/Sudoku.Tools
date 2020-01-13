@@ -1,6 +1,8 @@
 ﻿using Sudoku.Core;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Text;
 
 namespace Sudoku.Tools
@@ -12,7 +14,91 @@ namespace Sudoku.Tools
 
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
-            throw new NotImplementedException();
+            List<CellInfo> cells = new List<CellInfo>();
+            foreach (var direction in G.AllDirection)
+            {
+                foreach (var index in G.baseIndexs)
+                {
+                    //待检查的单元格
+                    var checkCells = qSudoku.AllUnSetCell.Where(G.GetDirectionCells(direction, index)).ToList();
+
+                    if (checkCells.Count > 4)
+                    {
+
+                        var allRests = new List<int>();
+                        foreach (var cell in checkCells)
+                        {
+                            allRests.AddRange(cell.GetRest());
+
+                        }
+
+                        var restValues = allRests.Distinct().ToList();
+                        if (restValues.Count > 4)
+                        {
+                            var values = (from a in restValues
+                                join b in restValues on 1 equals 1
+                                join c in restValues on 1 equals 1
+                                join d in restValues on 1 equals 1
+                                where new List<int> {a, b, c, d}.Select(c => c).Distinct().Count() == 4 && a < b &&
+                                      b < c && c < d
+                                select new List<int> {a, b, c, d}).ToList();
+                            foreach (var eachQuadruple in values)
+                            {
+                                Dictionary<int, List<int>> a = new Dictionary<int, List<int>>();
+                                foreach (var value in eachQuadruple)
+                                {
+                                    a.Add(value, qSudoku.GetPossibleIndex(value, checkCells));
+                                }
+
+                                var allindexs = new List<int>();
+                                foreach (var kv in a)
+                                {
+                                    allindexs.AddRange(kv.Value);
+                                }
+
+                                var exceptIndexs = allindexs.Distinct().ToList();
+                                if (exceptIndexs.Count() == 4)
+                                {
+
+                                    var rows = exceptIndexs.Select(c => new PositiveCellInfo(c, 0)).Select(c => c.Row)
+                                        .Distinct().ToList();
+                                    var blocks = exceptIndexs.Select(c => new PositiveCellInfo(c, 0))
+                                        .Select(c => c.Block).Distinct().ToList();
+                                    var columns = exceptIndexs.Select(c => new PositiveCellInfo(c, 0))
+                                        .Select(c => c.Column).Distinct().ToList();
+
+                                    var checkValues = G.AllBaseValues.Except(eachQuadruple).ToList();
+                                    foreach (var checkValue in checkValues)
+                                    {
+                                        cells.AddRange((from row in rows
+                                            select qSudoku.GetPossibleIndex(checkValue,
+                                                c => c.Value == 0 && c.Row == row && !exceptIndexs.Contains(c.Index))
+                                            into count
+                                            where count.Count == 1
+                                            select new PositiveCellInfo(count.First(), checkValue)).Cast<CellInfo>());
+                                        cells.AddRange((from column in columns
+                                            select qSudoku.GetPossibleIndex(checkValue,
+                                                c => c.Value == 0 && c.Column == column &&
+                                                     !exceptIndexs.Contains(c.Index))
+                                            into count
+                                            where count.Count == 1
+                                            select new PositiveCellInfo(count.First(), checkValue)).Cast<CellInfo>());
+                                        cells.AddRange((from block in blocks
+                                            select qSudoku.GetPossibleIndex(checkValue,
+                                                c => c.Value == 0 && c.Block == block &&
+                                                     !exceptIndexs.Contains(c.Index))
+                                            into count
+                                            where count.Count == 1
+                                            select new PositiveCellInfo(count.First(), checkValue)).Cast<CellInfo>());
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            return cells;
         }
 
         public override List<NegativeCellInfo> Elimination(QSudoku qSudoku)
