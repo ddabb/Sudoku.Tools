@@ -17,8 +17,12 @@ namespace Sudoku.Core
         DirectPointing,
         [Description("隐藏数对")]
         HiddenPair,
+        HiddenTriple,
+        HiddenQuadruple,
         [Description("显性数对")]
         NakedPair,
+        NakedTriple,
+        NakedQuadruple,
         ClaimingInRow,
         ClaimingInColumn,
         WWing,
@@ -26,9 +30,8 @@ namespace Sudoku.Core
         XYWing,
         XYZWing,
         WXYZWing,
-        XYChain,  
-        NakedTriple,
-        NakedQuadruple,
+        XYChain, 
+
         ForcingXChain,
         URType1,  
         ULSize6Type1,
@@ -66,8 +69,7 @@ namespace Sudoku.Core
         FinnedJeffyfish,
         FinnedSwordfish,
         FinnedXwing,
-        HiddenQuadruple,      
-        HiddenTriple,
+
         ImcompletedURType1,
         ImcompletedURType3,
         LockedCandidates,

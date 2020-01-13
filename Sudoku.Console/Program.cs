@@ -10,7 +10,7 @@ using System.Reflection;
 
 namespace Sudoku.Console
 {
-  public  class StaticTools
+    public class StaticTools
     {
         static void Main(string[] args)
         {
@@ -58,7 +58,7 @@ namespace Sudoku.Console
                 {
                     example = new MinimalPuzzleFactory().Make(new SudokuBuilder().MakeWholeSudoku());
                 }
-          
+
                 Debug.WriteLine("example init " + example.QueryString);
 
                 if (SolveSudoku(example))
@@ -86,7 +86,7 @@ namespace Sudoku.Console
         /// <param name="solveHandlers"></param>
         /// <param name="example"></param>
         /// <returns></returns>
-        public static bool SolveSudoku( QSudoku example)
+        public static bool SolveSudoku(QSudoku example)
         {
             var builder = new ContainerBuilder();
             Assembly[] assemblies = new Assembly[] { typeof(SolverHandlerBase).Assembly };
@@ -94,22 +94,21 @@ namespace Sudoku.Console
             var initString = example.QueryString;
             IContainer container = builder.Build();
             var solveHandlers = container.Resolve<IEnumerable<ISudokuSolveHandler>>().OrderBy(c => (int)c.methodType).ToList();
-    
+
             for (int i = 0; i < solveHandlers.Count; i++)
             {
                 var helps = solveHandlers[i];
-                
+
                 try
                 {
                     if (!types1.Contains(helps.GetType()))
                     {
-                        Debug.WriteLine("type" + helps.GetType());
                         var cellinfos = new List<CellInfo>();
 
                         cellinfos = helps.Assignment(example);
                         if (cellinfos.Count != 0)
                         {
-                     
+
                             Debug.WriteLine("cellinfo" + cellinfos.JoinString("\r\n"));
                             Debug.WriteLine("example before" + example.QueryString + "isvalid" + new DanceLink().isValid(example.QueryString));
 
@@ -144,7 +143,7 @@ namespace Sudoku.Console
                 SaveTohtml(example.QueryString);
                 SaveToTXT(example.QueryString);
                 SaveToTXT(example.QueryString, initString);
-              
+
 
             }
             return example.IsAllSeted;
