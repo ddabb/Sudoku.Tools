@@ -125,7 +125,7 @@ namespace SudoKu.Test
         [TestMethod]
         public void TestURType4Handler()
         {
-            URType2Handler hander = new URType2Handler();
+            URType4Handler hander = new URType4Handler();
             QSudoku qsudoku = new QSudoku("396002451451090782782451090645230008030000045100045030003500064500904020004020500");
             Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString));
             var cells = hander.Assignment(qsudoku);
@@ -141,7 +141,26 @@ namespace SudoKu.Test
             Assert.AreEqual(true, new DanceLink().isValid(qsudoku.QueryString));
         }
 
+        [TestMethod]
+        public void TestURType4Handler1()
+        {
+            URType4Handler hander = new URType4Handler();
+            QSudoku qsudoku = new QSudoku("318652007497381005600070138849010000531026009700890051900108500100200006203067014");
+            Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString));
+            var cells = hander.Assignment(qsudoku);
+            foreach (var item in cells)
+            {
+                Debug.WriteLine("" + item);
+            }
 
+            Assert.AreEqual(true, cells.Exists(c => c.Value == 2));
+            Assert.AreEqual(true, cells.Exists(c => c.RrCc.ToUpper() == "R4C9"));
+            qsudoku = qsudoku.ApplyCells(cells);
+            Debug.WriteLine(qsudoku.QueryString);
+            Assert.AreEqual(true, new DanceLink().isValid(qsudoku.QueryString));
+        }
+
+        
 
         [TestMethod]
         public void TestClaimingInRowHandler1()

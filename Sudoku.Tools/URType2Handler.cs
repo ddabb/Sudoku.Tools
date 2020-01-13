@@ -27,6 +27,7 @@ namespace Sudoku.Tools
                              && d.GetRest().Count() == 3
                              && a.GetRest().Count() == 2
                              && d.GetRest().Except(a.GetRest()).Count()==1
+                              && d.GetRest().Intersect(a.GetRest()).Count() == 2
                           select new List<CellInfo> { a, b, c, d }).ToList();
             foreach (var item in filter)
             {
