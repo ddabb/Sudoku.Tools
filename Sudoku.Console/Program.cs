@@ -18,8 +18,8 @@ namespace Sudoku.Console
             //runtest = false;
             if (runtest)
             {
-                URType4Handler hander = new URType4Handler();
-                QSudoku qsudoku = new QSudoku("318652007497381005600070138849010000531026009700890051900108500100200006203067014");
+                ULSize8Handler hander = new ULSize8Handler();
+                QSudoku qsudoku = new QSudoku("914526300620081459508940162209008510486159723150200890361095240045002901092010635");
                 Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString));
                 var cells = hander.Assignment(qsudoku);
                 return;
