@@ -34,34 +34,32 @@ namespace Sudoku.Tools
                     if (x < y)
                     {
                         var pair = new List<int> {x, y};
-                        Debug.WriteLine(" checkCells.Count " + checkCells.Count+"x"+x+"y"+y);
-                        var containsCells = checkCells.Where(c => c.GetRest().Intersect(pair).Count() == 2).ToList();
-                        Debug.WriteLine(" containsCells.Count " + containsCells.Count );
-                        var equalCells = checkCells.Where(c => c.GetRest().Except(pair).Count() == 2).ToList();
-                        Debug.WriteLine(" equalCells.Count " + equalCells.Count+DateTime.Now);
-                        //从A8的a8.RrCc 入手
-                        if (equalCells.Count==7)
+                        var speacilCells = checkCells.Where(c =>
+                            c.GetRest().Intersect(pair).Count() == 2 && c.GetRest().Count() == 3).ToList();
+                        foreach (var a0 in speacilCells)
                         {
-                            //var temp = (from a1 in containsCells 
-                            //        join a2 in containsCells on a1.GetRestString() equals a2.GetRestString()
-                            //    join a3 in containsCells on a1.GetRestString() equals a3.GetRestString()
-                            //    join a4 in containsCells on a1.GetRestString() equals a4.GetRestString()
-                            //    join a5 in containsCells on a1.GetRestString() equals a5.GetRestString()
-                            //    join a6 in containsCells on a1.GetRestString() equals a6.GetRestString()
-                            //    join a7 in containsCells on a1.GetRestString() equals a7.GetRestString()
-                            //    join a8 in containsCells on 2 equals a8.GetRest().Intersect(pair).Count()
-                            //    where a1.GetRestString() == pair.JoinString()
-                            //          && a8.GetRest().Count == 3
-                            //          && a1.Index<a2.Index
-                            //          && a2.Index<a3.Index
-                            //          && a3.Index<a4.Index
-                            //          && a4.Index<a5.Index
-                            //          && a5.Index<a6.Index
-                            //          && a6.Index<a7.Index
-                            //            select new { a1, a2, a3, a4, a5, a6, a7, a8 }
-                            //    ).ToList();
-                            //Debug.WriteLine(" temp.Count " + temp.Count + "x  " + x + " y " + y + DateTime.Now+ "RrCc" + temp.First().a8.RrCc);
+                      
+                            foreach (var a3a4a5 in from pair1 in (from a1 in checkCells
+                                    join a2 in checkCells on a1.GetRestString() equals a2.GetRestString()
+                                    where a1.Index != a2.Index
+                                          && a1.Row == a0.Row
+                                          && a1.GetRest().Count == 2
+                                          && a2.Column == a0.Column
+                                    select new { a1, a2 })
+                                let a1 = pair1.a1 let a2 = pair1.a2 select (from a3 in checkCells
+                                join a4 in checkCells on a3.GetRestString() equals a4.GetRestString()
+                                join a5 in checkCells on a4.GetRestString() equals a5.GetRestString()
+                                where a3.Index != a4.Index
+                                      && a5.Index != a4.Index
+                                      && a3.Row == a4.Row
+                                      && a2.Row == a5.Row
+                                      && a3.Column == a1.Column
+                                select new {a3, a4, a5}).ToList())
+                            {
+                                cells.AddRange((from triple1 in a3a4a5 let a3 = triple1.a3 let a4 = triple1.a4 let a5 = triple1.a5 select (from a6 in checkCells join a7 in checkCells on a6.GetRestString() equals a7.GetRestString() where a6.Index < a7.Index && a6.Row == a7.Row && a6.Column == a4.Column && a7.Column == a5.Column select new {a6, a7}).ToList() into last where last.Count == 1 select new PositiveCellInfo(a0.Index, a0.GetRest().Except(pair).First())).Cast<CellInfo>());
+                            }
                         }
+
 
                     }
                 }

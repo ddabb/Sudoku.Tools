@@ -178,6 +178,48 @@ namespace SudoKu.Test
             Debug.WriteLine(qsudoku.QueryString);
             Assert.AreEqual(true, new DanceLink().isValid(qsudoku.QueryString));
         }
+
+
+        [TestMethod]
+        public void TestULSize8Handler1()
+        {
+            ULSize8Handler hander = new ULSize8Handler();
+            QSudoku qsudoku = new QSudoku("361095240045002901092010635209008510486159723150200890914526300620081459508940162");
+            Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString));
+            var cells = hander.Assignment(qsudoku);
+            foreach (var item in cells)
+            {
+                Debug.WriteLine("" + item);
+            }
+
+            Assert.AreEqual(true, cells.Exists(c => c.Value == 4));
+            Assert.AreEqual(true, cells.Exists(c => c.RrCc.ToUpper() == "R3C4"));
+            qsudoku = qsudoku.ApplyCells(cells);
+            Debug.WriteLine(qsudoku.QueryString);
+            Assert.AreEqual(true, new DanceLink().isValid(qsudoku.QueryString));
+        }
+
+
+        [TestMethod]
+        public void TestULSize8Handler3()
+        {
+            ULSize8Handler hander = new ULSize8Handler();
+            QSudoku qsudoku = new QSudoku("361240095045901002092635010209510008486723159150890200914300526620459081508162940");
+            Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString));
+            var cells = hander.Assignment(qsudoku);
+            foreach (var item in cells)
+            {
+                Debug.WriteLine("" + item);
+            }
+
+            Assert.AreEqual(true, cells.Exists(c => c.Value == 4));
+            Assert.AreEqual(true, cells.Exists(c => c.RrCc.ToUpper() == "R3C7"));
+            qsudoku = qsudoku.ApplyCells(cells);
+            Debug.WriteLine(qsudoku.QueryString);
+            Assert.AreEqual(true, new DanceLink().isValid(qsudoku.QueryString));
+        }
+
+
         [TestMethod]
         public void TestULSize10Handler()
         {
