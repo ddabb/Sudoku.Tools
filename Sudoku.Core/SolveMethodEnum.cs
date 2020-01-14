@@ -87,6 +87,7 @@ namespace Sudoku.Core
         SiameseXwing,
         [DifficultuRating(5.0)]
         ULSize10,
+        [DifficultuRating(4.7)]
         ULSize8,
         ULSize6Type4,
         ULSize14,
@@ -97,6 +98,7 @@ namespace Sudoku.Core
         Swordfish,
         ULSize12,
         [Description("强制链")]
+        [DifficultuRating(7.3)]
         ForcingChain,
         ImcompletedURType4,
 
