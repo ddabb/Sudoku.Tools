@@ -50,15 +50,19 @@ namespace Sudoku.UI
             {
                 foreach (var item in sudoku.AllSetCell)
                 {
+                    var stringvalue = "" + item.Value;
+                    Size size = TextRenderer.MeasureText(stringvalue, bigFont);
+                    objGraphics.DrawString(stringvalue, bigFont, new SolidBrush(Color.Black), item.Column * bigSpace +(bigSpace - size.Width)/2, item.Row * bigSpace + (bigSpace - size.Height) / 2);
 
-                    objGraphics.DrawString("" + item.Value, bigFont, new SolidBrush(Color.Black), new PointF(item.Column * bigSpace, item.Row * bigSpace));
                 }
 
                 foreach (var item in sudoku.AllUnSetCell)
                 {
                     foreach (var item1 in item.GetRest())
                     {
-                        objGraphics.DrawString("" + item1, smallFont, new SolidBrush(Color.Black), new PointF(item.Column * bigSpace + (smallspace * ((item1-1) % 3)), item.Row * bigSpace + (smallspace * ((item1 - 1) / 3))));
+                        var stringvalue = "" + item1;
+                        Size size = TextRenderer.MeasureText(stringvalue, smallFont);
+                        objGraphics.DrawString(stringvalue, smallFont, new SolidBrush(Color.Black), new PointF(item.Column * bigSpace + (smallspace * ((item1-1) % 3)) + (smallspace - size.Width) / 2, item.Row * bigSpace + (smallspace * ((item1 - 1) / 3)) + +(smallspace - size.Height) / 2));
                     }
 
                 }
