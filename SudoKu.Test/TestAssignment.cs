@@ -232,13 +232,32 @@ namespace SudoKu.Test
                 Debug.WriteLine("" + item);
             }
 
-            Assert.AreEqual(true, cells.Exists(c => c.Value == 4));
+            Assert.AreEqual(true, cells.Exists(c => c.Value == 5));
+            Assert.AreEqual(true, cells.Exists(c => c.RrCc.ToUpper() == "R6C4"));
+            qsudoku = qsudoku.ApplyCells(cells);
+            Debug.WriteLine(qsudoku.QueryString);
+            Assert.AreEqual(true, new DanceLink().isValid(qsudoku.QueryString));
+        }
+
+        [TestMethod]
+        public void TestULSize10Handler1()
+        {
+            ULSize10Handler hander = new ULSize10Handler();
+            QSudoku qsudoku = new QSudoku("003400879008093002902068534750284093294316785830975240009800007325047908087009000");
+            Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString));
+            var cells = hander.Assignment(qsudoku);
+            foreach (var item in cells)
+            {
+                Debug.WriteLine("" + item);
+            }
+
+            Assert.AreEqual(true, cells.Exists(c => c.Value == 5));
             Assert.AreEqual(true, cells.Exists(c => c.RrCc.ToUpper() == "R9C4"));
             qsudoku = qsudoku.ApplyCells(cells);
             Debug.WriteLine(qsudoku.QueryString);
             Assert.AreEqual(true, new DanceLink().isValid(qsudoku.QueryString));
         }
-        
+
 
         [TestMethod]
         public void TestURType4Handler1()
