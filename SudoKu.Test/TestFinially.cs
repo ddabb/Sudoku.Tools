@@ -2,6 +2,7 @@
 using Sudoku.Console;
 using Sudoku.Core;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace SudoKu.Test
 {
@@ -30,14 +31,18 @@ namespace SudoKu.Test
                 "100000005008020000403870200000400600765030000004000002340050076007003090000010023",
                 "000000243300080000706020000107302608200000000009040000500800004001095700000000900"
             };
-
+            var count = 0;
             foreach (var c in queryString)
             {
-
-                Assert.AreEqual(true, StaticTools.SolveSudoku(new QSudoku(c)) == true);
+                Debug.WriteLine("c"+ c);
+                if (StaticTools.SolveSudoku(new QSudoku(c)))
+                {
+                    count += 1;
+                }
+          
             }
-
-
+            Debug.WriteLine("count" + count);
+            Assert.AreEqual(true, count== queryString.Count);
         }
 
     }
