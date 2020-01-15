@@ -58,7 +58,7 @@ namespace Sudoku.UI
                 {
                     foreach (var item1 in item.GetRest())
                     {
-                        objGraphics.DrawString("" + item1, smallFont, new SolidBrush(Color.Black), new PointF(item.Column * bigSpace + (smallspace * item1 / 3), item.Row * bigSpace + (smallspace * item1 / 3)));
+                        objGraphics.DrawString("" + item1, smallFont, new SolidBrush(Color.Black), new PointF(item.Column * bigSpace + (smallspace * ((item1-1) % 3)), item.Row * bigSpace + (smallspace * ((item1 - 1) / 3))));
                     }
 
                 }
