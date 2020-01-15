@@ -76,7 +76,10 @@ namespace Sudoku.Core
         ARType3WithNakedPair,
         BugType1,
         FinnedJeffyfish,
+        [DifficultuRating(3.8)]
         FinnedSwordfish,
+        [DifficultuRating(3.8)]
+        Swordfish,
         FinnedXwing,
         ImcompletedURType1,
         ImcompletedURType3,
@@ -94,8 +97,8 @@ namespace Sudoku.Core
         RemotePair,
         SashimiJellyfish,
         SashimiXwing,
-        SiameseJeffyfish, 
-        Swordfish,
+        SiameseJeffyfish,
+     
         ULSize12,
         [Description("强制链")]
         [DifficultuRating(7.3)]
