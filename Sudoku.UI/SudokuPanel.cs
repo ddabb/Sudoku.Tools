@@ -36,6 +36,8 @@ namespace Sudoku.UI
             objGraphics.DrawLine(Pens.Black, new Point(0, bigSpace * 8), new Point(this.Width, bigSpace * 8));
             objGraphics.DrawLine(Pens.Black, new Point(0, bigSpace * 9), new Point(this.Width, bigSpace * 9));
             objGraphics.DrawLine(Pens.Black, new Point(bigSpace * 0, 0), new Point(bigSpace * 0, this.Height));
+            //objGraphics.DrawLine(Pens.Black, new Point(bigSpace * 0+1, 0), new Point(bigSpace * 0+1, this.Height));
+            //objGraphics.DrawLine(Pens.Black, new Point(bigSpace * 0 + 2, 0), new Point(bigSpace * 0 + 2, this.Height));
             objGraphics.DrawLine(Pens.Black, new Point(bigSpace * 1, 0), new Point(bigSpace * 1, this.Height));
             objGraphics.DrawLine(Pens.Black, new Point(bigSpace * 2, 0), new Point(bigSpace * 2, this.Height));
             objGraphics.DrawLine(Pens.Black, new Point(bigSpace * 3, 0), new Point(bigSpace * 3, this.Height));
