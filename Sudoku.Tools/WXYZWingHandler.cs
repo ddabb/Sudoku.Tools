@@ -35,8 +35,8 @@ namespace Sudoku.Tools
                     }
                 }
 
-                var checkCondition = rests.Where(r => dic.Values.All(c => c.Select(x => x.Value).Contains(r)));
-                if (checkCondition.Count() > 0)
+                var checkCondition = rests.Where(r => dic.Values.All(c => c.Select(x => x.Value).Contains(r))).ToList();
+                if (checkCondition.Any())
                 {
                     var value = checkCondition.First();
 
@@ -52,10 +52,9 @@ namespace Sudoku.Tools
                                            new List<CellInfo> { w, x, y, z, checkcell }.Select(c => c.Index).Distinct().Count() == 5
                                            && w.Index < x.Index
                                            && x.Index < y.Index
-
-                                          && GetIntersectCellIndexs(qSudoku.AllUnSetCell, x, checkcell).Contains(z.Index)
-                                          && GetIntersectCellIndexs(qSudoku.AllUnSetCell, y, checkcell).Contains(z.Index)
-                                          && GetIntersectCellIndexs(qSudoku.AllUnSetCell, w, checkcell).Contains(z.Index)
+                                           && GetIntersectCellIndexs(qSudoku.AllUnSetCell, x, checkcell).Contains(z.Index)
+                                           && GetIntersectCellIndexs(qSudoku.AllUnSetCell, y, checkcell).Contains(z.Index)
+                                           && GetIntersectCellIndexs(qSudoku.AllUnSetCell, w, checkcell).Contains(z.Index)
                                           select z).ToList();
                         foreach (var results in tempresult)
                         {

@@ -258,6 +258,24 @@ namespace SudoKu.Test
             Assert.AreEqual(true, new DanceLink().isValid(qsudoku.QueryString));
         }
 
+        [TestMethod]
+        public void TestIncompleteWXYZWingHandler()
+        {
+            IncompleteWXYZWingHandler hander = new IncompleteWXYZWingHandler();
+            QSudoku qsudoku = new QSudoku("000040601001560204006100079607010900019600007020090816532971468978436100164258793");
+            Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString));
+            var cells = hander.Assignment(qsudoku);
+            foreach (var item in cells)
+            {
+                Debug.WriteLine("" + item);
+            }
+
+            Assert.AreEqual(true, cells.Exists(c => c.Value == 7));
+            Assert.AreEqual(true, cells.Exists(c => c.RrCc.ToUpper() == "R6C4"));
+            qsudoku = qsudoku.ApplyCells(cells);
+            Debug.WriteLine(qsudoku.QueryString);
+            Assert.AreEqual(true, new DanceLink().isValid(qsudoku.QueryString));
+        }
 
         [TestMethod]
         public void TestURType4Handler1()

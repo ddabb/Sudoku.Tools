@@ -32,6 +32,7 @@ namespace Sudoku.Core
         XWing,
         XYWing,
         XYZWing,
+        [DifficultuRating(4.6)]
         WXYZWing,
         XYChain, 
         ForcingXChain,
@@ -40,10 +41,12 @@ namespace Sudoku.Core
         ULSize6Type2,
         [DifficultuRating(4.1)]
         TwoStringsKite,
+        [DifficultuRating(4.0)]
         Skyscraper,
+        [DifficultuRating(4.2)]
         TurbotFishNormal,
         Jellyfish,
-        HidderAR,
+        HiddenAR,
         LockedSubset,
         ULSize6Type3,
         ImcompletedURType2,    
@@ -98,7 +101,6 @@ namespace Sudoku.Core
         SashimiJellyfish,
         SashimiXwing,
         SiameseJeffyfish,
-     
         ULSize12,
         [Description("强制链")]
         [DifficultuRating(7.3)]
@@ -106,5 +108,7 @@ namespace Sudoku.Core
         ImcompletedURType4,
         [DifficultuRating(10.0)]
         DymanicForcingChain,
+        [DifficultuRating(4.5)]
+        IncompleteWXYZWing
     }
 }
