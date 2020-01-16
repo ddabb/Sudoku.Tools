@@ -35,7 +35,9 @@ namespace Sudoku.Core
         ClaimingInColumn,
         [DifficultuRating(4.4)]
         WWing,
+        [DifficultuRating(3.2)]
         XWing,
+        [DifficultuRating(4.2)]
         XYWing,
         [DifficultuRating(4.4)]
         XYZWing,
