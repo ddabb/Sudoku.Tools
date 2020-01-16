@@ -14,16 +14,20 @@ namespace SudoKu.Test
         [TestMethod]
         public void TestHiddenSingleColumnHandler()
         {
-            HiddenSingleColumnHandler hander = new HiddenSingleColumnHandler();
-            QSudoku qsudoku = new QSudoku("000000000000040329000651847000000500000000473008473296004000900000005180060180700");
-            Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString));
-            var cells = hander.Assignment(qsudoku);
-            foreach (var item in cells)
-            {
-                Debug.WriteLine("" + item);
-            }
-            qsudoku = qsudoku.ApplyCells(cells);
-            Debug.WriteLine(qsudoku.QueryString);
+            TestAssignmentExample(typeof(HiddenSingleColumnHandler));
+        }
+
+        private static void TestAssignmentExample(Type type)
+        {
+            object[] objs = type.GetCustomAttributes(typeof(AssignmentExampleAttribute), true);
+            if (objs.Count() != 1) return;
+            if (!(objs[0] is AssignmentExampleAttribute a)) return;
+            var qsudoku = new QSudoku(a.queryString);
+            var cellinfo =
+                ((ISudokuSolveHandler) Activator.CreateInstance(type, true)).Assignment(
+                    qsudoku);
+            Assert.AreEqual(true, cellinfo.Exists(c => c.RrCc == a.positionString && c.Value == a.value));
+            qsudoku = qsudoku.ApplyCells(cellinfo);
             Assert.AreEqual(true, new DanceLink().isValid(qsudoku.QueryString));
         }
 

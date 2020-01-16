@@ -10,11 +10,20 @@ namespace Sudoku.Tools
     public class AssignmentExampleAttribute : Attribute
     {
         public string queryString;
+        public int value;
+        public string positionString;
+
+        public AssignmentExampleAttribute(int positionValue,string positionString, string queryString)
+        {
+            this.queryString = queryString;
+            this.value = positionValue;
+            this.positionString = positionString;
+
+        }
 
         public AssignmentExampleAttribute(string queryString)
         {
             this.queryString = queryString;
-
         }
     }
 
