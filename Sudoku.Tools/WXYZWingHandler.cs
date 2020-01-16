@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Sudoku.Tools
 {
-    [AssignmentExample("000109030190700006300286001581472003900568002600391785700915008210007050050020000")]
+    [AssignmentExample(7,"R1C9","000109030190700006300286001581472003900568002600391785700915008210007050050020000")]
     public class WXYZWingHandler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.WXYZWing;

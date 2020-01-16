@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Sudoku.Tools
 {
-    [AssignmentExample("900164080070983215813200964080020000500001070002000042040716000000000000007892000")] //已调整
+    [AssignmentExample(8, "R9C4","900164080070983215813200964080020000500001070002000042040716000000000000007092000")] //已调整
     public class HiddenQuadrupleHandler :SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.HiddenQuadruple;

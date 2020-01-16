@@ -6,7 +6,7 @@ using System.Linq;
 namespace Sudoku.Tools
 {
 
-    [AssignmentExample("030150209000360050700490603001273800000519000003684700100000008320040000409001060")]
+    [AssignmentExample(7,"R4C9","000020080040009003000005700000000030805070020037004000070080056090000300100040000")]
     public class ClaimingInColumnHandler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.ClaimingInColumn;

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Sudoku.Tools
 {
-    [AssignmentExample("748359126001726840026400705200040087074030000180070004402007608017003402805204070")]
+    [AssignmentExample(5, "R5C5","748359126001726840026400705200040087074030000180070004402007608017003402805204070")]
     public class LockedURType1Handler :SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.LockedURType1;

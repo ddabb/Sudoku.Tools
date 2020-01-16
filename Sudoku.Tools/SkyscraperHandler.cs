@@ -8,7 +8,7 @@ using System.Text;
 namespace Sudoku.Tools
 {
 
-    [AssignmentExample("805630070003705800027081305236894157481257030579163284702300000304000700198076023")]
+    [AssignmentExample(9,"R1C7","805630070003705800027081305236894157481257030579163284702300000304000700198076023")]
     public class SkyscraperHandler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.Skyscraper;

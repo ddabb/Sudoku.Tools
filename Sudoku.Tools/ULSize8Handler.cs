@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Sudoku.Tools
 {
-    [AssignmentExample("914526300620081459508940162209008510486159723150200890361095240045002901092010635")]
+    [AssignmentExample(4, "R9C4","914526300620081459508940162209008510486159723150200890361095240045002901092010635")]
     public class ULSize8Handler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.ULSize8;

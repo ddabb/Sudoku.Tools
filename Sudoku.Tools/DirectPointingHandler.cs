@@ -7,7 +7,7 @@ using System.Linq;
 namespace Sudoku.Tools
 {
 
-    [AssignmentExample("000436517000280000006170000000061070001000000050804100000043761003610000000000394")]
+    [AssignmentExample(9,"R7C4","000436517000280000006170000000061070001000000050804100000043761003610000000000394")]
     public class DirectPointingHandler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.DirectPointing;

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Sudoku.Tools
 {
-    [AssignmentExample("015070000900040105834651000050097018108065000000180526403518000060030851581026043")]
+    [AssignmentExample(4,"R1C9","015070000900040105834651000050097018108065000000180526403518000060030851581026043")]
     public class HiddenTripleHandler :SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.HiddenTriple;

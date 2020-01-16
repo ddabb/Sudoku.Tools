@@ -4,7 +4,7 @@ using Sudoku.Core;
 
 namespace Sudoku.Tools
 {
-    [AssignmentExample("900400613320190700000000009000017008000000000700360000800000000009045086253001004")]
+    [AssignmentExample(5,"R2C9","900400613320190700000000009000017008000000000700360000800000000009045086253001004")]
     public  class NakedSingleHandler:SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.NakedSingle;

@@ -10,17 +10,22 @@ namespace Sudoku.Core
     /// </summary>
     public enum SolveMethodEnum
     {
+        [DifficultuRating(2.3)]
         NakedSingle,
+        [DifficultuRating(1.2)]
         HiddenSingleBlock,
+        [DifficultuRating(1.5)]
         HiddenSingleColumn,
         HiddenSingleRow,
-        [DifficultuRating(2.6)]
+        [DifficultuRating(1.7)]
         DirectPointing,
-        [Description("隐藏数对")]
+        [DifficultuRating(2.0)]
         HiddenPair,
+        [DifficultuRating(4.0)]
         HiddenTriple,
+        [DifficultuRating(5.4)]
         HiddenQuadruple,
-        [Description("显性数对")]
+        [DifficultuRating(3.0)]
         NakedPair,
         [DifficultuRating(3.6)]
         NakedTriple,
@@ -28,13 +33,16 @@ namespace Sudoku.Core
         NakedQuadruple,
         ClaimingInRow,
         ClaimingInColumn,
+        [DifficultuRating(4.4)]
         WWing,
         XWing,
         XYWing,
+        [DifficultuRating(4.4)]
         XYZWing,
         [DifficultuRating(4.6)]
         WXYZWing,
-        XYChain, 
+        XYChain,
+        [DifficultuRating(6.6)]
         ForcingXChain,
         URType1,  
         ULSize6Type1,
@@ -53,7 +61,8 @@ namespace Sudoku.Core
         ALPExtendedType,   
         SashimiSwordfish,
         XRSize6Type4,
-        URType2Handler,
+        [DifficultuRating(4.5)]
+        URType2,
         ARType3WithHiddenTriple,
         ALPBasicType,
         ALTBasicType,

@@ -8,10 +8,10 @@ namespace Sudoku.Tools
 {
     
     [EliminationExample("300800060109500000050030000030000206600308109005067000000603408703000000040002030")]
-    [AssignmentExample("030150209000360050700490603001273800000519000003684700100000008320040000409001060")]
+    [AssignmentExample(3,"R9C9", "469500271185762439723900856647859312318427695952006784004090560001605900596070100")]
     public class URType2Handler :SolverHandlerBase
     {
-        public override SolveMethodEnum methodType => SolveMethodEnum.URType2Handler;
+        public override SolveMethodEnum methodType => SolveMethodEnum.URType2;
 
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {

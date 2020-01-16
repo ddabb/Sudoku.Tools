@@ -10,7 +10,7 @@ namespace Sudoku.Tools
     /// <summary>
     /// https://www.cnblogs.com/asdyzh/p/10145026.html
     /// </summary>
-    [AssignmentExample("081020600042060089056800240693142758428357916175689324510036892230008460860200000")]
+    [AssignmentExample(7,"R2C4","081020600042060089056800240693142758428357916175689324510036892230008460860200000")]
     public class TwoStringsKiteHandler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.TwoStringsKite;

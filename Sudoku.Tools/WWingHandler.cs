@@ -5,7 +5,7 @@ using System.Text;
 using System.Linq;
 namespace Sudoku.Tools
 {
-    [AssignmentExample("012009600600012094749635821428397100397156482156020009904573210070261940201900007")]
+    [AssignmentExample(8, "R1C1", "012009600600012094749635821428397100397156482156020009904573210070261940201900007")]
     public class WWingHandler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.WWing;
