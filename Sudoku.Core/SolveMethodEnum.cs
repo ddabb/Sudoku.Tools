@@ -104,6 +104,7 @@ namespace Sudoku.Core
         [DifficultuRating(7.3)]
         ForcingChain,
         ImcompletedURType4,
-
+        [DifficultuRating(10.0)]
+        DymanicForcingChain,
     }
 }
