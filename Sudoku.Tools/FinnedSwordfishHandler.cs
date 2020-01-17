@@ -19,23 +19,10 @@ namespace Sudoku.Tools
         {
             var allUnSetCell = qSudoku.AllUnSetCell;
             List<CellInfo> cells = (from value in G.AllBaseValues
-                                    let filterCells =
-                                        (from index1 in G.baseIndexs
-                                         join index2 in G.baseIndexs on 1 equals 1
-                                         join index3 in G.baseIndexs on 1 equals 1
-                                         join cellInfo in allUnSetCell on 1 equals 1
-                                         where    index1 < index2
-                                               && index2 < index3
-                                               && cellInfo.GetRest().Contains(value)
-                                               && new List<int> { index1, index2, index3 }.Contains(cellInfo.Row)
-                                         select cellInfo).ToList()
-                                    where filterCells.Count > 5 && filterCells.Count < 9
-                                    let columns = filterCells.Select(c => c.Column).Distinct().ToList()
-                                    let rows = filterCells.Select(c => c.Row).Distinct().ToList()
-                                    where columns.Count == 3 && rows.Count == 3
+                                    let filterCells = FindCell(allUnSetCell, value)
                                     let checkCells = allUnSetCell.Where(c =>
-                                            columns.Contains(c.Column)
-                                            && !rows.Contains(c.Row)
+                                            G.DistinctColumn(filterCells).Contains(c.Column)
+                                            && !G.DistinctRow(filterCells).Contains(c.Row)
                                            && c.GetRest().Count == 2
                                            && c.GetRest().Contains(value))
                                         .ToList()
@@ -64,6 +51,26 @@ namespace Sudoku.Tools
                 .Cast<CellInfo>());
 
             return cells;
+        }
+
+        public List<CellInfo> FindCell(List<CellInfo> allUnSetCell, int value)
+        {
+            List<CellInfo> results=new List<CellInfo>();
+
+            var containsell = allUnSetCell.Where(c => c.GetRest().Contains(value)).ToList();
+
+               var indexss = (from index1 in G.baseIndexs
+                join index2 in G.baseIndexs on 1 equals 1
+                join index3 in G.baseIndexs on 1 equals 1
+                where index1 < index2
+                      && index2 < index3
+                select new List<int> {index1, index2, index3}).ToList();
+
+               foreach (var fiter in indexss.Select(indexlist => containsell.Where(c=>indexlist.Contains(c.Row)).ToList()).Where(fiter => fiter.Count()>5&&fiter.Count()<9&&G.DistinctRow(fiter).Count == 3 && G.DistinctColumn(fiter).Count == 3))
+               {
+                   results= fiter;
+               }
+               return results;
         }
 
         public override List<NegativeCellInfo> Elimination(QSudoku qSudoku)

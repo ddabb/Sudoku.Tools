@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 
@@ -46,7 +47,20 @@ namespace Sudoku.Core
 
         public static readonly List<Direction> AllDirection = new List<Direction> { Direction.Row, Direction.Column, Direction.Block };
 
+        public static List<int> DistinctRow(List<CellInfo> cells)
+        {
+            return cells.Select(c => c.Row).ToList();
+        }
 
+        public static List<int> DistinctColumn(List<CellInfo> cells)
+        {
+            return cells.Select(c => c.Column).ToList();
+        }
+
+        public static List<int> DistinctBlock(List<CellInfo> cells)
+        {
+            return cells.Select(c => c.Block).ToList();
+        }
         public static bool GetFilter(CellInfo cell, Direction direction, int index)
         {
 
