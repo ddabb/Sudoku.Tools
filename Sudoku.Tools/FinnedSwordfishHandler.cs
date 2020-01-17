@@ -17,12 +17,13 @@ namespace Sudoku.Tools
         /// <returns></returns>
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
+            var allUnSetCell = qSudoku.AllUnSetCell;
             List<CellInfo> cells = (from value in G.AllBaseValues
                                     let filterCells =
                                         (from index1 in G.baseIndexs
                                          join index2 in G.baseIndexs on 1 equals 1
                                          join index3 in G.baseIndexs on 1 equals 1
-                                         join cellInfo in qSudoku.AllUnSetCell on 1 equals 1
+                                         join cellInfo in allUnSetCell on 1 equals 1
                                          where    index1 < index2
                                                && index2 < index3
                                                && cellInfo.GetRest().Contains(value)
@@ -32,7 +33,7 @@ namespace Sudoku.Tools
                                     let columns = filterCells.Select(c => c.Column).Distinct().ToList()
                                     let rows = filterCells.Select(c => c.Row).Distinct().ToList()
                                     where columns.Count == 3 && rows.Count == 3
-                                    let checkCells = qSudoku.AllUnSetCell.Where(c =>
+                                    let checkCells = allUnSetCell.Where(c =>
                                             columns.Contains(c.Column)
                                             && !rows.Contains(c.Row)
                                            && c.GetRest().Count == 2
@@ -46,7 +47,7 @@ namespace Sudoku.Tools
                                 (from index1 in G.baseIndexs
                                  join index2 in G.baseIndexs on 1 equals 1
                                  join index3 in G.baseIndexs on 1 equals 1
-                                 join cellInfo in qSudoku.AllUnSetCell on 1 equals 1
+                                 join cellInfo in allUnSetCell on 1 equals 1
                                  where index1 < index2 && index2 < index3 && cellInfo.GetRest().Contains(value) &&
                                new List<int> { index1, index2, index3 }.Contains(cellInfo.Column)
                                  select cellInfo).ToList()
@@ -55,7 +56,7 @@ namespace Sudoku.Tools
                             let rows = filterCells.Select(c => c.Row).Distinct().ToList()
                             where columns.Count == 3 && rows.Count == 3
                             let checkCells =
-                                qSudoku.AllUnSetCell.Where(c =>
+                                allUnSetCell.Where(c =>
                                     !columns.Contains(c.Column) && rows.Contains(c.Row) && c.GetRest().Count == 2 &&
                                     c.GetRest().Contains(value)).ToList()
                             from checkCell in checkCells

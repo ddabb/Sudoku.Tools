@@ -24,10 +24,6 @@ namespace Sudoku.Tools
 
                     if (checkCells.Count > 4)
                     {
-                        if (direction==Direction.Block&&index==8)
-                        {
-                            
-                        }
                         var allRests = new List<int>();
                         foreach (var cell in checkCells)
                         {
