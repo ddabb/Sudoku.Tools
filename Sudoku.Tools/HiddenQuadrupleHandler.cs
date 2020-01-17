@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Sudoku.Tools
 {
-    [AssignmentExample(8, "R9C4","900164080070983215813200964080020000500001070002000042040716000000000000007092000")] //已调整
+    [AssignmentExample(8, "R9C4","900164080070983215813200964080020000500001070001000042040716000000000000007092000")] //已调整
     public class HiddenQuadrupleHandler :SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.HiddenQuadruple;
@@ -24,7 +24,10 @@ namespace Sudoku.Tools
 
                     if (checkCells.Count > 4)
                     {
-
+                        if (direction==Direction.Block&&index==8)
+                        {
+                            
+                        }
                         var allRests = new List<int>();
                         foreach (var cell in checkCells)
                         {
@@ -70,6 +73,10 @@ namespace Sudoku.Tools
                                     var checkValues = G.AllBaseValues.Except(eachQuadruple).ToList();
                                     foreach (var checkValue in checkValues)
                                     {
+                                        if (checkValue==8)
+                                        {
+                                            
+                                        }
                                         cells.AddRange((from row in rows
                                             select qSudoku.GetPossibleIndex(checkValue,
                                                 c => c.Value == 0 && c.Row == row && !exceptIndexs.Contains(c.Index))

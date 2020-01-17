@@ -34,6 +34,7 @@ namespace SudoKu.Test
                 ((ISudokuSolveHandler)Activator.CreateInstance(type, true)).Assignment(
                     qsudoku);
             Assert.AreEqual(true, cellinfo.Exists(c => c.RrCc == positionString && c.Value == value));
+            Debug.WriteLine("cellinfo "+ cellinfo.JoinString());
             qsudoku = qsudoku.ApplyCells(cellinfo);
             Assert.AreEqual(true, new DanceLink().isValid(qsudoku.QueryString));
         }

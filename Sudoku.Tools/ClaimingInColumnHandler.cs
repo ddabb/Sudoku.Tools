@@ -23,10 +23,6 @@ namespace Sudoku.Tools
                     var blocks = cellList.Select(c => c.Block).Distinct().ToList();
                     if (cellList.Count > 1 && blocks.Count() == 1) //若cellList.Count==1 则是唯余法。
                     {
-                        if (index==7&&value==7)
-                        {
-                            
-                        }
                         var block = blocks.First();
                         var existsRows = cellList.Select(c => c.Row).Distinct().ToList();
                         #region 同宫不同列
