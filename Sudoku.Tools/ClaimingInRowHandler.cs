@@ -58,6 +58,13 @@ namespace Sudoku.Tools
                         }
                         #endregion
 
+                        var otherRows = negativeCells.Select(c => c.Row).Distinct().ToList();
+                        foreach (var result in from row in otherRows select AllunsetCells.Where(c => c.Block != block && c.Row == row && c.GetRest().Contains(value)).ToList() into list1 where list1.Count() == 1 select list1.First())
+                        {
+                            result.Value = value;
+                            cells.Add(result);
+                        }
+
 
 
                     }

@@ -120,6 +120,7 @@ namespace Sudoku.Core
         [DifficultuRating(10.0)]
         DymanicForcingChain,
         [DifficultuRating(4.5)]
-        IncompleteWXYZWing
+        IncompleteWXYZWing,
+        EmptyRectangle
     }
 }

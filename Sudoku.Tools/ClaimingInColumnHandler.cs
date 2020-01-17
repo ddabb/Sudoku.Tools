@@ -19,13 +19,17 @@ namespace Sudoku.Tools
             {
                 foreach (var value in G.AllBaseValues)
                 {
-                    var blockinfo = AllunsetCells.Where(c => c.Column == index && c.GetRest().Contains(value)).ToList();
-                    var blocks = blockinfo.Select(c => c.Block).Distinct();
-                    if (blockinfo.Count > 1 && blocks.Count() == 1) //若blockinfo.Count==1 则是唯余法。
+                    var cellList = AllunsetCells.Where(c => c.Column == index && c.GetRest().Contains(value)).ToList();
+                    var blocks = cellList.Select(c => c.Block).Distinct().ToList();
+                    if (cellList.Count > 1 && blocks.Count() == 1) //若cellList.Count==1 则是唯余法。
                     {
+                        if (index==7&&value==7)
+                        {
+                            
+                        }
                         var block = blocks.First();
-                        var ExistsRows = blockinfo.Select(c => c.Row).Distinct();
-                        #region 同宫不同行
+                        var existsRows = cellList.Select(c => c.Row).Distinct().ToList();
+                        #region 同宫不同列
                         var negativeCells = AllunsetCells.Where(c => c.Block == block && c.Column != index).ToList();
                         foreach (var item1 in negativeCells)
                         {
@@ -39,7 +43,7 @@ namespace Sudoku.Tools
                         #endregion
 
                         #region 第三行
-                        var checkRow = AllunsetCells.Where(c => c.Block == block && !ExistsRows.Contains(c.Row)).Select(c => c.Row).ToList();
+                        var checkRow = AllunsetCells.Where(c => c.Block == block && !existsRows.Contains(c.Row)).Select(c => c.Row).ToList();
                         foreach (var row in checkRow)
                         {
                             var list1 = AllunsetCells.Where(c => c.Block != block && c.Row == row && c.GetRest().Contains(value)).ToList();
@@ -51,6 +55,13 @@ namespace Sudoku.Tools
                             }
                         }
                         #endregion
+
+                        var otherColumns = negativeCells.Select(c => c.Column).Distinct().ToList();
+                        foreach (var result in from column in otherColumns select AllunsetCells.Where(c => c.Block != block && c.Column == column && c.GetRest().Contains(value)).ToList() into list1 where list1.Count() == 1 select list1.First())
+                        {
+                            result.Value = value;
+                            cells.Add(result);
+                        }
 
 
 

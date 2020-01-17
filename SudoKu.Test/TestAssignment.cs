@@ -270,6 +270,13 @@ namespace SudoKu.Test
         }
 
         [TestMethod]
+        public void TestEmptyRectangleHandler()
+        {
+            TestAssignmentExample(typeof(EmptyRectangleHandler));
+        }
+        
+
+        [TestMethod]
         public void TestNakedTripleHandler2()
         {
             TestAssignmentExample(typeof(NakedTripleHandler), "006300150045026000000000060090500700052670300700001005500000041004007000080090000", 6, "R7C5");
