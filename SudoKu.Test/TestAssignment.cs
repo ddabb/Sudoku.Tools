@@ -56,10 +56,19 @@ namespace SudoKu.Test
         {
             TestAssignmentExample(typeof(ULSize6Type2Handler), "390002804120864039048739012273000008080327145451698327032080006814976253760203081", 5, "R9C5");
         }
+
+
         [TestMethod]
         public void TestULSize6Type2Handler3()
         {
             TestAssignmentExample(typeof(ULSize6Type2Handler), "016705920492160750057290106273600589145879000689352417500900001900500800720406395", 3, "R3C8");
+        }
+        
+
+        [TestMethod]
+        public void TestFinnedSwordfishHandler1()
+        {
+            TestAssignmentExample(typeof(FinnedSwordfishHandler), "900605008070240030001700400200854007489127563715963004007400300090370640300506009", 9, "R2C7");
         }
 
 

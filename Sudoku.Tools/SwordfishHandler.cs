@@ -13,50 +13,64 @@ namespace Sudoku.Tools
 
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
-            List<CellInfo> cells = (from value in G.AllBaseValues
-                                    let filterCells =
-                                        (from index1 in G.baseIndexs
-                                         join index2 in G.baseIndexs on 1 equals 1
-                                         join index3 in G.baseIndexs on 1 equals 1
-                                         join cellInfo in qSudoku.AllUnSetCell on 1 equals 1
-                                         where index1 < index2
-                                               && index2 < index3
-                                               && cellInfo.GetRest().Contains(value)
-                                               && new List<int> { index1, index2, index3 }.Contains(cellInfo.Row)
-                                         select cellInfo).ToList()
-                                    where filterCells.Count == 9
-                                    let columns = filterCells.Select(c => c.Column).Distinct().ToList()
-                                    let rows = filterCells.Select(c => c.Row).Distinct().ToList()
-                                    where columns.Count == 3 && rows.Count == 3
-                                    let checkCells = qSudoku.AllUnSetCell.Where(c =>
-                                            columns.Contains(c.Column)
-                                            && !rows.Contains(c.Row)
-                                           && c.GetRest().Count == 2
-                                           && c.GetRest().Contains(value))
-                                        .ToList()
-                                    from checkCell in checkCells
-                                    select new PositiveCellInfo(checkCell.Index, checkCell.GetRest().First(c => c != value)))
-    .Cast<CellInfo>().ToList();
-            cells.AddRange((from value in G.AllBaseValues
-                            let filterCells =
-                                (from index1 in G.baseIndexs
-                                 join index2 in G.baseIndexs on 1 equals 1
-                                 join index3 in G.baseIndexs on 1 equals 1
-                                 join cellInfo in qSudoku.AllUnSetCell on 1 equals 1
-                                 where index1 < index2 && index2 < index3 && cellInfo.GetRest().Contains(value) &&
-                               new List<int> { index1, index2, index3 }.Contains(cellInfo.Column)
-                                 select cellInfo).ToList()
-                            where filterCells.Count ==9
-                            let columns = filterCells.Select(c => c.Column).Distinct().ToList()
-                            let rows = filterCells.Select(c => c.Row).Distinct().ToList()
-                            where columns.Count == 3 && rows.Count == 3
-                            let checkCells =
-                                qSudoku.AllUnSetCell.Where(c =>
-                                    !columns.Contains(c.Column) && rows.Contains(c.Row) && c.GetRest().Count == 2 &&
-                                    c.GetRest().Contains(value)).ToList()
-                            from checkCell in checkCells
-                            select new PositiveCellInfo(checkCell.Index, checkCell.GetRest().First(c => c != value)))
-                .Cast<CellInfo>());
+
+            List<CellInfo> cells = new List<CellInfo>();
+            List<int> range = new List<int> {  3 };
+            List<int> sumrange = new List<int> { 9 };
+            foreach (var value in G.AllBaseValues)
+            {
+                var checkCell = qSudoku.AllUnSetCell.Where(c => c.GetRest().Contains(value)).ToList();
+                var filter = (from index1 in G.baseIndexs
+                              join index2 in G.baseIndexs on 1 equals 1
+                              join index3 in G.baseIndexs on 1 equals 1
+                              let rows = new List<int> { index1, index2, index3 }
+                              let columns = G.DistinctColumn(checkCell.Where(c => rows.Contains(c.Row)).ToList())
+                              let count1 = checkCell.Count(c => c.Row == index1)
+                              let count2 = checkCell.Count(c => c.Row == index2)
+                              let count3 = checkCell.Count(c => c.Row == index3)
+                              where index1 < index2
+                                    && index2 < index3
+                                    && columns.Count == 3
+                                    && sumrange.Contains(count1 + count2 + count3)
+                                    && range.Contains(count1)
+                                    && range.Contains(count2)
+                                    && range.Contains(count3)
+                              select new { rows, columns }).ToList();
+                foreach (var item in filter)
+                {
+                    cells.AddRange(checkCell.Where(c => !item.rows.Contains(c.Row)
+                                                        && item.columns.Contains(c.Column) &&
+                                                        c.GetRest().Contains(value) &&
+                                                        c.GetRest().Count == 2).Select(cell => new PositiveCellInfo(cell.Index, cell.GetRest().First(c => c != value))
+                    ).Cast<CellInfo>());
+                }
+
+                var filter2 = (from index1 in G.baseIndexs
+                               join index2 in G.baseIndexs on 1 equals 1
+                               join index3 in G.baseIndexs on 1 equals 1
+                               let columns = new List<int> { index1, index2, index3 }
+                               let distinctRows = G.DistinctRow(checkCell.Where(c => columns.Contains(c.Column)).ToList())
+                               let count1 = checkCell.Count(c => c.Column == index1)
+                               let count2 = checkCell.Count(c => c.Column == index2)
+                               let count3 = checkCell.Count(c => c.Column == index3)
+                               where index1 < index2
+                                     && index2 < index3
+                                     && distinctRows.Count == 3
+                                     && sumrange.Contains(count1 + count2 + count3)
+                                     && range.Contains(count1)
+                                     && range.Contains(count2)
+                                     && range.Contains(count3)
+                               select new { distinctRows, columns }).ToList();
+                foreach (var item in filter2)
+                {
+                    cells.AddRange(checkCell.Where(c => item.distinctRows.Contains(c.Row)
+                                                        && !item.columns.Contains(c.Column) &&
+                                                        c.GetRest().Contains(value) &&
+                                                        c.GetRest().Count == 2).Select(cell => new PositiveCellInfo(cell.Index, cell.GetRest().First(c => c != value))
+                    ).Cast<CellInfo>());
+                }
+            }
+
             return cells;
         }
 

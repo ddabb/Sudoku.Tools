@@ -18,10 +18,7 @@ namespace Sudoku.Console
             //runtest = false;
             if (runtest)
             {
-                ULSize10Handler hander = new ULSize10Handler();
-                QSudoku qsudoku = new QSudoku("003400879008093002902068534009800007325047908087009000750284093294316785830975240");
-                Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString));
-                var cells = hander.Assignment(qsudoku);
+                ConsoleAssignmentExample(typeof(FinnedSwordfishHandler));
                 return;
 
             }
@@ -33,6 +30,29 @@ namespace Sudoku.Console
 
 
 
+        }
+
+        private static void ConsoleAssignmentExample(Type type)
+        {
+            object[] objs = type.GetCustomAttributes(typeof(AssignmentExampleAttribute), true);
+            if (objs.Count() != 1) return;
+            if (!(objs[0] is AssignmentExampleAttribute a)) return;
+            var queryString = a.queryString;
+            var value = a.value;
+            var positionString = a.positionString;
+            ConsoleAssignmentExample(type, queryString, value, positionString);
+        }
+
+        private static void ConsoleAssignmentExample(Type type, string queryString, int value, string positionString)
+        {
+            var qsudoku = new QSudoku(queryString);
+            var cellinfo =
+                ((ISudokuSolveHandler)Activator.CreateInstance(type, true)).Assignment(
+                    qsudoku);
+
+            Debug.WriteLine("cellinfo " + cellinfo.JoinString());
+            qsudoku = qsudoku.ApplyCells(cellinfo);
+            Debug.WriteLine("isValid " + new DanceLink().isValid(qsudoku.QueryString));
         }
 
         public static List<Type> types1 = new List<Type>();

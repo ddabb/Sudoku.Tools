@@ -49,17 +49,17 @@ namespace Sudoku.Core
 
         public static List<int> DistinctRow(List<CellInfo> cells)
         {
-            return cells.Select(c => c.Row).ToList();
+            return cells.Select(c => c.Row).Distinct().ToList();
         }
 
         public static List<int> DistinctColumn(List<CellInfo> cells)
         {
-            return cells.Select(c => c.Column).ToList();
+            return cells.Select(c => c.Column).Distinct().ToList();
         }
 
         public static List<int> DistinctBlock(List<CellInfo> cells)
         {
-            return cells.Select(c => c.Block).ToList();
+            return cells.Select(c => c.Block).Distinct().ToList();
         }
         public static bool GetFilter(CellInfo cell, Direction direction, int index)
         {
