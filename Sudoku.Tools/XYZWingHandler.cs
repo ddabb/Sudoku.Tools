@@ -2,59 +2,42 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Sudoku.Tools
 {
-    [AssignmentExample(8,"C9R2","869453721000921568215800439621534987407610352000200146000102803932785614100340205")]
- public   class XYZWingHandler :SolverHandlerBase
+    [AssignmentExample(8, "R9C2", "869453721000921568215800439621534987407610352000200146000102803932785614100340205")]
+    public class XYZWingHandler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.XYZWing;
 
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
-            var checkCells = qSudoku.AllUnSetCell.Where(c => c.GetRest().Count == 2).ToList();
-
-            var temp = (from x in checkCells
-                        join y in checkCells on 1 equals 1
-                        where x.GetRest().Intersect(y.GetRest()).Count() == 1
-                              && GetIntersectCells(checkCells,x, y).Count>0
-                              && x.GetRestString()!= y.GetRestString()
-                              && x.Index<y.Index
-                              && x.Block!=y.Block
-                        select new { x, y }).ToList();
-            foreach (var xy in temp)
+            var unsetsell = qSudoku.AllUnSetCell;
+            var checkCells = qSudoku.AllUnSetCell.Where(c => c.GetRest().Count == 3).ToList();
+            foreach (var checkCell in checkCells)
             {
-                var allrest = xy.x.GetRest();
-                var removeValue = xy.x.GetRest().Intersect(xy.y.GetRest()).First();
-                allrest.AddRange(xy.y.GetRest());
-                allrest= allrest.Distinct().ToList();
-                allrest.Sort();
-                var intersectCells = GetIntersectCells(qSudoku.AllUnSetCell, xy.x, xy.y);
-                if (xy.x.Index == 10)
-                {
-
-                }
-                if (intersectCells.Where(c=>c.GetRestString()== allrest.JoinString()).Count()>0)
-                {
-                    var intersectCell = intersectCells.First(c => c.GetRestString() == allrest.JoinString());
-   
-                    foreach (var cell in intersectCells.Where(c=>c.Index!= intersectCell.Index && c.Block== intersectCell.Block))
-                    {
-                
-                            var rests = cell.GetRest();
-                            if (rests.Contains(removeValue) && rests.Count == 2)
-                            {
-     
-                                cells.Add(new PositiveCellInfo(cell.Index, rests.First(c => c != removeValue)));
-                            }
-                  
-                    }
-
-                }
+                var cellrest = checkCell.GetRest();
+                var relatedCell = checkCell.RelatedUnsetCells.Where(c => c.GetRest().Count == 2 && c.GetRest().Intersect(checkCell.GetRest()).Count() > 1).ToList();
+                var cell = (from a in relatedCell
+                            join b in relatedCell on 1 equals 1
+                            join cellInfo in qSudoku.AllUnSetCell.Where(c => c.GetRest().Count == 2) on 1 equals 1
+                            let arest = a.GetRest()
+                            let brest = b.GetRest()
+                            let cellRest = cellInfo.GetRest()
+                            let comvalue = cellrest.Intersect(a.GetRest()).Intersect(b.GetRest()).First()
+                            let cellInforest = cellInfo.GetRest()
+                            let restvalue = cellRest.First(c => c != comvalue)
+                            where a.Index < b.Index
+                          && cellInfo.Index != a.Index
+                          && cellInfo.Index != b.Index
+                          && cellInfo.Index != checkCell.Index
+                          && cellInforest.Contains(comvalue)
+                          && GetIntersectCellIndexs(qSudoku.AllUnSetCell, a, checkCell).Contains(cellInfo.Index)
+                          && GetIntersectCellIndexs(qSudoku.AllUnSetCell, b, checkCell).Contains(cellInfo.Index)
+                            select new { cellInfo, comvalue, a, b, restvalue, checkCells }).ToList();
+                cells.AddRange(cell.Select(item => new PositiveCellInfo(item.cellInfo.Index, item.restvalue)).Cast<CellInfo>());
             }
-
 
             return cells;
 
