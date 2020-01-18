@@ -16,6 +16,7 @@ namespace Sudoku.Tools
         public override SolveMethodEnum methodType => SolveMethodEnum.DymanicForcingChain;
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
+            //R5C6 为引子~
             throw new NotImplementedException();
         }
     }
