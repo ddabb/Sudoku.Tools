@@ -1,6 +1,7 @@
 ﻿using Sudoku.Core;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Sudoku.Tools
@@ -21,52 +22,38 @@ namespace Sudoku.Tools
 
             foreach (var checkcell in checkCells)
             {
-                var rests = checkcell.GetRest();
-                Dictionary<int, List<CellInfo>> dic = new Dictionary<int, List<CellInfo>>();
-                foreach (var item in rests)
-                {
-                    var positiveCellInfos = new PositiveCellInfo(checkcell.Index, item) { Sudoku = qSudoku, CellType = CellType.Negative, IsRoot = true }.NextCells;
-                    foreach (var positiveCell in positiveCellInfos)
-                    {
-                        if (dic.ContainsKey(item))
-                        {
-                            dic[item].AddRange(positiveCell.NextCells);
-                        }
-                        else
-                        {
-                            dic.Add(item, positiveCell.NextCells);
-                        }
-                    }
-                }
+                var checkcellRest = checkcell.GetRest();
+                var relatedCell = checkcell.RelatedUnsetCells.Where(c => c.GetRest().Count > 1 && c.GetRest().Intersect(checkcellRest).Any()).ToList();
 
-                var checkCondition = rests.Where(r => dic.Values.All(c => c.Select(x => x.Value).Contains(r))).ToList();
-                if (!checkCondition.Any()) continue;
-                var value = checkCondition.First();
-                var temp = dic.Values.SelectMany(c => c.Select(x => x)).Where(c => c.Value == value)
-                    .OrderBy(c => c.Index).ToList();
-                if (temp.Count <= 2) continue;
-                var tempresult = (from w in temp
-                    join x in temp on 1 equals 1
-                    join y in temp on 1 equals 1
-                    join z in qSudoku.AllUnSetCell on 1 equals 1
-                    where
-                        new List<CellInfo> {w, x, y, z, checkcell}.Select(c => c.Index).Distinct().Count() == 5
-                        && w.Index < x.Index
-                        && x.Index < y.Index
-                        && GetIntersectCellIndexs(qSudoku.AllUnSetCell, x, checkcell).Contains(z.Index)
-                        && GetIntersectCellIndexs(qSudoku.AllUnSetCell, y, checkcell).Contains(z.Index)
-                        && GetIntersectCellIndexs(qSudoku.AllUnSetCell, w, checkcell).Contains(z.Index)
-                    select z).ToList();
-                foreach (var postiveCell in from results in tempresult
-                    let rest1 = results.GetRest()
-                    where rest1.Contains(value) && rest1.Count == 2
-                    select new PositiveCellInfo(results.Index, rest1.First(c => c != value))
-                )
-                {
-                    postiveCell.Sudoku = qSudoku;
-                    postiveCell.CellType = CellType.Positive;
-                    cells.Add(postiveCell);
-                }
+                var filter = (from x in relatedCell
+                              join y in relatedCell on 1 equals 1
+                              join z in relatedCell on 1 equals 1
+                              join cellInfo in relatedCell.Where(c => c.GetRest().Count == 2) on 1 equals 1
+                              let indexs = new List<int> { x.Index, y.Index, z.Index, checkcell.Index, cellInfo.Index }
+                              let xrest = x.GetRest()
+                              let yrest = y.GetRest()
+                              let zrest = z.GetRest()
+                              let intersectCellRest = cellInfo.GetRest()
+                              where indexs.Distinct().Count() == 5
+                                    && x.Index < y.Index && y.Index < z.Index
+                                    && xrest.Intersect(yrest).Intersect(zrest).Count() == 1
+                                    && xrest.All(c => checkcellRest.Contains(c))
+                                    && yrest.All(c => checkcellRest.Contains(c))
+                                    && zrest.All(c => checkcellRest.Contains(c))
+                                    && xrest.JoinString() != yrest.JoinString()
+                                    && yrest.JoinString() != zrest.JoinString()
+                                    && GetIntersectCellIndexs(relatedCell, x, checkcell).Contains(cellInfo.Index)
+                                    && GetIntersectCellIndexs(relatedCell, y, checkcell).Contains(cellInfo.Index)
+                                    && GetIntersectCellIndexs(relatedCell, z, checkcell).Contains(cellInfo.Index)
+                              select new { cellInfo, x,y,z,
+                                   intersectCellRest }).Distinct().ToList();
+                cells.AddRange((from item in filter 
+                    let xyzRest = item.x.GetRest().Intersect(item.y.GetRest()).Intersect(item.z.GetRest()).ToList() 
+                    where xyzRest.Count == 1 && checkcellRest.Contains(xyzRest.First()) 
+                    let intersectValue = xyzRest.First() 
+                    where item.intersectCellRest.Contains(intersectValue) 
+                    select new PositiveCellInfo(item.cellInfo.Index, item.intersectCellRest.First(c => c != intersectValue))
+                    ).Cast<CellInfo>());
             }
 
             return cells;
