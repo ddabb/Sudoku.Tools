@@ -18,7 +18,7 @@ namespace Sudoku.Console
             //runtest = false;
             if (runtest)
             {
-                ConsoleAssignmentExample(typeof(WXYZWingHandler));
+                ConsoleAssignmentExample(typeof(IncompleteWXYZWingHandler));
                 return;
 
             }
