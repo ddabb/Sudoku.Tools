@@ -89,6 +89,7 @@ namespace Sudoku.Core
         XRSize14,
         ARType3WithNakedPair,
         BugType1,
+        [DifficultuRating(5.2)]
         FinnedJeffyfish,
         [DifficultuRating(3.8)]
         FinnedSwordfish,

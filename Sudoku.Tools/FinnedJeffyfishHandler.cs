@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Sudoku.Tools
 {
-    [AssignmentExample("030150209000360050700490603001273800000519000003684700100000008320040000409001060")]
+    [AssignmentExample(8,"R9C5","200000003080030050003402100001205400000090000009308600002506900090020070400000001")]
     public class FinnedJeffyfishHandler :SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.FinnedJeffyfish;
