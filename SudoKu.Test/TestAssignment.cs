@@ -226,13 +226,13 @@ namespace SudoKu.Test
         [TestMethod]
         public void TestFinnedJeffyfishHandler()
         {
-            TestAssignmentExample(typeof(FinnedJeffyfishHandler));
+            TestAssignmentExample(typeof(FinnedJellyfishHandler));
         }
 
         [TestMethod]
         public void TestFinnedJeffyfishHandler1()
         {
-            TestAssignmentExample(typeof(FinnedJeffyfishHandler), "204103580000020341103485600732954168005010900619832400001508200300240000026300004",9, "R9C5");
+            TestAssignmentExample(typeof(FinnedJellyfishHandler), "204103580000020341103485600732954168005010900619832400001508200300240000026300004",9, "R9C5");
         }
         
 
