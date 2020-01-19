@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Sudoku.Tools
 {
-    [AssignmentExample("030150209000360050700490603001273800000519000003684700100000008320040000409001060")]
+    [AssignmentExample(6,"R3C1","907024305842365917030907400004009600000246009009000040000492876796050234428673591")]
     public class XRSize6Type1Handler :SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.XRSize6Type1;

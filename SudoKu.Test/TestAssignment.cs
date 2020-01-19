@@ -52,10 +52,56 @@ namespace SudoKu.Test
         }
 
         [TestMethod]
+        public void TestXRSize6Type1Handler()
+        {
+            TestAssignmentExample(typeof(XRSize6Type1Handler));
+        }
+
+        [TestMethod]
+        public void TestXRSize6Type2Handler()
+        {
+            TestAssignmentExample(typeof(XRSize6Type2Handler));
+        }
+
+        [TestMethod]
+        public void TestXRSize6Type3Handler()
+        {
+            TestAssignmentExample(typeof(XRSize6Type3Handler));
+        }
+
+        [TestMethod]
+        public void TestXRSize6Type4Handler()
+        {
+            TestAssignmentExample(typeof(XRSize6Type4Handler));
+        }
+
+        [TestMethod]
+        public void TestXRSize8Handler()
+        {
+            TestAssignmentExample(typeof(XRSize8Handler));
+        }
+
+        [TestMethod]
+        public void TestXRSize12Handler()
+        {
+            TestAssignmentExample(typeof(XRSize12Handler));
+        }
+
+
+        [TestMethod]
+        public void TestXRSize14Handler()
+        {
+            TestAssignmentExample(typeof(XRSize14Handler));
+        }
+
+
+        [TestMethod]
         public void TestULSize6Type2Handler1()
         {
             TestAssignmentExample(typeof(ULSize6Type2Handler), "390002804120864039048739012273000008080327145451698327032080006814976253760203081", 5, "R9C5");
         }
+
+
 
 
         [TestMethod]
@@ -234,7 +280,20 @@ namespace SudoKu.Test
         {
             TestAssignmentExample(typeof(DymanicForcingChainHandler));
         }
-        
+        [TestMethod]
+        public void TestDiscontinuousNiceLoopHandler()
+        {
+            TestAssignmentExample(typeof(DiscontinuousNiceLoopHandler));
+        }
+
+        [TestMethod]
+        public void TestCannibalisticAICHandler()
+        {
+            TestAssignmentExample(typeof(CannibalisticAICHandler));
+        }
+
+
+
 
         [TestMethod]
         public void TestFinnedJeffyfishHandler1()
@@ -246,18 +305,7 @@ namespace SudoKu.Test
         [TestMethod]
         public void TestXYChainHandler()
         {
-            XYChainHandler hander = new XYChainHandler();
-            QSudoku qsudoku = new QSudoku("060300570052041006000605100580004267429006315607002498006207000005410620290063700");
-            Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString));
-            var cells = hander.Assignment(qsudoku);
-            foreach (var item in cells)
-            {
-                Debug.WriteLine("" + item);
-            }
-            qsudoku = qsudoku.ApplyCells(cells);
-            Assert.AreEqual(true, cells.Exists(c => c.Value == 7));
-            Debug.WriteLine(qsudoku.QueryString);
-            Assert.AreEqual(true, new DanceLink().isValid(qsudoku.QueryString));
+            TestAssignmentExample(typeof(XYChainHandler));
         }
 
 

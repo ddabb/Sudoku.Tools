@@ -26,18 +26,4 @@ namespace Sudoku.Tools
             this.queryString = queryString;
         }
     }
-
-    /// <summary>
-    /// 删数用例
-    /// </summary>
-    public class EliminationExampleAttribute : Attribute
-    {
-        public string queryString;
-
-        public EliminationExampleAttribute(string queryString)
-        {
-            this.queryString = queryString;
-
-        }
-    }
 }

@@ -5,7 +5,7 @@ using Sudoku.Core;
 
 namespace Sudoku.Tools
 {
-    [AssignmentExample("060300570052041006000605100580004267429006315607002498006207000005410620290063700")]
+    [AssignmentExample(7,"R8C2","060300570052041006000605100580004267429006315607002498006207000005410620290063700")]
     public class XYChainHandler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.XYChain;

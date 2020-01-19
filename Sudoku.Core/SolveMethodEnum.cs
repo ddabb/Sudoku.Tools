@@ -122,6 +122,8 @@ namespace Sudoku.Core
         DymanicForcingChain,
         [DifficultuRating(4.5)]
         IncompleteWXYZWing,
-        EmptyRectangle
+        EmptyRectangle,
+        DiscontinuousNiceLoop,
+        CannibalisticAIC
     }
 }
