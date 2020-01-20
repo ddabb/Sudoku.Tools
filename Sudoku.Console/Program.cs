@@ -18,7 +18,7 @@ namespace Sudoku.Console
             //runtest = false;
             if (runtest)
             {
-                ConsoleAssignmentExample(typeof(EmptyRectangleHandler));
+                ConsoleAssignmentExample(typeof(ULSize6Type1Handler));
                 return;
 
             }

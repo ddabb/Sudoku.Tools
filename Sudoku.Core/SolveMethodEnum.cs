@@ -10,10 +10,10 @@ namespace Sudoku.Core
     /// </summary>
     public enum SolveMethodEnum
     {
-        [DifficultuRating(2.3)]
-        NakedSingle,
         [DifficultuRating(1.2)]
         HiddenSingleBlock,
+        [DifficultuRating(2.3)]
+        NakedSingle,
         [DifficultuRating(1.5)]
         HiddenSingleColumn,
         HiddenSingleRow,
@@ -31,7 +31,9 @@ namespace Sudoku.Core
         NakedTriple,
         [DifficultuRating(5.0)]
         NakedQuadruple,
+        [DifficultuRating(2.8)]
         ClaimingInRow,
+        [DifficultuRating(2.8)]
         ClaimingInColumn,
         [DifficultuRating(4.4)]
         WWing,
@@ -46,7 +48,8 @@ namespace Sudoku.Core
         XYChain,
         [DifficultuRating(6.6)]
         ForcingXChain,
-        URType1,  
+        URType1,
+        [DifficultuRating(4.6)]
         ULSize6Type1,
         ULSize6Type2,
         [DifficultuRating(4.1)]
@@ -58,6 +61,7 @@ namespace Sudoku.Core
         Jellyfish,
         HiddenAR,
         LockedSubset,
+        [DifficultuRating(4.7)]
         ULSize6Type3,
         ImcompletedURType2,    
         ALPExtendedType,   
@@ -107,6 +111,7 @@ namespace Sudoku.Core
         ULSize10,
         [DifficultuRating(4.7)]
         ULSize8,
+        [DifficultuRating(4.6)]
         ULSize6Type4,
         ULSize14,
         RemotePair,

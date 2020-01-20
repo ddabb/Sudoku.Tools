@@ -52,6 +52,14 @@ namespace SudoKu.Test
         }
 
         [TestMethod]
+        public void TestULSize6Type2Handler1()
+        {
+            TestAssignmentExample(typeof(ULSize6Type2Handler), "016705920492160750057290106273600589145879000689352417500900001900500800720406395",3,"R3C8");
+        }
+
+        
+
+        [TestMethod]
         public void TestXRSize6Type1Handler()
         {
             TestAssignmentExample(typeof(XRSize6Type1Handler));
@@ -96,20 +104,11 @@ namespace SudoKu.Test
 
 
         [TestMethod]
-        public void TestULSize6Type2Handler1()
+        public void TestULSize6Type2Handler4()
         {
             TestAssignmentExample(typeof(ULSize6Type2Handler), "390002804120864039048739012273000008080327145451698327032080006814976253760203081", 5, "R9C5");
         }
 
-
-
-
-        [TestMethod]
-        public void TestULSize6Type2Handler3()
-        {
-            TestAssignmentExample(typeof(ULSize6Type2Handler), "016705920492160750057290106273600589145879000689352417500900001900500800720406395", 3, "R3C8");
-        }
-        
 
         [TestMethod]
         public void TestFinnedSwordfishHandler1()
@@ -143,6 +142,17 @@ namespace SudoKu.Test
             TestAssignmentExample(typeof(ULSize8Handler));
         }
 
+        [TestMethod]
+        public void TestULSize6Type1Handler()
+        {
+            TestAssignmentExample(typeof(ULSize6Type1Handler));
+        }
+
+        [TestMethod]
+        public void TestULSize6Type4Handler()
+        {
+            TestAssignmentExample(typeof(ULSize6Type4Handler));
+        }
 
         [TestMethod]
         public void TestULSize8Handler1()
