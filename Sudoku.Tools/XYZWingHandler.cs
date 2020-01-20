@@ -33,8 +33,8 @@ namespace Sudoku.Tools
                           && cellInfo.Index != b.Index
                           && cellInfo.Index != checkCell.Index
                           && cellInforest.Contains(comvalue)
-                          && GetIntersectCellIndexs(qSudoku.AllUnSetCell, a, checkCell).Contains(cellInfo.Index)
-                          && GetIntersectCellIndexs(qSudoku.AllUnSetCell, b, checkCell).Contains(cellInfo.Index)
+                          && qSudoku.GetPublicUnsetAreaIndexs(a, checkCell).Contains(cellInfo.Index)
+                          && qSudoku.GetPublicUnsetAreaIndexs(b, checkCell).Contains(cellInfo.Index)
                             select new { cellInfo, comvalue, a, b, restvalue, checkCells }).ToList();
                 cells.AddRange(cell.Select(item => new PositiveCellInfo(item.cellInfo.Index, item.restvalue)).Cast<CellInfo>());
             }

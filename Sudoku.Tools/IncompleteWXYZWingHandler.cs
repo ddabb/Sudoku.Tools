@@ -15,6 +15,7 @@ namespace Sudoku.Tools
         }
 
         public override SolveMethodEnum methodType => SolveMethodEnum.IncompleteWXYZWing;
+
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
@@ -26,30 +27,32 @@ namespace Sudoku.Tools
                 var relatedCell = checkCell.RelatedUnsetCells
                     .Where(c => c.GetRest().Count == 2 && c.GetRest().Intersect(checkCellRest).Count() == 1).ToList();
                 var filter = (from a in relatedCell
-                              join b in relatedCell on 1 equals 1
-                              join c in relatedCell on 1 equals 1
-                              let indexs = new List<int> { a.Index, b.Index, c.Index, checkCell.Index }
-                              let arest = a.GetRest()
-                              let brest = b.GetRest()
-                              let crest = c.GetRest()
-                              let removeValue = arest.Except(checkCellRest).First()
-                              where arest.Except(checkCellRest).First() == brest.Except(checkCellRest).First()
-                                    && arest.Except(checkCellRest).First() == crest.Except(checkCellRest).First()
-                                    && a.Index < b.Index && b.Index < c.Index
-                              select new { a, b, c, removeValue, indexs }).ToList();
+                    join b in relatedCell on 1 equals 1
+                    join c in relatedCell on 1 equals 1
+                    let indexs = new List<int> {a.Index, b.Index, c.Index, checkCell.Index}
+                    let arest = a.GetRest()
+                    let brest = b.GetRest()
+                    let crest = c.GetRest()
+                    let removeValue = arest.Except(checkCellRest).First()
+                    where arest.Except(checkCellRest).First() == brest.Except(checkCellRest).First()
+                          && arest.Except(checkCellRest).First() == crest.Except(checkCellRest).First()
+                          && a.Index < b.Index && b.Index < c.Index
+                    select new {a, b, c, removeValue, indexs}).ToList();
                 foreach (var item in filter)
                 {
-                    var subfilter = allUnSetCell.Where(c =>
-                        !item.indexs.Contains(c.Index) && c.GetRest().Count == 2 &&
-                        c.GetRest().Contains(item.removeValue)).ToList();
-                    foreach (var findCell in subfilter)
+
+                    var publicIndexs = item.a.RelatedUnsetIndexs
+                        .Intersect(item.b.RelatedUnsetIndexs)
+                        .Intersect(item.c.RelatedUnsetIndexs).ToList();
+                    var intersectValue = item.removeValue;
+                    foreach (var index in publicIndexs)
                     {
-                        if (GetIntersectCellIndexs(subfilter, item.a, item.b).Contains(findCell.Index) && GetIntersectCellIndexs(subfilter, item.a, item.c).Contains(findCell.Index))
+                        var findCellRest = qSudoku.GetRest(index);
+                        if (findCellRest.Contains(intersectValue) && findCellRest.Count == 2)
                         {
-                            cells.Add(new PositiveCellInfo(findCell.Index, findCell.GetRest().First(c => c != item.removeValue)));
+                            cells.Add(new PositiveCellInfo(index, findCellRest.First(c => c != intersectValue)));
                         }
                     }
-
                 }
 
             }

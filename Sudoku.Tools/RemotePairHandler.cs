@@ -32,7 +32,7 @@ namespace Sudoku.Tools
                 var c = item.c;
                 var d = item.d;
                 var rest = c.GetRest();
-                cells.AddRange((from cell in GetIntersectCells(filter, c, d) 
+                cells.AddRange((from cell in qSudoku.GetPublicUnsetAreas(c, d) 
                     let cellrest = cell.GetRest() 
                     where cellrest.Intersect(rest).Any() && cellrest.Except(rest).Count() == 1 
                     select new PositiveCellInfo(cell.Index, cellrest.Except(rest).First())).Cast<CellInfo>());

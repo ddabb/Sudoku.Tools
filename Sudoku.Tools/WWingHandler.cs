@@ -38,7 +38,7 @@ namespace Sudoku.Tools
                             )                         )
                         {
                             var rest= restInts.First(c=>c!= IndexPairs.SpeacialValue);
-                        var removeCells=    GetIntersectCells(qSudoku.AllUnSetCell, ab.a, ab.b);
+                        var removeCells= qSudoku.GetPublicUnsetAreas(ab.a, ab.b);
                             foreach (var cell in removeCells)
                             {
                                 var rests = cell.GetRest();
@@ -56,7 +56,7 @@ namespace Sudoku.Tools
                             (IsSameRow(ab.a.Index, IndexPairs.indexs[1]) && IsSameRow(ab.b.Index, IndexPairs.indexs[0])))
                         {
                             var rest = restInts.First(c => c != IndexPairs.SpeacialValue);
-                            var removeCells = GetIntersectCells(qSudoku.AllUnSetCell, ab.a, ab.b);
+                            var removeCells = qSudoku.GetPublicUnsetAreas(ab.a, ab.b);
                             foreach (var cell in removeCells)
                             {
                                 var rests = cell.GetRest();

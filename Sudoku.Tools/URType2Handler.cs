@@ -39,7 +39,7 @@ namespace Sudoku.Tools
                     var arest = a.GetRest();
                     var drest = d.GetRest();
                     var value = d.GetRest().Except(a.GetRest()).First();
-                 var tempResult =   GetIntersectCells(qSudoku.AllUnSetCell, item[2], item[3]).Where(c => c.GetRest().Count == 2 && c.GetRest().Contains(value));
+                 var tempResult = qSudoku.GetPublicUnsetAreas(item[2], item[3]).Where(c => c.GetRest().Count == 2 && c.GetRest().Contains(value));
                     foreach (var cell in tempResult)
                     {
                         cells.Add(new PositiveCellInfo(cell.Index, cell.GetRest().First(c => c != value)));

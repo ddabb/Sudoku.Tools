@@ -43,7 +43,7 @@ namespace Sudoku.Tools
                 foreach (var ai in indexa)
                 {
                     cells.AddRange(from bi in indexb.Where(bi => direction == Direction.Row ? IsSameColumn(ai, bi) : IsSameRow(ai, bi)).Select(bi => bi)
-                                   let restCells = GetIntersectCells(allunsetCell, ab.a.indexs.First(c => c != ai), ab.b.indexs.First(c => c != bi))
+                                   let restCells = qSudoku.GetPublicUnsetAreas(ab.a.indexs.First(c => c != ai), ab.b.indexs.First(c => c != bi))
                                    from cell in restCells
                                    let rests = cell.GetRest()
                                    where rests.Count == 2 && rests.Contains(rest)

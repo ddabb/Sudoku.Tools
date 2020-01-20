@@ -49,7 +49,7 @@ namespace Sudoku.Tools
                 {
                     var rest = testLinq.First().a.GetRest();
                     var value = cellX.GetRest().Except(rest).First();
-                    var tempResult = GetIntersectCells(qSudoku.AllUnSetCell, cellX, cellY).Where(c => c.GetRest().Count == 2 && c.GetRest().Contains(value));
+                    var tempResult = qSudoku.GetPublicUnsetAreas(cellX, cellY).Where(c => c.GetRest().Count == 2 && c.GetRest().Contains(value));
                     foreach (var cell in tempResult)
                     {
                         cells.Add(new PositiveCellInfo(cell.Index, cell.GetRest().First(c => c != value)));

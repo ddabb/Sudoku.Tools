@@ -39,12 +39,12 @@ namespace Sudoku.Tools
                 if (IsSameRowOrSameColumn(item.a.indexs[0], item.c.indexs[0]))
                 {
                  
-                    rest= GetIntersectCells(allunsetCell, item.a.indexs[1], item.c.indexs[1]);
+                    rest= qSudoku.GetPublicUnsetAreas(item.a.indexs[1], item.c.indexs[1]);
                 }
                 else
                 {
            
-                    rest = GetIntersectCells(allunsetCell, item.a.indexs[0], item.c.indexs[0]);
+                    rest = qSudoku.GetPublicUnsetAreas(item.a.indexs[0], item.c.indexs[0]); 
                 }
                 var filter = rest.Where(c => c.GetRest().Count==2&& c.GetRest().Contains(SpeacialValue)).ToList();
                 foreach (var cell in filter)

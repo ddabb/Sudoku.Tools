@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Sudoku.Tools
 {
@@ -10,7 +9,7 @@ namespace Sudoku.Tools
     /// <summary>
     /// https://www.cnblogs.com/asdyzh/p/10145026.html
     /// </summary>
-    [AssignmentExample(7,"R2C4","081020600042060089056800240693142758428357916175689324510036892230008460860200000")]
+    [AssignmentExample(7, "R2C4", "081020600042060089056800240693142758428357916175689324510036892230008460860200000")]
     public class TwoStringsKiteHandler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.TwoStringsKite;
@@ -23,15 +22,15 @@ namespace Sudoku.Tools
 
             var pairs = (from chaina in possileIndex
                          join chainb in possileIndex on chaina.SpeacialValue equals chainb.SpeacialValue
-                         where chaina.direction!=chainb.direction
-                         select new { chaina , chainb }
+                         where chaina.direction != chainb.direction
+                         select new { chaina, chainb }
                          ).ToList();
             foreach (var item in pairs)
             {
                 var rest = item.chaina.SpeacialValue;
                 var allIndex = new List<int> { item.chaina.indexs[0], item.chaina.indexs[1], item.chainb.indexs[0], item.chainb.indexs[1] };
                 var Blocks = allIndex.Select(c => new PositiveCellInfo(c, 0)).Select(c => c.Block);
-                if (allIndex.Distinct().Count()==4&& Blocks.Distinct().Count() == 3)
+                if (allIndex.Distinct().Count() == 4 && Blocks.Distinct().Count() == 3)
                 {
                     Dictionary<int, int> blockCount = new Dictionary<int, int>();
                     foreach (var index in allIndex)
@@ -47,8 +46,8 @@ namespace Sudoku.Tools
                         }
                     }
 
-                   var intersectIndex= allIndex.Where(c => blockCount[new PositiveCellInfo(c, 0).Block] != 2).ToList();
-                    var restCells = GetIntersectCells(allunsetCell, intersectIndex[0], intersectIndex[1]);
+                    var intersectIndex = allIndex.Where(c => blockCount[new PositiveCellInfo(c, 0).Block] != 2).ToList();
+                    var restCells = qSudoku.GetPublicUnsetAreas(intersectIndex[0], intersectIndex[1]);
                     foreach (var cell in restCells)
                     {
                         var rests = cell.GetRest();
@@ -62,7 +61,7 @@ namespace Sudoku.Tools
 
 
 
-                }   
+                }
             }
 
 

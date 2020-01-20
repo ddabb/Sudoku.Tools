@@ -16,54 +16,48 @@ namespace Sudoku.Tools
         {
             List<CellInfo> cells = new List<CellInfo>();
             var checkCells = qSudoku.AllUnSetCell.Where(c => c.GetRest().Count == 2).ToList();
-
-            var temp = (from x in checkCells
-                        join y in checkCells on 1 equals 1
-                        where x.GetRest().Intersect(y.GetRest()).Count()==1
-                        select new { x, y }).ToList();
-            foreach (var pair in temp)
+            foreach (var checkCell in checkCells)
             {
-             var intestectCells=   checkCells.Intersect(GetIntersectCells(checkCells, pair.x, pair.y)).ToList();
-                if (intestectCells.Any())
+
+                var checkCellRest = checkCell.GetRest();
+                var relatedCell = checkCell.RelatedUnsetCells;
+                var xy = (from x in relatedCell
+                    join y in relatedCell on 1 equals 1
+                    let xrest = x.GetRest()
+                    let yrest = y.GetRest()
+                    where x.Index < y.Index
+                          && xrest.Count==2
+                          && yrest.Count==2
+                          && checkCellRest.Intersect(xrest).Count()==1
+                          && checkCellRest.Intersect(yrest).Count() == 1
+                          && xrest.Except(checkCellRest).First()== yrest .Except(checkCellRest).First()
+                          && xrest.JoinString() != yrest.JoinString()
+                          select new {x, y, xrest, yrest }).ToList();
+                foreach (var item in xy)
                 {
-
-
-                    var restX = pair.x.GetRest();
-                    var restY = pair.y.GetRest();
-                    List<int> all = new List<int>();
-                    all.AddRange(restX);
-                    all.AddRange(restY);
-                    var intersectValue = restX.Intersect(restY).First();
-                    all = all.Where(x => x != intersectValue).OrderBy(c => c).ToList();
-                    var allString = string.Join(",", all);
-                    
-                    if (intestectCells.Exists(c=> c.GetRestString()==allString))
+                    var x = item.x;
+                    var y = item.y;
+                    var xrest = item.xrest;
+                    var yrest = item.yrest;
+                    var removes = xrest.Intersect(yrest).ToList();
+                    if (checkCellRest.Contains(xrest.Except(removes).First())&& checkCellRest.Contains(yrest.Except(removes).First()))
                     {
-                        foreach (var cell in intestectCells)
+                        var removeValue = removes.First();
+                        foreach (var unsetCell in qSudoku.GetPublicUnsetAreas(item.x, item.y).Where(c => c.Index != checkCell.Index))
                         {
-                            if (cell.GetRestString() != allString)
+                            var unsetCellRest = unsetCell.GetRest();
+                            if (unsetCellRest.Contains(removeValue) && unsetCellRest.Count == 2)
                             {
-                                var rests = cell.GetRest();
-                                if (rests.Contains(intersectValue)&&rests.Count==2)
-                                {
-                                    Debug.WriteLine("allString" + allString);
-                                    Debug.WriteLine("pair.x" + pair.x + "  restX" + string.Join(",", restX));
-                                    Debug.WriteLine("pair.y" + pair.y + "  restY" + string.Join(",", restY));
-                                    cells.Add(new PositiveCellInfo(cell.Index, rests.First(c => c != intersectValue)));
-                                }
+                                cells.Add(new PositiveCellInfo(unsetCell.Index, unsetCellRest.First(c => c != removeValue)));
                             }
                         }
-               
-
-    
                     }
+ 
 
-           
-                 
-
+                   
                 }
-
             }
+
             return cells;
         }
 

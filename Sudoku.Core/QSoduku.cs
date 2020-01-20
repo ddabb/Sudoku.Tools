@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Text;
-using Sudoku.Core;
 
 namespace Sudoku.Core
 {
@@ -18,7 +13,7 @@ namespace Sudoku.Core
 
 
 
-   
+
         private string queryString;
         public List<CellInfo> cachedAnalysisCells = new List<CellInfo>();
 
@@ -33,7 +28,7 @@ namespace Sudoku.Core
         {
             this.QueryString = queryString;
             Init();
-           
+
         }
         /// <summary>
         /// 获取出现了重复times的坐标。
@@ -45,9 +40,9 @@ namespace Sudoku.Core
         {
             List<CellInfo> cells = new List<CellInfo>();
             var list = GetPossibleIndex(speacilValue, indexCondition);
-            if (list.Count== times)
+            if (list.Count == times)
             {
-                return cells.Select(c => c.Index).ToList();  
+                return cells.Select(c => c.Index).ToList();
             }
             return new List<int>();
 
@@ -60,7 +55,7 @@ namespace Sudoku.Core
         /// <param name="speacialValue">候选数</param>
         /// <param name="whereCondition">过滤条件</param>
         /// <returns></returns>
-        public List<int> GetPossibleIndex( int speacialValue, Func<CellInfo, bool> whereCondition)
+        public List<int> GetPossibleIndex(int speacialValue, Func<CellInfo, bool> whereCondition)
         {
             List<int> indexs = new List<int>();
 
@@ -80,7 +75,7 @@ namespace Sudoku.Core
             List<PossibleIndex> possbleIndexs = new List<PossibleIndex>();
             foreach (var direaction in G.AllDirection)
             {
-               
+
                 foreach (var index in G.baseIndexs)
                 {
                     foreach (var speacilValue in G.AllBaseValues)
@@ -99,6 +94,21 @@ namespace Sudoku.Core
 
         }
 
+        public List<CellInfo> GetPublicUnsetAreas(CellInfo cell1, CellInfo cell2)
+        {
+            return AllUnSetCell.Where(c => GetPublicUnsetAreaIndexs(cell1, cell2).Contains(c.Index)).ToList();
+        }
+
+        public List<CellInfo> GetPublicUnsetAreas(int index1, int index2)
+        {
+            return AllUnSetCell.Where(c => GetPublicUnsetAreaIndexs(cellInfos.First(x=>x.Index==index1), cellInfos.First(x => x.Index == index2)).Contains(c.Index)).ToList();
+        }
+
+        public List<int> GetPublicUnsetAreaIndexs(CellInfo cell1, CellInfo cell2)
+        {
+            return AllUnSetCell.Where(c => cell1.RelatedUnsetIndexs.Intersect(cell2.RelatedUnsetIndexs).Contains(c.Index))
+                   .Select(c => c.Index).ToList();
+        }
 
         public List<int> GetPossibleIndex(int speacialValue, List<CellInfo> cellInfos)
         {
@@ -156,19 +166,17 @@ namespace Sudoku.Core
 
         public QSudoku ApplyCells(List<CellInfo> cells)
         {
-            var chars = QueryString.Select(c=>""+c).ToList();
+            var chars = QueryString.Select(c => "" + c).ToList();
             foreach (var item in cells)
             {
                 chars[item.Index] = "" + item.Value;
             }
 
             return new QSudoku(String.Join("", chars));
-
-
         }
 
 
-        private List<PossibleIndex> GetAllPossibleIndex( int times, Func<Direction, bool> predicate)
+        private List<PossibleIndex> GetAllPossibleIndex(int times, Func<Direction, bool> predicate)
         {
             List<PossibleIndex> allPossibleindex = new List<PossibleIndex>();
             foreach (var direction in G.AllDirection.Where(predicate))
@@ -179,8 +187,8 @@ namespace Sudoku.Core
                     var checkDirectionCells = AllUnSetCell.Where(G.GetDirectionCells(direction, directionIndex)).ToList();
 
                     var temp = (from value in G.AllBaseValues
-                            where GetPossibleIndex(value, checkDirectionCells).Count == times
-                            select new { direction, directionIndex, value }
+                                where GetPossibleIndex(value, checkDirectionCells).Count == times
+                                select new { direction, directionIndex, value }
                         ).ToList();
                     foreach (var item in temp)
                     {
@@ -202,7 +210,7 @@ namespace Sudoku.Core
             var chars = QueryString.ToCharArray();
             foreach (var location in G.allLocations)
             {
-                var cellInit = new PositiveCellInfo(location, Convert.ToInt32("" + chars[location])) {Sudoku = this};
+                var cellInit = new PositiveCellInfo(location, Convert.ToInt32("" + chars[location])) { Sudoku = this };
                 cellInfos.Add(cellInit);
             }
 
@@ -231,11 +239,10 @@ namespace Sudoku.Core
             return new Dictionary<int, List<int>>();
         }
 
+        private List<CellInfo> mAllUnSetCell = null;
         public List<CellInfo> AllUnSetCell
         {
-            get {
-                return cellInfos.Where(c => c.Value == 0).ToList();
-            }
+            get { return mAllUnSetCell ?? (mAllUnSetCell = cellInfos.Where(c => c.Value == 0).ToList()); }
         }
 
         public List<CellInfo> AllCell
@@ -252,7 +259,7 @@ namespace Sudoku.Core
         {
             get
             {
-                if (mAllChainsIndex==null)
+                if (mAllChainsIndex == null)
                 {
                     var checkIndexLists = AllUnSetCell.Where(c => c.GetRest().Count == 2).Select(c => c.Index).ToList();
                     var aOrBIndex = GetPossibleIndexByTimes(2);
