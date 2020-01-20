@@ -36,7 +36,7 @@ namespace Sudoku.Tools
                     var restString = item.restString;
                     var exceptIndex = item.indexs;
                     var leftCells = pairCells.Where(c =>
-                        !exceptIndex.Contains(c.Index) && c.GetRestString() == restString);
+                        !exceptIndex.Contains(c.Index) && c.GetRestString() == restString).ToList();
                     var results = (from a3 in leftCells
                         join a4 in leftCells on a3.Column equals a4.Column
                         join a5 in leftCells on a4.Row equals a5.Row

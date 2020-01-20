@@ -149,6 +149,14 @@ namespace SudoKu.Test
         }
 
         [TestMethod]
+        public void TestULSize6Type3Handler()
+        {
+            TestAssignmentExample(typeof(ULSize6Type3Handler));
+        }
+
+        
+
+        [TestMethod]
         public void TestULSize6Type4Handler()
         {
             TestAssignmentExample(typeof(ULSize6Type4Handler));

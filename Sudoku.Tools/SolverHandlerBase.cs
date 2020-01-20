@@ -59,9 +59,13 @@ namespace Sudoku.Tools
                            
                                  || (c.Column == cell1.Column && c.Block == cell2.Block)
                                  || (c.Column == cell2.Column && c.Block == cell1.Block) //column block
-
+                                
                                  || (c.Column == cell1.Column && c.Row == cell2.Row)
-                                 || (c.Column == cell2.Column && c.Row == cell1.Row)    //column row         
+                                 || (c.Column == cell2.Column && c.Row == cell1.Row)    //column row    
+
+                                 || (cell1.Row == cell2.Row && c.Row == cell1.Row) //same row
+                                 || (cell1.Column == cell2.Column && c.Column == cell1.Column) //same column
+                                 || (cell1.Block == cell2.Block && c.Block == cell1.Block) //same block
             ) && c.Index != cell1.Index && c.Index != cell2.Index
             ).ToList();
         }

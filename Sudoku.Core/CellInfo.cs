@@ -51,6 +51,15 @@ namespace Sudoku.Core
             }
         }
 
+
+        /// <summary>
+        /// 关联的未设置值的单元格
+        /// </summary>
+        public List<int> RelatedUnsetIndexs
+        {
+            get { return RelatedUnsetCells.Select(c => c.Index).ToList(); }
+        }
+
         public CellInfo(int index, int value)
         {
             this.Index = index;
