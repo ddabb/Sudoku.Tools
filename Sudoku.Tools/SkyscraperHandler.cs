@@ -46,10 +46,10 @@ namespace Sudoku.Tools
            
                     rest = qSudoku.GetPublicUnsetAreas(item.a.indexs[0], item.c.indexs[0]); 
                 }
-                var filter = rest.Where(c => c.RestCount==2&& c.GetRest().Contains(SpeacialValue)).ToList();
+                var filter = rest.Where(c => c.RestCount==2&& c.RestList.Contains(SpeacialValue)).ToList();
                 foreach (var cell in filter)
                 {
-                    cells.Add(new PositiveCellInfo(cell.Index, cell.GetRest().First(c=>c!= SpeacialValue)));
+                    cells.Add(new PositiveCellInfo(cell.Index, cell.RestList.First(c=>c!= SpeacialValue)));
                 }
         
             }

@@ -21,17 +21,17 @@ namespace Sudoku.Tools
             List<int> countRange = new List<int> { 2, 3 };
             foreach (var checkcell in checkCells)
             {
-                var checkcellRest = checkcell.GetRest();
-                var relatedCell = checkcell.RelatedUnsetCells.Where(c => countRange.Contains(c.RestCount) && c.GetRest().Intersect(checkcellRest).Any()).ToList();
+                var checkcellRest = checkcell.RestList;
+                var relatedCell = checkcell.RelatedUnsetCells.Where(c => countRange.Contains(c.RestCount) && c.RestList.Intersect(checkcellRest).Any()).ToList();
 
                 var filter = (from x in relatedCell
                               join y in relatedCell on 1 equals 1
                               join z in relatedCell on 1 equals 1
 
                               let indexs = new List<int> { x.Index, y.Index, z.Index, checkcell.Index }
-                              let xrest = x.GetRest()
-                              let yrest = y.GetRest()
-                              let zrest = z.GetRest()
+                              let xrest = x.RestList
+                              let yrest = y.RestList
+                              let zrest = z.RestList
                               where indexs.Distinct().Count() == 4
                               && x.Index < y.Index && y.Index < z.Index
                               && xrest.Intersect(yrest).Intersect(zrest).Count() == 1

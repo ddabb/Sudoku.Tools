@@ -27,7 +27,7 @@ namespace Sudoku.Tools
                         var allRests = new List<int>();
                         foreach (var cell in checkCells)
                         {
-                            allRests.AddRange(cell.GetRest());
+                            allRests.AddRange(cell.RestList);
 
                         }
 

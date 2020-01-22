@@ -17,16 +17,16 @@ namespace Sudoku.Tools
             var checkCells = qSudoku.AllUnSetCells.Where(c => c.RestCount == 3).ToList();
             foreach (var checkCell in checkCells)
             {
-                var cellrest = checkCell.GetRest();
-                var relatedCell = checkCell.RelatedUnsetCells.Where(c => c.RestCount == 2 && c.GetRest().Intersect(checkCell.GetRest()).Count() > 1).ToList();
+                var cellrest = checkCell.RestList;
+                var relatedCell = checkCell.RelatedUnsetCells.Where(c => c.RestCount == 2 && c.RestList.Intersect(checkCell.RestList).Count() > 1).ToList();
                 var cell = (from a in relatedCell
                             join b in relatedCell on 1 equals 1
                             join cellInfo in qSudoku.AllUnSetCells.Where(c => c.RestCount == 2) on 1 equals 1
-                            let arest = a.GetRest()
-                            let brest = b.GetRest()
-                            let cellRest = cellInfo.GetRest()
-                            let comvalue = cellrest.Intersect(a.GetRest()).Intersect(b.GetRest()).First()
-                            let cellInforest = cellInfo.GetRest()
+                            let arest = a.RestList
+                            let brest = b.RestList
+                            let cellRest = cellInfo.RestList
+                            let comvalue = cellrest.Intersect(a.RestList).Intersect(b.RestList).First()
+                            let cellInforest = cellInfo.RestList
                             let restvalue = cellRest.First(c => c != comvalue)
                             where a.Index < b.Index
                           && cellInfo.Index != a.Index

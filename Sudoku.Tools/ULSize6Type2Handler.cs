@@ -47,12 +47,12 @@ namespace Sudoku.Tools
                                 select new { a,b,c,d}).ToList();
                 if (testLinq.Count()!=0)
                 {
-                    var rest = testLinq.First().a.GetRest();
-                    var value = cellX.GetRest().Except(rest).First();
-                    var tempResult = qSudoku.GetPublicUnsetAreas(cellX, cellY).Where(c => c.RestCount == 2 && c.GetRest().Contains(value));
+                    var rest = testLinq.First().a.RestList;
+                    var value = cellX.RestList.Except(rest).First();
+                    var tempResult = qSudoku.GetPublicUnsetAreas(cellX, cellY).Where(c => c.RestCount == 2 && c.RestList.Contains(value));
                     foreach (var cell in tempResult)
                     {
-                        cells.Add(new PositiveCellInfo(cell.Index, cell.GetRest().First(c => c != value)));
+                        cells.Add(new PositiveCellInfo(cell.Index, cell.RestList.First(c => c != value)));
                     }
 
                 }

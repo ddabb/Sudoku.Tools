@@ -17,7 +17,7 @@ namespace Sudoku.Tools
             List<CellInfo> cells = new List<CellInfo>();
             var unCheckSell = qSudoku.AllUnSetCells;
             var pairs = (from a in unCheckSell
-                         join b in unCheckSell on a.GetRest().JoinString() equals b.RestString
+                         join b in unCheckSell on a.RestList.JoinString() equals b.RestString
                          where (a.Row == b.Row || a.Column == b.Column) && a.Index < b.Index
                                                                         && a.RestCount == 2
                          select new { a, b }).ToList();
@@ -26,7 +26,7 @@ namespace Sudoku.Tools
                 var a = cell.a;
                 var b = cell.b;
                 var restString = a.RestString;
-                var restInt = a.GetRest();
+                var restInt = a.RestList;
 
                 if (a.Row == b.Row)
                 {
@@ -34,8 +34,8 @@ namespace Sudoku.Tools
                     var pairs1 = (from c in unCheckSell
                                   join d in unCheckSell on 1 equals 1
                                   where c.Row != a.Row && c.Row == d.Row
-                                                       && c.GetRest().Intersect(restInt).Count() == 2
-                                                       && d.GetRest().Intersect(restInt).Count() == 2
+                                                       && c.RestList.Intersect(restInt).Count() == 2
+                                                       && d.RestList.Intersect(restInt).Count() == 2
                                                        && c.Column == a.Column
                                                        && d.Column == b.Column
                                                        && c.RestCount > 2
@@ -61,8 +61,8 @@ namespace Sudoku.Tools
                     var pairs1 = (from c in unCheckSell
                                   join d in unCheckSell on 1 equals 1
                                   where c.Column != a.Column && c.Column == d.Column
-                                                             && c.GetRest().Intersect(restInt).Count() == 2
-                                                             && d.GetRest().Intersect(restInt).Count() == 2
+                                                             && c.RestList.Intersect(restInt).Count() == 2
+                                                             && d.RestList.Intersect(restInt).Count() == 2
                                                              && c.Row == a.Row
                                                              && d.Row == b.Row
                                                              && c.RestCount > 2

@@ -14,7 +14,7 @@ namespace Sudoku.Tools
             List<CellInfo> cellInfo = new List<CellInfo>();
             foreach (var index in qSudoku.AllUnSetCells)
             {
-                var restList = index.GetRest();
+                var restList = index.RestList;
                 if (restList.Count==1)
                 {
                     cellInfo.Add(new PositiveCellInfo(index.Index, restList[0]));

@@ -28,7 +28,9 @@ namespace Sudoku.Core
 
         public string RestString => GetRest().JoinString();
 
-        public List<int> GetRest()
+        public List<int> RestList => GetRest();
+
+        private List<int> GetRest()
         {
             if (mRest == null)
             {
@@ -97,14 +99,6 @@ namespace Sudoku.Core
         }
 
         public CellInfo AnalysisRoot;
-
-
- 
-
-
-
-
-
 
         public CellInfo Parent { get; set; }
 

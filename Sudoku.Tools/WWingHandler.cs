@@ -25,7 +25,7 @@ namespace Sudoku.Tools
             foreach (var ab in cellPairs)
             {
                 var restString = ab.a.RestString;
-                var restInts = ab.a.GetRest();
+                var restInts = ab.a.RestList;
                 var restValue = ConvertToInts(restString);
                 var filterIndexs = allPossibleindex1.Where(c => restValue.Contains(c.SpeacialValue)).ToList();
                 foreach (var IndexPairs in filterIndexs.Where(c=>!c.indexs.Contains(ab.a.Index)&& !c.indexs.Contains(ab.b.Index)))
@@ -41,7 +41,7 @@ namespace Sudoku.Tools
                         var removeCells= qSudoku.GetPublicUnsetAreas(ab.a, ab.b);
                             foreach (var cell in removeCells)
                             {
-                                var rests = cell.GetRest();
+                                var rests = cell.RestList;
                                 if (rests.Count==2&& rests.Contains(rest))
                                 {
                                     cells.Add(new PositiveCellInfo(cell.Index, rests.First(c => c != rest)));
@@ -59,7 +59,7 @@ namespace Sudoku.Tools
                             var removeCells = qSudoku.GetPublicUnsetAreas(ab.a, ab.b);
                             foreach (var cell in removeCells)
                             {
-                                var rests = cell.GetRest();
+                                var rests = cell.RestList;
                                 if (rests.Count == 2 && rests.Contains(rest))
                                 {
                                     cells.Add(new PositiveCellInfo(cell.Index, rests.First(c => c != rest)));

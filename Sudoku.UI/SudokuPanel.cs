@@ -60,7 +60,7 @@ namespace Sudoku.UI
 
                 foreach (var item in sudoku.AllUnSetCells)
                 {
-                    foreach (var item1 in item.GetRest())
+                    foreach (var item1 in item.RestList)
                     {
                         var stringvalue = "" + item1;
                         Size size = TextRenderer.MeasureText(stringvalue, smallFont);

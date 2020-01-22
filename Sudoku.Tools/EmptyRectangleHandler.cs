@@ -23,7 +23,7 @@ namespace Sudoku.Tools
     
             foreach (var value in G.AllBaseValues)
             {
-                var cellInfos = allUnsetCell.Where(c => c.GetRest().Contains(value)).ToList();
+                var cellInfos = allUnsetCell.Where(c => c.RestList.Contains(value)).ToList();
                 foreach (var index in G.baseIndexs)
                 {
                     var blockCells = cellInfos.Where(c => c.Block == index).ToList();
@@ -53,13 +53,13 @@ namespace Sudoku.Tools
                                 if (aCell.RestCount == 2)
                                 {
                                     cells.Add(new PositiveCellInfo(aCell.Index,
-                                        aCell.GetRest().First(c => c != value)));
+                                        aCell.RestList.First(c => c != value)));
                                 }
                             }
                             else if (qSudoku.GetPossibleIndex(value, c => c.Value == 0 && c.Column == cCell.Column)
                                          .Count == 2 && bCell.RestCount == 2)
                             {
-                                cells.Add(new PositiveCellInfo(bCell.Index, bCell.GetRest().First(c => c != value)));
+                                cells.Add(new PositiveCellInfo(bCell.Index, bCell.RestList.First(c => c != value)));
                             }
                         }
                     }

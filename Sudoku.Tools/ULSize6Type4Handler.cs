@@ -15,7 +15,19 @@ namespace Sudoku.Tools
         {
             List<CellInfo> cells = new List<CellInfo>();
             var allUnSetCell = qSudoku.AllUnSetCells;
-            var pairCells = allUnSetCell.Where(c => c.RestCount == 2);
+            var pairCells = allUnSetCell.Where(c => c.RestCount == 2).ToList();
+            var ab = (from a in pairCells
+                join b in pairCells on a.RestString equals b.RestString
+                let indexs=new List<int> {a.Index,b.Index }
+                where a.Block == b.Block && a.Index < b.Index
+                select new {a, b,a.Block, a.RestList }).ToList();
+            foreach (var item in ab)
+            {
+                var block = item.Block;
+
+            }
+
+
             return cells;
         }
 

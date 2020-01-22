@@ -36,8 +36,8 @@ namespace Sudoku.Tools
                 {
                     var d = item.Last();
                     var a = item.First();
-                    var arest = a.GetRest();
-                    var drest = d.GetRest();
+                    var arest = a.RestList;
+                    var drest = d.RestList;
                     if (drest.Intersect(arest).Count() == 2)
                     {
                         var result = new PositiveCellInfo(d.Index, drest.First(c => !arest.Contains(c)));

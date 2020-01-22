@@ -19,12 +19,12 @@ namespace Sudoku.Tools
             foreach (var checkCell in checkCells)
             {
 
-                var checkCellRest = checkCell.GetRest();
+                var checkCellRest = checkCell.RestList;
                 var relatedCell = checkCell.RelatedUnsetCells;
                 var xy = (from x in relatedCell
                     join y in relatedCell on 1 equals 1
-                    let xrest = x.GetRest()
-                    let yrest = y.GetRest()
+                    let xrest = x.RestList
+                    let yrest = y.RestList
                     where x.Index < y.Index
                           && xrest.Count==2
                           && yrest.Count==2
@@ -45,7 +45,7 @@ namespace Sudoku.Tools
                         var removeValue = removes.First();
                         foreach (var unsetCell in qSudoku.GetPublicUnsetAreas(item.x, item.y).Where(c => c.Index != checkCell.Index))
                         {
-                            var unsetCellRest = unsetCell.GetRest();
+                            var unsetCellRest = unsetCell.RestList;
                             if (unsetCellRest.Contains(removeValue) && unsetCellRest.Count == 2)
                             {
                                 cells.Add(new PositiveCellInfo(unsetCell.Index, unsetCellRest.First(c => c != removeValue)));

@@ -81,7 +81,7 @@ namespace Sudoku.Tools
                 {
                     if (!subCells.Exists(c => c.Row == item.Row && c.Column == item.Column))
                     {
-                        var rests = item.GetRest();
+                        var rests = item.RestList;
                         if (rests.Contains(speacilValue) && rests.Count(x => x != speacilValue) == 1)
                         {
                             cells.Add(new PositiveCellInfo(item.Index, rests.First(x => x != speacilValue)));

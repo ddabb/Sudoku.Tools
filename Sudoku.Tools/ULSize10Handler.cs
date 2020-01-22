@@ -17,7 +17,7 @@ namespace Sudoku.Tools
             List<CellInfo> cells = new List<CellInfo>();
             var checkCells = qSudoku.AllUnSetCells;
             int cellCount = 10;
-            Dictionary<int, List<int>> dic = checkCells.ToDictionary(cell => cell.Index, cell => cell.GetRest());
+            Dictionary<int, List<int>> dic = checkCells.ToDictionary(cell => cell.Index, cell => cell.RestList);
             List<int> values = G.AllBaseValues.Where(value => dic.Values.Count(c => c.Contains(value)) > cellCount)
                 .ToList();
             foreach (var x in values)
@@ -27,7 +27,7 @@ namespace Sudoku.Tools
                     if (x >= y) continue;
                     var pair = new List<int> {x, y};
                     var subcheckcells = checkCells.Where(c =>
-                        c.GetRest().Intersect(pair).Count() == 2).ToList();
+                        c.RestList.Intersect(pair).Count() == 2).ToList();
                     var speacilCells = subcheckcells.Where(c => c.RestCount == 3).ToList();
                     foreach (var a0 in speacilCells)
                     {
@@ -52,7 +52,7 @@ namespace Sudoku.Tools
                                 && a4.Index != a1.Index
                             select new {a3, a4, a5}).ToList())
                         {
-                            cells.AddRange((from pair3 in a3a4a5 let a3 = pair3.a3 let a4 = pair3.a4 let a5 = pair3.a5 select (from a6 in subcheckcells join a7 in subcheckcells on a6.RestString equals a7.RestString join a8 in subcheckcells on a7.RestString equals a8.RestString join a9 in subcheckcells on a8.RestString equals a9.RestString where a6.Row == a5.Row && a5.Index != a6.Index && a6.Column == a9.Column && a6.Index != a9.Index && a9.Row == a8.Row && a8.Index != a9.Index && a8.Column == a7.Column && a8.Index != a7.Index && a7.Row == a3.Row && a7.Index != a3.Index && a7.RestString == pair.JoinString() select new {a6, a7, a8, a9}).ToList() into a6789 where a6789.Count == 1 select new PositiveCellInfo(a0.Index, a0.GetRest().Except(pair).First())).Cast<CellInfo>());
+                            cells.AddRange((from pair3 in a3a4a5 let a3 = pair3.a3 let a4 = pair3.a4 let a5 = pair3.a5 select (from a6 in subcheckcells join a7 in subcheckcells on a6.RestString equals a7.RestString join a8 in subcheckcells on a7.RestString equals a8.RestString join a9 in subcheckcells on a8.RestString equals a9.RestString where a6.Row == a5.Row && a5.Index != a6.Index && a6.Column == a9.Column && a6.Index != a9.Index && a9.Row == a8.Row && a8.Index != a9.Index && a8.Column == a7.Column && a8.Index != a7.Index && a7.Row == a3.Row && a7.Index != a3.Index && a7.RestString == pair.JoinString() select new {a6, a7, a8, a9}).ToList() into a6789 where a6789.Count == 1 select new PositiveCellInfo(a0.Index, a0.RestList.Except(pair).First())).Cast<CellInfo>());
                         }
                     }
                 }

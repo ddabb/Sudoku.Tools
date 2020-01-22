@@ -70,7 +70,7 @@ namespace Sudoku.Core
 
             if (this.RestCount == 2)
             {
-                PositiveCellInfo positive = new PositiveCellInfo(this.Index, GetRest().First(c => c != Value))
+                PositiveCellInfo positive = new PositiveCellInfo(this.Index, RestList.First(c => c != Value))
                 {
                     CellType = CellType.Positive,
                     Sudoku = this.Sudoku,

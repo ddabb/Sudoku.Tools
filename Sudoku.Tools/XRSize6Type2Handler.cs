@@ -23,8 +23,8 @@ namespace Sudoku.Tools
             var pairCells = allUnsetCells.Where(c => c.RestCount == 2).ToList();
             var ab = (from a in pairCells
                       join b in pairCells on 1 equals 1
-                let arest = a.GetRest()
-                let brest = b.GetRest()
+                let arest = a.RestList
+                let brest = b.RestList
                 where a.Index < b.Index
                       && a.Block != b.Block
                       && arest.Intersect(brest).Count() == 1

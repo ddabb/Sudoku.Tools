@@ -206,7 +206,7 @@ namespace Sudoku.Tools
             List<int> allrest = new List<int>();
             foreach (var cell in cellList)
             {
-                allrest.AddRange(cell.GetRest());
+                allrest.AddRange(cell.RestList);
             }
             allrest = allrest.Distinct().ToList();
             foreach (var speacialValue in allrest)
@@ -234,9 +234,9 @@ namespace Sudoku.Tools
 
             foreach (var spricevalue in G.AllBaseValues)
             {
-                if (rests.Count(c=>c.GetRest().Contains(spricevalue))==1)
+                if (rests.Count(c=>c.RestList.Contains(spricevalue))==1)
                 {
-                  var cell=    rests.Where(c => c.GetRest().Contains(spricevalue)).First();
+                  var cell=    rests.Where(c => c.RestList.Contains(spricevalue)).First();
                     if (cell.RestCount>1)
                     {
                    

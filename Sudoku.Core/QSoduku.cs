@@ -127,7 +127,7 @@ namespace Sudoku.Core
 
         public List<int> GetRest(int Index)
         {
-            return this.cellInfos.First(c => c.Index == Index).GetRest();
+            return this.cellInfos.First(c => c.Index == Index).RestList;
         }
 
 

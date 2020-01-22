@@ -19,7 +19,7 @@ namespace Sudoku.Tools
             {
                 foreach (var value in G.AllBaseValues)
                 {
-                    var cellList = AllunsetCells.Where(c => c.Column == index && c.GetRest().Contains(value)).ToList();
+                    var cellList = AllunsetCells.Where(c => c.Column == index && c.RestList.Contains(value)).ToList();
                     var blocks = cellList.Select(c => c.Block).Distinct().ToList();
                     if (cellList.Count > 1 && blocks.Count() == 1) //若cellList.Count==1 则是唯余法。
                     {
@@ -29,7 +29,7 @@ namespace Sudoku.Tools
                         var negativeCells = AllunsetCells.Where(c => c.Block == block && c.Column != index).ToList();
                         foreach (var item1 in negativeCells)
                         {
-                            var cellrest = item1.GetRest();
+                            var cellrest = item1.RestList;
                             if (cellrest.Count == 2 && cellrest.Contains(value))
                             {
                                 item1.Value = cellrest.First(c => c != value);
@@ -42,7 +42,7 @@ namespace Sudoku.Tools
                         var checkRow = AllunsetCells.Where(c => c.Block == block && !existsRows.Contains(c.Row)).Select(c => c.Row).ToList();
                         foreach (var row in checkRow)
                         {
-                            var list1 = AllunsetCells.Where(c => c.Block != block && c.Row == row && c.GetRest().Contains(value)).ToList();
+                            var list1 = AllunsetCells.Where(c => c.Block != block && c.Row == row && c.RestList.Contains(value)).ToList();
                             if (list1.Count() == 1)
                             {
                                 var result = list1.First();
@@ -53,7 +53,7 @@ namespace Sudoku.Tools
                         #endregion
 
                         var otherColumns = negativeCells.Select(c => c.Column).Distinct().ToList();
-                        foreach (var result in from column in otherColumns select AllunsetCells.Where(c => c.Block != block && c.Column == column && c.GetRest().Contains(value)).ToList() into list1 where list1.Count() == 1 select list1.First())
+                        foreach (var result in from column in otherColumns select AllunsetCells.Where(c => c.Block != block && c.Column == column && c.RestList.Contains(value)).ToList() into list1 where list1.Count() == 1 select list1.First())
                         {
                             result.Value = value;
                             cells.Add(result);

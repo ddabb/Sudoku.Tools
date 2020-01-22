@@ -18,8 +18,8 @@ namespace Sudoku.Tools
             var allUnsetCells = qSudoku.AllUnSetCells;
             var ab = (from a in allUnsetCells
                 join b in allUnsetCells on 1 equals 1
-                let arest = a.GetRest()
-                let brest = b.GetRest()
+                let arest = a.RestList
+                let brest = b.RestList
                 let sameRow = a.Row == b.Row
                 where a.Index != b.Index
                       && (a.Row == b.Row || a.Column == b.Column)
@@ -37,8 +37,8 @@ namespace Sudoku.Tools
 
                 var brelatedCell = (from c in allUnsetCells
                     join d in allUnsetCells on 1 equals 1
-                    let crest = c.GetRest()
-                    let drest = d.GetRest()
+                    let crest = c.RestList
+                    let drest = d.RestList
                     where c.Index < d.Index
                           && (sameRow
                               ? (c.Column == d.Column && c.Column == b.Column)

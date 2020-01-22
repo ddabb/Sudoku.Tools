@@ -30,7 +30,7 @@ namespace Sudoku.Tools
                             var removeValues = ConvertToInts(sub.Key);
                             foreach (var cell in removeCells)
                             {
-                                var rests = cell.GetRest();
+                                var rests = cell.RestList;
                                 if (rests.Count>1&&rests.Intersect(removeValues).Any())
                                 {
                                     foreach (var value in removeValues)

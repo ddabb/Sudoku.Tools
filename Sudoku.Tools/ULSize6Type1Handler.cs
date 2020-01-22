@@ -26,7 +26,7 @@ namespace Sudoku.Tools
                     let indexs=new List<int> {a1.Index,a2.Index }
                  where a1.Column == a0.Column
                        && a2.Row == a0.Row
-                       && a0.GetRest().Intersect(a1.GetRest()).Count() == 2
+                       && a0.RestList.Intersect(a1.RestList).Count() == 2
                     select new { a1, a2, restString, indexs }).ToList();
 
                 foreach (var item in step)
@@ -49,7 +49,7 @@ namespace Sudoku.Tools
                         select new {a3, a4, a5}).ToList();
                     foreach (var item1 in results)
                     {
-                        cells.Add(new PositiveCellInfo(a0.Index,a0.GetRest().Except(a1.GetRest()).First()));
+                        cells.Add(new PositiveCellInfo(a0.Index,a0.RestList.Except(a1.RestList).First()));
                     }
                 }
             }

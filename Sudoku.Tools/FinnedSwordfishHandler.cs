@@ -23,7 +23,7 @@ namespace Sudoku.Tools
             List<int> sumrange = new List<int> { 6, 7, 8 };
             foreach (var value in G.AllBaseValues)
             {
-                var checkCell = qSudoku.AllUnSetCells.Where(c => c.GetRest().Contains(value)).ToList();
+                var checkCell = qSudoku.AllUnSetCells.Where(c => c.RestList.Contains(value)).ToList();
                 var filter = (from index1 in G.baseIndexs
                     join index2 in G.baseIndexs on 1 equals 1
                     join index3 in G.baseIndexs on 1 equals 1
@@ -44,8 +44,8 @@ namespace Sudoku.Tools
                 {
                     cells.AddRange(checkCell.Where(c => !item.rows.Contains(c.Row)
                                                         && item.columns.Contains(c.Column) &&
-                                                        c.GetRest().Contains(value) &&
-                                                        c.RestCount == 2).Select(cell => new PositiveCellInfo(cell.Index, cell.GetRest().First(c => c != value))
+                                                        c.RestList.Contains(value) &&
+                                                        c.RestCount == 2).Select(cell => new PositiveCellInfo(cell.Index, cell.RestList.First(c => c != value))
                     ).Cast<CellInfo>());
                 }
 
@@ -69,8 +69,8 @@ namespace Sudoku.Tools
                 {
                     cells.AddRange(checkCell.Where(c => item.distinctRows.Contains(c.Row)
                                                         && !item.columns.Contains(c.Column) &&
-                                                        c.GetRest().Contains(value) &&
-                                                        c.RestCount == 2).Select(cell => new PositiveCellInfo(cell.Index, cell.GetRest().First(c => c != value))
+                                                        c.RestList.Contains(value) &&
+                                                        c.RestCount == 2).Select(cell => new PositiveCellInfo(cell.Index, cell.RestList.First(c => c != value))
                     ).Cast<CellInfo>());
                 }
 
@@ -85,7 +85,7 @@ namespace Sudoku.Tools
         {
             List<CellInfo> results = new List<CellInfo>();
 
-            var containsell = allUnSetCell.Where(c => c.GetRest().Contains(value)).ToList();
+            var containsell = allUnSetCell.Where(c => c.RestList.Contains(value)).ToList();
 
             var indexss = (from index1 in G.baseIndexs
                            join index2 in G.baseIndexs on 1 equals 1

@@ -26,8 +26,8 @@ namespace Sudoku.Tools
                              && c.Index < d.Index
                              && d.RestCount == 3
                              && a.RestCount == 2
-                             && d.GetRest().Except(a.GetRest()).Count()==1
-                              && d.GetRest().Intersect(a.GetRest()).Count() == 2
+                             && d.RestList.Except(a.RestList).Count()==1
+                              && d.RestList.Intersect(a.RestList).Count() == 2
                           select new List<CellInfo> { a, b, c, d }).ToList();
             foreach (var item in filter)
             {
@@ -36,13 +36,13 @@ namespace Sudoku.Tools
                   
                     var a = item.First();
                     var d = item.Last();
-                    var arest = a.GetRest();
-                    var drest = d.GetRest();
-                    var value = d.GetRest().Except(a.GetRest()).First();
-                 var tempResult = qSudoku.GetPublicUnsetAreas(item[2], item[3]).Where(c => c.RestCount == 2 && c.GetRest().Contains(value));
+                    var arest = a.RestList;
+                    var drest = d.RestList;
+                    var value = d.RestList.Except(a.RestList).First();
+                 var tempResult = qSudoku.GetPublicUnsetAreas(item[2], item[3]).Where(c => c.RestCount == 2 && c.RestList.Contains(value));
                     foreach (var cell in tempResult)
                     {
-                        cells.Add(new PositiveCellInfo(cell.Index, cell.GetRest().First(c => c != value)));
+                        cells.Add(new PositiveCellInfo(cell.Index, cell.RestList.First(c => c != value)));
                     }
                 }
             }

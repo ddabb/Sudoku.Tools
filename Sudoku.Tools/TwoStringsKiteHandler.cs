@@ -50,7 +50,7 @@ namespace Sudoku.Tools
                     var restCells = qSudoku.GetPublicUnsetAreas(intersectIndex[0], intersectIndex[1]);
                     foreach (var cell in restCells)
                     {
-                        var rests = cell.GetRest();
+                        var rests = cell.RestList;
                         if (rests.Count == 2 && rests.Contains(rest))
                         {
                             cells.Add(new PositiveCellInfo(cell.Index, rests.First(c => c != rest)));

@@ -34,7 +34,7 @@ namespace Sudoku.Tools
                     .Where(c => !exceptIndexs.Contains(c.Index) && c.RestString == restString).ToList();
                 var a0 = item.a0;
                 var a1 = item.a1;
-                var restList = a0.GetRest();
+                var restList = a0.RestList;
                 var item1s = (from a2 in leftCells
                               join a3 in leftCells on a2.Block equals a3.Block
                               let sameRow = a2.Row == a0.Row && a1.Row == a3.Row
@@ -53,8 +53,8 @@ namespace Sudoku.Tools
                                     join a5 in otherCells on a4.Column equals a5.Column
                                     where a4.Row == a0.Row
                                           && a5.Row == a1.Row
-                                          && a4.GetRest().Intersect(restList).Count() == 2
-                                          && a5.GetRest().Intersect(restList).Count() == 2
+                                          && a4.RestList.Intersect(restList).Count() == 2
+                                          && a5.RestList.Intersect(restList).Count() == 2
                                     select new { a4, a5 }).ToList();
                         foreach (var item3 in a4a5)
                         {
@@ -69,8 +69,8 @@ namespace Sudoku.Tools
                                     join a5 in otherCells on a4.Row equals a5.Row
                                     where a4.Column == a0.Column
                                           && a5.Column == a1.Column
-                                          && a4.GetRest().Intersect(restList).Count() == 2
-                                          && a5.GetRest().Intersect(restList).Count() == 2
+                                          && a4.RestList.Intersect(restList).Count() == 2
+                                          && a5.RestList.Intersect(restList).Count() == 2
                                     select new { a4, a5 }).ToList();
                         foreach (var item3 in a4a5)
                         {
@@ -97,8 +97,8 @@ namespace Sudoku.Tools
             List<CellInfo> cells = new List<CellInfo>();
             var restCount = new List<int> { 1, 2 };
             var sumRest = new List<int>();
-            var rest1 = a4.GetRest().Except(restList).ToList();
-            var rest2 = a5.GetRest().Except(restList).ToList();
+            var rest1 = a4.RestList.Except(restList).ToList();
+            var rest2 = a5.RestList.Except(restList).ToList();
             sumRest.AddRange(rest1);
             sumRest.AddRange(rest2);
             sumRest = sumRest.Distinct().ToList();

@@ -15,7 +15,7 @@ namespace Sudoku.Tools
             List<CellInfo> cells = new List<CellInfo>();
             var checkCells = qSudoku.AllUnSetCells;
             int cellCount = 8;
-            Dictionary<int, List<int>> dic = checkCells.ToDictionary(cell => cell.Index, cell => cell.GetRest());
+            Dictionary<int, List<int>> dic = checkCells.ToDictionary(cell => cell.Index, cell => cell.RestList);
             List<int> values = G.AllBaseValues.Where(value => dic.Values.Count(c => c.Contains(value)) > cellCount)
                 .ToList();
             foreach (var x in values)
@@ -25,7 +25,7 @@ namespace Sudoku.Tools
                     if (x >= y) continue;
                     var pair = new List<int> {x, y};
                     var speacilCells = checkCells.Where(c =>
-                        c.GetRest().Intersect(pair).Count() == 2 && c.RestCount == 3).ToList();
+                        c.RestList.Intersect(pair).Count() == 2 && c.RestCount == 3).ToList();
                     foreach (var a0 in speacilCells)
                     {
                         foreach (var a3A4A5 in from pair1 in from a1 in checkCells
@@ -63,7 +63,7 @@ namespace Sudoku.Tools
                                     select new {a6, a7}).ToList()
                                 into last
                                 where last.Count == 1
-                                select new PositiveCellInfo(a0.Index, a0.GetRest().Except(pair).First()));
+                                select new PositiveCellInfo(a0.Index, a0.RestList.Except(pair).First()));
                         }
                     }
                 }

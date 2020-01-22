@@ -23,16 +23,16 @@ namespace Sudoku.Tools
             var checkCells = allUnSetCell.Where(c => c.RestCount == 3).ToList();
             foreach (var checkCell in checkCells)
             {
-                var checkCellRest = checkCell.GetRest();
+                var checkCellRest = checkCell.RestList;
                 var relatedCell = checkCell.RelatedUnsetCells
-                    .Where(c => c.RestCount == 2 && c.GetRest().Intersect(checkCellRest).Count() == 1).ToList();
+                    .Where(c => c.RestCount == 2 && c.RestList.Intersect(checkCellRest).Count() == 1).ToList();
                 var filter = (from a in relatedCell
                     join b in relatedCell on 1 equals 1
                     join c in relatedCell on 1 equals 1
                     let indexs = new List<int> {a.Index, b.Index, c.Index, checkCell.Index}
-                    let arest = a.GetRest()
-                    let brest = b.GetRest()
-                    let crest = c.GetRest()
+                    let arest = a.RestList
+                    let brest = b.RestList
+                    let crest = c.RestList
                     let removeValue = arest.Except(checkCellRest).First()
                     where arest.Except(checkCellRest).First() == brest.Except(checkCellRest).First()
                           && arest.Except(checkCellRest).First() == crest.Except(checkCellRest).First()

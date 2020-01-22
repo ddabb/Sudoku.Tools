@@ -50,7 +50,7 @@ namespace Sudoku.Core
             var cells = new List<CellInfo>();
   
 
-            cells = this.RelatedUnsetCells.Where(c => c.GetRest().Contains(this.Value)&&Sudoku.AllChainsIndex.Contains(c.Index)).ToList();
+            cells = this.RelatedUnsetCells.Where(c => c.RestList.Contains(this.Value)&&Sudoku.AllChainsIndex.Contains(c.Index)).ToList();
             foreach (var cellInfo in cells)
             {
                 NegativeCellInfo cell = new NegativeCellInfo(cellInfo.Index, Value)
@@ -66,7 +66,7 @@ namespace Sudoku.Core
                 cell.Fromto.toIndex = cell.Index;
                 cellsA.Add(cell);
             }
-            foreach (var item in this.GetRest().Where(c=>c!=Value))
+            foreach (var item in this.RestList.Where(c=>c!=Value))
             {
                 NegativeCellInfo cell = new NegativeCellInfo(Index, item)
                 {

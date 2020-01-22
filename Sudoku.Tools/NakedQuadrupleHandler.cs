@@ -67,7 +67,7 @@ namespace Sudoku.Tools
             var allRest = new List<int>();
             foreach (var checkCellInfo in checkCellInfos)
             {
-                allRest.AddRange(checkCellInfo.GetRest());
+                allRest.AddRange(checkCellInfo.RestList);
             }
 
 
@@ -79,7 +79,7 @@ namespace Sudoku.Tools
 
                 foreach (var subCheckCell in subCheckCells)
                 {
-                    var rests = subCheckCell.GetRest();
+                    var rests = subCheckCell.RestList;
                     if (rests.Intersect(allRest).Count() <= 1) continue;
                     foreach (var value in allRest)
                     {

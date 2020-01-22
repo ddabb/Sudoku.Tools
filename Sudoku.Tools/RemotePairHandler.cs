@@ -31,9 +31,9 @@ namespace Sudoku.Tools
             {
                 var c = item.c;
                 var d = item.d;
-                var rest = c.GetRest();
+                var rest = c.RestList;
                 cells.AddRange((from cell in qSudoku.GetPublicUnsetAreas(c, d) 
-                    let cellrest = cell.GetRest() 
+                    let cellrest = cell.RestList 
                     where cellrest.Intersect(rest).Any() && cellrest.Except(rest).Count() == 1 
                     select new PositiveCellInfo(cell.Index, cellrest.Except(rest).First())).Cast<CellInfo>());
             }
