@@ -16,15 +16,14 @@ namespace Sudoku.Tools
         {
             List<CellInfo> cells = new List<CellInfo>();
 
-            foreach (var index in qSudoku.AllChainsIndex)
+            foreach (var cell1 in qSudoku.AllUnSetCells)
             {
-
-                foreach (var testValue in qSudoku.GetRest(index))
+                foreach (var testValue in cell1.RestList)
                 {
-                    var index1 = index;
+                    var index1 = cell1.Index;
                     var testValue1 = testValue;
                     NegativeCellInfo cell = new NegativeCellInfo(index1, testValue1)
-                    { Sudoku = qSudoku, CellType = CellType.Negative, IsRoot = true };
+                        { Sudoku = qSudoku, CellType = CellType.Negative, IsRoot = true };
                     traceCell.Clear();
                     List<CellInfo> initCellInfo = new List<CellInfo>();
                     Fuc(cell, ref initCellInfo);
@@ -40,8 +39,6 @@ namespace Sudoku.Tools
                     }
 
                 }
-
-
             }
             return cells;
 

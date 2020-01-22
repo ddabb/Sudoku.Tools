@@ -84,6 +84,17 @@ namespace Sudoku.Core
             return result;
         }
 
+        public static List<int> GetCellIndexs(params CellInfo[] n)
+        {
+            List<int> result = new List<int>();
+            foreach (var item in n)
+            {
+                result.Add(item.Index);
+            }
+
+            result = result.Distinct().ToList();
+            return result;
+        }
 
         public static List<int> MergeInt(params List<int>[] n)
         {

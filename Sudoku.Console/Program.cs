@@ -18,7 +18,7 @@ namespace Sudoku.Console
             //runtest = false;
             if (runtest)
             {
-                ConsoleAssignmentExample(typeof(ULSize6Type4Handler));
+                ConsoleAssignmentExample(typeof(NakedQuadrupleHandler));
                 return;
 
             }
