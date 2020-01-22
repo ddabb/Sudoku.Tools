@@ -17,7 +17,7 @@ namespace Sudoku.Tools
             var allUnSetCell = qSudoku.AllUnSetCells;
             List<int> possibleCount=new List<int>{2,3};
             //只有2或3个候选数的单元格
-            var twoOrThreeRests = allUnSetCell.Where(c=>possibleCount.Contains(c.GetRest().Count)).ToList();
+            var twoOrThreeRests = allUnSetCell.Where(c=>possibleCount.Contains(c.RestCount)).ToList();
             foreach (var direction in G.AllDirection)
             {
                 foreach (var index in G.baseIndexs)

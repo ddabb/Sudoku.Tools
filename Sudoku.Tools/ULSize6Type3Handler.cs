@@ -14,15 +14,15 @@ namespace Sudoku.Tools
         {
             List<CellInfo> cells = new List<CellInfo>();
             var allUnSetCell = qSudoku.AllUnSetCells;
-            var pairCells = allUnSetCell.Where(c => c.GetRest().Count == 2).ToList();
-            var otherCells = allUnSetCell.Where(c => c.GetRest().Count > 2).ToList();
+            var pairCells = allUnSetCell.Where(c => c.RestCount == 2).ToList();
+            var otherCells = allUnSetCell.Where(c => c.RestCount > 2).ToList();
 
             var a0a1 = (from a0 in pairCells
                         join a1 in pairCells on a0.Block equals a1.Block
-                        let restString = a0.GetRestString()
+                        let restString = a0.RestString
                         let exceptIndexs = new List<int> { a0.Index, a1.Index }
                         where a0.Index < a1.Index
-                              && a0.GetRestString() == a1.GetRestString()
+                              && a0.RestString == a1.RestString
                         select new { a0, a1, restString, exceptIndexs }).ToList();
             foreach (var item in a0a1)
             {
@@ -31,7 +31,7 @@ namespace Sudoku.Tools
 
                 var exceptIndexs = item.exceptIndexs;
                 var leftCells = allUnSetCell
-                    .Where(c => !exceptIndexs.Contains(c.Index) && c.GetRestString() == restString).ToList();
+                    .Where(c => !exceptIndexs.Contains(c.Index) && c.RestString == restString).ToList();
                 var a0 = item.a0;
                 var a1 = item.a1;
                 var restList = a0.GetRest();
@@ -112,7 +112,7 @@ namespace Sudoku.Tools
                 var intersecta4a5Cells = a4RelatedIndex.Intersect(a5RelatedIndex).ToList();
                 var foundResult = allUnSetCell.Where(c =>
                         intersecta4a5Cells.Contains(c.Index) &&
-                        c.GetRestString() == sumRest.JoinString())
+                        c.RestString == sumRest.JoinString())
                     .ToList();
                 if (foundResult.Count != 0)
                 {

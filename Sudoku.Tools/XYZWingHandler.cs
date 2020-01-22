@@ -14,14 +14,14 @@ namespace Sudoku.Tools
         {
             List<CellInfo> cells = new List<CellInfo>();
             var unsetsell = qSudoku.AllUnSetCells;
-            var checkCells = qSudoku.AllUnSetCells.Where(c => c.GetRest().Count == 3).ToList();
+            var checkCells = qSudoku.AllUnSetCells.Where(c => c.RestCount == 3).ToList();
             foreach (var checkCell in checkCells)
             {
                 var cellrest = checkCell.GetRest();
-                var relatedCell = checkCell.RelatedUnsetCells.Where(c => c.GetRest().Count == 2 && c.GetRest().Intersect(checkCell.GetRest()).Count() > 1).ToList();
+                var relatedCell = checkCell.RelatedUnsetCells.Where(c => c.RestCount == 2 && c.GetRest().Intersect(checkCell.GetRest()).Count() > 1).ToList();
                 var cell = (from a in relatedCell
                             join b in relatedCell on 1 equals 1
-                            join cellInfo in qSudoku.AllUnSetCells.Where(c => c.GetRest().Count == 2) on 1 equals 1
+                            join cellInfo in qSudoku.AllUnSetCells.Where(c => c.RestCount == 2) on 1 equals 1
                             let arest = a.GetRest()
                             let brest = b.GetRest()
                             let cellRest = cellInfo.GetRest()

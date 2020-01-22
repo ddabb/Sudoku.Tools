@@ -68,7 +68,7 @@ namespace Sudoku.Core
 
             List<CellInfo> cells = new List<CellInfo>();
 
-            if (this.GetRest().Count == 2)
+            if (this.RestCount == 2)
             {
                 PositiveCellInfo positive = new PositiveCellInfo(this.Index, GetRest().First(c => c != Value))
                 {

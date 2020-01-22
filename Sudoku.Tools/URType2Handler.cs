@@ -16,16 +16,16 @@ namespace Sudoku.Tools
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
-            var allcheckCell = qSudoku.AllUnSetCells.Where(c => new List<int> { 2, 3 }.Contains(c.GetRest().Count)).ToList();
+            var allcheckCell = qSudoku.AllUnSetCells.Where(c => new List<int> { 2, 3 }.Contains(c.RestCount)).ToList();
 
             var filter = (from a in allcheckCell
-                          join b in allcheckCell on a.GetRestString() equals b.GetRestString()
+                          join b in allcheckCell on a.RestString equals b.RestString
                           join c in allcheckCell on 1 equals 1
-                          join d in allcheckCell on c.GetRestString() equals d.GetRestString()
+                          join d in allcheckCell on c.RestString equals d.RestString
                           where a.Index < b.Index
                              && c.Index < d.Index
-                             && d.GetRest().Count() == 3
-                             && a.GetRest().Count() == 2
+                             && d.RestCount == 3
+                             && a.RestCount == 2
                              && d.GetRest().Except(a.GetRest()).Count()==1
                               && d.GetRest().Intersect(a.GetRest()).Count() == 2
                           select new List<CellInfo> { a, b, c, d }).ToList();
@@ -39,7 +39,7 @@ namespace Sudoku.Tools
                     var arest = a.GetRest();
                     var drest = d.GetRest();
                     var value = d.GetRest().Except(a.GetRest()).First();
-                 var tempResult = qSudoku.GetPublicUnsetAreas(item[2], item[3]).Where(c => c.GetRest().Count == 2 && c.GetRest().Contains(value));
+                 var tempResult = qSudoku.GetPublicUnsetAreas(item[2], item[3]).Where(c => c.RestCount == 2 && c.GetRest().Contains(value));
                     foreach (var cell in tempResult)
                     {
                         cells.Add(new PositiveCellInfo(cell.Index, cell.GetRest().First(c => c != value)));

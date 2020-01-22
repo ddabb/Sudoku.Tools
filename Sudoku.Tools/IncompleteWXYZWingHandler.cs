@@ -20,12 +20,12 @@ namespace Sudoku.Tools
         {
             List<CellInfo> cells = new List<CellInfo>();
             var allUnSetCell = qSudoku.AllUnSetCells;
-            var checkCells = allUnSetCell.Where(c => c.GetRest().Count == 3).ToList();
+            var checkCells = allUnSetCell.Where(c => c.RestCount == 3).ToList();
             foreach (var checkCell in checkCells)
             {
                 var checkCellRest = checkCell.GetRest();
                 var relatedCell = checkCell.RelatedUnsetCells
-                    .Where(c => c.GetRest().Count == 2 && c.GetRest().Intersect(checkCellRest).Count() == 1).ToList();
+                    .Where(c => c.RestCount == 2 && c.GetRest().Intersect(checkCellRest).Count() == 1).ToList();
                 var filter = (from a in relatedCell
                     join b in relatedCell on 1 equals 1
                     join c in relatedCell on 1 equals 1

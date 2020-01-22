@@ -17,12 +17,12 @@ namespace Sudoku.Tools
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
-            var checkCells = qSudoku.AllUnSetCells.Where(c => c.GetRest().Count == 4).ToList();
+            var checkCells = qSudoku.AllUnSetCells.Where(c => c.RestCount == 4).ToList();
             List<int> countRange = new List<int> { 2, 3 };
             foreach (var checkcell in checkCells)
             {
                 var checkcellRest = checkcell.GetRest();
-                var relatedCell = checkcell.RelatedUnsetCells.Where(c => countRange.Contains(c.GetRest().Count) && c.GetRest().Intersect(checkcellRest).Any()).ToList();
+                var relatedCell = checkcell.RelatedUnsetCells.Where(c => countRange.Contains(c.RestCount) && c.GetRest().Intersect(checkcellRest).Any()).ToList();
 
                 var filter = (from x in relatedCell
                               join y in relatedCell on 1 equals 1

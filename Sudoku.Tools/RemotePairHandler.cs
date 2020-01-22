@@ -14,11 +14,11 @@ namespace Sudoku.Tools
         {
             List<CellInfo> cells = new List<CellInfo>();
             var filter = qSudoku.AllUnSetCells;
-            var checkCells = filter.Where(c => c.GetRest().Count == 2).ToList();
+            var checkCells = filter.Where(c => c.RestCount == 2).ToList();
             var cd = (from a in checkCells
-                      join b in checkCells on a.GetRestString() equals b.GetRestString()
-                      join c in checkCells on b.GetRestString() equals c.GetRestString()
-                      join d in checkCells on b.GetRestString() equals d.GetRestString()
+                      join b in checkCells on a.RestString equals b.RestString
+                      join c in checkCells on b.RestString equals c.RestString
+                      join d in checkCells on b.RestString equals d.RestString
                       where new List<int>() { a.Index, b.Index, c.Index, d.Index }.Distinct().Count() == 4
                             && ((a.Column == b.Column && a.Row == c.Row && b.Row == d.Row) || (a.Row == b.Row
                                                                                                && a.Column == c.Column &&

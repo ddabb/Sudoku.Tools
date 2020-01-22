@@ -237,7 +237,7 @@ namespace Sudoku.Tools
                 if (rests.Count(c=>c.GetRest().Contains(spricevalue))==1)
                 {
                   var cell=    rests.Where(c => c.GetRest().Contains(spricevalue)).First();
-                    if (cell.GetRest().Count>1)
+                    if (cell.RestCount>1)
                     {
                    
                         cells.Add(new PositiveCellInfo(cell.Index, spricevalue));

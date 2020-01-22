@@ -17,15 +17,15 @@ namespace Sudoku.Tools
             List<CellInfo> cells = new List<CellInfo>();
             var unCheckSell = qSudoku.AllUnSetCells;
             var pairs = (from a in unCheckSell
-                         join b in unCheckSell on a.GetRest().JoinString() equals b.GetRestString()
+                         join b in unCheckSell on a.GetRest().JoinString() equals b.RestString
                          where (a.Row == b.Row || a.Column == b.Column) && a.Index < b.Index
-                                                                        && a.GetRest().Count == 2
+                                                                        && a.RestCount == 2
                          select new { a, b }).ToList();
             foreach (var cell in pairs)
             {
                 var a = cell.a;
                 var b = cell.b;
-                var restString = a.GetRestString();
+                var restString = a.RestString;
                 var restInt = a.GetRest();
 
                 if (a.Row == b.Row)
@@ -38,8 +38,8 @@ namespace Sudoku.Tools
                                                        && d.GetRest().Intersect(restInt).Count() == 2
                                                        && c.Column == a.Column
                                                        && d.Column == b.Column
-                                                       && c.GetRest().Count > 2
-                                                       && d.GetRest().Count > 2
+                                                       && c.RestCount > 2
+                                                       && d.RestCount > 2
                                   select new { c, d }).ToList();
                     foreach (var cell2 in pairs1)
                     {
@@ -65,8 +65,8 @@ namespace Sudoku.Tools
                                                              && d.GetRest().Intersect(restInt).Count() == 2
                                                              && c.Row == a.Row
                                                              && d.Row == b.Row
-                                                             && c.GetRest().Count > 2
-                                                             && d.GetRest().Count > 2
+                                                             && c.RestCount > 2
+                                                             && d.RestCount > 2
                                   select new { c, d }).ToList();
                     foreach (var cell2 in pairs1)
                     {

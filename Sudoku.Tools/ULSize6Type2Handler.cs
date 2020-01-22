@@ -22,11 +22,11 @@ namespace Sudoku.Tools
         {
             List<CellInfo> cells = new List<CellInfo>();
             var checkCells = qSudoku.AllUnSetCells;
-            var restPair = qSudoku.AllUnSetCells.Where(c => c.GetRest().Count == 2);
+            var restPair = qSudoku.AllUnSetCells.Where(c => c.RestCount == 2);
 
             var filter = (from x in checkCells
-                          join y in checkCells on x.GetRestString() equals y.GetRestString()
-                          where x.GetRest().Count == 3
+                          join y in checkCells on x.RestString equals y.RestString
+                          where x.RestCount == 3
                           && x.Column != y.Column
                             && x.Row != y.Row
                           select new { x, y }
@@ -36,9 +36,9 @@ namespace Sudoku.Tools
                 var cellX = item.x;
                 var cellY = item.y;
                 var testLinq = (from a in restPair
-                                join b in restPair on a.GetRestString() equals b.GetRestString()
-                                join c in restPair on a.GetRestString() equals c.GetRestString()
-                                join d in restPair on a.GetRestString() equals d.GetRestString()
+                                join b in restPair on a.RestString equals b.RestString
+                                join c in restPair on a.RestString equals c.RestString
+                                join d in restPair on a.RestString equals d.RestString
                                 where a.Column == cellX.Column && b.Column == cellY.Column
                                       && a.Row == b.Row
                                       && c.Column == d.Column
@@ -49,7 +49,7 @@ namespace Sudoku.Tools
                 {
                     var rest = testLinq.First().a.GetRest();
                     var value = cellX.GetRest().Except(rest).First();
-                    var tempResult = qSudoku.GetPublicUnsetAreas(cellX, cellY).Where(c => c.GetRest().Count == 2 && c.GetRest().Contains(value));
+                    var tempResult = qSudoku.GetPublicUnsetAreas(cellX, cellY).Where(c => c.RestCount == 2 && c.GetRest().Contains(value));
                     foreach (var cell in tempResult)
                     {
                         cells.Add(new PositiveCellInfo(cell.Index, cell.GetRest().First(c => c != value)));

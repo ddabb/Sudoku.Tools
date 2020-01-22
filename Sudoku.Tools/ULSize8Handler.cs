@@ -25,24 +25,24 @@ namespace Sudoku.Tools
                     if (x >= y) continue;
                     var pair = new List<int> {x, y};
                     var speacilCells = checkCells.Where(c =>
-                        c.GetRest().Intersect(pair).Count() == 2 && c.GetRest().Count == 3).ToList();
+                        c.GetRest().Intersect(pair).Count() == 2 && c.RestCount == 3).ToList();
                     foreach (var a0 in speacilCells)
                     {
                         foreach (var a3A4A5 in from pair1 in from a1 in checkCells
-                                join a2 in checkCells on a1.GetRestString() equals a2.GetRestString()
+                                join a2 in checkCells on a1.RestString equals a2.RestString
                                 where a1.Index != a2.Index
                                       && a1.Row == a0.Row
-                                      && a1.GetRest().Count == 2
+                                      && a1.RestCount == 2
                                       && a2.Column == a0.Column
                                 select new {a1, a2}
                             let a1 = pair1.a1
                             let a2 = pair1.a2
                             select (from a3 in checkCells
-                                join a4 in checkCells on a3.GetRestString() equals a4.GetRestString()
-                                join a5 in checkCells on a4.GetRestString() equals a5.GetRestString()
+                                join a4 in checkCells on a3.RestString equals a4.RestString
+                                join a5 in checkCells on a4.RestString equals a5.RestString
                                 where a3.Index != a4.Index
                                       && a5.Index != a4.Index
-                                      && a3.GetRest().Count == 2
+                                      && a3.RestCount == 2
                                       && a3.Row == a4.Row
                                       && a2.Row == a5.Row
                                       && a3.Column == a1.Column
@@ -54,10 +54,10 @@ namespace Sudoku.Tools
                                 let a5 = triple1.a5
                                 select (
                                     from a6 in checkCells
-                                    join a7 in checkCells on a6.GetRestString() equals a7.GetRestString()
+                                    join a7 in checkCells on a6.RestString equals a7.RestString
                                     where a6.Index < a7.Index
                                           && a6.Row == a7.Row
-                                          && a7.GetRestString() == pair.JoinString()
+                                          && a7.RestString == pair.JoinString()
                                           && a6.Column == a4.Column
                                           && a7.Column == a5.Column
                                     select new {a6, a7}).ToList()

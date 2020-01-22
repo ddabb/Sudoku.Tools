@@ -15,7 +15,7 @@ namespace Sudoku.Tools
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
-            var checkCells = qSudoku.GetFilterCell(c => c.Value == 0 && c.GetRest().Count ==2);
+            var checkCells = qSudoku.GetFilterCell(c => c.Value == 0 && c.RestCount ==2);
             foreach (var direction in G.AllDirection)
             {
                 foreach (var index in G.baseIndexs)
@@ -23,10 +23,10 @@ namespace Sudoku.Tools
                     var subcells = qSudoku.AllUnSetCells.Where(c => G.GetFilter(c, direction, index)).ToList();
                     if (subcells.Count>2)
                     {
-                        var temp = checkCells.Where(c => G.GetFilter(c, direction, index)).GroupBy(c => c.GetRestString()).Where(c => c.Count() == 2);
+                        var temp = checkCells.Where(c => G.GetFilter(c, direction, index)).GroupBy(c => c.RestString).Where(c => c.Count() == 2);
                         foreach (var sub in temp)
                         {
-                            var removeCells = subcells.Where(c => c.GetRestString() != sub.Key);
+                            var removeCells = subcells.Where(c => c.RestString != sub.Key);
                             var removeValues = ConvertToInts(sub.Key);
                             foreach (var cell in removeCells)
                             {

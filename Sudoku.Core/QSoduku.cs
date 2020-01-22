@@ -261,7 +261,7 @@ namespace Sudoku.Core
             {
                 if (mAllChainsIndex == null)
                 {
-                    var checkIndexLists = AllUnSetCells.Where(c => c.GetRest().Count == 2).Select(c => c.Index).ToList();
+                    var checkIndexLists = AllUnSetCells.Where(c => c.RestCount == 2).Select(c => c.Index).ToList();
                     var aOrBIndex = GetPossibleIndexByTimes(2);
                     foreach (var item in aOrBIndex)
                     {

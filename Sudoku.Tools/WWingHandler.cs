@@ -13,18 +13,18 @@ namespace Sudoku.Tools
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
-            var pairs = qSudoku.AllUnSetCells.Where(c => c.GetRest().Count == 2);
+            var pairs = qSudoku.AllUnSetCells.Where(c => c.RestCount == 2);
             var cellPairs = (from a in pairs
                              join b in pairs on 1 equals 1
                              where a.Index < b.Index     
                              && !IsSameBlock(a,b)
-                             && a.GetRestString() == b.GetRestString()
+                             && a.RestString == b.RestString
                              select new { a, b }).ToList();
             int times = 2;
             List<PossibleIndex> allPossibleindex1 = GetAllPossibleIndexInRowOrColumn(qSudoku, times);
             foreach (var ab in cellPairs)
             {
-                var restString = ab.a.GetRestString();
+                var restString = ab.a.RestString;
                 var restInts = ab.a.GetRest();
                 var restValue = ConvertToInts(restString);
                 var filterIndexs = allPossibleindex1.Where(c => restValue.Contains(c.SpeacialValue)).ToList();

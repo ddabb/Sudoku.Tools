@@ -50,14 +50,14 @@ namespace Sudoku.Tools
                             var cCell = item.c;
                             if (qSudoku.GetPossibleIndex(value, c => c.Value == 0 && c.Row == cCell.Row).Count == 2)
                             {
-                                if (aCell.GetRest().Count == 2)
+                                if (aCell.RestCount == 2)
                                 {
                                     cells.Add(new PositiveCellInfo(aCell.Index,
                                         aCell.GetRest().First(c => c != value)));
                                 }
                             }
                             else if (qSudoku.GetPossibleIndex(value, c => c.Value == 0 && c.Column == cCell.Column)
-                                         .Count == 2 && bCell.GetRest().Count == 2)
+                                         .Count == 2 && bCell.RestCount == 2)
                             {
                                 cells.Add(new PositiveCellInfo(bCell.Index, bCell.GetRest().First(c => c != value)));
                             }

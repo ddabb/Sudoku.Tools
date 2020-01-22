@@ -53,8 +53,8 @@ namespace Sudoku.Tools
                     var drest = item2.drest;
                     var list = (from e in allUnsetCells
                         join f in allUnsetCells on 1 equals 1
-                        where e.GetRestString() == crest.JoinString()
-                              && f.GetRestString() == drest.JoinString()
+                        where e.RestString == crest.JoinString()
+                              && f.RestString == drest.JoinString()
                               && (sameRow
                                   ? e.Column == a.Column && f.Column == a.Column && e.Row == c.Row && f.Row == d.Row
                                   : e.Row == a.Row && f.Row == a.Row && e.Column == c.Column && f.Column == d.Column)

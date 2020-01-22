@@ -26,6 +26,8 @@ namespace Sudoku.Core
         
         public int RestCount => GetRest().Count;
 
+        public string RestString => GetRest().JoinString();
+
         public List<int> GetRest()
         {
             if (mRest == null)
@@ -39,10 +41,7 @@ namespace Sudoku.Core
             return mRest;
         }
         
-        public string GetRestString()
-        {
-            return string.Join(",", GetRest());
-        }
+
         /// <summary>
         /// 推导层级
         /// </summary>

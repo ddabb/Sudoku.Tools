@@ -20,7 +20,7 @@ namespace Sudoku.Tools
             List<CellInfo> cells = new List<CellInfo>();
             return cells;
             var allUnsetCells = qSudoku.AllUnSetCells;
-            var pairCells = allUnsetCells.Where(c => c.GetRest().Count == 2).ToList();
+            var pairCells = allUnsetCells.Where(c => c.RestCount == 2).ToList();
             var ab = (from a in pairCells
                       join b in pairCells on 1 equals 1
                 let arest = a.GetRest()
@@ -39,8 +39,8 @@ namespace Sudoku.Tools
                 var cd = (from c in publicCells
                     from d in publicCells
                     let inRow = a.Column == c.Column
-                    where c.GetRestString() == arest.JoinString()
-                          && d.GetRestString() == brest.JoinString()
+                    where c.RestString == arest.JoinString()
+                          && d.RestString == brest.JoinString()
                     select new {inRow, c, d}).ToList();
                 foreach (var item1 in cd)
                 {

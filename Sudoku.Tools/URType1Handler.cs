@@ -18,16 +18,16 @@ namespace Sudoku.Tools
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
-            var allcheckCell = qSudoku.AllUnSetCells.Where(c => new List<int> { 2, 3 }.Contains(c.GetRest().Count)).ToList();
+            var allcheckCell = qSudoku.AllUnSetCells.Where(c => new List<int> { 2, 3 }.Contains(c.RestCount)).ToList();
 
             var filter = (from a in allcheckCell
-                          join b in allcheckCell on a.GetRestString() equals b.GetRestString()
-                          join c in allcheckCell on a.GetRestString() equals c.GetRestString()
+                          join b in allcheckCell on a.RestString equals b.RestString
+                          join c in allcheckCell on a.RestString equals c.RestString
                           join d in allcheckCell on 1 equals 1
                           where a.Index < b.Index
                              && b.Index < c.Index
-                             && d.GetRest().Count() == 3
-                             && a.GetRest().Count() == 2
+                             && d.RestCount == 3
+                             && a.RestCount == 2
 
                           select new List<CellInfo> { a, b, c, d }).ToList();
             foreach (var item in filter)
