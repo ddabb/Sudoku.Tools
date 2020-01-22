@@ -1,6 +1,7 @@
 ﻿using Sudoku.Core;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Sudoku.Tools
@@ -12,7 +13,10 @@ namespace Sudoku.Tools
 
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
-            throw new NotImplementedException();
+            List<CellInfo> cells = new List<CellInfo>();
+            var allUnSetCell = qSudoku.AllUnSetCells;
+            var pairCells = allUnSetCell.Where(c => c.RestCount == 2);
+            return cells;
         }
 
         public override List<NegativeCellInfo> Elimination(QSudoku qSudoku)

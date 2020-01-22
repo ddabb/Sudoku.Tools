@@ -15,7 +15,7 @@ namespace Sudoku.Tools
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
-            var unCheckSell = qSudoku.AllUnSetCell;
+            var unCheckSell = qSudoku.AllUnSetCells;
             var pairs = (from a in unCheckSell
                          join b in unCheckSell on a.GetRest().JoinString() equals b.GetRestString()
                          where (a.Row == b.Row || a.Column == b.Column) && a.Index < b.Index

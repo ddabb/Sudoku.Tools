@@ -13,7 +13,7 @@ namespace Sudoku.Tools
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
-            var allUnSetCell = qSudoku.AllUnSetCell;
+            var allUnSetCell = qSudoku.AllUnSetCells;
             var pairCells = allUnSetCell.Where(c => c.GetRest().Count == 2).ToList();
             var otherCells = allUnSetCell.Where(c => c.GetRest().Count > 2).ToList();
 

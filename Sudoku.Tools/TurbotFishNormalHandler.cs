@@ -29,7 +29,7 @@ namespace Sudoku.Tools
         private List<CellInfo> AssignmentInOnedirection(QSudoku qSudoku,  List<PossibleIndex> list, Direction direction)
         {
             List<CellInfo> cells = new List<CellInfo>();
-               var allunsetCell = qSudoku.AllUnSetCell;
+               var allunsetCell = qSudoku.AllUnSetCells;
             var chains = (from a in list
                           join b in GetAllPossibleIndexInBlock(qSudoku, 2) on a.SpeacialValue equals b.SpeacialValue
                           select new { a, b }).ToList();

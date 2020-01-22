@@ -21,12 +21,22 @@ namespace Sudoku.Core
 
         public bool IsRoot = false;
 
+        public List<int> mRest = null;
+
+        
+        public int RestCount => GetRest().Count;
+
         public List<int> GetRest()
         {
-            var relatedCells = Sudoku.AllSetCell.Where(c => c.Value != 0 && (c.Row == Row || c.Column == Column || c.Block == Block));
-            var result = G.AllBaseValues.Except(relatedCells.Select(c => c.Value)).ToList();
-            result.Sort();
-            return result;
+            if (mRest == null)
+            {
+                var relatedCells = Sudoku.AllSetCell.Where(c => c.Value != 0 && (c.Row == Row || c.Column == Column || c.Block == Block));
+                var result = G.AllBaseValues.Except(relatedCells.Select(c => c.Value)).ToList();
+                result.Sort();
+                mRest = result;
+            }
+   
+            return mRest;
         }
         
         public string GetRestString()
@@ -45,7 +55,7 @@ namespace Sudoku.Core
         {
             get
             {
-                return this.Sudoku.AllUnSetCell.Where(c=>c.Index != this.Index 
+                return this.Sudoku.AllUnSetCells.Where(c=>c.Index != this.Index 
                                                           && (c.Block == this.Block || c.Row == this.Row || c.Column == this.Column)
                                                           ).ToList();
             }

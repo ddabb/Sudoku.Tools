@@ -1,6 +1,8 @@
 ﻿using Sudoku.Core;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace Sudoku.Tools
@@ -12,7 +14,59 @@ namespace Sudoku.Tools
 
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
-            throw new NotImplementedException();
+            List<CellInfo> cells = new List<CellInfo>();
+            var allUnsetCells = qSudoku.AllUnSetCells;
+            var ab = (from a in allUnsetCells
+                join b in allUnsetCells on 1 equals 1
+                let arest = a.GetRest()
+                let brest = b.GetRest()
+                let sameRow = a.Row == b.Row
+                where a.Index != b.Index
+                      && (a.Row == b.Row || a.Column == b.Column)
+                      && arest.Except(brest).Count() == 1
+                      && arest.Intersect(brest).Count() == brest.Count
+                select new {a, b, arest, brest, sameRow}).ToList();
+
+            foreach (var item in ab)
+            {
+                var a = item.a;
+                var b = item.b;
+                var arest = item.arest;
+                var brest = item.brest;
+                var sameRow = item.sameRow;
+
+                var brelatedCell = (from c in allUnsetCells
+                    join d in allUnsetCells on 1 equals 1
+                    let crest = c.GetRest()
+                    let drest = d.GetRest()
+                    where c.Index < d.Index
+                          && (sameRow
+                              ? (c.Column == d.Column && c.Column == b.Column)
+                              : c.Row == d.Row && c.Row == b.Row)
+                          && G.DinstinctInt(brest, crest, drest).Count == 3
+                    select new {c, d, crest, drest}).ToList();
+                foreach (var item2 in brelatedCell)
+                {
+                    var c = item2.c;
+                    var d = item2.d;
+                    var crest = item2.crest;
+                    var drest = item2.drest;
+                    var list = (from e in allUnsetCells
+                        join f in allUnsetCells on 1 equals 1
+                        where e.GetRestString() == crest.JoinString()
+                              && f.GetRestString() == drest.JoinString()
+                              && (sameRow
+                                  ? e.Column == a.Column && f.Column == a.Column && e.Row == c.Row && f.Row == d.Row
+                                  : e.Row == a.Row && f.Row == a.Row && e.Column == c.Column && f.Column == d.Column)
+                        select new {e, f}).ToList();
+                    foreach (var pair in list)
+                    {
+                        cells.Add(new PositiveCellInfo(a.Index, arest.Except(brest).First()));
+                    }
+                }
+            }
+
+            return cells;
         }
 
         public override List<NegativeCellInfo> Elimination(QSudoku qSudoku)

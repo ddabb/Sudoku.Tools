@@ -58,7 +58,7 @@ namespace Sudoku.UI
 
                 }
 
-                foreach (var item in sudoku.AllUnSetCell)
+                foreach (var item in sudoku.AllUnSetCells)
                 {
                     foreach (var item1 in item.GetRest())
                     {

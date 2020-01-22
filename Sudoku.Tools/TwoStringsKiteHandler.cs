@@ -17,7 +17,7 @@ namespace Sudoku.Tools
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
-            var allunsetCell = qSudoku.AllUnSetCell;
+            var allunsetCell = qSudoku.AllUnSetCells;
             var possileIndex = GetAllPossibleIndexInRowOrColumn(qSudoku, 2);
 
             var pairs = (from chaina in possileIndex

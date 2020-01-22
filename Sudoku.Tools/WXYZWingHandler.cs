@@ -17,7 +17,7 @@ namespace Sudoku.Tools
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
-            var checkCells = qSudoku.AllUnSetCell.Where(c => c.GetRest().Count == 4).ToList();
+            var checkCells = qSudoku.AllUnSetCells.Where(c => c.GetRest().Count == 4).ToList();
             List<int> countRange = new List<int> { 2, 3 };
             foreach (var checkcell in checkCells)
             {

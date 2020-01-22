@@ -18,7 +18,7 @@ namespace Sudoku.Tools
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
-            var allcheckCell = qSudoku.AllUnSetCell.Where(c => new List<int> { 2, 3 }.Contains(c.GetRest().Count)).ToList();
+            var allcheckCell = qSudoku.AllUnSetCells.Where(c => new List<int> { 2, 3 }.Contains(c.GetRest().Count)).ToList();
 
             var filter = (from a in allcheckCell
                           join b in allcheckCell on a.GetRestString() equals b.GetRestString()

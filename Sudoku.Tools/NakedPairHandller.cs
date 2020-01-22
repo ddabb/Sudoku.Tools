@@ -20,7 +20,7 @@ namespace Sudoku.Tools
             {
                 foreach (var index in G.baseIndexs)
                 {
-                    var subcells = qSudoku.AllUnSetCell.Where(c => G.GetFilter(c, direction, index)).ToList();
+                    var subcells = qSudoku.AllUnSetCells.Where(c => G.GetFilter(c, direction, index)).ToList();
                     if (subcells.Count>2)
                     {
                         var temp = checkCells.Where(c => G.GetFilter(c, direction, index)).GroupBy(c => c.GetRestString()).Where(c => c.Count() == 2);

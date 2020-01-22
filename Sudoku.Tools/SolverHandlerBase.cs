@@ -149,7 +149,7 @@ namespace Sudoku.Tools
                 foreach (var directionIndex in G.baseIndexs)
                 {
                     //待检查的单元格
-                    var checkDirectionCells = qSudoku.AllUnSetCell.Where(G.GetDirectionCells(direction, directionIndex)).ToList();
+                    var checkDirectionCells = qSudoku.AllUnSetCells.Where(G.GetDirectionCells(direction, directionIndex)).ToList();
 
                     var temp = (from value in G.AllBaseValues
                                 where qSudoku.GetPossibleIndex(value, checkDirectionCells).Count == times
@@ -250,7 +250,7 @@ namespace Sudoku.Tools
 
 
 
-        public Func<CellInfo, int> Selector(Direction direction)
+        public Func<CellInfo, int> FindDirectionCondtion(Direction direction)
         {
             switch (direction)
             {

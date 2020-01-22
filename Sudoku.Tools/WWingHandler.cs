@@ -13,7 +13,7 @@ namespace Sudoku.Tools
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
-            var pairs = qSudoku.AllUnSetCell.Where(c => c.GetRest().Count == 2);
+            var pairs = qSudoku.AllUnSetCells.Where(c => c.GetRest().Count == 2);
             var cellPairs = (from a in pairs
                              join b in pairs on 1 equals 1
                              where a.Index < b.Index     

@@ -13,7 +13,7 @@ namespace Sudoku.Tools
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
-            var checkCells = qSudoku.AllUnSetCell;
+            var checkCells = qSudoku.AllUnSetCells;
             int cellCount = 8;
             Dictionary<int, List<int>> dic = checkCells.ToDictionary(cell => cell.Index, cell => cell.GetRest());
             List<int> values = G.AllBaseValues.Where(value => dic.Values.Count(c => c.Contains(value)) > cellCount)

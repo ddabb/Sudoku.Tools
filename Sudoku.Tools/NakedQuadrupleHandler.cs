@@ -14,7 +14,7 @@ namespace Sudoku.Tools
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
-            var allUnSetCell = qSudoku.AllUnSetCell;
+            var allUnSetCell = qSudoku.AllUnSetCells;
             List<int> possibleCount = new List<int> { 2, 3,4 };
             //只有2或3个候选数的单元格
             var twoOrThreeRests = allUnSetCell.Where(c => possibleCount.Contains(c.GetRest().Count)).ToList();
@@ -61,7 +61,7 @@ namespace Sudoku.Tools
         private List<CellInfo> GetCells(QSudoku qSudoku, List<CellInfo> checkCellInfos, Direction direction, int index
             )
         {
-            var allUnSetCell = qSudoku.AllUnSetCell;
+            var allUnSetCell = qSudoku.AllUnSetCells;
             List<CellInfo> cells = new List<CellInfo>();
             var exceptIndexs = checkCellInfos.Select(c => c.Index).ToList();
             var allRest = new List<int>();

@@ -71,6 +71,31 @@ namespace Sudoku.Core
             return cells.Select(c => c.Column).Distinct().ToList();
         }
 
+
+        public static List<int> DinstinctInt(params List<int>[] n)
+        {
+            List<int> result=new List<int>();
+            foreach (var item in n)
+            {
+                result.AddRange(item);
+            }
+
+            result = result.Distinct().ToList();
+            return result;
+        }
+
+
+        public static List<int> MergeInt(params List<int>[] n)
+        {
+            List<int> result = new List<int>();
+            foreach (var item in n)
+            {
+                result.AddRange(item);
+            }
+            return result;
+        }
+
+
         public static List<int> DistinctBlock(List<CellInfo> cells)
         {
             return cells.Select(c => c.Block).Distinct().ToList();

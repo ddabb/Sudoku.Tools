@@ -96,17 +96,17 @@ namespace Sudoku.Core
 
         public List<CellInfo> GetPublicUnsetAreas(CellInfo cell1, CellInfo cell2)
         {
-            return AllUnSetCell.Where(c => GetPublicUnsetAreaIndexs(cell1, cell2).Contains(c.Index)).ToList();
+            return AllUnSetCells.Where(c => GetPublicUnsetAreaIndexs(cell1, cell2).Contains(c.Index)).ToList();
         }
 
         public List<CellInfo> GetPublicUnsetAreas(int index1, int index2)
         {
-            return AllUnSetCell.Where(c => GetPublicUnsetAreaIndexs(cellInfos.First(x=>x.Index==index1), cellInfos.First(x => x.Index == index2)).Contains(c.Index)).ToList();
+            return AllUnSetCells.Where(c => GetPublicUnsetAreaIndexs(cellInfos.First(x=>x.Index==index1), cellInfos.First(x => x.Index == index2)).Contains(c.Index)).ToList();
         }
 
         public List<int> GetPublicUnsetAreaIndexs(CellInfo cell1, CellInfo cell2)
         {
-            return AllUnSetCell.Where(c => cell1.RelatedUnsetIndexs.Intersect(cell2.RelatedUnsetIndexs).Contains(c.Index))
+            return AllUnSetCells.Where(c => cell1.RelatedUnsetIndexs.Intersect(cell2.RelatedUnsetIndexs).Contains(c.Index))
                    .Select(c => c.Index).ToList();
         }
 
@@ -184,7 +184,7 @@ namespace Sudoku.Core
                 foreach (var directionIndex in G.baseIndexs)
                 {
                     //待检查的单元格
-                    var checkDirectionCells = AllUnSetCell.Where(G.GetDirectionCells(direction, directionIndex)).ToList();
+                    var checkDirectionCells = AllUnSetCells.Where(G.GetDirectionCells(direction, directionIndex)).ToList();
 
                     var temp = (from value in G.AllBaseValues
                                 where GetPossibleIndex(value, checkDirectionCells).Count == times
@@ -240,7 +240,7 @@ namespace Sudoku.Core
         }
 
         private List<CellInfo> mAllUnSetCell = null;
-        public List<CellInfo> AllUnSetCell
+        public List<CellInfo> AllUnSetCells
         {
             get { return mAllUnSetCell ?? (mAllUnSetCell = cellInfos.Where(c => c.Value == 0).ToList()); }
         }
@@ -261,7 +261,7 @@ namespace Sudoku.Core
             {
                 if (mAllChainsIndex == null)
                 {
-                    var checkIndexLists = AllUnSetCell.Where(c => c.GetRest().Count == 2).Select(c => c.Index).ToList();
+                    var checkIndexLists = AllUnSetCells.Where(c => c.GetRest().Count == 2).Select(c => c.Index).ToList();
                     var aOrBIndex = GetPossibleIndexByTimes(2);
                     foreach (var item in aOrBIndex)
                     {

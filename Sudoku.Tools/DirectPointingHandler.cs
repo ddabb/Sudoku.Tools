@@ -15,7 +15,7 @@ namespace Sudoku.Tools
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
-            var allunsetcell = qSudoku.AllUnSetCell;
+            var allunsetcell = qSudoku.AllUnSetCells;
             var blocks = allunsetcell.Select(c => c.Block).Distinct().ToList();
 
             foreach (var blockindex in blocks)
@@ -26,7 +26,7 @@ namespace Sudoku.Tools
                     {
                         var blockUnSetCell = allunsetcell.Where(c => c.Block == blockindex).ToList();
                         var directionIndex = blockUnSetCell.Where(c => c.GetRest().Contains(value))
-                            .Select(Selector(direction)).Distinct().ToList();
+                            .Select(FindDirectionCondtion(direction)).Distinct().ToList();
 
                         if (directionIndex.Count == 1 && blockUnSetCell.Count(c => c.GetRest().Contains(value)) != 1)
                         {

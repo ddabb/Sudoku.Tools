@@ -20,7 +20,7 @@ namespace Sudoku.Tools
                 foreach (var index in G.baseIndexs)
                 {
                     //待检查的单元格
-                    var checkCells = qSudoku.AllUnSetCell.Where(G.GetDirectionCells(direction, index)).ToList();
+                    var checkCells = qSudoku.AllUnSetCells.Where(G.GetDirectionCells(direction, index)).ToList();
 
                     if (checkCells.Count > 3)
                     {

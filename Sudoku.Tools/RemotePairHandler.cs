@@ -13,7 +13,7 @@ namespace Sudoku.Tools
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
-            var filter = qSudoku.AllUnSetCell;
+            var filter = qSudoku.AllUnSetCells;
             var checkCells = filter.Where(c => c.GetRest().Count == 2).ToList();
             var cd = (from a in checkCells
                       join b in checkCells on a.GetRestString() equals b.GetRestString()
