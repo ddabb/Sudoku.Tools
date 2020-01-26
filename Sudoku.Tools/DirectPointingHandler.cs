@@ -70,9 +70,9 @@ namespace Sudoku.Tools
 
   
 
-        public override List<NegativeCellInfo> Elimination(QSudoku qSudoku)
+        public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
-            List<NegativeCellInfo> cells = new List<NegativeCellInfo>();
+            List<CellInfo> cells = new List<CellInfo>();
             return cells;
         }
 

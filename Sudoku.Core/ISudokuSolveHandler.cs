@@ -18,7 +18,7 @@ namespace Sudoku.Core
         /// </summary>
         /// <param name="qSudoku"></param>
         /// <returns></returns>
-        List<NegativeCellInfo> Elimination(QSudoku qSudoku);
+        List<CellInfo> Elimination(QSudoku qSudoku);
 
         SolveMethodEnum methodType { get; }
         

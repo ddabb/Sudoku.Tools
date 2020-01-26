@@ -58,7 +58,7 @@ namespace Sudoku.Tools
         }
 
         //000080000506030080980500102200758000004090058058614000400070860000805000800020009
-        public override List<NegativeCellInfo> Elimination(QSudoku qSudoku)
+        public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             throw new NotImplementedException();
         }

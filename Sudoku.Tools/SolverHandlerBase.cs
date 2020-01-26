@@ -30,7 +30,7 @@ namespace Sudoku.Tools
         /// </summary>
         /// <param name="qSudoku"></param>
         /// <returns></returns>
-        public abstract List<NegativeCellInfo> Elimination(QSudoku qSudoku);
+        public abstract List<CellInfo> Elimination(QSudoku qSudoku);
 
         public bool IsSameRowOrSameColumn(int index1, int index2)
         {

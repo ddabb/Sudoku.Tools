@@ -17,7 +17,7 @@ namespace Sudoku.Tools
             throw new NotImplementedException();
         }
 
-        public override List<NegativeCellInfo> Elimination(QSudoku qSudoku)
+        public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             throw new NotImplementedException();
         }
