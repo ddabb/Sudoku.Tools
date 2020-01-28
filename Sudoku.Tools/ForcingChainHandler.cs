@@ -29,7 +29,7 @@ namespace Sudoku.Tools
                     Fuc(cell, ref initCellInfo);
                     if (traceCell.Count != 0)
                     {
-                        var temp = new PositiveCellInfo(index1, testValue1) { CellType = CellType.Positive };
+                        var temp = new PositiveCellInfo(index1, testValue1) { CellType = CellType.Init };
 
                         cells.Add(temp);
                     }

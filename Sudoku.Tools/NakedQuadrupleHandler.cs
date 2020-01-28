@@ -27,7 +27,7 @@ namespace Sudoku.Tools
                                 join b in checkCells on 1 equals 1
                                 join c in checkCells on 1 equals 1
                                 join d in checkCells on 1 equals 1
-                                let abdcIndexs = G.GetCellIndexs(a, b, c, d)
+                                let abdcIndexs = G.MergeCellIndexs(a, b, c, d)
                                 let values = G.MergeInt(a.RestList, b.RestList, c.RestList, d.RestList)
                                 let aRestList = a.RestList
                                 let bRestList = b.RestList

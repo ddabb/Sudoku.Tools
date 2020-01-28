@@ -84,7 +84,7 @@ namespace Sudoku.Core
             return result;
         }
 
-        public static List<int> GetCellIndexs(params CellInfo[] n)
+        public static List<int> MergeCellIndexs(params CellInfo[] n)
         {
             List<int> result = new List<int>();
             foreach (var item in n)

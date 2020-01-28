@@ -191,6 +191,6 @@ namespace Sudoku.Core
         /// 肯定的，即指定Index单元格的候选数一定是Value
         /// </summary>
         [Description("肯定的")]
-        Positive
+        Init
     }
 }

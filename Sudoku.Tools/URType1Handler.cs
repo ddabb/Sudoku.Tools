@@ -41,7 +41,7 @@ namespace Sudoku.Tools
                     if (drest.Intersect(arest).Count() == 2)
                     {
                         var result = new PositiveCellInfo(d.Index, drest.First(c => !arest.Contains(c)));
-                        result.CellType = CellType.Positive;
+                        result.CellType = CellType.Init;
                         result.Sudoku = qSudoku;
 
                         cells.Add(result);

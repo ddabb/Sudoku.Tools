@@ -9,7 +9,7 @@ namespace Sudoku.Core
 
         public PositiveCellInfo(int index, int value) : base(index, value)
         {
-            this.CellType = CellType.Positive;
+            this.CellType = CellType.Init;
 
             if (Index==70&&Value==5)
             {
@@ -24,7 +24,7 @@ namespace Sudoku.Core
         public override bool IsError {
             get
             {
-                return GetAllParents().Count(c => c.Index == Index && c.CellType == CellType.Positive && c.Value != Value)>0||
+                return GetAllParents().Count(c => c.Index == Index && c.CellType == CellType.Init && c.Value != Value)>0||
                     GetAllParents().Count(c => c.Index == Index && c.CellType == CellType.Negative && c.Value == Value) > 0;
             }
 
@@ -87,4 +87,6 @@ namespace Sudoku.Core
 
         }
     }
+
+
 }
