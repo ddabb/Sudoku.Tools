@@ -39,7 +39,7 @@ namespace Sudoku.Tools
 
         public bool IsSameBlock(int index1, int index2)
         {
-            if (new PositiveCellInfo(index1, 0).Block == new PositiveCellInfo(index2, 0).Block)
+            if (new PositiveCell(index1, 0).Block == new PositiveCell(index2, 0).Block)
             {
                 return true;
             }
@@ -48,7 +48,7 @@ namespace Sudoku.Tools
 
         public bool IsSameRow(int index1, int index2)
         {
-            if (new PositiveCellInfo(index1, 0).Row == new PositiveCellInfo(index2, 0).Row)
+            if (new PositiveCell(index1, 0).Row == new PositiveCell(index2, 0).Row)
             {
                 return true;
             }
@@ -57,7 +57,7 @@ namespace Sudoku.Tools
 
         public bool IsSameColumn(int index1, int index2)
         {
-            if (new PositiveCellInfo(index1, 0).Column == new PositiveCellInfo(index2, 0).Column)
+            if (new PositiveCell(index1, 0).Column == new PositiveCell(index2, 0).Column)
             {
                 return true;
             }
@@ -183,7 +183,7 @@ namespace Sudoku.Tools
             var indexs = qSudoku.GetPossibleIndex(speacilValue, c => PositiveCellsInColumn.Select(x => x.Index).Contains(c.Index));
             if (indexs.Count() == 1)
             {
-                cells.Add(new PositiveCellInfo(indexs.First(), speacilValue));
+                cells.Add(new PositiveCell(indexs.First(), speacilValue));
             }
             
             return cells;
@@ -216,7 +216,7 @@ namespace Sudoku.Tools
                 if (leftIndexs.Count > 1 && leftIndexs1.Count() == 1)
                 {
                     //Debug.WriteLine("speacialValue" + speacialValue + "location  " + string.Join(",", leftIndexs1));
-                    cells.Add(new PositiveCellInfo(leftIndexs1.First(), speacialValue));
+                    cells.Add(new PositiveCell(leftIndexs1.First(), speacialValue));
                 }
 
             }
@@ -240,7 +240,7 @@ namespace Sudoku.Tools
                     if (cell.RestCount>1)
                     {
                    
-                        cells.Add(new PositiveCellInfo(cell.Index, spricevalue));
+                        cells.Add(new PositiveCell(cell.Index, spricevalue));
                     }
                 }
             }

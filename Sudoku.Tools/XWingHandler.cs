@@ -41,10 +41,10 @@ namespace Sudoku.Tools
                                    join b in signleRowOrColumnIndexs on 1 equals 1
                                    where a.indexs[0] < b.indexs[0]
                                    select new List<CellInfo> {
-                                    new PositiveCellInfo(a.indexs[0], 0),
-                                    new PositiveCellInfo(a.indexs[1], 0),
-                                    new PositiveCellInfo(b.indexs[0], 0),
-                                    new PositiveCellInfo(b.indexs[1], 0) }).ToList();
+                                    new PositiveCell(a.indexs[0], 0),
+                                    new PositiveCell(a.indexs[1], 0),
+                                    new PositiveCell(b.indexs[0], 0),
+                                    new PositiveCell(b.indexs[1], 0) }).ToList();
                     foreach (var subCells in listAll)
                     {
                         if (subCells.Select(c => c.Block).Distinct().Count() == 4
@@ -84,7 +84,7 @@ namespace Sudoku.Tools
                         var rests = item.RestList;
                         if (rests.Contains(speacilValue) && rests.Count(x => x != speacilValue) == 1)
                         {
-                            cells.Add(new PositiveCellInfo(item.Index, rests.First(x => x != speacilValue)));
+                            cells.Add(new PositiveCell(item.Index, rests.First(x => x != speacilValue)));
                         }
                     }
                 }

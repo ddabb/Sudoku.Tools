@@ -44,7 +44,7 @@ namespace Sudoku.Tools
                                 var rests = cell.RestList;
                                 if (rests.Count==2&& rests.Contains(rest))
                                 {
-                                    cells.Add(new PositiveCellInfo(cell.Index, rests.First(c => c != rest)));
+                                    cells.Add(new PositiveCell(cell.Index, rests.First(c => c != rest)));
                                 }
                             }
                         }
@@ -62,7 +62,7 @@ namespace Sudoku.Tools
                                 var rests = cell.RestList;
                                 if (rests.Count == 2 && rests.Contains(rest))
                                 {
-                                    cells.Add(new PositiveCellInfo(cell.Index, rests.First(c => c != rest)));
+                                    cells.Add(new PositiveCell(cell.Index, rests.First(c => c != rest)));
                                 }
                             }
                         }

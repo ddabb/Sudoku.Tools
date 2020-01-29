@@ -52,14 +52,14 @@ namespace Sudoku.Tools
                             {
                                 if (aCell.RestCount == 2)
                                 {
-                                    cells.Add(new PositiveCellInfo(aCell.Index,
+                                    cells.Add(new PositiveCell(aCell.Index,
                                         aCell.RestList.First(c => c != value)));
                                 }
                             }
                             else if (qSudoku.GetPossibleIndex(value, c => c.Value == 0 && c.Column == cCell.Column)
                                          .Count == 2 && bCell.RestCount == 2)
                             {
-                                cells.Add(new PositiveCellInfo(bCell.Index, bCell.RestList.First(c => c != value)));
+                                cells.Add(new PositiveCell(bCell.Index, bCell.RestList.First(c => c != value)));
                             }
                         }
                     }

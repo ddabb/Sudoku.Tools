@@ -52,7 +52,7 @@ namespace Sudoku.Tools
                             let indexs = qSudoku.GetPossibleIndex(cellValue,
                             c => c.Value == 0 && c.Row == cell2.c.Row && c.Index != cell2.c.Index && c.Index != cell2.d.Index)
                             where indexs.Count == 1
-                            select new PositiveCellInfo(indexs.First(), cellValue));
+                            select new PositiveCell(indexs.First(), cellValue));
                     }
                 }
 
@@ -80,7 +80,7 @@ namespace Sudoku.Tools
                                 let indexs = qSudoku.GetPossibleIndex(cellValue,
                                 c => c.Value == 0 && c.Column == cell2.c.Column && c.Index != cell2.c.Index && c.Index != cell2.d.Index)
                                 where indexs.Count == 1
-                                select new PositiveCellInfo(indexs.First(), cellValue));
+                                select new PositiveCell(indexs.First(), cellValue));
                     }
                 }
 

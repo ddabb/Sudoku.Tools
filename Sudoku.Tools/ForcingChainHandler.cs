@@ -22,14 +22,14 @@ namespace Sudoku.Tools
                 {
                     var index1 = cell1.Index;
                     var testValue1 = testValue;
-                    NegativeCellInfo cell = new NegativeCellInfo(index1, testValue1)
+                    NegativeCell cell = new NegativeCell(index1, testValue1)
                         { Sudoku = qSudoku, CellType = CellType.Negative, IsRoot = true };
                     traceCell.Clear();
                     List<CellInfo> initCellInfo = new List<CellInfo>();
                     Fuc(cell, ref initCellInfo);
                     if (traceCell.Count != 0)
                     {
-                        var temp = new PositiveCellInfo(index1, testValue1) { CellType = CellType.Init };
+                        var temp = new PositiveCell(index1, testValue1) { CellType = CellType.Init };
 
                         cells.Add(temp);
                     }

@@ -17,7 +17,7 @@ namespace Sudoku.Tools
                 var restList = index.RestList;
                 if (restList.Count==1)
                 {
-                    cellInfo.Add(new PositiveCellInfo(index.Index, restList[0]));
+                    cellInfo.Add(new PositiveCell(index.Index, restList[0]));
                 }
             }
             return cellInfo;

@@ -210,7 +210,7 @@ namespace Sudoku.Core
             var chars = QueryString.ToCharArray();
             foreach (var location in G.allLocations)
             {
-                var cellInit = new PositiveCellInfo(location, Convert.ToInt32("" + chars[location])) { Sudoku = this };
+                var cellInit = new PositiveCell(location, Convert.ToInt32("" + chars[location])) { Sudoku = this };
                 cellInfos.Add(cellInit);
             }
 

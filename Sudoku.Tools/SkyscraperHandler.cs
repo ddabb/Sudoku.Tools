@@ -49,7 +49,7 @@ namespace Sudoku.Tools
                 var filter = rest.Where(c => c.RestCount==2&& c.RestList.Contains(SpeacialValue)).ToList();
                 foreach (var cell in filter)
                 {
-                    cells.Add(new PositiveCellInfo(cell.Index, cell.RestList.First(c=>c!= SpeacialValue)));
+                    cells.Add(new PositiveCell(cell.Index, cell.RestList.First(c=>c!= SpeacialValue)));
                 }
         
             }

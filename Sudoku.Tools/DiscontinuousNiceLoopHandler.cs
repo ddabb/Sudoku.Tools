@@ -34,7 +34,7 @@ namespace Sudoku.Tools
                         {
 
                             Debug.WriteLine("  index1   " + index1 + "   testValue1   " + testValue1);
-                            NegativeCellInfo cell = new NegativeCellInfo(index1, testValue1);
+                            NegativeCell cell = new NegativeCell(index1, testValue1);
                             cell.Sudoku = qSudoku;
                             var nacells = new List<CellInfo>();
                             loop(cell, ref nacells, ref relatedIndex, ref otherValues);
@@ -46,7 +46,7 @@ namespace Sudoku.Tools
                                 {
                                     removeValues.Add(value);
 
-                                    NegativeCellInfo cell1 = new NegativeCellInfo(index1, value);
+                                    NegativeCell cell1 = new NegativeCell(index1, value);
                                     cell1.Sudoku = qSudoku;
                                     foreach (var item in cell1.NextCells)
                                     {

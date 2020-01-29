@@ -48,7 +48,7 @@ namespace Sudoku.Tools
                             var unsetCellRest = unsetCell.RestList;
                             if (unsetCellRest.Contains(removeValue) && unsetCellRest.Count == 2)
                             {
-                                cells.Add(new PositiveCellInfo(unsetCell.Index, unsetCellRest.First(c => c != removeValue)));
+                                cells.Add(new PositiveCell(unsetCell.Index, unsetCellRest.First(c => c != removeValue)));
                             }
                         }
                     }

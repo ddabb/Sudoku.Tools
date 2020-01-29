@@ -38,7 +38,7 @@ namespace Sudoku.Tools
                                 if (cellrest.Contains(value) && cellrest.Count(c => c != value) == 1)
                                 {
 
-                                    cells.Add(new PositiveCellInfo(cell.Index, cellrest.First(c => c != value)));
+                                    cells.Add(new PositiveCell(cell.Index, cellrest.First(c => c != value)));
                                 }
                             }
 
@@ -50,7 +50,7 @@ namespace Sudoku.Tools
                                 if (containsCell.Count() == 1)
                                 {
 
-                                    cells.Add(new PositiveCellInfo(containsCell.First().Index, value));
+                                    cells.Add(new PositiveCell(containsCell.First().Index, value));
                                 }
 
                             }

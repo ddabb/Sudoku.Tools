@@ -36,7 +36,7 @@ namespace Sudoku.Tools
                           && qSudoku.GetPublicUnsetAreaIndexs(a, checkCell).Contains(cellInfo.Index)
                           && qSudoku.GetPublicUnsetAreaIndexs(b, checkCell).Contains(cellInfo.Index)
                             select new { cellInfo, comvalue, a, b, restvalue, checkCells }).ToList();
-                cells.AddRange(cell.Select(item => new PositiveCellInfo(item.cellInfo.Index, item.restvalue)).Cast<CellInfo>());
+                cells.AddRange(cell.Select(item => new PositiveCell(item.cellInfo.Index, item.restvalue)).Cast<CellInfo>());
             }
 
             return cells;

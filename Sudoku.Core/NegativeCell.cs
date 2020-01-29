@@ -4,19 +4,19 @@ using System.Linq;
 
 namespace Sudoku.Core
 {
-    public class NegativeCellInfo : CellInfo
+    public class NegativeCell : CellInfo
     {
         /// <summary>
         /// 前置肯定单元格
         /// </summary>
-        public PositiveCellInfo reductionBeforeCell;
+        public PositiveCell reductionBeforeCell;
 
 
         /// <summary>
         /// 后置肯定单元格链表
         /// </summary>
-        public List<PositiveCellInfo> reductionAfterCells;
-        public NegativeCellInfo(int index, int value) : base(index, value)
+        public List<PositiveCell> reductionAfterCells;
+        public NegativeCell(int index, int value) : base(index, value)
         {
 
         }
@@ -70,7 +70,7 @@ namespace Sudoku.Core
 
             if (this.RestCount == 2)
             {
-                PositiveCellInfo positive = new PositiveCellInfo(this.Index, RestList.First(c => c != Value))
+                PositiveCell positive = new PositiveCell(this.Index, RestList.First(c => c != Value))
                 {
                     CellType = CellType.Init,
                     Sudoku = this.Sudoku,
@@ -116,7 +116,7 @@ namespace Sudoku.Core
             var row = Sudoku.GetPossibleIndex(Value, temp);
             if (row.Count == 1)
             {
-                PositiveCellInfo positive = new PositiveCellInfo(row.First(), Value)
+                PositiveCell positive = new PositiveCell(row.First(), Value)
                 {
                     CellType = CellType.Init,
                     Sudoku = this.Sudoku,
@@ -131,18 +131,18 @@ namespace Sudoku.Core
         }
 
 
-        public List<PositiveCellInfo> GetPositiveCellInfos(List<PossibleIndex> indexs, NegativeCellInfo cell)
+        public List<PositiveCell> GetPositiveCellInfos(List<PossibleIndex> indexs, NegativeCell cell)
         {
             foreach (var unsetCell in this.RelatedUnsetCells)
             {
 
             }
-            List<PositiveCellInfo> cells = new List<PositiveCellInfo>();
+            List<PositiveCell> cells = new List<PositiveCell>();
             var temp = indexs.Where(c => c.indexs.Count == 2 && c.indexs.Contains(cell.Index) && c.SpeacialValue == cell.Value).ToList();
             foreach (var item in temp)
             {
                 var positive =
-                    new PositiveCellInfo(item.indexs.First(c => c != cell.Index), cell.Value) { Parent = cell };
+                    new PositiveCell(item.indexs.First(c => c != cell.Index), cell.Value) { Parent = cell };
                 cells.Add(positive);
             }
             return cells;

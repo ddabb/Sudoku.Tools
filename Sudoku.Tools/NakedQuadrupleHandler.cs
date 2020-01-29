@@ -56,7 +56,7 @@ namespace Sudoku.Tools
                                 var leftvalue = cell.RestList.Except(values);
                                 if (leftvalue.Count() == 1)
                                 {
-                                    cells.Add(new PositiveCellInfo(cell.Index, leftvalue.First()));
+                                    cells.Add(new PositiveCell(cell.Index, leftvalue.First()));
                                 }
                             }
                         }

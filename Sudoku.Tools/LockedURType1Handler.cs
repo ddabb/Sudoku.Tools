@@ -51,7 +51,7 @@ namespace Sudoku.Tools
                             if (findCells.Count == 1)
                             {
 
-                                cells.Add(new PositiveCellInfo(findCells.First().Index, positiveValue));
+                                cells.Add(new PositiveCell(findCells.First().Index, positiveValue));
                             }
 
                         }

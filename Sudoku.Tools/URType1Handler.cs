@@ -40,7 +40,7 @@ namespace Sudoku.Tools
                     var drest = d.RestList;
                     if (drest.Intersect(arest).Count() == 2)
                     {
-                        var result = new PositiveCellInfo(d.Index, drest.First(c => !arest.Contains(c)));
+                        var result = new PositiveCell(d.Index, drest.First(c => !arest.Contains(c)));
                         result.CellType = CellType.Init;
                         result.Sudoku = qSudoku;
 

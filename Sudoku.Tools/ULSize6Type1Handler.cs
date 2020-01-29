@@ -49,7 +49,7 @@ namespace Sudoku.Tools
                         select new {a3, a4, a5}).ToList();
                     foreach (var item1 in results)
                     {
-                        cells.Add(new PositiveCellInfo(a0.Index,a0.RestList.Except(a1.RestList).First()));
+                        cells.Add(new PositiveCell(a0.Index,a0.RestList.Except(a1.RestList).First()));
                     }
                 }
             }

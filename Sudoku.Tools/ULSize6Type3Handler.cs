@@ -125,7 +125,7 @@ namespace Sudoku.Tools
                             var indexRest = qSudoku.GetRest(index);
                             if (indexRest.Count > 1 && indexRest.Except(sumRest).Count() == 1)
                             {
-                                cells.Add(new PositiveCellInfo(index, indexRest.Except(sumRest).First()));
+                                cells.Add(new PositiveCell(index, indexRest.Except(sumRest).First()));
                             }
                         }
                     }

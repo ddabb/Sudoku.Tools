@@ -3,11 +3,11 @@ using System.Linq;
 
 namespace Sudoku.Core
 {
-    public class PositiveCellInfo : CellInfo
+    public class PositiveCell : CellInfo
     {
 
 
-        public PositiveCellInfo(int index, int value) : base(index, value)
+        public PositiveCell(int index, int value) : base(index, value)
         {
             this.CellType = CellType.Init;
 
@@ -53,7 +53,7 @@ namespace Sudoku.Core
             cells = this.RelatedUnsetCells.Where(c => c.RestList.Contains(this.Value)&&Sudoku.AllChainsIndex.Contains(c.Index)).ToList();
             foreach (var cellInfo in cells)
             {
-                NegativeCellInfo cell = new NegativeCellInfo(cellInfo.Index, Value)
+                NegativeCell cell = new NegativeCell(cellInfo.Index, Value)
                 {
                     CellType = CellType.Negative,
                     Sudoku = this.Sudoku,
@@ -68,7 +68,7 @@ namespace Sudoku.Core
             }
             foreach (var item in this.RestList.Where(c=>c!=Value))
             {
-                NegativeCellInfo cell = new NegativeCellInfo(Index, item)
+                NegativeCell cell = new NegativeCell(Index, item)
                 {
                     CellType = CellType.Negative,
                     Sudoku = this.Sudoku,
@@ -87,6 +87,4 @@ namespace Sudoku.Core
 
         }
     }
-
-
 }
