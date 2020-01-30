@@ -22,6 +22,11 @@ namespace Sudoku.Core
 
         public List<int> mRest = null;
 
+        public void ReSetRest()
+        {
+            this.mRest = null;
+        }
+
 
         public int RestCount => GetRest().Count;
 

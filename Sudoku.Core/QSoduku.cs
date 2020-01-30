@@ -9,11 +9,6 @@ namespace Sudoku.Core
     /// </summary>
     public class QSudoku
     {
-
-
-
-
-
         private string queryString;
         public List<CellInfo> cachedAnalysisCells = new List<CellInfo>();
 
@@ -130,13 +125,6 @@ namespace Sudoku.Core
             return this.cellInfos.First(c => c.Index == Index).RestList;
         }
 
-
-
-
-
-
-
-
         /// <summary>
         /// 获取出现了重复times的坐标。
         /// </summary>
@@ -169,10 +157,14 @@ namespace Sudoku.Core
             var chars = QueryString.Select(c => "" + c).ToList();
             foreach (var item in cells)
             {
-                chars[item.Index] = "" + item.Value;
+                this.cellInfos[item.Index] = new PositiveCell(item.Index, item.Value) {Sudoku = this};
             }
-
-            return new QSudoku(String.Join("", chars));
+            this.mAllUnSetCell = null;
+            foreach (var unset in this.AllUnSetCells)
+            {
+                unset.ReSetRest();
+            }
+            return this;
         }
 
 
@@ -210,7 +202,7 @@ namespace Sudoku.Core
             var chars = QueryString.ToCharArray();
             foreach (var location in G.allLocations)
             {
-                var cellInit = new PositiveCell(location, Convert.ToInt32("" + chars[location])) { Sudoku = this };
+                var cellInit = new InitCell(location, Convert.ToInt32("" + chars[location])) { Sudoku = this };
                 cellInfos.Add(cellInit);
             }
 
