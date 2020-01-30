@@ -18,7 +18,7 @@ namespace Sudoku.Console
             //runtest = false;
             if (runtest)
             {
-                ConsoleAssignmentExample(typeof(XRSize12Handler));
+                ConsoleAssignmentExample(typeof(XRSize10Handler));
                 return;
 
             }
@@ -44,6 +44,29 @@ namespace Sudoku.Console
         }
 
         private static void ConsoleAssignmentExample(Type type, string queryString, int value, string positionString)
+        {
+            var qsudoku = new QSudoku(queryString);
+            var cellinfo =
+                ((ISudokuSolveHandler)Activator.CreateInstance(type, true)).Assignment(
+                    qsudoku);
+
+            Debug.WriteLine("cellinfo " + cellinfo.JoinString());
+            qsudoku = qsudoku.ApplyCells(cellinfo);
+            Debug.WriteLine("isValid " + new DanceLink().isValid(qsudoku.QueryString));
+        }
+
+        private static void ConsoleEliminationExample(Type type)
+        {
+            object[] objs = type.GetCustomAttributes(typeof(AssignmentExampleAttribute), true);
+            if (objs.Count() != 1) return;
+            if (!(objs[0] is AssignmentExampleAttribute a)) return;
+            var queryString = a.queryString;
+            var value = a.value;
+            var positionString = a.positionString;
+            ConsoleEliminationExample(type, queryString, value, positionString);
+        }
+
+        private static void ConsoleEliminationExample(Type type, string queryString, int value, string positionString)
         {
             var qsudoku = new QSudoku(queryString);
             var cellinfo =
