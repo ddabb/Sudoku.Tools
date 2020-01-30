@@ -16,8 +16,9 @@ namespace Sudoku.UI
         public Form1()
         {
             InitializeComponent();
-
-            this.sudokuPanel1.Tag = new QSudoku("030150209000360050700490603001273800000519000003684700100000008320040000409001060");
+            var c= new QSudoku("002000030481253796703008400000020903006340070030000004100007300300000500009430010");
+            c.ApplyCells(new List<CellInfo> {new PositiveCell(5, 4)});
+            this.sudokuPanel1.Tag = c;
         }
     }
 }

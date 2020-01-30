@@ -9,7 +9,7 @@ namespace Sudoku.Core
 
         public PositiveCell(int index, int value) : base(index, value)
         {
-            this.CellType = CellType.Init;
+            this.CellType = CellType.Positive;
 
             if (Index==70&&Value==5)
             {

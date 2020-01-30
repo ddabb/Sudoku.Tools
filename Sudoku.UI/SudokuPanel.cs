@@ -52,9 +52,11 @@ namespace Sudoku.UI
             {
                 foreach (var item in sudoku.AllSetCell)
                 {
+
                     var stringvalue = "" + item.Value;
                     Size size = TextRenderer.MeasureText(stringvalue, bigFont);
-                    objGraphics.DrawString(stringvalue, bigFont, new SolidBrush(Color.Black), item.Column * bigSpace +(bigSpace - size.Width)/2, item.Row * bigSpace + (bigSpace - size.Height) / 2);
+                    var color= item.CellType==CellType.Init? Color.Black:Color.Blue;
+                    objGraphics.DrawString(stringvalue, bigFont, new SolidBrush(color), item.Column * bigSpace +(bigSpace - size.Width)/2, item.Row * bigSpace + (bigSpace - size.Height) / 2);
 
                 }
 
@@ -64,7 +66,7 @@ namespace Sudoku.UI
                     {
                         var stringvalue = "" + item1;
                         Size size = TextRenderer.MeasureText(stringvalue, smallFont);
-                        objGraphics.DrawString(stringvalue, smallFont, new SolidBrush(Color.Black), new PointF(item.Column * bigSpace + (smallspace * ((item1-1) % 3)) + (smallspace - size.Width) / 2, item.Row * bigSpace + (smallspace * ((item1 - 1) / 3)) + +(smallspace - size.Height) / 2));
+                        objGraphics.DrawString(stringvalue, smallFont, new SolidBrush(Color.Gray), new PointF(item.Column * bigSpace + (smallspace * ((item1-1) % 3)) + (smallspace - size.Width) / 2, item.Row * bigSpace + (smallspace * ((item1 - 1) / 3)) + +(smallspace - size.Height) / 2));
                     }
 
                 }

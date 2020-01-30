@@ -18,7 +18,7 @@ namespace Sudoku.Core
         public List<PositiveCell> reductionAfterCells;
         public NegativeCell(int index, int value) : base(index, value)
         {
-
+            this.CellType =CellType.Negative;
         }
 
         private List<CellInfo> temp;

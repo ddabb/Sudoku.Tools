@@ -13,10 +13,16 @@ namespace Sudoku.Core
         [Description("否定的")]
         Negative,
         /// <summary>
+        /// 肯定的，即出题时该单元就有的值
+        /// </summary>
+        [Description("初始值")]
+        Init,
+
+        /// <summary>
         /// 肯定的，即指定Index单元格的候选数一定是Value
         /// </summary>
         [Description("肯定的")]
-        Init,
+        Positive,
         [Description("肯定包含某候选数的单元格的集合")]
         PositiveCellGroup,
         [Description("肯定不包含某候选数的单元格的集合")]
