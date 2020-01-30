@@ -106,6 +106,61 @@ namespace Sudoku.Tools
         }
 
 
+        public static List<CellInfo> XRSizeCommonMethod(QSudoku qSudoku, int pairCount)
+        {
+            List<CellInfo> cells = new List<CellInfo>();
+            var allunsetcell = qSudoku.AllUnSetCells;
+            foreach (var direction in G.AllDirection.Where(c => c != Direction.Block))
+            {
+                Dictionary<int, int> indexCount = new Dictionary<int, int>();
+                foreach (var index in G.baseIndexs)
+                {
+                    var checkCells = allunsetcell.Where(G.GetDirectionCells(direction, index)).ToList();
+                    if (checkCells.Count >= pairCount)
+                    {
+                        indexCount.Add(index, checkCells.Count);
+                    }
+                }
+
+                if (indexCount.Count >= 2)
+                {
+                    var baseCellGroup = indexCount.Where(c => c.Value == pairCount).ToList();
+                    var otherCellGroup = indexCount.Where(c => c.Value != pairCount).ToList();
+                    foreach (var baseCell in baseCellGroup)
+                    {
+                        foreach (var otherCell in otherCellGroup)
+                        {
+                            var baseIndex = baseCell.Key;
+                            var otherIndex = otherCell.Key;
+                            if (baseIndex==3&&otherIndex==5)
+                            {
+                                
+                            }
+                            var ab = (from a in allunsetcell.Where(G.GetDirectionCells(direction, baseIndex))
+                                      join b in allunsetcell.Where(G.GetDirectionCells(direction, otherIndex)) on 1 equals 1
+                                      where direction == Direction.Column ? a.Row == b.Row : a.Column == b.Column
+                                      select new { a, b }).ToList();
+                            if (ab.Count == pairCount)
+                            {
+                                if (ab.All(c => c.a.RestList.Intersect(c.b.RestList).Count() == c.a.RestList.Count))
+                                {
+                                    var checkList = ab.Where(c => c.b.RestList.Count > c.a.RestList.Count).ToList();
+                                    if (checkList.Count == 1)
+                                    {
+                                        var checkPair = checkList.First();
+                                        var cella = checkPair.a;
+                                        var cellb = checkPair.b;
+                                        cells.Add(new PositiveCell(cellb.Index, cellb.RestList.Except(cella.RestList).First()));
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return cells;
+        }
+
         /// <summary>
         /// 获取所有不在A位置就在B位置的候选数
         /// </summary>

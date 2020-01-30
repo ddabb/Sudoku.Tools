@@ -18,7 +18,7 @@ namespace Sudoku.Console
             //runtest = false;
             if (runtest)
             {
-                ConsoleAssignmentExample(typeof(LockedURType1Handler));
+                ConsoleAssignmentExample(typeof(XRSize12Handler));
                 return;
 
             }

@@ -12,7 +12,13 @@ namespace Sudoku.Tools
 
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
-            throw new NotImplementedException();
+            List<CellInfo> cells = new List<CellInfo>();
+            var result = XRSizeCommonMethod(qSudoku, 7);
+            if (result.Count > 0)
+            {
+                cells.AddRange(result);
+            }
+            return cells;
         }
 
         public override List<CellInfo> Elimination(QSudoku qSudoku)

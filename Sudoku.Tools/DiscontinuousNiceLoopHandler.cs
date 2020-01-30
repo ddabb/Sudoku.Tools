@@ -33,7 +33,6 @@ namespace Sudoku.Tools
                         //if (testValue1 == 5)
                         {
 
-                            Debug.WriteLine("  index1   " + index1 + "   testValue1   " + testValue1);
                             NegativeCell cell = new NegativeCell(index1, testValue1);
                             cell.Sudoku = qSudoku;
                             var nacells = new List<CellInfo>();

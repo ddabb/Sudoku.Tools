@@ -89,6 +89,14 @@ namespace SudoKu.Test
             TestAssignmentExample(typeof(XRSize8Handler));
         }
 
+
+
+        [TestMethod]
+        public void TestXRSize10Handler()
+        {
+            TestAssignmentExample(typeof(XRSize10Handler));
+        }
+
         [TestMethod]
         public void TestXRSize12Handler()
         {
