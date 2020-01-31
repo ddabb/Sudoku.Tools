@@ -42,5 +42,10 @@ namespace Sudoku.UI
         {
 
         }
+
+        private void 退出ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

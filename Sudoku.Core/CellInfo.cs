@@ -22,6 +22,7 @@ namespace Sudoku.Core
 
         public List<int> mRest = null;
 
+        public List<int> NegativeValues=new List<int>();
         public void ReSetRest()
         {
             this.mRest = null;
@@ -40,6 +41,7 @@ namespace Sudoku.Core
             {
                 var relatedCells = Sudoku.AllSetCell.Where(c => c.Value != 0 && (c.Row == Row || c.Column == Column || c.Block == Block));
                 var result = G.AllBaseValues.Except(relatedCells.Select(c => c.Value)).ToList();
+                result=result.Except(NegativeValues).ToList();
                 result.Sort();
                 mRest = result;
             }
