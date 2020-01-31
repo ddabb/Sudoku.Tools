@@ -20,5 +20,27 @@ namespace Sudoku.UI
             c.ApplyCells(new List<CellInfo> {new PositiveCell(5, 4)});
             this.sudokuPanel1.Tag = c;
         }
+
+        private void fileMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            QSudoku example = new MinimalPuzzleFactory().Make(new SudokuBuilder().MakeWholeSudoku());
+            this.sudokuPanel1.Tag = example;
+            this.sudokuPanel1.Refresh();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
