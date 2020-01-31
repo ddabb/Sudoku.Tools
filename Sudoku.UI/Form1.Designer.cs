@@ -28,34 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.NewSudokuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.NewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.LoadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SaveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.QuitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.CopyGirdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.PasteGirdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ClearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.optionMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.sudokuPanel1 = new Sudoku.UI.SudokuPanel();
-            this.生成数独ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.新建数独ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.导入ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.保存ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.退出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.拷贝网格ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.粘贴网格ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.清空网格ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.重新计算候选数ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.清空线索ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.校验有效性ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SolveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.CheckVaildToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.optionMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ShowCandidatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.解题技巧ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.显示候选数ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.a1I9ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.r1C1R9C9单元格显示ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.显示欢迎消息ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.关于软件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ShowWelComeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutSoftwareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.MessageArea = new System.Windows.Forms.TextBox();
+            this.sudokuPanel1 = new Sudoku.UI.SudokuPanel();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -76,40 +77,128 @@
             // fileMenuItem
             // 
             this.fileMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.新建数独ToolStripMenuItem,
-            this.生成数独ToolStripMenuItem,
-            this.导入ToolStripMenuItem,
-            this.保存ToolStripMenuItem,
-            this.退出ToolStripMenuItem});
+            this.NewSudokuToolStripMenuItem,
+            this.NewToolStripMenuItem,
+            this.LoadToolStripMenuItem,
+            this.SaveToolStripMenuItem,
+            this.QuitToolStripMenuItem});
             this.fileMenuItem.Name = "fileMenuItem";
             this.fileMenuItem.Size = new System.Drawing.Size(44, 21);
             this.fileMenuItem.Text = "文件";
             this.fileMenuItem.Click += new System.EventHandler(this.fileMenuItem_Click);
             // 
+            // NewSudokuToolStripMenuItem
+            // 
+            this.NewSudokuToolStripMenuItem.Name = "NewSudokuToolStripMenuItem";
+            this.NewSudokuToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+            this.NewSudokuToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.NewSudokuToolStripMenuItem.Text = "新建数独";
+            this.NewSudokuToolStripMenuItem.Click += new System.EventHandler(this.新建数独ToolStripMenuItem_Click);
+            // 
+            // NewToolStripMenuItem
+            // 
+            this.NewToolStripMenuItem.Name = "NewToolStripMenuItem";
+            this.NewToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.G)));
+            this.NewToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.NewToolStripMenuItem.Text = "生成数独";
+            this.NewToolStripMenuItem.Click += new System.EventHandler(this.生成数独ToolStripMenuItem_Click);
+            // 
+            // LoadToolStripMenuItem
+            // 
+            this.LoadToolStripMenuItem.Name = "LoadToolStripMenuItem";
+            this.LoadToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.LoadToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.LoadToolStripMenuItem.Text = "加载";
+            // 
+            // SaveToolStripMenuItem
+            // 
+            this.SaveToolStripMenuItem.Name = "SaveToolStripMenuItem";
+            this.SaveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.SaveToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.SaveToolStripMenuItem.Text = "保存";
+            // 
+            // QuitToolStripMenuItem
+            // 
+            this.QuitToolStripMenuItem.Name = "QuitToolStripMenuItem";
+            this.QuitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
+            this.QuitToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.QuitToolStripMenuItem.Text = "退出";
+            this.QuitToolStripMenuItem.Click += new System.EventHandler(this.退出ToolStripMenuItem_Click);
+            // 
             // editMenuItem
             // 
             this.editMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.拷贝网格ToolStripMenuItem,
-            this.粘贴网格ToolStripMenuItem,
-            this.清空网格ToolStripMenuItem});
+            this.CopyGirdToolStripMenuItem,
+            this.PasteGirdToolStripMenuItem,
+            this.ClearToolStripMenuItem});
             this.editMenuItem.Name = "editMenuItem";
             this.editMenuItem.Size = new System.Drawing.Size(48, 21);
             this.editMenuItem.Text = " 编辑";
+            // 
+            // CopyGirdToolStripMenuItem
+            // 
+            this.CopyGirdToolStripMenuItem.Name = "CopyGirdToolStripMenuItem";
+            this.CopyGirdToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
+            this.CopyGirdToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.CopyGirdToolStripMenuItem.Text = "拷贝网格";
+            // 
+            // PasteGirdToolStripMenuItem
+            // 
+            this.PasteGirdToolStripMenuItem.Name = "PasteGirdToolStripMenuItem";
+            this.PasteGirdToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
+            this.PasteGirdToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.PasteGirdToolStripMenuItem.Text = "粘贴网格";
+            // 
+            // ClearToolStripMenuItem
+            // 
+            this.ClearToolStripMenuItem.Name = "ClearToolStripMenuItem";
+            this.ClearToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
+            this.ClearToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.ClearToolStripMenuItem.Text = "清空网格";
             // 
             // toolMenuItem
             // 
             this.toolMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.重新计算候选数ToolStripMenuItem,
             this.清空线索ToolStripMenuItem,
-            this.校验有效性ToolStripMenuItem});
+            this.SolveToolStripMenuItem,
+            this.CheckVaildToolStripMenuItem});
             this.toolMenuItem.Name = "toolMenuItem";
             this.toolMenuItem.Size = new System.Drawing.Size(44, 21);
             this.toolMenuItem.Text = "工具";
             // 
+            // 重新计算候选数ToolStripMenuItem
+            // 
+            this.重新计算候选数ToolStripMenuItem.Name = "重新计算候选数ToolStripMenuItem";
+            this.重新计算候选数ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
+            this.重新计算候选数ToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.重新计算候选数ToolStripMenuItem.Text = "重新计算候选数";
+            // 
+            // 清空线索ToolStripMenuItem
+            // 
+            this.清空线索ToolStripMenuItem.Name = "清空线索ToolStripMenuItem";
+            this.清空线索ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
+            this.清空线索ToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.清空线索ToolStripMenuItem.Text = "清空线索";
+            // 
+            // SolveToolStripMenuItem
+            // 
+            this.SolveToolStripMenuItem.Name = "SolveToolStripMenuItem";
+            this.SolveToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F8;
+            this.SolveToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.SolveToolStripMenuItem.Text = "求解";
+            // 
+            // CheckVaildToolStripMenuItem
+            // 
+            this.CheckVaildToolStripMenuItem.Name = "CheckVaildToolStripMenuItem";
+            this.CheckVaildToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F9;
+            this.CheckVaildToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.CheckVaildToolStripMenuItem.Text = "校验有效性";
+            // 
             // optionMenuItem
             // 
             this.optionMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.显示候选数ToolStripMenuItem,
+            this.ShowCandidatesToolStripMenuItem,
             this.解题技巧ToolStripMenuItem,
             this.a1I9ToolStripMenuItem,
             this.r1C1R9C9单元格显示ToolStripMenuItem});
@@ -117,24 +206,53 @@
             this.optionMenuItem.Size = new System.Drawing.Size(44, 21);
             this.optionMenuItem.Text = "选项";
             // 
+            // ShowCandidatesToolStripMenuItem
+            // 
+            this.ShowCandidatesToolStripMenuItem.Name = "ShowCandidatesToolStripMenuItem";
+            this.ShowCandidatesToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.ShowCandidatesToolStripMenuItem.Text = "显示候选数";
+            this.ShowCandidatesToolStripMenuItem.Click += new System.EventHandler(this.ShowCandidatesToolStripMenuItem_Click);
+            // 
+            // 解题技巧ToolStripMenuItem
+            // 
+            this.解题技巧ToolStripMenuItem.Name = "解题技巧ToolStripMenuItem";
+            this.解题技巧ToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.解题技巧ToolStripMenuItem.Text = "解题技巧";
+            // 
+            // a1I9ToolStripMenuItem
+            // 
+            this.a1I9ToolStripMenuItem.Name = "a1I9ToolStripMenuItem";
+            this.a1I9ToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.a1I9ToolStripMenuItem.Text = "A1-I9 单元格显示";
+            // 
+            // r1C1R9C9单元格显示ToolStripMenuItem
+            // 
+            this.r1C1R9C9单元格显示ToolStripMenuItem.Name = "r1C1R9C9单元格显示ToolStripMenuItem";
+            this.r1C1R9C9单元格显示ToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.r1C1R9C9单元格显示ToolStripMenuItem.Text = "R1C1-R9C9 单元格显示";
+            // 
             // helpMenuItem
             // 
             this.helpMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.显示欢迎消息ToolStripMenuItem,
-            this.关于软件ToolStripMenuItem});
+            this.ShowWelComeToolStripMenuItem,
+            this.aboutSoftwareToolStripMenuItem});
             this.helpMenuItem.Name = "helpMenuItem";
             this.helpMenuItem.Size = new System.Drawing.Size(44, 21);
             this.helpMenuItem.Text = "帮助";
             // 
-            // button1
+            // ShowWelComeToolStripMenuItem
             // 
-            this.button1.Location = new System.Drawing.Point(891, 89);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(138, 34);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "生成数独";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.ShowWelComeToolStripMenuItem.Name = "ShowWelComeToolStripMenuItem";
+            this.ShowWelComeToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.ShowWelComeToolStripMenuItem.Text = "显示欢迎消息";
+            this.ShowWelComeToolStripMenuItem.Click += new System.EventHandler(this.ShowWelComeToolStripMenuItem_Click);
+            // 
+            // aboutSoftwareToolStripMenuItem
+            // 
+            this.aboutSoftwareToolStripMenuItem.Name = "aboutSoftwareToolStripMenuItem";
+            this.aboutSoftwareToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.aboutSoftwareToolStripMenuItem.Text = "关于软件";
+            this.aboutSoftwareToolStripMenuItem.Click += new System.EventHandler(this.aboutSoftwareToolStripMenuItem_Click);
             // 
             // button2
             // 
@@ -156,141 +274,40 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // textBox1
+            // MessageArea
             // 
-            this.textBox1.Location = new System.Drawing.Point(879, 290);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(536, 448);
-            this.textBox1.TabIndex = 5;
+            this.MessageArea.Location = new System.Drawing.Point(852, 239);
+            this.MessageArea.Multiline = true;
+            this.MessageArea.Name = "MessageArea";
+            this.MessageArea.Size = new System.Drawing.Size(563, 499);
+            this.MessageArea.TabIndex = 5;
+            this.MessageArea.TextChanged += new System.EventHandler(this.MessageArea_TextChanged);
             // 
             // sudokuPanel1
             // 
             this.sudokuPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
             this.sudokuPanel1.Location = new System.Drawing.Point(12, 53);
             this.sudokuPanel1.Name = "sudokuPanel1";
+            this.sudokuPanel1.ShowCandidates = true;
             this.sudokuPanel1.Size = new System.Drawing.Size(810, 810);
             this.sudokuPanel1.TabIndex = 0;
             this.sudokuPanel1.Tag = "030150209000360050700490603001273800000519000003684700100000008320040000409001060" +
     "";
-            // 
-            // 生成数独ToolStripMenuItem
-            // 
-            this.生成数独ToolStripMenuItem.Name = "生成数独ToolStripMenuItem";
-            this.生成数独ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.生成数独ToolStripMenuItem.Text = "生成数独";
-            // 
-            // 新建数独ToolStripMenuItem
-            // 
-            this.新建数独ToolStripMenuItem.Name = "新建数独ToolStripMenuItem";
-            this.新建数独ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.新建数独ToolStripMenuItem.Text = "新建数独";
-            // 
-            // 导入ToolStripMenuItem
-            // 
-            this.导入ToolStripMenuItem.Name = "导入ToolStripMenuItem";
-            this.导入ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.导入ToolStripMenuItem.Text = "导入";
-            // 
-            // 保存ToolStripMenuItem
-            // 
-            this.保存ToolStripMenuItem.Name = "保存ToolStripMenuItem";
-            this.保存ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.保存ToolStripMenuItem.Text = "保存";
-            // 
-            // 退出ToolStripMenuItem
-            // 
-            this.退出ToolStripMenuItem.Name = "退出ToolStripMenuItem";
-            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.退出ToolStripMenuItem.Text = "退出";
-            this.退出ToolStripMenuItem.Click += new System.EventHandler(this.退出ToolStripMenuItem_Click);
-            // 
-            // 拷贝网格ToolStripMenuItem
-            // 
-            this.拷贝网格ToolStripMenuItem.Name = "拷贝网格ToolStripMenuItem";
-            this.拷贝网格ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.拷贝网格ToolStripMenuItem.Text = "拷贝网格";
-            // 
-            // 粘贴网格ToolStripMenuItem
-            // 
-            this.粘贴网格ToolStripMenuItem.Name = "粘贴网格ToolStripMenuItem";
-            this.粘贴网格ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.粘贴网格ToolStripMenuItem.Text = "粘贴网格";
-            // 
-            // 清空网格ToolStripMenuItem
-            // 
-            this.清空网格ToolStripMenuItem.Name = "清空网格ToolStripMenuItem";
-            this.清空网格ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.清空网格ToolStripMenuItem.Text = "清空网格";
-            // 
-            // 重新计算候选数ToolStripMenuItem
-            // 
-            this.重新计算候选数ToolStripMenuItem.Name = "重新计算候选数ToolStripMenuItem";
-            this.重新计算候选数ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.重新计算候选数ToolStripMenuItem.Text = "重新计算候选数";
-            // 
-            // 清空线索ToolStripMenuItem
-            // 
-            this.清空线索ToolStripMenuItem.Name = "清空线索ToolStripMenuItem";
-            this.清空线索ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.清空线索ToolStripMenuItem.Text = "清空线索";
-            // 
-            // 校验有效性ToolStripMenuItem
-            // 
-            this.校验有效性ToolStripMenuItem.Name = "校验有效性ToolStripMenuItem";
-            this.校验有效性ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.校验有效性ToolStripMenuItem.Text = "校验有效性";
-            // 
-            // 解题技巧ToolStripMenuItem
-            // 
-            this.解题技巧ToolStripMenuItem.Name = "解题技巧ToolStripMenuItem";
-            this.解题技巧ToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
-            this.解题技巧ToolStripMenuItem.Text = "解题技巧";
-            // 
-            // 显示候选数ToolStripMenuItem
-            // 
-            this.显示候选数ToolStripMenuItem.Name = "显示候选数ToolStripMenuItem";
-            this.显示候选数ToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
-            this.显示候选数ToolStripMenuItem.Text = "显示候选数";
-            // 
-            // a1I9ToolStripMenuItem
-            // 
-            this.a1I9ToolStripMenuItem.Name = "a1I9ToolStripMenuItem";
-            this.a1I9ToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
-            this.a1I9ToolStripMenuItem.Text = "A1-I9 单元格显示";
-            // 
-            // r1C1R9C9单元格显示ToolStripMenuItem
-            // 
-            this.r1C1R9C9单元格显示ToolStripMenuItem.Name = "r1C1R9C9单元格显示ToolStripMenuItem";
-            this.r1C1R9C9单元格显示ToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
-            this.r1C1R9C9单元格显示ToolStripMenuItem.Text = "R1C1-R9C9 单元格显示";
-            // 
-            // 显示欢迎消息ToolStripMenuItem
-            // 
-            this.显示欢迎消息ToolStripMenuItem.Name = "显示欢迎消息ToolStripMenuItem";
-            this.显示欢迎消息ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.显示欢迎消息ToolStripMenuItem.Text = "显示欢迎消息";
-            // 
-            // 关于软件ToolStripMenuItem
-            // 
-            this.关于软件ToolStripMenuItem.Name = "关于软件ToolStripMenuItem";
-            this.关于软件ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.关于软件ToolStripMenuItem.Text = "关于软件";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1446, 887);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.MessageArea);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.sudokuPanel1);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "超级数独";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -307,26 +324,26 @@
         private System.Windows.Forms.ToolStripMenuItem toolMenuItem;
         private System.Windows.Forms.ToolStripMenuItem optionMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpMenuItem;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.ToolStripMenuItem 新建数独ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 生成数独ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 导入ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 保存ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 退出ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 拷贝网格ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 粘贴网格ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 清空网格ToolStripMenuItem;
+        private System.Windows.Forms.TextBox MessageArea;
+        private System.Windows.Forms.ToolStripMenuItem NewSudokuToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem NewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem LoadToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem SaveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem QuitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem CopyGirdToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem PasteGirdToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ClearToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 重新计算候选数ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 清空线索ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 校验有效性ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 显示候选数ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem CheckVaildToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ShowCandidatesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 解题技巧ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem a1I9ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem r1C1R9C9单元格显示ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 显示欢迎消息ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 关于软件ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ShowWelComeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutSoftwareToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem SolveToolStripMenuItem;
     }
 }

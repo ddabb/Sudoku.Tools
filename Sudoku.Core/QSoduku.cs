@@ -17,7 +17,11 @@ namespace Sudoku.Core
         /// </summary>
         private List<CellInfo> cellInfos { get; set; } = new List<CellInfo>();
 
-
+        public QSudoku()
+        {
+            this.QueryString = "000000000000000000000000000000000000000000000000000000000000000000000000000000000";
+            Init();
+        }
 
         public QSudoku(string queryString)
         {

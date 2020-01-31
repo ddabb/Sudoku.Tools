@@ -11,10 +11,23 @@ namespace Sudoku.UI
             this.Paint += hmaPanel_Paint;
             this.BackColor = Color.FromArgb(255, 0xd7, 0xd7, 0xd7);
             this.Resize += (sender, e) => { this.Refresh(); };
+            this.MouseMove += SudokuPanel_MouseMove;
+            this.MouseClick += SudokuPanel_MouseClick;
+        }
 
-
+        private void SudokuPanel_MouseClick(object sender, MouseEventArgs e)
+        {
 
         }
+
+        private Rectangle paintRectangle { get; set; }
+        private void SudokuPanel_MouseMove(object sender, MouseEventArgs e)
+        {
+               
+        }
+
+        public bool ShowCandidates { get; set; } = true;
+
         private void hmaPanel_Paint(object sender, PaintEventArgs e)
         {
 
@@ -62,12 +75,16 @@ namespace Sudoku.UI
 
                 foreach (var item in sudoku.AllUnSetCells)
                 {
-                    foreach (var item1 in item.RestList)
+                    if (ShowCandidates)
                     {
-                        var stringvalue = "" + item1;
-                        Size size = TextRenderer.MeasureText(stringvalue, smallFont);
-                        objGraphics.DrawString(stringvalue, smallFont, new SolidBrush(Color.Gray), new PointF(item.Column * bigSpace + (smallspace * ((item1-1) % 3)) + (smallspace - size.Width) / 2, item.Row * bigSpace + (smallspace * ((item1 - 1) / 3)) + +(smallspace - size.Height) / 2));
+                        foreach (var item1 in item.RestList)
+                        {
+                            var stringvalue = "" + item1;
+                            Size size = TextRenderer.MeasureText(stringvalue, smallFont);
+                            objGraphics.DrawString(stringvalue, smallFont, new SolidBrush(Color.Gray), new PointF(item.Column * bigSpace + (smallspace * ((item1 - 1) % 3)) + (smallspace - size.Width) / 2, item.Row * bigSpace + (smallspace * ((item1 - 1) / 3)) + +(smallspace - size.Height) / 2));
+                        }
                     }
+
 
                 }
             }
