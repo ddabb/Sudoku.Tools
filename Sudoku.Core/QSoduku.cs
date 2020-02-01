@@ -278,6 +278,12 @@ namespace Sudoku.Core
                 return cellInfos.Where(c => c.Value != 0).ToList();
             }
         }
+
+        public string CurrentString
+        {
+            get { return this.cellInfos.Select(c=>c.Value).JoinString(""); }
+        }
+
         /// <summary>
         /// 用于HiddenSingleBlockHandler
         /// </summary>

@@ -100,5 +100,33 @@ namespace Sudoku.UI
         {
 
         }
+
+        private void CopyGirdToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.sudokuPanel1.Tag  is QSudoku example)
+            {
+                var currentString = example.CurrentString;
+                Clipboard.SetDataObject(currentString);
+            }
+
+        }
+
+        private void PasteGirdToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            IDataObject data = Clipboard.GetDataObject();
+
+            if (data?.GetData(DataFormats.UnicodeText) is string queryString)
+            {
+                queryString = queryString.Replace("*", "0").Replace(".", "0").Replace("\r\n", "").Trim();
+                if (queryString.Length==81)
+                {
+                
+                   QSudoku example = new QSudoku(queryString);
+                   this.sudokuPanel1.Tag = example;
+                   this.sudokuPanel1.Refresh();
+                }
+            }
+   
+        }
     }
 }
