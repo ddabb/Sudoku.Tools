@@ -26,7 +26,7 @@ namespace Sudoku.UI
 
         public string VersionString
         {
-            get { return "1.0.2.1"; }
+            get { return "1.0.2.2"; }
         }
         public string authorString
         {
