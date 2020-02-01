@@ -36,6 +36,84 @@ namespace Sudoku.Core
 
         };
 
+        public static List<int> GetLocations(List<List<int>> initValues)
+        {
+            var tempList = new List<int>();
+
+            int location = 0;
+            foreach (var lists in initValues)
+            {
+                foreach (var value in lists)
+                {
+                    if (value != 0)
+                    {
+                        tempList.Add(location);
+                    }
+
+                    location += 1;
+                }
+            }
+
+            return tempList;
+        }
+
+        public static string SwitchLocation(string str, int a, int b)
+        {
+            char[] newStr = str.ToCharArray();
+            var c1 = newStr[a];
+            var c2 = newStr[b];
+            newStr[a] = c2;
+            newStr[b] = c1;
+            return new string(newStr);
+        }
+        /// <summary>
+        /// 获取字符串的所有非0的位置
+        /// </summary>
+        /// <param name="initValues"></param>
+        /// <returns></returns>
+        public static List<int> GetLocations(string initValues)
+        {
+            var tempList = new List<int>();
+            var chars = initValues.ToCharArray();
+            for (int i = 0; i < chars.Length; i++)
+            {
+                if (chars[i] != '0')
+                {
+                    tempList.Add(i);
+                }
+
+            }
+            return tempList;
+        }
+        public static List<List<int>> StringToList(string str)
+        {
+            str = str.Replace("*", "0").Replace(".", "").Replace("\r\n", "").Trim();
+            var arr = str.ToCharArray();
+            List<List<int>> result = new List<List<int>>()
+            {
+                new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0}
+            };
+            for (int i = 0; i < 9; i++)
+            {
+                for (int j = 0; j < 9; j++)
+                {
+                    result[i][j] = Convert.ToInt32("" + arr[i * 9 + j]);
+                }
+            }
+
+
+            return result;
+
+        }
+
         public static string GetEnumDescription(Enum enumSubitem)
         {
             string strValue = enumSubitem.ToString();
