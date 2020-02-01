@@ -9,6 +9,9 @@ namespace Sudoku.Tools
     public class WXYZWingHandler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.WXYZWing;
+
+        public override MethodClassify methodClassify => throw new NotImplementedException();
+
         /// <summary>
         /// 142ms
         /// </summary>

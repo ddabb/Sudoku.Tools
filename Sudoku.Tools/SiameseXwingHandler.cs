@@ -10,6 +10,8 @@ namespace Sudoku.Tools
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.SiameseXwing;
 
+        public override MethodClassify methodClassify => throw new NotImplementedException();
+
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             throw new NotImplementedException();

@@ -17,7 +17,9 @@ namespace Sudoku.UI
         {
             InitializeComponent();
             this.Icon = Sudoku.UI.Resource.sudoku;
-            this.HintTree.Nodes.Add(new TreeNode("线索列表"));
+            var space = this.sudokuPanel1.SmallSpace * 27;
+            this.sudokuPanel1.Size = new System.Drawing.Size(space, space);
+            this.HintTree.Nodes.Add(new TreeNode("提示列表"));
             this.ShowInTaskbar = true;
             var c= new QSudoku("002000030481253796703008400000020903006340070030000004100007300300000500009430010");
             c.ApplyCells(new List<CellInfo> {new PositiveCell(5, 4)});
@@ -82,6 +84,19 @@ namespace Sudoku.UI
         }
 
         private void MessageArea_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ClearHintToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.MessageArea.Text = "";
+            this.HintTree.Nodes.Clear();
+
+        }
+
+
+        private void HintTree_AfterSelect(object sender, TreeViewEventArgs e)
         {
 
         }

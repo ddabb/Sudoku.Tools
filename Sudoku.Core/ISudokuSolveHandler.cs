@@ -1,5 +1,6 @@
 ﻿using Sudoku.Core;
 using System.Collections.Generic;
+using Sudoku.Tools;
 
 namespace Sudoku.Core
 {
@@ -21,6 +22,9 @@ namespace Sudoku.Core
         List<CellInfo> Elimination(QSudoku qSudoku);
 
         SolveMethodEnum methodType { get; }
-        
+
+
+        MethodClassify methodClassify { get; }
+
     }
 }

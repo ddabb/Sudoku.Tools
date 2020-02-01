@@ -14,6 +14,9 @@ namespace Sudoku.Tools
         }
 
         public override SolveMethodEnum methodType => SolveMethodEnum.CannibalisticAIC;
+
+        public override MethodClassify methodClassify => throw new NotImplementedException();
+
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             throw new NotImplementedException();

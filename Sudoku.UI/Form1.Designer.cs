@@ -30,7 +30,6 @@ namespace Sudoku.UI
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.NewSudokuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,13 +42,13 @@ namespace Sudoku.UI
             this.PasteGirdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ClearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.重新计算候选数ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.清空线索ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ResetCandidatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ClearHintToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SolveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CheckVaildToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ShowCandidatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.解题技巧ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.solveTechniquesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.a1I9ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.r1C1R9C9单元格显示ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -77,7 +76,7 @@ namespace Sudoku.UI
             this.helpMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1645, 25);
+            this.menuStrip1.Size = new System.Drawing.Size(1739, 25);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -166,27 +165,28 @@ namespace Sudoku.UI
             // toolMenuItem
             // 
             this.toolMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.重新计算候选数ToolStripMenuItem,
-            this.清空线索ToolStripMenuItem,
+            this.ResetCandidatesToolStripMenuItem,
+            this.ClearHintToolStripMenuItem,
             this.SolveToolStripMenuItem,
             this.CheckVaildToolStripMenuItem});
             this.toolMenuItem.Name = "toolMenuItem";
             this.toolMenuItem.Size = new System.Drawing.Size(44, 21);
             this.toolMenuItem.Text = "工具";
             // 
-            // 重新计算候选数ToolStripMenuItem
+            // ResetCandidatesToolStripMenuItem
             // 
-            this.重新计算候选数ToolStripMenuItem.Name = "重新计算候选数ToolStripMenuItem";
-            this.重新计算候选数ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-            this.重新计算候选数ToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
-            this.重新计算候选数ToolStripMenuItem.Text = "重新计算候选数";
+            this.ResetCandidatesToolStripMenuItem.Name = "ResetCandidatesToolStripMenuItem";
+            this.ResetCandidatesToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
+            this.ResetCandidatesToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.ResetCandidatesToolStripMenuItem.Text = "重新计算候选数";
             // 
-            // 清空线索ToolStripMenuItem
+            // ClearHintToolStripMenuItem
             // 
-            this.清空线索ToolStripMenuItem.Name = "清空线索ToolStripMenuItem";
-            this.清空线索ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
-            this.清空线索ToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
-            this.清空线索ToolStripMenuItem.Text = "清空线索";
+            this.ClearHintToolStripMenuItem.Name = "ClearHintToolStripMenuItem";
+            this.ClearHintToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
+            this.ClearHintToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.ClearHintToolStripMenuItem.Text = "清空线索";
+            this.ClearHintToolStripMenuItem.Click += new System.EventHandler(this.ClearHintToolStripMenuItem_Click);
             // 
             // SolveToolStripMenuItem
             // 
@@ -206,7 +206,7 @@ namespace Sudoku.UI
             // 
             this.optionMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ShowCandidatesToolStripMenuItem,
-            this.解题技巧ToolStripMenuItem,
+            this.solveTechniquesToolStripMenuItem,
             this.a1I9ToolStripMenuItem,
             this.r1C1R9C9单元格显示ToolStripMenuItem});
             this.optionMenuItem.Name = "optionMenuItem";
@@ -220,11 +220,11 @@ namespace Sudoku.UI
             this.ShowCandidatesToolStripMenuItem.Text = "显示候选数";
             this.ShowCandidatesToolStripMenuItem.Click += new System.EventHandler(this.ShowCandidatesToolStripMenuItem_Click);
             // 
-            // 解题技巧ToolStripMenuItem
+            // solveTechniquesToolStripMenuItem
             // 
-            this.解题技巧ToolStripMenuItem.Name = "解题技巧ToolStripMenuItem";
-            this.解题技巧ToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
-            this.解题技巧ToolStripMenuItem.Text = "解题技巧";
+            this.solveTechniquesToolStripMenuItem.Name = "solveTechniquesToolStripMenuItem";
+            this.solveTechniquesToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.solveTechniquesToolStripMenuItem.Text = "解题技巧";
             // 
             // a1I9ToolStripMenuItem
             // 
@@ -263,7 +263,7 @@ namespace Sudoku.UI
             // 
             // MessageArea
             // 
-            this.MessageArea.Location = new System.Drawing.Point(828, 457);
+            this.MessageArea.Location = new System.Drawing.Point(758, 457);
             this.MessageArea.Multiline = true;
             this.MessageArea.Name = "MessageArea";
             this.MessageArea.Size = new System.Drawing.Size(787, 406);
@@ -276,21 +276,20 @@ namespace Sudoku.UI
             this.sudokuPanel1.Location = new System.Drawing.Point(12, 53);
             this.sudokuPanel1.Name = "sudokuPanel1";
             this.sudokuPanel1.ShowCandidates = true;
-            this.sudokuPanel1.Size = new System.Drawing.Size(810, 810);
+            this.sudokuPanel1.Size = new System.Drawing.Size(730, 730);
             this.sudokuPanel1.TabIndex = 0;
-            this.sudokuPanel1.Tag = "030150209000360050700490603001273800000519000003684700100000008320040000409001060" +
-    "";
-            // 
+ // 
             // HintTree
             // 
-            this.HintTree.Location = new System.Drawing.Point(828, 53);
+            this.HintTree.Location = new System.Drawing.Point(758, 53);
             this.HintTree.Name = "HintTree";
             this.HintTree.Size = new System.Drawing.Size(665, 398);
             this.HintTree.TabIndex = 6;
+            this.HintTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.HintTree_AfterSelect);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(1515, 53);
+            this.button1.Location = new System.Drawing.Point(1445, 53);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(100, 30);
             this.button1.TabIndex = 7;
@@ -299,7 +298,7 @@ namespace Sudoku.UI
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(1515, 119);
+            this.button2.Location = new System.Drawing.Point(1445, 119);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(100, 30);
             this.button2.TabIndex = 8;
@@ -308,7 +307,7 @@ namespace Sudoku.UI
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(1515, 185);
+            this.button3.Location = new System.Drawing.Point(1445, 185);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(100, 30);
             this.button3.TabIndex = 9;
@@ -317,7 +316,7 @@ namespace Sudoku.UI
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(1515, 317);
+            this.button4.Location = new System.Drawing.Point(1445, 317);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(100, 30);
             this.button4.TabIndex = 10;
@@ -326,7 +325,7 @@ namespace Sudoku.UI
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(1515, 251);
+            this.button5.Location = new System.Drawing.Point(1445, 251);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(100, 30);
             this.button5.TabIndex = 11;
@@ -335,7 +334,7 @@ namespace Sudoku.UI
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(1515, 383);
+            this.button6.Location = new System.Drawing.Point(1445, 383);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(100, 30);
             this.button6.TabIndex = 12;
@@ -346,7 +345,7 @@ namespace Sudoku.UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1645, 887);
+            this.ClientSize = new System.Drawing.Size(1739, 888);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
@@ -357,7 +356,7 @@ namespace Sudoku.UI
             this.Controls.Add(this.MessageArea);
             this.Controls.Add(this.sudokuPanel1);
             this.Controls.Add(this.menuStrip1);
-      this.MainMenuStrip = this.menuStrip1;
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "超级数独";
             this.menuStrip1.ResumeLayout(false);
@@ -385,11 +384,11 @@ namespace Sudoku.UI
         private System.Windows.Forms.ToolStripMenuItem CopyGirdToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem PasteGirdToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ClearToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 重新计算候选数ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 清空线索ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ResetCandidatesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ClearHintToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem CheckVaildToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ShowCandidatesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 解题技巧ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem solveTechniquesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem a1I9ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem r1C1R9C9单元格显示ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ShowWelComeToolStripMenuItem;

@@ -10,6 +10,8 @@ namespace Sudoku.Tools
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.URType1;
 
+        public override MethodClassify methodClassify => throw new NotImplementedException();
+
         /// <summary>
         /// ab,ab,ab,abc 结构，且属于两个block。
         /// </summary>

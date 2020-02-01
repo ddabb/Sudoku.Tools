@@ -17,6 +17,7 @@ namespace Sudoku.Tools
         public SolverHandlerBase()
         { }
         public abstract SolveMethodEnum methodType { get; }
+        public abstract MethodClassify methodClassify { get; }
 
         /// <summary>
         /// 出数

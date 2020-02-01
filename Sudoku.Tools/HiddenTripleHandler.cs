@@ -12,6 +12,8 @@ namespace Sudoku.Tools
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.HiddenTriple;
 
+        public override MethodClassify methodClassify => throw new NotImplementedException();
+
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();

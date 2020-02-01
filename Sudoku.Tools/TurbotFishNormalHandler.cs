@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+
 namespace Sudoku.Tools
 {
 
@@ -12,6 +13,8 @@ namespace Sudoku.Tools
     public class TurbotFishNormalHandler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.TurbotFishNormal;
+
+        public override MethodClassify methodClassify => throw new NotImplementedException();
 
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {

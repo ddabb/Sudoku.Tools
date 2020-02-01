@@ -10,6 +10,8 @@ namespace Sudoku.Tools
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.FinnedSwordfish;
 
+        public override MethodClassify methodClassify => throw new NotImplementedException();
+
         /// <summary>
         /// 
         /// </summary>
