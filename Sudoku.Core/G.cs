@@ -36,6 +36,7 @@ namespace Sudoku.Core
 
         };
 
+
         public static List<int> GetLocations(List<List<int>> initValues)
         {
             var tempList = new List<int>();

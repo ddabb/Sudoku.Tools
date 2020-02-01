@@ -1,4 +1,6 @@
-﻿namespace Sudoku.UI
+﻿using System.Windows.Forms;
+
+namespace Sudoku.UI
 {
     partial class Form1
     {
@@ -53,10 +55,15 @@
             this.helpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ShowWelComeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutSoftwareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
             this.MessageArea = new System.Windows.Forms.TextBox();
             this.sudokuPanel1 = new Sudoku.UI.SudokuPanel();
+            this.HintTree = new System.Windows.Forms.TreeView();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -70,7 +77,7 @@
             this.helpMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1446, 25);
+            this.menuStrip1.Size = new System.Drawing.Size(1645, 25);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -254,32 +261,12 @@
             this.aboutSoftwareToolStripMenuItem.Text = "关于软件";
             this.aboutSoftwareToolStripMenuItem.Click += new System.EventHandler(this.aboutSoftwareToolStripMenuItem_Click);
             // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(891, 137);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(138, 34);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "获取下一个提示";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(891, 177);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(138, 34);
-            this.button3.TabIndex = 4;
-            this.button3.Text = "应用提示";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
             // MessageArea
             // 
-            this.MessageArea.Location = new System.Drawing.Point(852, 239);
+            this.MessageArea.Location = new System.Drawing.Point(828, 457);
             this.MessageArea.Multiline = true;
             this.MessageArea.Name = "MessageArea";
-            this.MessageArea.Size = new System.Drawing.Size(563, 499);
+            this.MessageArea.Size = new System.Drawing.Size(787, 406);
             this.MessageArea.TabIndex = 5;
             this.MessageArea.TextChanged += new System.EventHandler(this.MessageArea_TextChanged);
             // 
@@ -294,18 +281,83 @@
             this.sudokuPanel1.Tag = "030150209000360050700490603001273800000519000003684700100000008320040000409001060" +
     "";
             // 
+            // HintTree
+            // 
+            this.HintTree.Location = new System.Drawing.Point(828, 53);
+            this.HintTree.Name = "HintTree";
+            this.HintTree.Size = new System.Drawing.Size(665, 398);
+            this.HintTree.TabIndex = 6;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(1515, 53);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(100, 30);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "校验有效性";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(1515, 119);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(100, 30);
+            this.button2.TabIndex = 8;
+            this.button2.Text = "解题步骤";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(1515, 185);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(100, 30);
+            this.button3.TabIndex = 9;
+            this.button3.Text = "获取下一个线索";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(1515, 317);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(100, 30);
+            this.button4.TabIndex = 10;
+            this.button4.Text = "应用线索";
+            this.button4.UseVisualStyleBackColor = true;
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(1515, 251);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(100, 30);
+            this.button5.TabIndex = 11;
+            this.button5.Text = "获取所有线索";
+            this.button5.UseVisualStyleBackColor = true;
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(1515, 383);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(100, 30);
+            this.button6.TabIndex = 12;
+            this.button6.Text = "撤销动作";
+            this.button6.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1446, 887);
-            this.Controls.Add(this.MessageArea);
+            this.ClientSize = new System.Drawing.Size(1645, 887);
+            this.Controls.Add(this.button6);
+            this.Controls.Add(this.button5);
+            this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.HintTree);
+            this.Controls.Add(this.MessageArea);
             this.Controls.Add(this.sudokuPanel1);
             this.Controls.Add(this.menuStrip1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MainMenuStrip = this.menuStrip1;
+      this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "超级数独";
             this.menuStrip1.ResumeLayout(false);
@@ -324,8 +376,6 @@
         private System.Windows.Forms.ToolStripMenuItem toolMenuItem;
         private System.Windows.Forms.ToolStripMenuItem optionMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpMenuItem;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
         private System.Windows.Forms.TextBox MessageArea;
         private System.Windows.Forms.ToolStripMenuItem NewSudokuToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem NewToolStripMenuItem;
@@ -345,5 +395,12 @@
         private System.Windows.Forms.ToolStripMenuItem ShowWelComeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutSoftwareToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem SolveToolStripMenuItem;
+        private System.Windows.Forms.TreeView HintTree;
+        private Button button1;
+        private Button button2;
+        private Button button3;
+        private Button button4;
+        private Button button5;
+        private Button button6;
     }
 }

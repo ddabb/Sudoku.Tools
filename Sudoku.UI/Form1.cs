@@ -16,6 +16,8 @@ namespace Sudoku.UI
         public Form1()
         {
             InitializeComponent();
+            this.Icon = Sudoku.UI.Resource.sudoku;
+            this.HintTree.Nodes.Add(new TreeNode("线索列表"));
             this.ShowInTaskbar = true;
             var c= new QSudoku("002000030481253796703008400000020903006340070030000004100007300300000500009430010");
             c.ApplyCells(new List<CellInfo> {new PositiveCell(5, 4)});
@@ -71,7 +73,7 @@ namespace Sudoku.UI
 
         private void aboutSoftwareToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            new AboutForm().ShowDialog();
         }
 
         private void ShowWelComeToolStripMenuItem_Click(object sender, EventArgs e)
