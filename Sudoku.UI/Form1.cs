@@ -63,7 +63,7 @@ namespace Sudoku.UI
 
         }
 
-        private void 生成数独ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void NewToolStripMenuItem_Click(object sender, EventArgs e)
         {
             QSudoku example = new MinimalPuzzleFactory().Make(new SudokuBuilder().MakeWholeSudoku());
             this.sudokuPanel1.Tag = example;
@@ -123,15 +123,22 @@ namespace Sudoku.UI
             if (data?.GetData(DataFormats.UnicodeText) is string queryString)
             {
                 queryString = queryString.Replace("*", "0").Replace(".", "0").Replace("\r\n", "").Trim();
-                if (queryString.Length==81)
+                if (queryString.Length == 81)
                 {
-                
-                   QSudoku example = new QSudoku(queryString);
-                   this.sudokuPanel1.Tag = example;
-                   this.sudokuPanel1.Refresh();
+                    if (this.sudokuPanel1.Tag is QSudoku formSudoku)
+                    {
+                        if (formSudoku.CurrentString != queryString)
+                        {
+                            QSudoku example = new QSudoku(queryString);
+                            this.sudokuPanel1.Tag = example;
+
+                            this.sudokuPanel1.Refresh();
+                        }
+                    }
+
                 }
             }
-   
+
         }
 
         private void BtnGetAllHint_Click(object sender, EventArgs e)
@@ -219,6 +226,11 @@ namespace Sudoku.UI
                 this.MessageArea.Text = "" + hander;
             }
       
+        }
+
+        private void LoadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

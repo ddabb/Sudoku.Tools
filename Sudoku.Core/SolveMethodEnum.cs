@@ -10,29 +10,42 @@ namespace Sudoku.Core
     /// </summary>
     public enum SolveMethodEnum
     {
+        [Description("宮排除")]
         [DifficultuRating(1.2)]
         HiddenSingleBlock,
+        [Description("唯一余数")]
         [DifficultuRating(2.3)]
         NakedSingle,
+        [Description("列排除")]
         [DifficultuRating(1.5)]
         HiddenSingleColumn,
+        [Description("行排除")]
         HiddenSingleRow,
+        [Description("宮区块")]
         [DifficultuRating(1.7)]
         DirectPointing,
+        [Description("隐性数对")]
         [DifficultuRating(2.0)]
         HiddenPair,
+        [Description("隐性三数组")]
         [DifficultuRating(4.0)]
         HiddenTriple,
+        [Description("隐性四数组")]
         [DifficultuRating(5.4)]
         HiddenQuadruple,
+        [Description("显性数对")]
         [DifficultuRating(3.0)]
         NakedPair,
+        [Description("显性三数组")]
         [DifficultuRating(3.6)]
         NakedTriple,
+        [Description("显性四数组")]
         [DifficultuRating(5.0)]
         NakedQuadruple,
+        [Description("行区块")]
         [DifficultuRating(2.8)]
         ClaimingInRow,
+        [Description("列区块")]
         [DifficultuRating(2.8)]
         ClaimingInColumn,
         [DifficultuRating(4.4)]
@@ -127,7 +140,9 @@ namespace Sudoku.Core
         DymanicForcingChain,
         [DifficultuRating(4.5)]
         IncompleteWXYZWing,
+        [Description("空矩形")]
         EmptyRectangle,
+        [Description("不连续环")]
         DiscontinuousNiceLoop,
         CannibalisticAIC
     }
