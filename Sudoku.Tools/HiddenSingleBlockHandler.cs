@@ -9,7 +9,7 @@ namespace Sudoku.Tools
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.HiddenSingleBlock;
 
-        public override MethodClassify methodClassify => throw new NotImplementedException();
+        public override MethodClassify methodClassify => MethodClassify.SudokuRules;
 
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {

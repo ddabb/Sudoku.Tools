@@ -12,7 +12,7 @@ namespace Sudoku.Tools
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.ULSize6Type2;
 
-        public override MethodClassify methodClassify => throw new NotImplementedException();
+        public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
 
         /// <summary>
         /// 满足 xyz,除去z 有xy 与该xyz 同行 或同列

@@ -10,7 +10,7 @@ namespace Sudoku.Tools
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.XRSize6Type3;
 
-        public override MethodClassify methodClassify => throw new NotImplementedException();
+        public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
 
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {

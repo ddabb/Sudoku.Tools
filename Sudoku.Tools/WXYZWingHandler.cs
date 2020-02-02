@@ -10,7 +10,7 @@ namespace Sudoku.Tools
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.WXYZWing;
 
-        public override MethodClassify methodClassify => throw new NotImplementedException();
+        public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
 
         /// <summary>
         /// 142ms

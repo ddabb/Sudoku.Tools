@@ -9,8 +9,8 @@ namespace Sudoku.Tools
     public class SiameseJeffyfishHandler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.SiameseJeffyfish;
+        public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
 
-        public override MethodClassify methodClassify => throw new NotImplementedException();
 
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
