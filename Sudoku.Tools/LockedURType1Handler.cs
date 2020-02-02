@@ -48,7 +48,7 @@ namespace Sudoku.Tools
                         var haveRestValueCell = allUnsetCell.Where(cell => (sameRow ? cell.Row == a.Row || cell.Row == c.Row : cell.Column == a.Column || cell.Column == c.Column) && cell.RestList.Contains(rest)).ToList();
                         if (haveRestValueCell.Count == 4)
                         {
-                            var positiveValue = restList.ToList().First(c => c != rest);
+                            var positiveValue = restList.ToList().First(c1 => c1 != rest);
                             var findCells = allUnsetCell.Where(cell => cell.RestList.Contains(positiveValue) && (sameRow ? cell.Row == c.Row : cell.Column == c.Column) && !cdIndexs.Contains(cell.Index)).ToList();
                             if (findCells.Count == 1)
                             {

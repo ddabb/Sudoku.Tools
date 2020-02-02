@@ -38,6 +38,9 @@
     <DisableOutOfProcTaskHost>true</DisableOutOfProcTaskHost>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.9.4.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.9.4\lib\net45\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -93,6 +96,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -110,6 +114,10 @@
     <ProjectReference Include="..\Sudoku.Core\Sudoku.Core.csproj">
       <Project>{17b5becd-2253-42d4-a968-8ee69c2f2bac}</Project>
       <Name>Sudoku.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sudoku.Tools\Sudoku.Tools.csproj">
+      <Project>{b46ea5f1-9ea8-4d55-a6d4-5b0c65bfa092}</Project>
+      <Name>Sudoku.Tools</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

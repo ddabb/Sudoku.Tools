@@ -1,13 +1,18 @@
-﻿using Sudoku.Core;
+﻿using Autofac;
+using Sudoku.Core;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Sudoku.Tools;
+using IContainer = Autofac.IContainer;
 
 namespace Sudoku.UI
 {
@@ -127,6 +132,93 @@ namespace Sudoku.UI
                 }
             }
    
+        }
+
+        private void BtnGetAllHint_Click(object sender, EventArgs e)
+        {
+            if (this.sudokuPanel1.Tag is QSudoku sudoku)
+            {
+                this.HintTree.BeginUpdate();
+
+                this.HintTree.Nodes.Clear();
+                this.HintTree.Nodes.Add(new TreeNode("提示列表"));
+                var builder = new ContainerBuilder();
+                Assembly[] assemblies = new Assembly[] { typeof(SolverHandlerBase).Assembly };
+                builder.RegisterAssemblyTypes(assemblies).AsImplementedInterfaces();
+                var initString = sudoku.CurrentString;
+                IContainer container = builder.Build();
+                var solveHandlers = container.Resolve<IEnumerable<ISudokuSolveHandler>>().OrderBy(c => (int)c.methodType).ToList();
+                TreeNode rules=new TreeNode();
+                rules.Text = "数独规则";
+                TreeNode techniques=new TreeNode();
+                techniques.Text = "数独技巧";
+                for (int i = 0; i < solveHandlers.Count; i++)
+                {
+                    var handler = solveHandlers[i];
+
+                    try
+                    {
+                        var cellinfos = new List<CellInfo>();
+
+                        cellinfos = handler.Assignment(sudoku);
+                        if (cellinfos.Count != 0)
+                        {
+                            TreeNode subTreeNode=new TreeNode();
+                            subTreeNode.Text = G.GetEnumDescription(handler.methodType);
+                            subTreeNode.Tag = handler;
+
+                            foreach (var cell in cellinfos)
+                            {
+                                TreeNode hintNode = new TreeNode();
+                                hintNode.Tag = cell;
+                                hintNode.Text = "" + cell;
+                                subTreeNode.Nodes.Add(hintNode);
+                            }
+
+                            if (handler.methodClassify == MethodClassify.SudokuRules)
+                            {
+                                rules.Nodes.Add(subTreeNode);
+                            }
+                            else
+                            {
+                                 techniques.Nodes.Add(subTreeNode);
+                            }
+                        }
+
+                    }
+                    catch (Exception ex)
+                    {
+                   
+                    }
+
+                }
+
+                if (rules.Nodes.Count>0)
+                {
+                    this.HintTree.Nodes.Add(rules);
+
+                }
+
+                if (techniques.Nodes.Count>0)
+                {
+                    this.HintTree.Nodes.Add(techniques);
+                }
+                this.HintTree.ExpandAll();
+                this.HintTree.EndUpdate();
+            }
+        }
+
+        private void HintTree_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            if (e.Node.Tag is CellInfo cell)
+            {
+                this.MessageArea.Text = "" + cell;
+            }
+            else if (e.Node.Tag is  ISudokuSolveHandler hander)
+            {
+                this.MessageArea.Text = "" + hander;
+            }
+      
         }
     }
 }

@@ -16,6 +16,8 @@ namespace Sudoku.Core
 
         public CellType CellType { get; set; }
 
+        
+
         public QSudoku Sudoku;
 
         public bool IsRoot = false;
