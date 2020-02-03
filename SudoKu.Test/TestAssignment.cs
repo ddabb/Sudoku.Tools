@@ -31,19 +31,6 @@ namespace SudoKu.Test
             TestAssignmentExample(type, queryString, value, positionString, handers);
         }
 
-        public static List<ISudokuSolveHandler> SolveHandlers
-        {
-            get
-            {
-                Assembly[] assemblies = new Assembly[] { typeof(SolverHandlerBase).Assembly };
-                var builder = new ContainerBuilder();
-                builder.RegisterAssemblyTypes(assemblies).AsImplementedInterfaces();
-
-                IContainer container = builder.Build();
-                List<ISudokuSolveHandler> solveHandlers = container.Resolve<IEnumerable<ISudokuSolveHandler>>().ToList();
-                return solveHandlers;
-            }
-        }
 
         private static void TestAssignmentExample(Type type, string queryString, int value, string positionString, SolveMethodEnum[] handlerEnums = null)
         {
@@ -51,7 +38,7 @@ namespace SudoKu.Test
             if (handlerEnums != null)
             {
 
-                var eliminationHanders = SolveHandlers.Where(c => handlerEnums.Contains(c.methodType)).ToList();
+                var eliminationHanders = TestG.SolveHandlers.Where(c => handlerEnums.Contains(c.methodType)).ToList();
 
                 foreach (var eliminationHander in eliminationHanders)
                 {

@@ -129,6 +129,10 @@ namespace Sudoku.Core
         IncompleteWXYZWing,
         EmptyRectangle,
         DiscontinuousNiceLoop,
-        CannibalisticAIC
+        CannibalisticAIC,
+        [Description("均衡三数组")]
+        AlignedTripleExclusion,
+        [Description("均衡数对")]
+        AlignedPairExclusion
     }
 }
