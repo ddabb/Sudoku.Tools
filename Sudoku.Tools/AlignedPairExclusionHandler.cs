@@ -14,7 +14,7 @@ namespace Sudoku.Tools
             throw new NotImplementedException();
         }
 
-        public override SolveMethodEnum methodType { get; }
+        public override SolveMethodEnum methodType => SolveMethodEnum.AlignedPairExclusion;
 
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
 

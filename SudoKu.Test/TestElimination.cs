@@ -43,12 +43,25 @@ namespace SudoKu.Test
             var queryString = a.queryString;
             var value = a.value;
             var positionString = a.positionString;
-            TestEliminationExample(type, queryString, value, positionString);
+            var handers = a.SolveHandlers;
+            TestEliminationExample(type, queryString, value, positionString, handers);
         }
 
-        private static void TestEliminationExample(Type type, string queryString, int value, string positionString)
+        private static void TestEliminationExample(Type type, string queryString, int value, string positionString,SolveMethodEnum[] handlerEnums = null)
         {
             var qsudoku = new QSudoku(queryString);
+            if (handlerEnums != null)
+            {
+
+                var eliminationHanders = TestG.SolveHandlers.Where(c => handlerEnums.Contains(c.methodType)).ToList();
+
+                foreach (var eliminationHander in eliminationHanders)
+                {
+                    var removeCells = eliminationHander.Elimination(qsudoku);
+                    qsudoku = qsudoku.RemoveCells(removeCells);
+
+                }
+            }
             var cellinfo =
                 ((ISudokuSolveHandler)Activator.CreateInstance(type, true)).Assignment(
                     qsudoku);

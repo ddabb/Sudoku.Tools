@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sudoku.Core;
+using System;
 
 namespace Sudoku.Tools
 {
@@ -10,7 +11,7 @@ namespace Sudoku.Tools
         public string queryString;
         public int value;
         public string positionString;
-
+        public SolveMethodEnum[] SolveHandlers;
         public EliminationExampleAttribute(string queryString)
         {
             this.queryString = queryString;
@@ -24,5 +25,15 @@ namespace Sudoku.Tools
             this.positionString = positionString;
 
         }
+
+        public EliminationExampleAttribute(int positionValue, string positionString, string queryString, params SolveMethodEnum[] solveHandlers)
+        {
+            this.queryString = queryString;
+            this.value = positionValue;
+            this.positionString = positionString;
+            this.SolveHandlers = solveHandlers;
+        }
+
+       
     }
 }

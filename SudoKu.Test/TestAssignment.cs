@@ -1,9 +1,12 @@
+using Autofac;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Sudoku.Core;
 using Sudoku.Tools;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 
 namespace SudoKu.Test
 {
@@ -24,17 +27,31 @@ namespace SudoKu.Test
             var queryString = a.queryString;
             var value = a.value;
             var positionString = a.positionString;
-            TestAssignmentExample(type, queryString, value, positionString);
+            var handers = a.SolveHandlers;
+            TestAssignmentExample(type, queryString, value, positionString, handers);
         }
 
-        private static void TestAssignmentExample(Type type, string queryString, int value, string positionString)
+
+        private static void TestAssignmentExample(Type type, string queryString, int value, string positionString, SolveMethodEnum[] handlerEnums = null)
         {
             var qsudoku = new QSudoku(queryString);
+            if (handlerEnums != null)
+            {
+
+                var eliminationHanders = TestG.SolveHandlers.Where(c => handlerEnums.Contains(c.methodType)).ToList();
+
+                foreach (var eliminationHander in eliminationHanders)
+                {
+                    var removeCells = eliminationHander.Elimination(qsudoku);
+                    qsudoku = qsudoku.RemoveCells(removeCells);
+
+                }
+            }
             var cellinfo =
                 ((ISudokuSolveHandler)Activator.CreateInstance(type, true)).Assignment(
                     qsudoku);
             Assert.AreEqual(true, cellinfo.Exists(c => c.RrCc == positionString && c.Value == value));
-            Debug.WriteLine("cellinfo "+ cellinfo.JoinString());
+            Debug.WriteLine("cellinfo " + cellinfo.JoinString());
             qsudoku = qsudoku.ApplyCells(cellinfo);
             Assert.AreEqual(true, new DanceLink().isValid(qsudoku.QueryString));
         }
@@ -54,10 +71,10 @@ namespace SudoKu.Test
         [TestMethod]
         public void TestULSize6Type2Handler1()
         {
-            TestAssignmentExample(typeof(ULSize6Type2Handler), "016705920492160750057290106273600589145879000689352417500900001900500800720406395",3,"R3C8");
+            TestAssignmentExample(typeof(ULSize6Type2Handler), "016705920492160750057290106273600589145879000689352417500900001900500800720406395", 3, "R3C8");
         }
 
-        
+
 
         [TestMethod]
         public void TestXRSize6Type1Handler()
@@ -157,7 +174,7 @@ namespace SudoKu.Test
             TestAssignmentExample(typeof(ULSize6Type3Handler));
         }
 
-        
+
 
         [TestMethod]
         public void TestULSize6Type4Handler()
@@ -319,9 +336,9 @@ namespace SudoKu.Test
         [TestMethod]
         public void TestFinnedJeffyfishHandler1()
         {
-            TestAssignmentExample(typeof(FinnedJellyfishHandler), "204103580000020341103485600732954168005010900619832400001508200300240000026300004",9, "R9C5");
+            TestAssignmentExample(typeof(FinnedJellyfishHandler), "204103580000020341103485600732954168005010900619832400001508200300240000026300004", 9, "R9C5");
         }
-        
+
 
         [TestMethod]
         public void TestXYChainHandler()
@@ -370,7 +387,7 @@ namespace SudoKu.Test
         {
             TestAssignmentExample(typeof(EmptyRectangleHandler));
         }
-        
+
 
         [TestMethod]
         public void TestNakedTripleHandler2()
