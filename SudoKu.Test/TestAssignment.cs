@@ -428,6 +428,15 @@ namespace SudoKu.Test
         }
 
         [TestMethod]
+        public void TestHiddenPairHandler()
+        {
+            TestAssignmentExample(typeof(HiddenPairHandler));
+        }
+
+
+        
+
+        [TestMethod]
         public void TestWWingHandler()
         {
             TestAssignmentExample(typeof(WWingHandler));

@@ -35,6 +35,12 @@ namespace SudoKu.Test
             TestEliminationExample(typeof(XRSize10Handler));
         }
 
+        [TestMethod]
+        public void TestIncompleteVWXYZWingHandler()
+        {
+            TestEliminationExample(typeof(IncompleteVWXYZWingHandler));
+        }
+
         private static void TestEliminationExample(Type type)
         {
             object[] objs = type.GetCustomAttributes(typeof(EliminationExampleAttribute), true);
@@ -63,7 +69,7 @@ namespace SudoKu.Test
                 }
             }
             var cellinfo =
-                ((ISudokuSolveHandler)Activator.CreateInstance(type, true)).Assignment(
+                ((ISudokuSolveHandler)Activator.CreateInstance(type, true)).Elimination(
                     qsudoku);
             Assert.AreEqual(true, cellinfo.Exists(c => c.RrCc == positionString && c.Value == value));
             Debug.WriteLine("cellinfo " + cellinfo.JoinString());

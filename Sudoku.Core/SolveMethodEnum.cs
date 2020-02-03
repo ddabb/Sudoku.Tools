@@ -140,6 +140,8 @@ namespace Sudoku.Core
         DymanicForcingChain,
         [DifficultuRating(4.5)]
         IncompleteWXYZWing,
+        [DifficultuRating(4.6)]
+        IncompleteVWXYZWing,
         [Description("空矩形")]
         EmptyRectangle,
         [Description("不连续环")]
@@ -148,6 +150,7 @@ namespace Sudoku.Core
         [Description("均衡三数组")]
         AlignedTripleExclusion,
         [Description("均衡数对")]
-        AlignedPairExclusion
+        AlignedPairExclusion,
+
     }
 }
