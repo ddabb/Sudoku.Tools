@@ -112,6 +112,7 @@ namespace Sudoku.Core
 
         }
 
+        private List<int> mValues;
         private List<int> mIndexs;
 
         public List<int> Indexs
@@ -189,6 +190,12 @@ namespace Sudoku.Core
         }
 
         public int Value;
+
+        protected CellInfo(int index, List<int> values)
+        {
+            this.Index = index;
+            this.NegativeValues = values;
+        }
 
         public override bool Equals(object obj)
         {

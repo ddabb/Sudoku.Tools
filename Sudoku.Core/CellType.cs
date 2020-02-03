@@ -17,7 +17,8 @@ namespace Sudoku.Core
         /// </summary>
         [Description("初始值")]
         Init,
-
+        [Description("单元格不包含以下值")]
+        NegativeValuesGroup,
         /// <summary>
         /// 肯定的，即指定Index单元格的候选数一定是Value
         /// </summary>
@@ -26,6 +27,6 @@ namespace Sudoku.Core
         [Description("肯定包含某候选数的单元格的集合")]
         PositiveCellGroup,
         [Description("肯定不包含某候选数的单元格的集合")]
-        NegativeCellGroup
+        NegativeIndexsGroup
     }
 }

@@ -2,13 +2,13 @@
 
 namespace Sudoku.Core
 {
-    public class NegativeCellGroup : CellInfo
+    public class NegativeIndexsGroup : CellInfo
     {
 
 
-        public NegativeCellGroup(List<int> index, int value) : base(index, value)
+        public NegativeIndexsGroup(List<int> index, int value) : base(index, value)
         {
-            this.CellType = CellType.NegativeCellGroup;
+            this.CellType = CellType.NegativeIndexsGroup;
 
             if (Index == 70 && Value == 5)
             {
