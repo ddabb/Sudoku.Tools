@@ -33,3 +33,7 @@ sqlite3/
 .vs/
 # Uncomment if you have tasks that create the
 *.coverage
+/packages/System.Threading.Tasks.Extensions.4.5.2
+/packages/System.Runtime.CompilerServices.Unsafe.4.5.2
+/packages/Microsoft.Bcl.AsyncInterfaces.1.1.0
+/packages/Autofac.5.0.0

@@ -10,7 +10,7 @@ namespace Sudoku.Tools
     /// <summary>
     /// two hidden pair and two fake naked triple
     /// </summary>
-    [AssignmentExample(9,"R5C9","000806172817923546062070983006000400100680730003000600054090867708460301601708204")]
+    [AssignmentExample(9,"R5C9","000806172817923546062070983006000400100680730003000600054090867708460301601708204", SolveMethodEnum.HiddenPair,SolveMethodEnum.NakedPair)]
     public class XRSize6Type2Handler :SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.XRSize6Type2;
