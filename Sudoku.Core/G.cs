@@ -163,12 +163,36 @@ namespace Sudoku.Core
             return result;
         }
 
+        public static List<string> DinstinctCellRestString(params CellInfo[] n)
+        {
+            List<string> result = new List<string>();
+            foreach (var item in n)
+            {
+                result.Add(item.RestString);
+            }
+
+            result = result.Distinct().ToList();
+            return result;
+        }
+
         public static List<int> MergeCellIndexs(params CellInfo[] n)
         {
             List<int> result = new List<int>();
             foreach (var item in n)
             {
                 result.Add(item.Index);
+            }
+
+            result = result.Distinct().ToList();
+            return result;
+        }
+
+        public static List<int> MergeCellBlocks(params CellInfo[] n)
+        {
+            List<int> result = new List<int>();
+            foreach (var item in n)
+            {
+                result.Add(item.Block);
             }
 
             result = result.Distinct().ToList();

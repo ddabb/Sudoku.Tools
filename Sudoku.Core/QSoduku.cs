@@ -117,10 +117,24 @@ namespace Sudoku.Core
             return AllUnSetCells.Where(c => GetPublicUnsetAreaIndexs(cellInfos.First(x=>x.Index==index1), cellInfos.First(x => x.Index == index2)).Contains(c.Index)).ToList();
         }
 
-        public List<int> GetPublicUnsetAreaIndexs(CellInfo cell1, CellInfo cell2)
+        public List<int> GetPublicUnsetAreaIndexs(params CellInfo[] cells)
         {
-            return AllUnSetCells.Where(c => cell1.RelatedUnsetIndexs.Intersect(cell2.RelatedUnsetIndexs).Contains(c.Index))
-                   .Select(c => c.Index).ToList();
+            var cellList = cells.ToList();
+            var intersectResult=new List<int>();
+            for (int i = 0; i < cellList.Count; i++)
+            {
+                if (i==0)
+                {
+                    intersectResult = cellList[i].RelatedUnsetIndexs;
+                }
+                else
+                {
+                    intersectResult= intersectResult.Intersect(cellList[i].RelatedUnsetIndexs).ToList();
+                }
+            }
+  
+
+            return intersectResult;
         }
 
         public List<int> GetPossibleIndex(int speacialValue, List<CellInfo> cellInfos)

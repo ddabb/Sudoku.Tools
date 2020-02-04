@@ -18,12 +18,9 @@ namespace Sudoku.Console
             //runtest = false;
             if (runtest)
             {
-                new IncompleteVWXYZWingHandler().Elimination(
-                    new QSudoku("080051700010027540570930002425700000708002056601500027060005000150000200847200095"));
-                //new ComfirmedPostion().GenSoduku("000000000001234500000000020134659782000308000000402000000703004009006007070001358");
-                //new ComfirmedPostion().GenSoduku("003000400068943250102000700050000020004000800000706000000020000000605000001000900", "艾");
-                //new ComfirmedPostion().GenSoduku("040000500060204170092580400300609782000350010000402356005700030000805090000900240", "特");
-                //new ComfirmedPostion().GenSoduku("003000080060204000291587460000709000000308005000600310000420500035801090000900006", "我");
+                ConsoleEliminationExample(typeof(AlignedPairExclusionHandler));
+
+            
 
 
                 return;
@@ -64,9 +61,9 @@ namespace Sudoku.Console
 
         private static void ConsoleEliminationExample(Type type)
         {
-            object[] objs = type.GetCustomAttributes(typeof(AssignmentExampleAttribute), true);
+            object[] objs = type.GetCustomAttributes(typeof(EliminationExampleAttribute), true);
             if (objs.Count() != 1) return;
-            if (!(objs[0] is AssignmentExampleAttribute a)) return;
+            if (!(objs[0] is EliminationExampleAttribute a)) return;
             var queryString = a.queryString;
             var value = a.value;
             var positionString = a.positionString;
@@ -77,7 +74,7 @@ namespace Sudoku.Console
         {
             var qsudoku = new QSudoku(queryString);
             var cellinfo =
-                ((ISudokuSolveHandler)Activator.CreateInstance(type, true)).Assignment(
+                ((ISudokuSolveHandler)Activator.CreateInstance(type, true)).Elimination(
                     qsudoku);
 
             Debug.WriteLine("cellinfo " + cellinfo.JoinString());

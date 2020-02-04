@@ -26,8 +26,8 @@ namespace Sudoku.UI
             this.sudokuPanel1.Size = new System.Drawing.Size(space, space);
             this.HintTree.Nodes.Add(new TreeNode("提示列表"));
             this.ShowInTaskbar = true;
-            var c= new QSudoku("002000030481253796703008400000020903006340070030000004100007300300000500009430010");
-            c.ApplyCells(new List<CellInfo> {new PositiveCell(5, 4)});
+            var c= new QSudoku("783060054569700020124503700070005400405007002030800075007050010300906507650070200");
+            c.RemoveCells(new List<CellInfo> {new NegativeCell(59, 4), new NegativeCell(77, 4) });
             this.sudokuPanel1.Tag = c;
         }
 

@@ -72,6 +72,7 @@ namespace Sudoku.Tools
             }
 
 
+            
             return cells;
         }
 
