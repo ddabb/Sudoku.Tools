@@ -95,6 +95,12 @@ namespace SudoKu.Test
         }
 
         [TestMethod]
+        public void TestBugType1Handler()
+        {
+            TestAssignmentExample(typeof(BugType1Handler));
+        }
+
+        [TestMethod]
         public void TestXRSize6Type4Handler()
         {
             TestAssignmentExample(typeof(XRSize6Type4Handler));

@@ -18,9 +18,11 @@ namespace Sudoku.Console
             //runtest = false;
             if (runtest)
             {
-                ConsoleEliminationExample(typeof(AlignedPairExclusionHandler));
 
-            
+                ConsoleAssignmentExample(typeof(BugType1Handler));
+                //ConsoleEliminationExample(typeof(AlignedTripleExclusionHandler));
+
+                
 
 
                 return;

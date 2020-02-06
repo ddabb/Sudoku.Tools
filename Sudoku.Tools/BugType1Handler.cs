@@ -1,12 +1,13 @@
 ﻿using Sudoku.Core;
 using System;
 using System.Collections.Generic;
-using System.Text;
-
+using System.Linq;
 namespace Sudoku.Tools
 {
-    [AssignmentExample("000900100039014500002000003900400008050078030080090005470809300090000457320047000")] //已调整
-    public class BugType1Handler :SolverHandlerBase
+    [AssignmentExample(1, "R8C9", "578136294004289705002574180459321800381765942726948500067853420845602300203407658")] //正确的
+    //[AssignmentExample(1, "R8C9", "540090801392008050010000020034600592620040103159003040085000007071830465463050200")] //不能推出bugtype的例子
+    //[AssignmentExample(1, "R8C9", "952001736008576249476923185780092561691705420205160970020609817869217354007000692")] //不能推出bugtype的例子
+    public class BugType1Handler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.BugType1;
 
@@ -14,12 +15,38 @@ namespace Sudoku.Tools
 
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
-            List < CellInfo > cells=new List<CellInfo>();
-            var checkcells= qSudoku.GetFilterCell(c => c.Value == 0 && (c.RestCount == 2));
-     
+            List<CellInfo> cells = new List<CellInfo>();
+            var checkcells = qSudoku.AllUnSetCells;
+            var setCell = qSudoku.AllSetCell;
+            if (checkcells.Count(c => c.RestCount == 3) == 1)
+            {
+                if (checkcells.Count(c => c.RestCount == 2) == checkcells.Count - 1)
+                {
+
+                    var c1 = (from value in G.AllBaseValues
+                              let setCount = setCell.Count(c => c.Value == value)
+                              let restCount = checkcells.Count(c => c.RestList.Contains(value))
+                              where (restCount == ((G.AllBaseValues.Count - setCount) * 2) || (restCount == (G.AllBaseValues.Count - setCount) * 2 + 1))
+                              select new { value, setCount, restCount }).ToList();
+                    if (c1.Count == G.AllBaseValues.Count)
+                    {
+                        var valueCondition = c1.Where(c => (c.restCount == (G.AllBaseValues.Count - c.setCount) * 2 + 1)).ToList();
+                        if (valueCondition.Count != 1) return cells;
+                        var value = valueCondition.First().value;
+                        cells.Add(new PositiveCell(checkcells.First(c => c.RestCount == 3).Index, value));
+                    }
+                    else
+                        return cells;
+                }
+            }
+
+
+
+
+
             return cells;
-         
         }
+
 
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
