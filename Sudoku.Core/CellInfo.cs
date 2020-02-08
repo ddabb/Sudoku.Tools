@@ -16,7 +16,7 @@ namespace Sudoku.Core
 
         public CellType CellType { get; set; }
 
-        
+
 
         public QSudoku Sudoku;
 
@@ -24,7 +24,7 @@ namespace Sudoku.Core
 
         public List<int> mRest = null;
 
-        public List<int> NegativeValues=new List<int>();
+        public List<int> NegativeValues = new List<int>();
         public void ReSetRest()
         {
             this.mRest = null;
@@ -43,7 +43,7 @@ namespace Sudoku.Core
             {
                 var relatedCells = Sudoku.AllSetCell.Where(c => c.Value != 0 && (c.Row == Row || c.Column == Column || c.Block == Block));
                 var result = G.AllBaseValues.Except(relatedCells.Select(c => c.Value)).ToList();
-                result=result.Except(NegativeValues).ToList();
+                result = result.Except(NegativeValues).ToList();
                 result.Sort();
                 mRest = result;
             }
@@ -95,9 +95,20 @@ namespace Sudoku.Core
             this.Sudoku = qSudoku;
         }
 
+
+        public string Location 
+        {
+            get { return this.Index.LoctionDesc(); }
+        
+        }
         public string RrCc
         {
             get { return "R" + (this.Row + 1) + "C" + (this.Column + 1); }
+        }
+
+        public string A1I9
+        {
+            get { return G.alpha[this.Row]+  (this.Column + 1); }
         }
         public int Index
         {
@@ -165,6 +176,21 @@ namespace Sudoku.Core
             }
 
 
+        }
+
+        private string mSolveDesc;
+        public string SolveDesc
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(mSolveDesc))
+                {
+                    return this.ToString();
+
+                }
+                else return mSolveDesc;
+            }
+            set { mSolveDesc = value; }
         }
 
         public abstract List<CellInfo> NextCells { get; }

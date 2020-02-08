@@ -30,7 +30,8 @@ namespace Sudoku.Tools
                               select new { value, setCount, restCount }).ToList();
                     if (c1.Count == G.AllBaseValues.Count)
                     {
-                        var valueCondition = c1.Where(c => (c.restCount == (G.AllBaseValues.Count - c.setCount) * 2 + 1)).ToList();
+                        var valueCondition =
+                            c1.Where(c => (c.restCount == (G.AllBaseValues.Count - c.setCount) * 2 + 1)).ToList();
                         if (valueCondition.Count != 1) return cells;
                         var value = valueCondition.First().value;
                         cells.Add(new PositiveCell(checkcells.First(c => c.RestCount == 3).Index, value));
@@ -39,11 +40,6 @@ namespace Sudoku.Tools
                         return cells;
                 }
             }
-
-
-
-
-
             return cells;
         }
 

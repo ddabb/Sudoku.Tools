@@ -55,14 +55,19 @@ namespace Sudoku.Tools
                             {
                                 if (aCell.RestCount == 2)
                                 {
-                                    cells.Add(new PositiveCell(aCell.Index,
-                                        aCell.RestList.First(c => c != value)));
+                                    var cell = new PositiveCell(aCell.Index,
+                                        aCell.RestList.First(c => c != value));
+                                    cell.SolveDesc = new List<string> { interectCell.Location, aCell.Location, bCell.Location, cCell.Location }.JoinString() + "的值" + value + "构成空矩形" + "所以" + cell.Location + "不为" + value;
+                                    cells.Add(cell);
                                 }
                             }
                             else if (qSudoku.GetPossibleIndex(value, c => c.Value == 0 && c.Column == cCell.Column)
                                          .Count == 2 && bCell.RestCount == 2)
                             {
-                                cells.Add(new PositiveCell(bCell.Index, bCell.RestList.First(c => c != value)));
+                                var cell = new PositiveCell(bCell.Index, bCell.RestList.First(c => c != value));
+                                cell.SolveDesc = new List<string> { interectCell.Location,aCell.Location, bCell.Location, cCell.Location }.JoinString() + "的值" + value + "构成空矩形"+"所以"+cell.Location+"不为"+value;
+                                cells.Add(cell);
+                                ;
                             }
                         }
                     }

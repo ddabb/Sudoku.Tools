@@ -26,8 +26,8 @@ namespace Sudoku.UI
             this.sudokuPanel1.Size = new System.Drawing.Size(space, space);
             this.HintTree.Nodes.Add(new TreeNode("提示列表"));
             this.ShowInTaskbar = true;
-            var c= new QSudoku("783060054569700020124503700070005400405007002030800075007050010300906507650070200");
-            c.RemoveCells(new List<CellInfo> {new NegativeCell(59, 4), new NegativeCell(77, 4) });
+            var c= new QSudoku("020137568050468192618592734000070819100080406080041203040710385800054921501820647");
+            //c.RemoveCells(new List<CellInfo> {new NegativeCell(59, 4), new NegativeCell(77, 4) });
             this.sudokuPanel1.Tag = c;
         }
 
@@ -219,7 +219,7 @@ namespace Sudoku.UI
         {
             if (e.Node.Tag is CellInfo cell)
             {
-                this.MessageArea.Text = "" + cell;
+                this.MessageArea.Text = "" + cell.SolveDesc;
             }
             else if (e.Node.Tag is  ISudokuSolveHandler hander)
             {

@@ -22,6 +22,8 @@ namespace Sudoku.Core
         /// </summary>
         public static readonly List<int> baseIndexs = new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
 
+        public static List<string> alpha = new List<string> { "A", "B", "C", "D", "E", "F", "G", "H", "I" };
+
         public static readonly List<int> allLocations = new List<int>
         {
             0,1,2,3,4,5,6,7,8,
@@ -36,6 +38,7 @@ namespace Sudoku.Core
 
         };
 
+        public static LocationType LocationType { get; set; } = LocationType.R1C1;
 
         public static List<int> GetLocations(List<List<int>> initValues)
         {
@@ -86,6 +89,9 @@ namespace Sudoku.Core
             }
             return tempList;
         }
+
+
+
         public static List<List<int>> StringToList(string str)
         {
             str = str.Replace("*", "0").Replace(".", "").Replace("\r\n", "").Trim();

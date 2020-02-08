@@ -65,10 +65,13 @@ namespace Sudoku.Core
         [DifficultuRating(4.6)]
         ULSize6Type1,
         ULSize6Type2,
+        [Description("双线风筝")]
         [DifficultuRating(4.1)]
         TwoStringsKite,
+        [Description("摩天楼")]
         [DifficultuRating(4.0)]
         Skyscraper,
+        [Description("多宝鱼(普通)")]
         [DifficultuRating(4.2)]
         TurbotFishNormal,
         Jellyfish,
