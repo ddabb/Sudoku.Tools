@@ -83,9 +83,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
-    <Compile Include="SudokuPanel.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <EmbeddedResource Include="About.resx">
       <DependentUpon>About.cs</DependentUpon>
     </EmbeddedResource>
@@ -121,6 +118,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Sudoku.Control\Sudoku.Control.csproj">
+      <Project>{ebc78fc4-ac47-42ab-b004-0b2f00e98c24}</Project>
+      <Name>Sudoku.Control</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Sudoku.Core\Sudoku.Core.csproj">
       <Project>{17b5becd-2253-42d4-a968-8ee69c2f2bac}</Project>
       <Name>Sudoku.Core</Name>

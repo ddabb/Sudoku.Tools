@@ -1,17 +1,12 @@
 ﻿using Autofac;
 using Sudoku.Core;
+using Sudoku.Tools;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Diagnostics;
-using System.Drawing;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Sudoku.Tools;
 using IContainer = Autofac.IContainer;
 
 namespace Sudoku.UI
@@ -22,13 +17,14 @@ namespace Sudoku.UI
         {
             InitializeComponent();
             this.Icon = Sudoku.UI.Resource.sudoku;
-            var space = this.sudokuPanel1.SmallSpace * 27;
-            this.sudokuPanel1.Size = new System.Drawing.Size(space, space);
+
             this.HintTree.Nodes.Add(new TreeNode("提示列表"));
             this.ShowInTaskbar = true;
-            var c= new QSudoku("020137568050468192618592734000070819100080406080041203040710385800054921501820647");
+            var c = new QSudoku("000040601001560204006100079607010900019600007020090816532971468978436100164258793");
             //c.RemoveCells(new List<CellInfo> {new NegativeCell(59, 4), new NegativeCell(77, 4) });
-            this.sudokuPanel1.Tag = c;
+            this.sudokuPanel1.Sudoku = c;
+            this.sudokuPanel1.ReLoad();
+
         }
 
         private void fileMenuItem_Click(object sender, EventArgs e)
@@ -66,7 +62,7 @@ namespace Sudoku.UI
         private void NewToolStripMenuItem_Click(object sender, EventArgs e)
         {
             QSudoku example = new MinimalPuzzleFactory().Make(new SudokuBuilder().MakeWholeSudoku());
-            this.sudokuPanel1.Tag = example;
+            this.sudokuPanel1.Sudoku = example;
             this.sudokuPanel1.Refresh();
 
         }
@@ -74,7 +70,7 @@ namespace Sudoku.UI
         private void 新建数独ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             QSudoku example = new QSudoku();
-            this.sudokuPanel1.Tag = example;
+            this.sudokuPanel1.Sudoku = example;
             this.sudokuPanel1.Refresh();
         }
 
@@ -108,7 +104,7 @@ namespace Sudoku.UI
 
         private void CopyGirdToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (this.sudokuPanel1.Tag  is QSudoku example)
+            if (this.sudokuPanel1.Tag is QSudoku example)
             {
                 var currentString = example.CurrentString;
                 Clipboard.SetDataObject(currentString);
@@ -130,8 +126,7 @@ namespace Sudoku.UI
                         if (formSudoku.CurrentString != queryString)
                         {
                             QSudoku example = new QSudoku(queryString);
-                            this.sudokuPanel1.Tag = example;
-
+                            this.sudokuPanel1.Sudoku = example;
                             this.sudokuPanel1.Refresh();
                         }
                     }
@@ -143,7 +138,9 @@ namespace Sudoku.UI
 
         private void BtnGetAllHint_Click(object sender, EventArgs e)
         {
-            if (this.sudokuPanel1.Tag is QSudoku sudoku)
+            var sudoku = this.sudokuPanel1.Sudoku;
+            var queryString = this.sudokuPanel1.Sudoku.CurrentString;
+            if (new DanceLink().isValid(queryString))
             {
                 this.HintTree.BeginUpdate();
 
@@ -155,9 +152,9 @@ namespace Sudoku.UI
                 var initString = sudoku.CurrentString;
                 IContainer container = builder.Build();
                 var solveHandlers = container.Resolve<IEnumerable<ISudokuSolveHandler>>().OrderBy(c => (int)c.methodType).ToList();
-                TreeNode rules=new TreeNode();
+                TreeNode rules = new TreeNode();
                 rules.Text = "数独规则";
-                TreeNode techniques=new TreeNode();
+                TreeNode techniques = new TreeNode();
                 techniques.Text = "数独技巧";
                 for (int i = 0; i < solveHandlers.Count; i++)
                 {
@@ -170,7 +167,7 @@ namespace Sudoku.UI
                         cellinfos = handler.Assignment(sudoku);
                         if (cellinfos.Count != 0)
                         {
-                            TreeNode subTreeNode=new TreeNode();
+                            TreeNode subTreeNode = new TreeNode();
                             subTreeNode.Text = G.GetEnumDescription(handler.methodType);
                             subTreeNode.Tag = handler;
 
@@ -188,28 +185,36 @@ namespace Sudoku.UI
                             }
                             else
                             {
-                                 techniques.Nodes.Add(subTreeNode);
+                                techniques.Nodes.Add(subTreeNode);
                             }
                         }
 
                     }
                     catch (Exception ex)
                     {
-                   
+
                     }
 
                 }
 
-                if (rules.Nodes.Count>0)
+                if (rules.Nodes.Count > 0)
                 {
                     this.HintTree.Nodes.Add(rules);
 
                 }
 
-                if (techniques.Nodes.Count>0)
+                if (techniques.Nodes.Count > 0)
                 {
                     this.HintTree.Nodes.Add(techniques);
                 }
+                this.HintTree.ExpandAll();
+                this.HintTree.EndUpdate();
+            }
+            else
+            {
+                this.HintTree.BeginUpdate();
+                this.HintTree.Nodes.Clear();
+                this.HintTree.Nodes.Add(new DanceLink().solution_count(queryString) == 0 ? new TreeNode("该数独无解。") : new TreeNode("该数独存在多解。"));
                 this.HintTree.ExpandAll();
                 this.HintTree.EndUpdate();
             }
@@ -221,11 +226,11 @@ namespace Sudoku.UI
             {
                 this.MessageArea.Text = "" + cell.SolveDesc;
             }
-            else if (e.Node.Tag is  ISudokuSolveHandler hander)
+            else if (e.Node.Tag is ISudokuSolveHandler hander)
             {
                 this.MessageArea.Text = "" + hander;
             }
-      
+
         }
 
         private void LoadToolStripMenuItem_Click(object sender, EventArgs e)
