@@ -266,6 +266,7 @@
             this.Name = "ctlSudoku";
             this.Size = new System.Drawing.Size(784, 782);
             this.Load += new System.EventHandler(this.ctlSudoku_Load);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.ctlSudoku_KeyUp);
             this.ResumeLayout(false);
             this.PerformLayout();
 

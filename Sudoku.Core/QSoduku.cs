@@ -17,6 +17,11 @@ namespace Sudoku.Core
         /// </summary>
         private List<CellInfo> cellInfos { get; set; } = new List<CellInfo>();
 
+        /// <summary>
+        /// 当前键盘所在的单元格
+        /// </summary>
+        public CellInfo CurrentCell { get; set; }
+
         public QSudoku()
         {
             this.QueryString = "000000000000000000000000000000000000000000000000000000000000000000000000000000000";
@@ -67,6 +72,62 @@ namespace Sudoku.Core
                 }
             }
             return indexs;
+        }
+
+        public void MoveCurrentCellToLeft()
+        {
+            var column = CurrentCell.Column;
+            if (column==0)
+            {
+                column = 8;
+            }
+            else
+            {
+                column -= 1;
+            }
+            CurrentCell = this.AllCell.First(c => c.Row == CurrentCell.Row && c.Column == column);
+        }
+
+        public void MoveCurrentCellToUp()
+        {
+            var row = CurrentCell.Row;
+            if (row == 0)
+            {
+                row = 8;
+            }
+            else
+            {
+                row -= 1;
+            }
+            CurrentCell = this.AllCell.First(c => c.Row == row && c.Column == CurrentCell.Column);
+        }
+
+        public void MoveCurrentCellToRight()
+        {
+            var column = CurrentCell.Column;
+            if (column == 8)
+            {
+                column = 0;
+            }
+            else
+            {
+                column += 1;
+            }
+            CurrentCell = this.AllCell.First(c => c.Row == CurrentCell.Row && c.Column == column);
+        }
+
+        public void MoveCurrentCellToDown()
+        {
+            var row = CurrentCell.Row;
+            if (row == 8)
+            {
+                row = 0;
+            }
+            else
+            {
+                row += 1;
+            }
+            CurrentCell = this.AllCell.First(c => c.Row == row && c.Column == CurrentCell.Column);
         }
 
         public List<PossibleIndex> GetPossibleIndexByTimes(int time)
@@ -199,6 +260,18 @@ namespace Sudoku.Core
             return this;
         }
 
+        public QSudoku ApplyCell(CellInfo cells)
+        {
+            var chars = QueryString.Select(c => "" + c).ToList();
+            this.cellInfos[cells.Index] = new PositiveCell(cells.Index, cells.Value) { Sudoku = this };
+            this.mAllUnSetCell = null;
+            foreach (var unset in this.AllUnSetCells)
+            {
+                unset.ReSetRest();
+            }
+            return this;
+        }
+
 
         private List<PossibleIndex> GetAllPossibleIndex(int times, Func<Direction, bool> predicate)
         {
@@ -237,6 +310,7 @@ namespace Sudoku.Core
                 var cellInit = new InitCell(location, Convert.ToInt32("" + chars[location])) { Sudoku = this };
                 cellInfos.Add(cellInit);
             }
+            CurrentCell = cellInfos[0];
 
         }
         public Dictionary<int, List<int>> GetRowSetInfo(int rowIndex)

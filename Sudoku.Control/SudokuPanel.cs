@@ -7,6 +7,7 @@ namespace Sudoku.UI
     public class SudokuPanel : Panel
     {
         public int SmallSpace => 27;
+        private Color currentCellBackColor;
         public SudokuPanel()
         {
             this.Paint += hmaPanel_Paint;
@@ -14,8 +15,15 @@ namespace Sudoku.UI
             this.Resize += (sender, e) => { this.Refresh(); };
             this.MouseMove += SudokuPanel_MouseMove;
             this.MouseClick += SudokuPanel_MouseClick;
+            this.MouseEnter += SudokuPanel_MouseEnter;
             var space = this.SmallSpace * 27;
+            this.DoubleBuffered = true;
             this.Size = new System.Drawing.Size(space, space);
+        }
+
+        private void SudokuPanel_MouseEnter(object sender, System.EventArgs e)
+        {
+           
         }
 
         private void SudokuPanel_MouseClick(object sender, MouseEventArgs e)
@@ -34,7 +42,7 @@ namespace Sudoku.UI
 
         private void hmaPanel_Paint(object sender, PaintEventArgs e)
         {
-
+         
             var objGraphics = this.CreateGraphics();
 
             var bigSpace = SmallSpace * 3;
@@ -80,29 +88,32 @@ namespace Sudoku.UI
             objGraphics.DrawLine(Pens.Black, new Point(bigSpace * 9 - lineweith * 1, 0), new Point(bigSpace * 9 - lineweith * 1, this.Height));
             objGraphics.DrawLine(Pens.Black, new Point(bigSpace * 9, 0), new Point(bigSpace * 9, this.Height));
             QSudoku sudoku = this.Sudoku;
-
-            foreach (var item in sudoku.AllSetCell)
+            if (sudoku!=null)
             {
-
-                var stringvalue = "" + item.Value;
-                Size size = TextRenderer.MeasureText(stringvalue, bigFont);
-                var color = item.CellType == CellType.Init ? Color.Black : Color.Blue;
-                objGraphics.DrawString(stringvalue, bigFont, new SolidBrush(color), item.Column * bigSpace + (bigSpace - size.Width) / 2, item.Row * bigSpace + (bigSpace - size.Height) / 2);
-
-            }
-
-            foreach (var item in sudoku.AllUnSetCells)
-            {
-                if (ShowCandidates)
+                foreach (var item in sudoku.AllSetCell)
                 {
-                    foreach (var item1 in item.RestList)
-                    {
-                        var stringvalue = "" + item1;
-                        Size size = TextRenderer.MeasureText(stringvalue, smallFont);
-                        objGraphics.DrawString(stringvalue, smallFont, new SolidBrush(Color.Gray), new PointF(item.Column * bigSpace + (SmallSpace * ((item1 - 1) % 3)) + (SmallSpace - size.Width) / 2, item.Row * bigSpace + (SmallSpace * ((item1 - 1) / 3)) + +(SmallSpace - size.Height) / 2));
-                    }
+
+                    var stringvalue = "" + item.Value;
+                    Size size = TextRenderer.MeasureText(stringvalue, bigFont);
+                    var color = item.CellType == CellType.Init ? Color.Black : Color.Blue;
+                    objGraphics.DrawString(stringvalue, bigFont, new SolidBrush(color), item.Column * bigSpace + (bigSpace - size.Width) / 2, item.Row * bigSpace + (bigSpace - size.Height) / 2);
+
                 }
 
+                foreach (var item in sudoku.AllUnSetCells)
+                {
+                    if (ShowCandidates)
+                    {
+                        foreach (var item1 in item.RestList)
+                        {
+                            var stringvalue = "" + item1;
+                            Size size = TextRenderer.MeasureText(stringvalue, smallFont);
+                            objGraphics.DrawString(stringvalue, smallFont, new SolidBrush(Color.Gray), new PointF(item.Column * bigSpace + (SmallSpace * ((item1 - 1) % 3)) + (SmallSpace - size.Width) / 2, item.Row * bigSpace + (SmallSpace * ((item1 - 1) / 3)) + +(SmallSpace - size.Height) / 2));
+                        }
+                    }
+
+
+                }
 
             }
 
