@@ -50,7 +50,7 @@ namespace Sudoku.UI
             this.lblC = new System.Windows.Forms.Label();
             this.lblB = new System.Windows.Forms.Label();
             this.lblA = new System.Windows.Forms.Label();
-            this.panel1 = new MyPanel(components);
+            this.panel1 = new Panel();
             this.SuspendLayout();
             // 
             // lblD
@@ -293,6 +293,6 @@ namespace Sudoku.UI
         private System.Windows.Forms.Label lbl7;
         private System.Windows.Forms.Label lbl8;
         private System.Windows.Forms.Label lbl9;
-        private MyPanel panel1;
+        private Panel panel1;
     }
 }

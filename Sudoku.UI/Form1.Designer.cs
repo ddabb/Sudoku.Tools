@@ -62,7 +62,7 @@ namespace Sudoku.UI
             this.button4 = new System.Windows.Forms.Button();
             this.BtnGetAllHint = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
-            this.sudokuPanel1 = new Sudoku.UI.ctlSudoku();
+            this.ctlSudoku = new Sudoku.UI.ctlSudoku();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -341,12 +341,12 @@ namespace Sudoku.UI
             // 
             // sudokuPanel1
             // 
-            this.sudokuPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
-            this.sudokuPanel1.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.sudokuPanel1.Location = new System.Drawing.Point(12, 53);
-            this.sudokuPanel1.Name = "sudokuPanel1";
-            this.sudokuPanel1.Size = new System.Drawing.Size(786, 782);
-            this.sudokuPanel1.TabIndex = 0;
+            this.ctlSudoku.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
+            this.ctlSudoku.ImeMode = System.Windows.Forms.ImeMode.On;
+            this.ctlSudoku.Location = new System.Drawing.Point(12, 53);
+            this.ctlSudoku.Name = "ctlSudoku";
+            this.ctlSudoku.Size = new System.Drawing.Size(786, 782);
+            this.ctlSudoku.TabIndex = 0;
             // 
             // Form1
             // 
@@ -361,7 +361,7 @@ namespace Sudoku.UI
             this.Controls.Add(this.button1);
             this.Controls.Add(this.HintTree);
             this.Controls.Add(this.MessageArea);
-            this.Controls.Add(this.sudokuPanel1);
+            this.Controls.Add(this.ctlSudoku);
             this.Controls.Add(this.menuStrip1);
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
@@ -377,7 +377,7 @@ namespace Sudoku.UI
 
         #endregion
 
-        private ctlSudoku sudokuPanel1;
+        private ctlSudoku ctlSudoku;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editMenuItem;

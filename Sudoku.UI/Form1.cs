@@ -21,11 +21,11 @@ namespace Sudoku.UI
 
             this.HintTree.Nodes.Add(new TreeNode("提示列表"));
             this.ShowInTaskbar = true;
-            this.sudokuPanel1.ShowCandidates = true;
+            this.ctlSudoku.ShowCandidates = true;
             var c = new QSudoku("020137568050468192618592734060070809100080406080040203040710385800054921501820647");
             //c.RemoveCells(new List<CellInfo> {new NegativeCell(59, 4), new NegativeCell(77, 4) });
-            this.sudokuPanel1.Sudoku = c;
-            this.sudokuPanel1.Focus();
+            this.ctlSudoku.Sudoku = c;
+            this.ctlSudoku.RefreshPanel();
 
         }
 
@@ -56,15 +56,15 @@ namespace Sudoku.UI
 
         private void ShowCandidatesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.sudokuPanel1.ShowCandidates = !this.sudokuPanel1.ShowCandidates;
-            this.sudokuPanel1.Refresh();
+            this.ctlSudoku.ShowCandidates = !this.ctlSudoku.ShowCandidates;
+            this.ctlSudoku.Refresh();
 
         }
 
         private void NewToolStripMenuItem_Click(object sender, EventArgs e)
         {
             QSudoku example = new MinimalPuzzleFactory().Make(new SudokuBuilder().MakeWholeSudoku());
-            this.sudokuPanel1.Sudoku = example;
+            this.ctlSudoku.Sudoku = example;
 
 
         }
@@ -72,8 +72,8 @@ namespace Sudoku.UI
         private void 新建数独ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             QSudoku example = new QSudoku();
-            this.sudokuPanel1.Sudoku = example;
-            this.sudokuPanel1.Focus();
+            this.ctlSudoku.Sudoku = example;
+            this.ctlSudoku.Focus();
 
 
 
@@ -109,7 +109,7 @@ namespace Sudoku.UI
 
         private void CopyGirdToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (this.sudokuPanel1.Tag is QSudoku example)
+            if (this.ctlSudoku.Tag is QSudoku example)
             {
                 var currentString = example.CurrentString;
                 Clipboard.SetDataObject(currentString);
@@ -126,12 +126,12 @@ namespace Sudoku.UI
                 queryString = queryString.Replace("*", "0").Replace(".", "0").Replace("\r\n", "").Trim();
                 if (queryString.Length == 81)
                 {
-                    if (this.sudokuPanel1.Tag is QSudoku formSudoku)
+                    if (this.ctlSudoku.Tag is QSudoku formSudoku)
                     {
                         if (formSudoku.CurrentString != queryString)
                         {
                             QSudoku example = new QSudoku(queryString);
-                            this.sudokuPanel1.Sudoku = example;
+                            this.ctlSudoku.Sudoku = example;
 
                         }
                     }
@@ -143,8 +143,8 @@ namespace Sudoku.UI
 
         private void BtnGetAllHint_Click(object sender, EventArgs e)
         {
-            var sudoku = this.sudokuPanel1.Sudoku;
-            var queryString = this.sudokuPanel1.Sudoku.CurrentString;
+            var sudoku = this.ctlSudoku.Sudoku;
+            var queryString = this.ctlSudoku.Sudoku.CurrentString;
             if (new DanceLink().isValid(queryString))
             {
                 this.HintTree.BeginUpdate();
@@ -275,7 +275,7 @@ namespace Sudoku.UI
             var intkey = (int)(keyData);
             Debug.WriteLine("ProcessCmdKey"+ "intkey" + intkey);
 
-            var sudoku = sudokuPanel1.Sudoku;
+            var sudoku = ctlSudoku.Sudoku;
             var deal = false;
             switch (intkey)
             {
@@ -323,7 +323,7 @@ namespace Sudoku.UI
 
             if (deal)
             {
-                sudokuPanel1.RefreshPanel();
+                ctlSudoku.RefreshPanel();
                 return true;
             }
             else

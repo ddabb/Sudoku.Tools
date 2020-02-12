@@ -49,9 +49,6 @@
     <Compile Include="ctlSudoku.Designer.cs">
       <DependentUpon>ctlSudoku.cs</DependentUpon>
     </Compile>
-    <Compile Include="MyPanel.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
