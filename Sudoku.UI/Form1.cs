@@ -20,7 +20,7 @@ namespace Sudoku.UI
 
             this.HintTree.Nodes.Add(new TreeNode("提示列表"));
             this.ShowInTaskbar = true;
-            var c = new QSudoku("000040601001560204006100079607010900019600007020090816532971468978436100164258793");
+            var c = new QSudoku("020137568050468192618592734060070809100080406080040203040710385800054921501820647");
             //c.RemoveCells(new List<CellInfo> {new NegativeCell(59, 4), new NegativeCell(77, 4) });
             this.sudokuPanel1.Sudoku = c;
             this.sudokuPanel1.ReLoad();
