@@ -4,6 +4,7 @@ using Sudoku.Tools;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
@@ -20,9 +21,11 @@ namespace Sudoku.UI
 
             this.HintTree.Nodes.Add(new TreeNode("提示列表"));
             this.ShowInTaskbar = true;
+            this.sudokuPanel1.ShowCandidates = true;
             var c = new QSudoku("020137568050468192618592734060070809100080406080040203040710385800054921501820647");
             //c.RemoveCells(new List<CellInfo> {new NegativeCell(59, 4), new NegativeCell(77, 4) });
             this.sudokuPanel1.Sudoku = c;
+            this.sudokuPanel1.Focus();
 
         }
 
@@ -129,7 +132,7 @@ namespace Sudoku.UI
                         {
                             QSudoku example = new QSudoku(queryString);
                             this.sudokuPanel1.Sudoku = example;
-           
+
                         }
                     }
 
@@ -149,11 +152,12 @@ namespace Sudoku.UI
                 this.HintTree.Nodes.Clear();
                 this.HintTree.Nodes.Add(new TreeNode("提示列表"));
                 var builder = new ContainerBuilder();
-                Assembly[] assemblies = new Assembly[] { typeof(SolverHandlerBase).Assembly };
+                Assembly[] assemblies = new Assembly[] {typeof(SolverHandlerBase).Assembly};
                 builder.RegisterAssemblyTypes(assemblies).AsImplementedInterfaces();
                 var initString = sudoku.CurrentString;
                 IContainer container = builder.Build();
-                var solveHandlers = container.Resolve<IEnumerable<ISudokuSolveHandler>>().OrderBy(c => (int)c.methodType).ToList();
+                var solveHandlers = container.Resolve<IEnumerable<ISudokuSolveHandler>>()
+                    .OrderBy(c => (int) c.methodType).ToList();
                 TreeNode rules = new TreeNode();
                 rules.Text = "数独规则";
                 TreeNode techniques = new TreeNode();
@@ -209,6 +213,7 @@ namespace Sudoku.UI
                 {
                     this.HintTree.Nodes.Add(techniques);
                 }
+
                 this.HintTree.ExpandAll();
                 this.HintTree.EndUpdate();
             }
@@ -216,7 +221,9 @@ namespace Sudoku.UI
             {
                 this.HintTree.BeginUpdate();
                 this.HintTree.Nodes.Clear();
-                this.HintTree.Nodes.Add(new DanceLink().solution_count(queryString) == 0 ? new TreeNode("该数独无解。") : new TreeNode("该数独存在多解。"));
+                this.HintTree.Nodes.Add(new DanceLink().solution_count(queryString) == 0
+                    ? new TreeNode("该数独无解。")
+                    : new TreeNode("该数独存在多解。"));
                 this.HintTree.ExpandAll();
                 this.HintTree.EndUpdate();
             }
@@ -240,9 +247,97 @@ namespace Sudoku.UI
 
         }
 
+        private Dictionary<int, int> keyCodeNumMap = new Dictionary<int, int>
+        {
+            {49, 1},
+            {50, 2},
+            {51, 3},
+            {52, 4},
+            {53, 5},
+            {54, 6},
+            {55, 7},
+            {56, 8},
+            {57, 9},
+            {97, 1},
+            {98, 2},
+            {99, 3},
+            {100, 4},
+            {101, 5},
+            {102, 6},
+            {103, 7},
+            {104, 8},
+            {105, 9},
+        };
+
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            var intkey = (int)(keyData);
+            Debug.WriteLine("ProcessCmdKey"+ "intkey" + intkey);
+
+            var sudoku = sudokuPanel1.Sudoku;
+            var deal = false;
+            switch (intkey)
+            {
+                case 49:
+                case 50:
+                case 51:
+                case 52:
+                case 53:
+                case 54:
+                case 55:
+                case 56:
+                case 57:
+                case 97:
+                case 98:
+                case 99:
+                case 100:
+                case 101:
+                case 102:
+                case 103:
+                    if (sudoku.CurrentCell.CellType != CellType.Init)
+                    {
+                        sudoku.ApplyCell(new PositiveCell(sudoku.CurrentCell.Index, keyCodeNumMap[intkey]));
+                    }
+
+                    deal = true;
+                    break;
+                case (int) Keys.Left:
+                    sudoku.MoveCurrentCellToLeft();
+                    deal = true;
+                    break;
+                case (int) Keys.Up:
+                    sudoku.MoveCurrentCellToUp();
+                    deal = true;
+                    break;
+                case (int) Keys.Right:
+                    sudoku.MoveCurrentCellToRight();
+                    deal = true;
+                    break;
+                case (int) Keys.Down:
+                    sudoku.MoveCurrentCellToDown();
+                    deal = true;
+                    break;;
+
+            }
+
+            if (deal)
+            {
+                sudokuPanel1.RefreshPanel();
+                return true;
+            }
+            else
+            {
+                return base.ProcessCmdKey(ref msg, keyData);
+            }
+
+          
+        }
+
         private void Form1_KeyUp(object sender, KeyEventArgs e)
         {
-            var v = 0;
-        }
+            Debug.WriteLine("Form1_KeyUp");
+
+        }           
     }
 }

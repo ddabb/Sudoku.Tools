@@ -1,4 +1,5 @@
-﻿using Sudoku.Control;
+﻿using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace Sudoku.UI
 {
@@ -30,7 +31,7 @@ namespace Sudoku.UI
         /// </summary>
         private void InitializeComponent()
         {
-            this.sudokuPanel1 = new ctlSudokuPanel();
+            this.components=new Container();
             this.lblD = new System.Windows.Forms.Label();
             this.lblE = new System.Windows.Forms.Label();
             this.lblF = new System.Windows.Forms.Label();
@@ -49,16 +50,8 @@ namespace Sudoku.UI
             this.lblC = new System.Windows.Forms.Label();
             this.lblB = new System.Windows.Forms.Label();
             this.lblA = new System.Windows.Forms.Label();
+            this.panel1 = new MyPanel(components);
             this.SuspendLayout();
-            // 
-            // sudokuPanel1
-            // 
-            this.sudokuPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
-            this.sudokuPanel1.Location = new System.Drawing.Point(42, 15);
-            this.sudokuPanel1.Name = "sudokuPanel1";
-            this.sudokuPanel1.ShowCandidates = true;
-            this.sudokuPanel1.Size = new System.Drawing.Size(729, 729);
-            this.sudokuPanel1.TabIndex = 0;
             // 
             // lblD
             // 
@@ -109,7 +102,6 @@ namespace Sudoku.UI
             this.lblH.Size = new System.Drawing.Size(22, 22);
             this.lblH.TabIndex = 8;
             this.lblH.Text = "H";
-            this.lblH.Click += new System.EventHandler(this.label5_Click);
             // 
             // lblI
             // 
@@ -160,7 +152,6 @@ namespace Sudoku.UI
             this.lbl4.Size = new System.Drawing.Size(22, 22);
             this.lbl4.TabIndex = 18;
             this.lbl4.Text = "4";
-            this.lbl4.Click += new System.EventHandler(this.label10_Click);
             // 
             // lbl5
             // 
@@ -242,10 +233,19 @@ namespace Sudoku.UI
             this.lblA.TabIndex = 10;
             this.lblA.Text = "A";
             // 
+            // panel1
+            // 
+            this.panel1.Location = new System.Drawing.Point(42, 15);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(716, 717);
+            this.panel1.TabIndex = 19;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
             // ctlSudoku
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.lbl4);
             this.Controls.Add(this.lbl5);
             this.Controls.Add(this.lbl6);
@@ -264,10 +264,8 @@ namespace Sudoku.UI
             this.Controls.Add(this.lblG);
             this.Controls.Add(this.lblE);
             this.Controls.Add(this.lblD);
-            this.Controls.Add(this.sudokuPanel1);
             this.Name = "ctlSudoku";
             this.Size = new System.Drawing.Size(784, 782);
-            this.Load += new System.EventHandler(this.ctlSudoku_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -275,7 +273,7 @@ namespace Sudoku.UI
 
         #endregion
 
-        private ctlSudokuPanel sudokuPanel1;
+
 
         private System.Windows.Forms.Label lblA;
         private System.Windows.Forms.Label lblB;
@@ -295,6 +293,6 @@ namespace Sudoku.UI
         private System.Windows.Forms.Label lbl7;
         private System.Windows.Forms.Label lbl8;
         private System.Windows.Forms.Label lbl9;
-      
+        private MyPanel panel1;
     }
 }

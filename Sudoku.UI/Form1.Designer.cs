@@ -342,6 +342,7 @@ namespace Sudoku.UI
             // sudokuPanel1
             // 
             this.sudokuPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
+            this.sudokuPanel1.ImeMode = System.Windows.Forms.ImeMode.On;
             this.sudokuPanel1.Location = new System.Drawing.Point(12, 53);
             this.sudokuPanel1.Name = "sudokuPanel1";
             this.sudokuPanel1.Size = new System.Drawing.Size(786, 782);
@@ -362,6 +363,7 @@ namespace Sudoku.UI
             this.Controls.Add(this.MessageArea);
             this.Controls.Add(this.sudokuPanel1);
             this.Controls.Add(this.menuStrip1);
+            this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "超级数独";

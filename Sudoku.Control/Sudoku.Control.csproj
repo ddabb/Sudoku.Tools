@@ -49,17 +49,14 @@
     <Compile Include="ctlSudoku.Designer.cs">
       <DependentUpon>ctlSudoku.cs</DependentUpon>
     </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ctlSudokuPanel.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="MyPanel.cs">
+      <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ctlSudoku.resx">
       <DependentUpon>ctlSudoku.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ctlSudokuPanel.resx">
-      <DependentUpon>ctlSudokuPanel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
