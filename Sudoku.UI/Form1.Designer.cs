@@ -266,8 +266,10 @@ namespace Sudoku.UI
             // 
             // MessageArea
             // 
+            this.MessageArea.Enabled = false;
             this.MessageArea.Location = new System.Drawing.Point(822, 457);
             this.MessageArea.Name = "MessageArea";
+            this.MessageArea.ReadOnly = true;
             this.MessageArea.Size = new System.Drawing.Size(848, 378);
             this.MessageArea.TabIndex = 5;
             this.MessageArea.Text = "";
@@ -363,6 +365,7 @@ namespace Sudoku.UI
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "超级数独";
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);

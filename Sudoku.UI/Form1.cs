@@ -23,7 +23,6 @@ namespace Sudoku.UI
             var c = new QSudoku("020137568050468192618592734060070809100080406080040203040710385800054921501820647");
             //c.RemoveCells(new List<CellInfo> {new NegativeCell(59, 4), new NegativeCell(77, 4) });
             this.sudokuPanel1.Sudoku = c;
-            this.sudokuPanel1.ReLoad();
 
         }
 
@@ -63,7 +62,7 @@ namespace Sudoku.UI
         {
             QSudoku example = new MinimalPuzzleFactory().Make(new SudokuBuilder().MakeWholeSudoku());
             this.sudokuPanel1.Sudoku = example;
-            this.sudokuPanel1.Refresh();
+
 
         }
 
@@ -71,7 +70,10 @@ namespace Sudoku.UI
         {
             QSudoku example = new QSudoku();
             this.sudokuPanel1.Sudoku = example;
-            this.sudokuPanel1.Refresh();
+            this.sudokuPanel1.Focus();
+
+
+
         }
 
         private void aboutSoftwareToolStripMenuItem_Click(object sender, EventArgs e)
@@ -127,7 +129,7 @@ namespace Sudoku.UI
                         {
                             QSudoku example = new QSudoku(queryString);
                             this.sudokuPanel1.Sudoku = example;
-                            this.sudokuPanel1.Refresh();
+           
                         }
                     }
 
@@ -236,6 +238,11 @@ namespace Sudoku.UI
         private void LoadToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void Form1_KeyUp(object sender, KeyEventArgs e)
+        {
+            var v = 0;
         }
     }
 }

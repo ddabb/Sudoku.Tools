@@ -1,4 +1,6 @@
-﻿namespace Sudoku.UI
+﻿using Sudoku.Control;
+
+namespace Sudoku.UI
 {
     partial class ctlSudoku
     {
@@ -28,7 +30,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.sudokuPanel1 = new Sudoku.UI.SudokuPanel();
+            this.sudokuPanel1 = new ctlSudokuPanel();
             this.lblD = new System.Windows.Forms.Label();
             this.lblE = new System.Windows.Forms.Label();
             this.lblF = new System.Windows.Forms.Label();
@@ -266,7 +268,6 @@
             this.Name = "ctlSudoku";
             this.Size = new System.Drawing.Size(784, 782);
             this.Load += new System.EventHandler(this.ctlSudoku_Load);
-            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.ctlSudoku_KeyUp);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -274,7 +275,7 @@
 
         #endregion
 
-        private SudokuPanel sudokuPanel1;
+        private ctlSudokuPanel sudokuPanel1;
 
         private System.Windows.Forms.Label lblA;
         private System.Windows.Forms.Label lblB;
