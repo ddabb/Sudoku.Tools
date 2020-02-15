@@ -56,7 +56,7 @@ namespace Sudoku.UI
             // 
             this.lblD.AutoSize = true;
             this.lblD.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblD.Location = new System.Drawing.Point(3, 276);
+            this.lblD.Location = new System.Drawing.Point(3, 288);
             this.lblD.Name = "lblD";
             this.lblD.Size = new System.Drawing.Size(22, 22);
             this.lblD.TabIndex = 1;
@@ -66,7 +66,7 @@ namespace Sudoku.UI
             // 
             this.lblE.AutoSize = true;
             this.lblE.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblE.Location = new System.Drawing.Point(3, 355);
+            this.lblE.Location = new System.Drawing.Point(3, 371);
             this.lblE.Name = "lblE";
             this.lblE.Size = new System.Drawing.Size(22, 22);
             this.lblE.TabIndex = 2;
@@ -76,7 +76,7 @@ namespace Sudoku.UI
             // 
             this.lblF.AutoSize = true;
             this.lblF.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblF.Location = new System.Drawing.Point(3, 434);
+            this.lblF.Location = new System.Drawing.Point(3, 454);
             this.lblF.Name = "lblF";
             this.lblF.Size = new System.Drawing.Size(22, 22);
             this.lblF.TabIndex = 4;
@@ -86,7 +86,7 @@ namespace Sudoku.UI
             // 
             this.lblG.AutoSize = true;
             this.lblG.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblG.Location = new System.Drawing.Point(3, 513);
+            this.lblG.Location = new System.Drawing.Point(3, 537);
             this.lblG.Name = "lblG";
             this.lblG.Size = new System.Drawing.Size(22, 22);
             this.lblG.TabIndex = 3;
@@ -96,7 +96,7 @@ namespace Sudoku.UI
             // 
             this.lblH.AutoSize = true;
             this.lblH.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblH.Location = new System.Drawing.Point(3, 592);
+            this.lblH.Location = new System.Drawing.Point(3, 620);
             this.lblH.Name = "lblH";
             this.lblH.Size = new System.Drawing.Size(22, 22);
             this.lblH.TabIndex = 8;
@@ -106,7 +106,7 @@ namespace Sudoku.UI
             // 
             this.lblI.AutoSize = true;
             this.lblI.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblI.Location = new System.Drawing.Point(3, 671);
+            this.lblI.Location = new System.Drawing.Point(3, 703);
             this.lblI.Name = "lblI";
             this.lblI.Size = new System.Drawing.Size(22, 22);
             this.lblI.TabIndex = 7;
@@ -206,7 +206,7 @@ namespace Sudoku.UI
             // 
             this.lblC.AutoSize = true;
             this.lblC.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblC.Location = new System.Drawing.Point(3, 197);
+            this.lblC.Location = new System.Drawing.Point(3, 205);
             this.lblC.Name = "lblC";
             this.lblC.Size = new System.Drawing.Size(22, 22);
             this.lblC.TabIndex = 12;
@@ -216,7 +216,7 @@ namespace Sudoku.UI
             // 
             this.lblB.AutoSize = true;
             this.lblB.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblB.Location = new System.Drawing.Point(3, 118);
+            this.lblB.Location = new System.Drawing.Point(3, 122);
             this.lblB.Name = "lblB";
             this.lblB.Size = new System.Drawing.Size(22, 22);
             this.lblB.TabIndex = 11;
