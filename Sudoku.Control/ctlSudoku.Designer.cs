@@ -240,6 +240,7 @@ namespace Sudoku.UI
             this.panel1.Size = new System.Drawing.Size(745, 745);
             this.panel1.TabIndex = 19;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseMove);
             // 
             // ctlSudoku
             // 

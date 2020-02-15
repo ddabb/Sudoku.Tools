@@ -64,6 +64,14 @@ namespace Sudoku.UI
             };
         }
 
+        private void panel1_MouseMove(object sender, MouseEventArgs e)
+        {
+            var x = e.X;
+            var y = e.Y;
+
+        }
+
+
         private Dictionary<int,int> indexOffset=new Dictionary<int, int>
         {
                {0 , 2 },
@@ -77,6 +85,8 @@ namespace Sudoku.UI
                {8 , 12},
 
         };
+
+        private CellInfo LastCurrentCell;
 
         public void RefreshPanel()
         {
@@ -115,9 +125,9 @@ namespace Sudoku.UI
                     {
                         if (item.Index == sudoku.CurrentCell.Index)
                         {
-                            g.FillRectangle(new SolidBrush(Color.DarkOrange),
-                                new Rectangle(new Point(bigSpace * item.Column + indexOffset[item.Column]+1, bigSpace * item.Row + indexOffset[item.Row]+1),
-                                    new Size(bigSpace, bigSpace)));
+                            var currentCell = sudoku.CurrentCell;
+                            var color = Color.DarkOrange;
+                            PaintCurrentCell(g, color, bigSpace, currentCell);
                         }
 
                         if (item.Value != 0)
@@ -159,6 +169,16 @@ namespace Sudoku.UI
             }
         }
 
+        private void PaintCurrentCell(Graphics g, Color color, int bigSpace, CellInfo currentCell)
+        {
+            g.FillRectangle(new SolidBrush(color),
+                new Rectangle(
+                    new Point(bigSpace * currentCell.Column + indexOffset[currentCell.Column] + 1,
+                        bigSpace * currentCell.Row + indexOffset[currentCell.Row] + 1),
+                    new Size(bigSpace, bigSpace)));
+        }
+
+ 
 
         //keycode 37 = Left ←
         //keycode 38 = Up ↑
