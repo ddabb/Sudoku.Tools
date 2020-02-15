@@ -297,6 +297,8 @@ namespace Sudoku.UI
                 case 101:
                 case 102:
                 case 103:
+                case 104:
+                case 105:
                     if (sudoku.CurrentCell.CellType != CellType.Init || sudoku.CurrentCell.Value == 0)
                     {
                         var value = keyCodeNumMap[intkey];
