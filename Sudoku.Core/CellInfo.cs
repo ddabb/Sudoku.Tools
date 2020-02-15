@@ -17,6 +17,7 @@ namespace Sudoku.Core
         public CellType CellType { get; set; }
 
 
+        public List<SolveProcess> SolveProcesses;
 
         public QSudoku Sudoku;
 

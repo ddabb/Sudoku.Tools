@@ -1,4 +1,5 @@
-﻿using Sudoku.Core;
+﻿using System.Collections.Generic;
+using Sudoku.Core;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
@@ -34,6 +35,33 @@ namespace Sudoku.UI
             RefreshPanel();
         }
 
+        /// <summary>
+        /// panel的size=bigSpace*9+15;
+        /// </summary>
+        /// <param name="bigSpace"></param>
+        /// <returns></returns>
+        private List<int> GetOffSet(int bigSpace)
+        {
+            return new List<int>
+                {
+
+                    1+ bigSpace*0 ,
+                    2+ bigSpace*0 ,
+                    3+ bigSpace*1 ,
+                    4+ bigSpace*2 ,
+                    5+ bigSpace*3 ,
+                    6+ bigSpace*3 ,
+                    7+ bigSpace*4 ,
+                    8+ bigSpace*5 ,
+                    9+ bigSpace*6 ,
+                    10+bigSpace*6,
+                    11+bigSpace*7,
+                    12+bigSpace*8,
+                    13+bigSpace*9,
+                    14+bigSpace*9,
+                };
+        }
+
         public void RefreshPanel()
         {
             if (Paintflag)
@@ -51,56 +79,29 @@ namespace Sudoku.UI
                 var bigFont = new Font("宋体", smallFont.Size * 3, FontStyle.Bold, GraphicsUnit.Point, 0);
                 var lineweith = 1;
                 g.FillRectangle(new SolidBrush(Color.White), rectangle);
-                g.DrawLine(Pens.Black, new Point(0, bigSpace * 0), new Point(panelWidth, bigSpace * 0));
-                g.DrawLine(Pens.Black, new Point(0, bigSpace * 0 + lineweith * 1),
-                       new Point(panelWidth, bigSpace * 0 + lineweith * 1));
-                g.DrawLine(Pens.Black, new Point(0, bigSpace * 0 + lineweith * 2),
-                       new Point(panelWidth, bigSpace * 0 + lineweith * 2));
-                g.DrawLine(Pens.Gray, new Point(0, bigSpace * 1), new Point(panelWidth, bigSpace * 1));
-                g.DrawLine(Pens.Gray, new Point(0, bigSpace * 2), new Point(panelWidth, bigSpace * 2));
-                g.DrawLine(Pens.Black, new Point(0, bigSpace * 3), new Point(panelWidth, bigSpace * 3));
-                g.DrawLine(Pens.Black, new Point(0, bigSpace * 3 + lineweith * 1),
-                       new Point(panelWidth, bigSpace * 3 + lineweith * 1));
-                g.DrawLine(Pens.Gray, new Point(0, bigSpace * 4), new Point(panelWidth, bigSpace * 4));
-                g.DrawLine(Pens.Gray, new Point(0, bigSpace * 5), new Point(panelWidth, bigSpace * 5));
 
-                g.DrawLine(Pens.Black, new Point(0, bigSpace * 6), new Point(panelWidth, bigSpace * 6));
-                g.DrawLine(Pens.Black, new Point(0, bigSpace * 6 + lineweith * 1),
-                       new Point(panelWidth, bigSpace * 6 + lineweith * 1));
-                g.DrawLine(Pens.Gray, new Point(0, bigSpace * 7), new Point(panelWidth, bigSpace * 7));
-                g.DrawLine(Pens.Gray, new Point(0, bigSpace * 8), new Point(panelWidth, bigSpace * 8));
-                g.DrawLine(Pens.Black, new Point(0, bigSpace * 9 - lineweith * 3),
-                       new Point(panelWidth, bigSpace * 9 - lineweith * 3));
-                g.DrawLine(Pens.Black, new Point(0, bigSpace * 9 - lineweith * 2),
-                       new Point(panelWidth, bigSpace * 9 - lineweith * 2));
-                g.DrawLine(Pens.Black, new Point(0, bigSpace * 9 - lineweith * 1),
-                       new Point(panelWidth, bigSpace * 9 - lineweith * 1));
-                g.DrawLine(Pens.Black, new Point(0, bigSpace * 9), new Point(panelWidth, bigSpace * 9));
+                var offSets = GetOffSet(bigSpace);
 
-                g.DrawLine(Pens.Black, new Point(bigSpace * 0, 0), new Point(bigSpace * 0, panel1Height));
-                g.DrawLine(Pens.Black, new Point(bigSpace * 0 + lineweith * 1, 0),
-                       new Point(bigSpace * 0 + lineweith * 1, panel1Height));
-                g.DrawLine(Pens.Black, new Point(bigSpace * 0 + lineweith * 2, 0),
-                       new Point(bigSpace * 0 + lineweith * 2, panel1Height));
-                g.DrawLine(Pens.Gray, new Point(bigSpace * 1, 0), new Point(bigSpace * 1, panel1Height));
-                g.DrawLine(Pens.Gray, new Point(bigSpace * 2, 0), new Point(bigSpace * 2, panel1Height));
-                g.DrawLine(Pens.Black, new Point(bigSpace * 3, 0), new Point(bigSpace * 3, panel1Height));
-                g.DrawLine(Pens.Black, new Point(bigSpace * 3 + lineweith * 1, 0),
-                       new Point(bigSpace * 3 + lineweith * 1, panel1Height));
-                g.DrawLine(Pens.Gray, new Point(bigSpace * 4, 0), new Point(bigSpace * 4, panel1Height));
-                g.DrawLine(Pens.Gray, new Point(bigSpace * 5, 0), new Point(bigSpace * 5, panel1Height));
-                g.DrawLine(Pens.Black, new Point(bigSpace * 6, 0), new Point(bigSpace * 6, panel1Height));
-                g.DrawLine(Pens.Black, new Point(bigSpace * 6 + lineweith * 1, 0),
-                       new Point(bigSpace * 6 + lineweith * 1, panel1Height));
-                g.DrawLine(Pens.Gray, new Point(bigSpace * 7, 0), new Point(bigSpace * 7, panel1Height));
-                g.DrawLine(Pens.Gray, new Point(bigSpace * 8, 0), new Point(bigSpace * 8, panel1Height));
-                g.DrawLine(Pens.Black, new Point(bigSpace * 9 - lineweith * 3, 0),
-                       new Point(bigSpace * 9 - lineweith * 3, panel1Height));
-                g.DrawLine(Pens.Black, new Point(bigSpace * 9 - lineweith * 2, 0),
-                       new Point(bigSpace * 9 - lineweith * 2, panel1Height));
-                g.DrawLine(Pens.Black, new Point(bigSpace * 9 - lineweith * 1, 0),
-                       new Point(bigSpace * 9 - lineweith * 1, panel1Height));
-                g.DrawLine(Pens.Black, new Point(bigSpace * 9, 0), new Point(bigSpace * 9, panel1Height));
+                #region 画横线
+                
+                foreach (var offSet in offSets)
+                {
+                    g.DrawLine(Pens.Black, new Point(0, offSet), new Point(panelWidth, offSet));
+                }
+                #endregion
+
+                #region 画竖线
+
+                foreach (var offSet in offSets)
+                {
+
+                    g.DrawLine(Pens.Black, new Point(offSet, 0), new Point(offSet, panel1Height));
+                }
+                #endregion
+
+
+
+
                 QSudoku sudoku = Sudoku;
                 if (sudoku != null)
                 {
@@ -108,7 +109,7 @@ namespace Sudoku.UI
                     {
                         if (item.Index == sudoku.CurrentCell.Index)
                         {
-                            g.FillRectangle(new SolidBrush(Color.Brown),
+                            g.FillRectangle(new SolidBrush(Color.DarkOrange),
                                 new Rectangle(new Point(bigSpace * item.Column, bigSpace * item.Row),
                                     new Size(bigSpace, bigSpace)));
                         }
