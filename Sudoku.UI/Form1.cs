@@ -65,6 +65,7 @@ namespace Sudoku.UI
         {
             QSudoku example = new MinimalPuzzleFactory().Make(new SudokuBuilder().MakeWholeSudoku());
             this.ctlSudoku.Sudoku = example;
+            this.ctlSudoku.RefreshPanel();
 
 
         }
@@ -74,7 +75,7 @@ namespace Sudoku.UI
             QSudoku example = new QSudoku();
             this.ctlSudoku.Sudoku = example;
             this.ctlSudoku.Focus();
-
+            this.ctlSudoku.RefreshPanel();
 
 
         }
@@ -152,12 +153,12 @@ namespace Sudoku.UI
                 this.HintTree.Nodes.Clear();
                 this.HintTree.Nodes.Add(new TreeNode("提示列表"));
                 var builder = new ContainerBuilder();
-                Assembly[] assemblies = new Assembly[] {typeof(SolverHandlerBase).Assembly};
+                Assembly[] assemblies = new Assembly[] { typeof(SolverHandlerBase).Assembly };
                 builder.RegisterAssemblyTypes(assemblies).AsImplementedInterfaces();
                 var initString = sudoku.CurrentString;
                 IContainer container = builder.Build();
                 var solveHandlers = container.Resolve<IEnumerable<ISudokuSolveHandler>>()
-                    .OrderBy(c => (int) c.methodType).ToList();
+                    .OrderBy(c => (int)c.methodType).ToList();
                 TreeNode rules = new TreeNode();
                 rules.Text = "数独规则";
                 TreeNode techniques = new TreeNode();
@@ -221,9 +222,10 @@ namespace Sudoku.UI
             {
                 this.HintTree.BeginUpdate();
                 this.HintTree.Nodes.Clear();
-                this.HintTree.Nodes.Add(new DanceLink().solution_count(queryString) == 0
-                    ? new TreeNode("该数独无解。")
-                    : new TreeNode("该数独存在多解。"));
+
+                this.HintTree.Nodes.Add((queryString.ToCharArray().Count(c => c == '0') > (81 - 17) || new DanceLink().solution_count(queryString) != 0)
+                    ? new TreeNode("该数独存在多解。") : new TreeNode("该数独无解。")
+                    );
                 this.HintTree.ExpandAll();
                 this.HintTree.EndUpdate();
             }
@@ -273,7 +275,7 @@ namespace Sudoku.UI
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             var intkey = (int)(keyData);
-            Debug.WriteLine("ProcessCmdKey"+ "intkey" + intkey);
+            Debug.WriteLine("ProcessCmdKey" + "intkey" + intkey);
 
             var sudoku = ctlSudoku.Sudoku;
             var deal = false;
@@ -295,29 +297,29 @@ namespace Sudoku.UI
                 case 101:
                 case 102:
                 case 103:
-                    if (sudoku.CurrentCell.CellType != CellType.Init)
+                    if (sudoku.CurrentCell.CellType != CellType.Init || sudoku.CurrentCell.Value == 0)
                     {
                         sudoku.ApplyCell(new PositiveCell(sudoku.CurrentCell.Index, keyCodeNumMap[intkey]));
                     }
 
                     deal = true;
                     break;
-                case (int) Keys.Left:
+                case (int)Keys.Left:
                     sudoku.MoveCurrentCellToLeft();
                     deal = true;
                     break;
-                case (int) Keys.Up:
+                case (int)Keys.Up:
                     sudoku.MoveCurrentCellToUp();
                     deal = true;
                     break;
-                case (int) Keys.Right:
+                case (int)Keys.Right:
                     sudoku.MoveCurrentCellToRight();
                     deal = true;
                     break;
-                case (int) Keys.Down:
+                case (int)Keys.Down:
                     sudoku.MoveCurrentCellToDown();
                     deal = true;
-                    break;;
+                    break; ;
 
             }
 
@@ -331,13 +333,13 @@ namespace Sudoku.UI
                 return base.ProcessCmdKey(ref msg, keyData);
             }
 
-          
+
         }
 
         private void Form1_KeyUp(object sender, KeyEventArgs e)
         {
             Debug.WriteLine("Form1_KeyUp");
 
-        }           
+        }
     }
 }
