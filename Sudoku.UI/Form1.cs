@@ -110,11 +110,9 @@ namespace Sudoku.UI
 
         private void CopyGirdToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (this.ctlSudoku.Tag is QSudoku example)
-            {
-                var currentString = example.CurrentString;
-                Clipboard.SetDataObject(currentString);
-            }
+            Clipboard.Clear();
+                Clipboard.SetDataObject(this.ctlSudoku.Sudoku.CurrentString);
+        
 
         }
 
@@ -223,9 +221,7 @@ namespace Sudoku.UI
                 this.HintTree.BeginUpdate();
                 this.HintTree.Nodes.Clear();
 
-                this.HintTree.Nodes.Add((queryString.ToCharArray().Count(c => c == '0') > (81 - 17) || new DanceLink().solution_count(queryString) != 0)
-                    ? new TreeNode("该数独存在多解。") : new TreeNode("该数独无解。")
-                    );
+                this.HintTree.Nodes.Add(new TreeNode("该数独不存在解或者存在多个解。"));
                 this.HintTree.ExpandAll();
                 this.HintTree.EndUpdate();
             }
@@ -251,6 +247,7 @@ namespace Sudoku.UI
 
         private Dictionary<int, int> keyCodeNumMap = new Dictionary<int, int>
         {
+            {48, 0},
             {49, 1},
             {50, 2},
             {51, 3},
@@ -260,6 +257,7 @@ namespace Sudoku.UI
             {55, 7},
             {56, 8},
             {57, 9},
+            {96, 0},
             {97, 1},
             {98, 2},
             {99, 3},
@@ -281,6 +279,7 @@ namespace Sudoku.UI
             var deal = false;
             switch (intkey)
             {
+                case 48:
                 case 49:
                 case 50:
                 case 51:
@@ -290,6 +289,7 @@ namespace Sudoku.UI
                 case 55:
                 case 56:
                 case 57:
+                case 96:
                 case 97:
                 case 98:
                 case 99:
@@ -299,7 +299,9 @@ namespace Sudoku.UI
                 case 103:
                     if (sudoku.CurrentCell.CellType != CellType.Init || sudoku.CurrentCell.Value == 0)
                     {
-                        sudoku.ApplyCell(new PositiveCell(sudoku.CurrentCell.Index, keyCodeNumMap[intkey]));
+                        var value = keyCodeNumMap[intkey];
+                 sudoku.ApplyCell(value == 0 ?(CellInfo)new InitCell(sudoku.CurrentCell.Index,0): new PositiveCell(sudoku.CurrentCell.Index, value));
+
                     }
 
                     deal = true;

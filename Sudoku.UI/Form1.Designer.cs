@@ -146,7 +146,7 @@ namespace Sudoku.UI
             // 
             this.CopyGirdToolStripMenuItem.Name = "CopyGirdToolStripMenuItem";
             this.CopyGirdToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.CopyGirdToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.CopyGirdToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.CopyGirdToolStripMenuItem.Text = "拷贝网格";
             this.CopyGirdToolStripMenuItem.Click += new System.EventHandler(this.CopyGirdToolStripMenuItem_Click);
             // 
@@ -154,7 +154,7 @@ namespace Sudoku.UI
             // 
             this.PasteGirdToolStripMenuItem.Name = "PasteGirdToolStripMenuItem";
             this.PasteGirdToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.PasteGirdToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.PasteGirdToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.PasteGirdToolStripMenuItem.Text = "粘贴网格";
             this.PasteGirdToolStripMenuItem.Click += new System.EventHandler(this.PasteGirdToolStripMenuItem_Click);
             // 
@@ -162,7 +162,7 @@ namespace Sudoku.UI
             // 
             this.ClearToolStripMenuItem.Name = "ClearToolStripMenuItem";
             this.ClearToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
-            this.ClearToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.ClearToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.ClearToolStripMenuItem.Text = "清空网格";
             // 
             // toolMenuItem
@@ -266,7 +266,6 @@ namespace Sudoku.UI
             // 
             // MessageArea
             // 
-            this.MessageArea.Enabled = false;
             this.MessageArea.Location = new System.Drawing.Point(822, 457);
             this.MessageArea.Name = "MessageArea";
             this.MessageArea.ReadOnly = true;
@@ -339,7 +338,7 @@ namespace Sudoku.UI
             this.button6.Text = "撤销动作";
             this.button6.UseVisualStyleBackColor = true;
             // 
-            // sudokuPanel1
+            // ctlSudoku
             // 
             this.ctlSudoku.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
             this.ctlSudoku.ImeMode = System.Windows.Forms.ImeMode.On;

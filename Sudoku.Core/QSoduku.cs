@@ -260,10 +260,21 @@ namespace Sudoku.Core
             return this;
         }
 
-        public QSudoku ApplyCell(CellInfo cells)
+        public QSudoku ApplyCell(CellInfo cell)
         {
-            var chars = QueryString.Select(c => "" + c).ToList();
-            this.cellInfos[cells.Index] = new PositiveCell(cells.Index, cells.Value) { Sudoku = this };
+
+            if (cell.Value == 0&&cell.CellType==CellType.Init)
+            {
+                this.cellInfos[cell.Index] =new InitCell(cell.Index,0) ;
+            }
+            else
+            {
+                this.cellInfos[cell.Index] = new PositiveCell(cell.Index, cell.Value);
+            }
+
+            this.cellInfos[cell.Index].Sudoku = this;
+
+
             this.mAllUnSetCell = null;
             foreach (var unset in this.AllUnSetCells)
             {
