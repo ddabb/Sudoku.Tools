@@ -22,7 +22,7 @@ namespace Sudoku.UI
             this.HintTree.Nodes.Add(new TreeNode("提示列表"));
             this.ShowInTaskbar = true;
             this.ctlSudoku.ShowCandidates = true;
-            var c = new QSudoku("020137568050468192618592734060070809100080406080040203040710385800054921501820647");
+            var c = new QSudoku("598643002003759648674128593457200830906307425032405060005904380341872956009530204");
             //c.RemoveCells(new List<CellInfo> {new NegativeCell(59, 4), new NegativeCell(77, 4) });
             this.ctlSudoku.Sudoku = c;
             this.ctlSudoku.RefreshPanel();
@@ -164,7 +164,6 @@ namespace Sudoku.UI
                 for (int i = 0; i < solveHandlers.Count; i++)
                 {
                     var handler = solveHandlers[i];
-
                     try
                     {
                         var cellinfos = new List<CellInfo>();
@@ -225,13 +224,23 @@ namespace Sudoku.UI
                 this.HintTree.ExpandAll();
                 this.HintTree.EndUpdate();
             }
+            this.MessageArea.Text = "线索加载完成..." +DateTime.Now ;
         }
 
         private void HintTree_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             if (e.Node.Tag is CellInfo cell)
             {
-                this.MessageArea.Text = "" + cell.SolveDesc;
+                var solveMessage = cell.SolveMessages;
+                if (solveMessage.Count!=0)
+                {
+                    this.MessageArea.Text = solveMessage.Select(c => c.message).JoinString();
+                }
+                else
+                {
+                    this.MessageArea.Text = "" + cell.SolveDesc;
+                }
+      
             }
             else if (e.Node.Tag is ISudokuSolveHandler hander)
             {
@@ -344,6 +353,12 @@ namespace Sudoku.UI
         {
             Debug.WriteLine("Form1_KeyUp");
 
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            MessageArea.Text = "数独的表达式为：" + "" + ctlSudoku.Sudoku.CurrentString;
+            MessageArea.Text+=new DanceLink().isValid(ctlSudoku.Sudoku.CurrentString)? "这是一个有效的数独":"这是一个无效的数独";
         }
     }
 }

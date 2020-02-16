@@ -57,7 +57,21 @@ namespace Sudoku.Tools
                                 {
                                     var cell = new PositiveCell(aCell.Index,
                                         aCell.RestList.First(c => c != value));
-                                    cell.SolveDesc = new List<string> { interectCell.Location, aCell.Location, bCell.Location, cCell.Location }.JoinString() + "的值" + value + "构成空矩形" + "所以" + cell.Location + "不为" + value;
+                                    cell.SolveMessages = new List<SolveMessage>
+                                    {
+                                        new SolveMessage(interectCell.Location, MessageType.Location),
+                                        new SolveMessage(" 和 "),
+                                        new SolveMessage(aCell.Location, MessageType.Location),
+                                        new SolveMessage(" 和 "),
+                                        new SolveMessage(bCell.Location, MessageType.Location),
+                                        new SolveMessage(" 和 "),
+                                        new SolveMessage(cCell.Location, MessageType.Location),
+                                        new SolveMessage("中的"),
+                                        new SolveMessage(" "+ value+" ", MessageType.Postive),
+                                        new SolveMessage("构成空矩形", MessageType.Important),
+                                        new SolveMessage("所以"),
+                                        new SolveMessage(cell.Location+"不为"+value, MessageType.Nagetive),
+                                    };
                                     cells.Add(cell);
                                 }
                             }
@@ -65,7 +79,21 @@ namespace Sudoku.Tools
                                          .Count == 2 && bCell.RestCount == 2)
                             {
                                 var cell = new PositiveCell(bCell.Index, bCell.RestList.First(c => c != value));
-                                cell.SolveDesc = new List<string> { interectCell.Location,aCell.Location, bCell.Location, cCell.Location }.JoinString() + "的值" + value + "构成空矩形"+"所以"+cell.Location+"不为"+value;
+                                cell.SolveMessages = new List<SolveMessage>
+                                {
+                                    new SolveMessage(interectCell.Location, MessageType.Location),
+                                    new SolveMessage(" 和 "),
+                                    new SolveMessage(aCell.Location, MessageType.Location),
+                                    new SolveMessage(" 和 "),
+                                    new SolveMessage(bCell.Location, MessageType.Location),
+                                    new SolveMessage(" 和 "),
+                                    new SolveMessage(cCell.Location, MessageType.Location),
+                                    new SolveMessage("中的"),
+                                    new SolveMessage(" "+ value+" ", MessageType.Postive),
+                                    new SolveMessage("构成空矩形", MessageType.Important),
+                                    new SolveMessage("所以"),
+                                    new SolveMessage(cell.Location+"不为"+value, MessageType.Nagetive),
+                                };
                                 cells.Add(cell);
                                 ;
                             }

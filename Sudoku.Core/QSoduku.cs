@@ -76,7 +76,8 @@ namespace Sudoku.Core
 
         public void MoveCurrentCellToLeft()
         {
-            var column = CurrentCell.Column;
+            var column = CurrentCell?.Column ?? 0;
+            var row = CurrentCell?.Row ?? 0;
             if (column==0)
             {
                 column = 8;
@@ -85,12 +86,13 @@ namespace Sudoku.Core
             {
                 column -= 1;
             }
-            CurrentCell = this.AllCell.First(c => c.Row == CurrentCell.Row && c.Column == column);
+            CurrentCell = this.AllCell.First(c => c.Row == row && c.Column == column);
         }
 
         public void MoveCurrentCellToUp()
         {
-            var row = CurrentCell.Row;
+            var column = CurrentCell?.Column ?? 0;
+            var row = CurrentCell?.Row ?? 0;
             if (row == 0)
             {
                 row = 8;
@@ -99,12 +101,13 @@ namespace Sudoku.Core
             {
                 row -= 1;
             }
-            CurrentCell = this.AllCell.First(c => c.Row == row && c.Column == CurrentCell.Column);
+            CurrentCell = this.AllCell.First(c => c.Row == row && c.Column == column);
         }
 
         public void MoveCurrentCellToRight()
         {
-            var column = CurrentCell.Column;
+            var column = CurrentCell?.Column ?? 0;
+            var row = CurrentCell?.Row ?? 0;
             if (column == 8)
             {
                 column = 0;
@@ -113,12 +116,13 @@ namespace Sudoku.Core
             {
                 column += 1;
             }
-            CurrentCell = this.AllCell.First(c => c.Row == CurrentCell.Row && c.Column == column);
+            CurrentCell = this.AllCell.First(c => c.Row == row && c.Column == column);
         }
 
         public void MoveCurrentCellToDown()
         {
-            var row = CurrentCell.Row;
+            var column = CurrentCell?.Column ?? 0;
+            var row = CurrentCell?.Row ?? 0;
             if (row == 8)
             {
                 row = 0;
@@ -127,7 +131,7 @@ namespace Sudoku.Core
             {
                 row += 1;
             }
-            CurrentCell = this.AllCell.First(c => c.Row == row && c.Column == CurrentCell.Column);
+            CurrentCell = this.AllCell.First(c => c.Row == row && c.Column == column);
         }
 
         public List<PossibleIndex> GetPossibleIndexByTimes(int time)

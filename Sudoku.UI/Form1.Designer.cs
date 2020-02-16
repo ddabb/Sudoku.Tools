@@ -146,7 +146,7 @@ namespace Sudoku.UI
             // 
             this.CopyGirdToolStripMenuItem.Name = "CopyGirdToolStripMenuItem";
             this.CopyGirdToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.CopyGirdToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.CopyGirdToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
             this.CopyGirdToolStripMenuItem.Text = "拷贝网格";
             this.CopyGirdToolStripMenuItem.Click += new System.EventHandler(this.CopyGirdToolStripMenuItem_Click);
             // 
@@ -154,7 +154,7 @@ namespace Sudoku.UI
             // 
             this.PasteGirdToolStripMenuItem.Name = "PasteGirdToolStripMenuItem";
             this.PasteGirdToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.PasteGirdToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.PasteGirdToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
             this.PasteGirdToolStripMenuItem.Text = "粘贴网格";
             this.PasteGirdToolStripMenuItem.Click += new System.EventHandler(this.PasteGirdToolStripMenuItem_Click);
             // 
@@ -162,7 +162,7 @@ namespace Sudoku.UI
             // 
             this.ClearToolStripMenuItem.Name = "ClearToolStripMenuItem";
             this.ClearToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
-            this.ClearToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ClearToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
             this.ClearToolStripMenuItem.Text = "清空网格";
             // 
             // toolMenuItem
@@ -291,6 +291,7 @@ namespace Sudoku.UI
             this.button1.TabIndex = 7;
             this.button1.Text = "校验有效性";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // button2
             // 

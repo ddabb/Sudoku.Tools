@@ -32,8 +32,10 @@ namespace Sudoku.UI
 
         }
 
-
-        public bool Paintflag = true;
+        /// <summary>
+        /// 没有在绘制
+        /// </summary>
+        public bool IsNotPainting = true;
 
 
 
@@ -96,17 +98,21 @@ namespace Sudoku.UI
 
         private void panel1_MouseMove(object sender, MouseEventArgs e)
         {
-            var x = e.X;
-            var y = e.Y;
-
-            var columnIndex = GetIndex(x);
-            var rowIndex = GetIndex(y);
-            var cellIndex = GetCellIndex(rowIndex, columnIndex);
-            if (Sudoku.CurrentCell == null|| Sudoku.CurrentCell.Index!=cellIndex)
+            if (IsNotPainting)
             {
-                Sudoku.CurrentCell= Sudoku.AllCell[GetCellIndex(rowIndex, columnIndex)];
-                RefreshPanel();
+                var x = e.X;
+                var y = e.Y;
+
+                var columnIndex = GetIndex(x);
+                var rowIndex = GetIndex(y);
+                var cellIndex = GetCellIndex(rowIndex, columnIndex);
+                if (Sudoku.CurrentCell == null || Sudoku.CurrentCell.Index != cellIndex)
+                {
+                    Sudoku.CurrentCell = Sudoku.AllCell[GetCellIndex(rowIndex, columnIndex)];
+                    RefreshPanel();
+                }
             }
+
         }
 
 
@@ -124,14 +130,12 @@ namespace Sudoku.UI
 
         };
 
-        private CellInfo LastCurrentCell=new InitCell(0,0);
-
+  
         public void RefreshPanel()
         {
-            if (Paintflag)
+            if (IsNotPainting)
             {
-
-                Paintflag = false;
+                IsNotPainting = false;
                 var objGraphics = panel1.CreateGraphics();
                 var bigSpace = SmallSpace * 3;
                 var panelWidth = panel1.Width;
@@ -202,7 +206,7 @@ namespace Sudoku.UI
                     Color.FromArgb(255, 0xd7, 0xd7, 0xd7), 1, style,
                     Color.FromArgb(255, 0xd7, 0xd7, 0xd7), 1, style,
                     Color.FromArgb(255, 0xd7, 0xd7, 0xd7), 1, style);
-                Paintflag = true;
+                IsNotPainting = true;
                 graphBuffer.Render(objGraphics);
             }
         }
@@ -226,6 +230,12 @@ namespace Sudoku.UI
         private void panel1_MouseClick(object sender, MouseEventArgs e)
         {
 
+        }
+
+        private void panel1_MouseLeave(object sender, System.EventArgs e)
+        {
+            Sudoku.CurrentCell = null;
+            RefreshPanel();
         }
 
 

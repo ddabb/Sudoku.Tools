@@ -179,6 +179,7 @@ namespace Sudoku.Core
 
         }
 
+        public List<SolveMessage> SolveMessages=new List<SolveMessage>();
         private string mSolveDesc;
         public string SolveDesc
         {
