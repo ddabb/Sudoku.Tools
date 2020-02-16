@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using Sudoku.Core;
+﻿using Sudoku.Core;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
-using System.Xml.Schema;
 
 namespace Sudoku.UI
 {
@@ -17,7 +17,12 @@ namespace Sudoku.UI
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), Browsable(false)]
         public QSudoku Sudoku { get; set; }
 
-        public int SmallSpace { get; private set; } = 27;
+        public static int SmallSpace { get; private set; } = 27;
+
+        public static int BigSpace
+        {
+            get { return SmallSpace * 3; }
+        }
 
         public ctlSudoku()
         {
@@ -43,7 +48,7 @@ namespace Sudoku.UI
         /// <returns></returns>
         private Dictionary<int, Pen> GetOffSet(int bigSpace)
         {
-    
+
             return new Dictionary<int, Pen>()
             {
 
@@ -64,15 +69,52 @@ namespace Sudoku.UI
             };
         }
 
+        public static Dictionary<int, int> lengths = new Dictionary<int, int>()
+        {
+            {0, BigSpace*0 + 0},
+            {1, BigSpace*1 + 3},
+            {2, BigSpace*2 +4},
+            {3, BigSpace*3 +6 },
+            {4, BigSpace*4 +7 },
+            {5, BigSpace*5 +8 },
+            {6, BigSpace*6 +10 },
+            {7, BigSpace*7 +11 },
+            {8, BigSpace*8 +12 },
+            {9, 742 },
+        };
+
+        public int GetIndex(int offset)
+        {
+            return (from a in lengths
+                join b in lengths on 1 equals 1
+                where a.Key == b.Key + 1
+                      && a.Value > offset
+                      && b.Value <= offset
+                select b.Key).First();
+        }
+
+        public int GetCellIndex(int rowIndex, int columnIndex)
+        {
+            return rowIndex * 9 + columnIndex;
+        }
+
         private void panel1_MouseMove(object sender, MouseEventArgs e)
         {
             var x = e.X;
             var y = e.Y;
 
+            var columnIndex = GetIndex(x);
+            var rowIndex = GetIndex(y);
+            var cellIndex = GetCellIndex(rowIndex, columnIndex);
+            if (Sudoku.CurrentCell == null|| Sudoku.CurrentCell.Index!=cellIndex)
+            {
+                Sudoku.CurrentCell= Sudoku.AllCell[GetCellIndex(rowIndex, columnIndex)];
+                RefreshPanel();
+            }
         }
 
 
-        private Dictionary<int,int> indexOffset=new Dictionary<int, int>
+        private Dictionary<int, int> indexOffset = new Dictionary<int, int>
         {
                {0 , 2 },
                {1 , 3 },
@@ -86,7 +128,7 @@ namespace Sudoku.UI
 
         };
 
-        private CellInfo LastCurrentCell;
+        private CellInfo LastCurrentCell=new InitCell(0,0);
 
         public void RefreshPanel()
         {
@@ -113,7 +155,7 @@ namespace Sudoku.UI
                 foreach (var kv in offSets)
                 {
                     g.DrawLine(kv.Value, new Point(0, kv.Key), new Point(panelWidth, kv.Key));
-                    g.DrawLine(kv.Value, new Point(kv.Key,0), new Point(kv.Key, panel1Height));
+                    g.DrawLine(kv.Value, new Point(kv.Key, 0), new Point(kv.Key, panel1Height));
                 }
 
                 #endregion
@@ -127,7 +169,7 @@ namespace Sudoku.UI
                         {
                             var currentCell = sudoku.CurrentCell;
                             var color = Color.DarkOrange;
-                            PaintCurrentCell(g, color, bigSpace, currentCell);
+                            PaintCurrentCell( g,color, bigSpace, currentCell.Row,currentCell.Column);
                         }
 
                         if (item.Value != 0)
@@ -136,7 +178,7 @@ namespace Sudoku.UI
                             Size size = TextRenderer.MeasureText(stringvalue, bigFont);
                             var color = item.CellType == CellType.Init ? Color.Black : Color.Blue;
                             g.DrawString(stringvalue, bigFont, new SolidBrush(color),
-                            item.Column * bigSpace+ indexOffset[item.Column] + (bigSpace - size.Width) / 2,
+                            item.Column * bigSpace + indexOffset[item.Column] + (bigSpace - size.Width) / 2,
                             item.Row * bigSpace + indexOffset[item.Row] + (bigSpace - size.Height) / 2);
                         }
                         else
@@ -169,16 +211,28 @@ namespace Sudoku.UI
             }
         }
 
-        private void PaintCurrentCell(Graphics g, Color color, int bigSpace, CellInfo currentCell)
+        private void PaintCurrentCell(Graphics g,Color color, int bigSpace,int rowIndex,int columnIndex)
         {
             g.FillRectangle(new SolidBrush(color),
-                new Rectangle(
-                    new Point(bigSpace * currentCell.Column + indexOffset[currentCell.Column] + 1,
-                        bigSpace * currentCell.Row + indexOffset[currentCell.Row] + 1),
-                    new Size(bigSpace, bigSpace)));
+                    new Rectangle(
+                        new Point(bigSpace * columnIndex + indexOffset[columnIndex] + 1,
+                            bigSpace * rowIndex + indexOffset[columnIndex] + 1),
+                        new Size(bigSpace, bigSpace)));
         }
 
- 
+
+
+        private void panel1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void panel1_MouseClick(object sender, MouseEventArgs e)
+        {
+
+        }
+
+
 
         //keycode 37 = Left ←
         //keycode 38 = Up ↑
