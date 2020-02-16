@@ -29,8 +29,8 @@ namespace Sudoku.Core
         public void ReSetRest()
         {
             this.mRest = null;
-        }
-
+        }    
+                public abstract string Desc { get; }
 
         public int RestCount => GetRest().Count;
 

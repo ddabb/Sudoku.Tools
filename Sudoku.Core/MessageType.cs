@@ -11,18 +11,19 @@ namespace Sudoku.Core
         Normal,
         Postive,
         Nagetive,
-        Location,
+        Result,
         Important,
+        Reason,
     }
 
     public class SolveMessage
     {
-        public string message;
+        public string content;
         public MessageType messageType;
 
         public SolveMessage(string message, MessageType type = MessageType.Normal)
         {
-            this.message = message;
+            this.content = message;
             this.messageType = type;
         }
     }

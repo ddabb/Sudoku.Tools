@@ -41,5 +41,7 @@ namespace Sudoku.Core
         {
             get { return this.GetNextCells(); }
         }
+
+        public override string Desc => throw new NotImplementedException();
     }
 }

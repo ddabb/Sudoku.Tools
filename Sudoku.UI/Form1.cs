@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
@@ -22,7 +23,7 @@ namespace Sudoku.UI
             this.HintTree.Nodes.Add(new TreeNode("提示列表"));
             this.ShowInTaskbar = true;
             this.ctlSudoku.ShowCandidates = true;
-            var c = new QSudoku("598643002003759648674128593457200830906307425032405060005904380341872956009530204");
+            var c = new QSudoku("760051080951038607200760010640010073502380006300640000120806000806000001495123768");
             //c.RemoveCells(new List<CellInfo> {new NegativeCell(59, 4), new NegativeCell(77, 4) });
             this.ctlSudoku.Sudoku = c;
             this.ctlSudoku.RefreshPanel();
@@ -179,7 +180,7 @@ namespace Sudoku.UI
                             {
                                 TreeNode hintNode = new TreeNode();
                                 hintNode.Tag = cell;
-                                hintNode.Text = "" + cell;
+                                hintNode.Text = G.GetEnumDescription(handler.methodType)+":" + cell.Desc;
                                 subTreeNode.Nodes.Add(hintNode);
                             }
 
@@ -234,7 +235,8 @@ namespace Sudoku.UI
                 var solveMessage = cell.SolveMessages;
                 if (solveMessage.Count!=0)
                 {
-                    this.MessageArea.Text = solveMessage.Select(c => c.message).JoinString();
+                    SetRichTextBoxValue(solveMessage);
+                
                 }
                 else
                 {
@@ -278,8 +280,100 @@ namespace Sudoku.UI
             {105, 9},
         };
 
+        public void SetRichTextBoxValue(List<SolveMessage> messages)
+        {
+            this.MessageArea.Text = messages.Select(c => c.content).JoinString("");
+            foreach (var message in messages)
+            {
+                var Font = GetMessageFont(message.messageType);
+                var color = GetMessageColor(message.messageType);
+                changeStrColorFont(this.MessageArea, message.content, color, Font);
+            }
+        }
 
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        public Font GetMessageFont(MessageType type)
+        {
+            switch (type)
+            {
+                case MessageType.Normal:
+                    return new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+                case MessageType.Postive:
+                case MessageType.Nagetive:
+                    return new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+                case MessageType.Result:
+                    return new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+                case MessageType.Important:
+                    return new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+                case MessageType.Reason:
+                    return new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+                default:
+                    break;
+            }
+            return new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+        }
+
+        public Color GetMessageColor(MessageType type)
+        {
+            switch (type)
+            {
+                case MessageType.Normal:
+                    return Color.Black;
+                case MessageType.Postive:
+                    return Color.Green;
+                case MessageType.Nagetive:
+                    return Color.Red;
+                case MessageType.Result:
+                    return Color.Gray;
+                case MessageType.Important:
+                    return Color.Green;
+                case MessageType.Reason:
+                    return Color.DarkGray;
+                default:
+                    break;
+            }
+            return Color.Black;
+        }
+
+        public static void changeStrColorFont(RichTextBox rtBox, string str, Color color, Font font)
+        {
+            int pos = 0;
+            while (true)
+            {
+                pos = rtBox.Find(str, pos, RichTextBoxFinds.WholeWord);
+                if (pos == -1)
+                    break;
+                rtBox.SelectionStart = pos;
+                rtBox.SelectionLength = str.Length;
+                rtBox.SelectionColor = color;
+                rtBox.SelectionFont = font;
+                pos = pos + 1;
+            }
+        }
+
+
+
+
+    //public ArrayList getIndexArray(String inputStr, String findStr)
+    //{
+    //    ArrayList list = new ArrayList();
+    //    int start = 0;
+    //    while (start < inputStr.Length)
+    //    {
+    //        int index = inputStr.IndexOf(findStr, start);
+    //        if (index >= 0)
+    //        {
+    //            list.Add(index);
+    //            start = index + findStr.Length;
+    //        }
+    //        else
+    //        {
+    //            break;
+    //        }
+    //    }
+    //    return list;
+    //}
+
+    protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             var intkey = (int)(keyData);
             Debug.WriteLine("ProcessCmdKey" + "intkey" + intkey);
@@ -360,5 +454,5 @@ namespace Sudoku.UI
             MessageArea.Text = "数独的表达式为：" + "" + ctlSudoku.Sudoku.CurrentString;
             MessageArea.Text+=new DanceLink().isValid(ctlSudoku.Sudoku.CurrentString)? "这是一个有效的数独":"这是一个无效的数独";
         }
-    }
+}
 }

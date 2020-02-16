@@ -36,6 +36,8 @@ namespace Sudoku.Core
 
         }
 
+        public override string Desc => this.Location+"  是："+Value;
+
         /// <summary>
         /// 如果指定单元格为真,则其关联的单元格都不能取该值。获取这些单元格的位置信息。
         /// </summary>

@@ -58,6 +58,8 @@ namespace Sudoku.Core
 
         }
 
+        public override string Desc => this.Location + "  不是：" + Value;
+
         /// <summary>
         /// 如果单元格X的值不为a,若单元格只能取a或b，则X的取值为b。
         /// 如果单元格X的值不为a，且同行，同宫，同列，只有另外一个位置X1可以取a,则X1的值为a。

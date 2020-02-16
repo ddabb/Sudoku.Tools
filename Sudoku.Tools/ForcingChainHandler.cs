@@ -1,12 +1,13 @@
 ﻿using Sudoku.Core;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Sudoku.Tools
 {
 
-    [AssignmentExample(3,"R1C7", "670000010931746000520009700462538070197624008853971000716400003389067400245003007")]
+    [AssignmentExample(3, "R1C7", "670000010931746000520009700462538070197624008853971000716400003389067400245003007")]
     //200607984700480230048000710000070598017800623580000471395000847126748359874000162
     public class ForcingChainHandler : SolverHandlerBase
     {
@@ -25,14 +26,27 @@ namespace Sudoku.Tools
                     var index1 = cell1.Index;
                     var testValue1 = testValue;
                     NegativeCell cell = new NegativeCell(index1, testValue1)
-                        { Sudoku = qSudoku, CellType = CellType.Negative, IsRoot = true };
+                    { Sudoku = qSudoku, CellType = CellType.Negative, IsRoot = true };
                     traceCell.Clear();
                     List<CellInfo> initCellInfo = new List<CellInfo>();
                     Fuc(cell, ref initCellInfo);
-                    if (traceCell.Count != 0)
+                    if (traceCell.Count == 1)
                     {
-                        var temp = new PositiveCell(index1, testValue1) { CellType = CellType.Init };
-
+                        var temp = new PositiveCell(index1, testValue1) { CellType = CellType.Positive };
+                   
+                        var list = traceCell.First().GetAllParents().OrderBy(c => c.Level).ToList();
+                        var temp1 = new List<SolveMessage>();
+                        for (int i = 0; i < list.Count - 1; i++)
+                        {
+                            temp1.AddRange(new List<SolveMessage>
+                                    {
+                                        new SolveMessage("若"+list[i].Desc, MessageType.Reason),
+                                        new SolveMessage(" 则"+list[i+1].Desc, MessageType.Result),
+                                        new SolveMessage("\r\n")
+                                    });
+                        }
+                        temp1.Add(new SolveMessage("所以 "+temp.Desc,MessageType.Postive));
+                        temp.SolveMessages = temp1;
                         cells.Add(temp);
                     }
                     else

@@ -20,6 +20,8 @@ namespace Sudoku.Core
 
         public override List<CellInfo> NextCells => throw new System.NotImplementedException();
 
+        public override string Desc => this.Location + " 初始值是：" + Value;
+
         public override List<CellInfo> GetNextCells()
         {
             throw new System.NotImplementedException();

@@ -266,6 +266,7 @@ namespace Sudoku.UI
             // 
             // MessageArea
             // 
+            this.MessageArea.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.MessageArea.Location = new System.Drawing.Point(822, 457);
             this.MessageArea.Name = "MessageArea";
             this.MessageArea.ReadOnly = true;
@@ -276,6 +277,7 @@ namespace Sudoku.UI
             // 
             // HintTree
             // 
+            this.HintTree.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.HintTree.Location = new System.Drawing.Point(822, 53);
             this.HintTree.Name = "HintTree";
             this.HintTree.Size = new System.Drawing.Size(665, 398);

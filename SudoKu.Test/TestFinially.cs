@@ -23,8 +23,7 @@ namespace SudoKu.Test
                 if (StaticTools.SolveSudoku(new QSudoku(c)))
                 {
                     count += 1;
-                }
-          
+                }          
             }
             Debug.WriteLine("count" + count);
             Assert.AreEqual(true, count== queryString.Count);
