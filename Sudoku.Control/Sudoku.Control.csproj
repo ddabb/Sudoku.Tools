@@ -49,6 +49,7 @@
     <Compile Include="ctlSudoku.Designer.cs">
       <DependentUpon>ctlSudoku.cs</DependentUpon>
     </Compile>
+    <Compile Include="DisplacementIntervall.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

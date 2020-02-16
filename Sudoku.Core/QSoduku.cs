@@ -321,8 +321,7 @@ namespace Sudoku.Core
                 var cellInit = new InitCell(location, Convert.ToInt32("" + chars[location])) { Sudoku = this };
                 cellInfos.Add(cellInit);
             }
-            CurrentCell = cellInfos[0];
-
+        
         }
         public Dictionary<int, List<int>> GetRowSetInfo(int rowIndex)
         {

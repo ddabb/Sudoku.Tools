@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Sudoku.Control;
 
 namespace Sudoku.UI
 {
@@ -69,28 +70,23 @@ namespace Sudoku.UI
             };
         }
 
-        public static Dictionary<int, int> lengths = new Dictionary<int, int>()
+        public static Dictionary<int, DisplacementIntervall> lengths = new Dictionary<int, DisplacementIntervall>()
         {
-            {0, BigSpace*0 + 0},
-            {1, BigSpace*1 + 3},
-            {2, BigSpace*2 +4},
-            {3, BigSpace*3 +6 },
-            {4, BigSpace*4 +7 },
-            {5, BigSpace*5 +8 },
-            {6, BigSpace*6 +10 },
-            {7, BigSpace*7 +11 },
-            {8, BigSpace*8 +12 },
-            {9, 742 },
+            {0,  new DisplacementIntervall{MaxValue = BigSpace*1+2  ,MinValue =0}},
+            {1,  new DisplacementIntervall{MaxValue = BigSpace*2+3  ,MinValue =BigSpace*1+2 }},
+            {2,  new DisplacementIntervall{MaxValue = BigSpace*3+4  ,MinValue =BigSpace*2+3 }},
+            {3,  new DisplacementIntervall{MaxValue = BigSpace*4+6  ,MinValue =BigSpace*3+4 }},
+            {4,  new DisplacementIntervall{MaxValue = BigSpace*5+7  ,MinValue =BigSpace*4+6 }},
+            {5,  new DisplacementIntervall{MaxValue = BigSpace*6+8  ,MinValue =BigSpace*5+7 }},
+            {6,  new DisplacementIntervall{MaxValue = BigSpace*7+10 ,MinValue =BigSpace*6+8 } },
+            {7,  new DisplacementIntervall{MaxValue = BigSpace*8+11 ,MinValue =BigSpace*7+10} },
+            {8,  new DisplacementIntervall{MaxValue = 746,           MinValue =BigSpace*8+11} },
+      
         };
 
         public int GetIndex(int offset)
         {
-            return (from a in lengths
-                join b in lengths on 1 equals 1
-                where a.Key == b.Key + 1
-                      && a.Value > offset
-                      && b.Value <= offset
-                select b.Key).First();
+            return  (from kv in lengths where kv.Value.MinValue<=offset&&kv.Value.MaxValue>offset select kv.Key).First();
         }
 
         public int GetCellIndex(int rowIndex, int columnIndex)
@@ -165,7 +161,7 @@ namespace Sudoku.UI
                 {
                     foreach (var item in sudoku.AllCell)
                     {
-                        if (item.Index == sudoku.CurrentCell.Index)
+                        if (sudoku.CurrentCell!=null&&item.Index == sudoku.CurrentCell.Index)
                         {
                             var currentCell = sudoku.CurrentCell;
                             var color = Color.DarkOrange;
@@ -216,7 +212,7 @@ namespace Sudoku.UI
             g.FillRectangle(new SolidBrush(color),
                     new Rectangle(
                         new Point(bigSpace * columnIndex + indexOffset[columnIndex] + 1,
-                            bigSpace * rowIndex + indexOffset[columnIndex] + 1),
+                            bigSpace * rowIndex + indexOffset[rowIndex] + 1),
                         new Size(bigSpace, bigSpace)));
         }
 
