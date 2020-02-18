@@ -126,12 +126,13 @@ namespace Sudoku.UI
                 queryString = queryString.Replace("*", "0").Replace(".", "0").Replace("\r\n", "").Trim();
                 if (queryString.Length == 81)
                 {
-                    if (this.ctlSudoku.Tag is QSudoku formSudoku)
+                    if (this.ctlSudoku.Sudoku is QSudoku formSudoku)
                     {
                         if (formSudoku.CurrentString != queryString)
                         {
                             QSudoku example = new QSudoku(queryString);
                             this.ctlSudoku.Sudoku = example;
+                            this.ctlSudoku.RefreshPanel();
 
                         }
                     }
@@ -411,7 +412,7 @@ namespace Sudoku.UI
                 case 103:
                 case 104:
                 case 105:
-                    if (sudoku.CurrentCell.CellType != CellType.Init || sudoku.CurrentCell.Value == 0)
+                    if (sudoku.CurrentCell!=null&&(sudoku.CurrentCell.CellType != CellType.Init || sudoku.CurrentCell.Value == 0))
                     {
                         var value = keyCodeNumMap[intkey];
                  sudoku.ApplyCell(value == 0 ?(CellInfo)new InitCell(sudoku.CurrentCell.Index,0): new PositiveCell(sudoku.CurrentCell.Index, value));
