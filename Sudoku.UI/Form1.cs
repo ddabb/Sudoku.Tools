@@ -469,7 +469,7 @@ namespace Sudoku.UI
         {
             var sudoku = ctlSudoku.Sudoku;
             ctlSudoku.Sudoku = new QSudoku(sudoku.QueryString);
-            ctlSudoku.RefreshPanel();
+            ctlSudoku.RefreshSudokuPanel();
             InitUI();
         }
     }
