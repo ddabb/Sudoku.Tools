@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace SudoKu.Test
 {
-    [TestClass]
+    [TestClass]。
     public class TestFinially
     {
         /// <summary>

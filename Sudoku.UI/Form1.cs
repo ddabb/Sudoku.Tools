@@ -229,6 +229,15 @@ namespace Sudoku.UI
             this.MessageArea.Text = "线索加载完成..." +DateTime.Now ;
         }
 
+        private void InitUI()
+        {
+            this.HintTree.BeginUpdate();
+            this.HintTree.Nodes.Clear();
+            this.HintTree.Nodes.Add(new TreeNode("提示列表"));
+            this.HintTree.EndUpdate();
+            this.MessageArea.Text ="";
+        }
+
         private void HintTree_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             if (e.Node.Tag is CellInfo cell)
@@ -455,5 +464,13 @@ namespace Sudoku.UI
             MessageArea.Text = "数独的表达式为：" + "" + ctlSudoku.Sudoku.CurrentString;
             MessageArea.Text+=new DanceLink().isValid(ctlSudoku.Sudoku.CurrentString)? "这是一个有效的数独":"这是一个无效的数独";
         }
-}
+
+        private void ResetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var sudoku = ctlSudoku.Sudoku;
+            ctlSudoku.Sudoku = new QSudoku(sudoku.QueryString);
+            ctlSudoku.RefreshPanel();
+            InitUI();
+        }
+    }
 }

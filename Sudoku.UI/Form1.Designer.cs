@@ -63,6 +63,7 @@ namespace Sudoku.UI
             this.BtnGetAllHint = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.ctlSudoku = new Sudoku.UI.ctlSudoku();
+            this.ResetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -87,7 +88,8 @@ namespace Sudoku.UI
             this.NewToolStripMenuItem,
             this.LoadToolStripMenuItem,
             this.SaveToolStripMenuItem,
-            this.QuitToolStripMenuItem});
+            this.QuitToolStripMenuItem,
+            this.ResetToolStripMenuItem});
             this.fileMenuItem.Name = "fileMenuItem";
             this.fileMenuItem.Size = new System.Drawing.Size(44, 21);
             this.fileMenuItem.Text = "文件";
@@ -97,7 +99,7 @@ namespace Sudoku.UI
             // 
             this.NewSudokuToolStripMenuItem.Name = "NewSudokuToolStripMenuItem";
             this.NewSudokuToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.NewSudokuToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.NewSudokuToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.NewSudokuToolStripMenuItem.Text = "新建数独";
             this.NewSudokuToolStripMenuItem.Click += new System.EventHandler(this.新建数独ToolStripMenuItem_Click);
             // 
@@ -105,7 +107,7 @@ namespace Sudoku.UI
             // 
             this.NewToolStripMenuItem.Name = "NewToolStripMenuItem";
             this.NewToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.G)));
-            this.NewToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.NewToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.NewToolStripMenuItem.Text = "生成数独";
             this.NewToolStripMenuItem.Click += new System.EventHandler(this.NewToolStripMenuItem_Click);
             // 
@@ -113,7 +115,7 @@ namespace Sudoku.UI
             // 
             this.LoadToolStripMenuItem.Name = "LoadToolStripMenuItem";
             this.LoadToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.LoadToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.LoadToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.LoadToolStripMenuItem.Text = "加载";
             this.LoadToolStripMenuItem.Click += new System.EventHandler(this.LoadToolStripMenuItem_Click);
             // 
@@ -121,14 +123,14 @@ namespace Sudoku.UI
             // 
             this.SaveToolStripMenuItem.Name = "SaveToolStripMenuItem";
             this.SaveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.SaveToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.SaveToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.SaveToolStripMenuItem.Text = "保存";
             // 
             // QuitToolStripMenuItem
             // 
             this.QuitToolStripMenuItem.Name = "QuitToolStripMenuItem";
             this.QuitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
-            this.QuitToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.QuitToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.QuitToolStripMenuItem.Text = "退出";
             this.QuitToolStripMenuItem.Click += new System.EventHandler(this.退出ToolStripMenuItem_Click);
             // 
@@ -350,6 +352,14 @@ namespace Sudoku.UI
             this.ctlSudoku.Size = new System.Drawing.Size(780, 780);
             this.ctlSudoku.TabIndex = 0;
             // 
+            // ResetToolStripMenuItem
+            // 
+            this.ResetToolStripMenuItem.Name = "ResetToolStripMenuItem";
+            this.ResetToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
+            this.ResetToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.ResetToolStripMenuItem.Text = "重新开始游戏";
+            this.ResetToolStripMenuItem.Click += new System.EventHandler(this.ResetToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -412,5 +422,6 @@ namespace Sudoku.UI
         private Button button4;
         private Button BtnGetAllHint;
         private Button button6;
+        private ToolStripMenuItem ResetToolStripMenuItem;
     }
 }
