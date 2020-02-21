@@ -21,29 +21,33 @@ namespace Sudoku.Tools
         {
             List<CellInfo> cells = new List<CellInfo>();
             var checkCells = qSudoku.AllUnSetCells.Where(c => c.RestCount == 4).ToList();
-            List<int> countRange = new List<int> { 2, 3 };
+            List<int> countRange = new List<int> {2, 3};
             foreach (var checkcell in checkCells)
             {
                 var checkcellRest = checkcell.RestList;
-                var relatedCell = checkcell.RelatedUnsetCells.Where(c => countRange.Contains(c.RestCount) && c.RestList.Intersect(checkcellRest).Any()).ToList();
+                var relatedCell = checkcell.RelatedUnsetCells.Where(c =>
+                    countRange.Contains(c.RestCount) && c.RestList.Intersect(checkcellRest).Any()).ToList();
 
                 var filter = (from x in relatedCell
-                              join y in relatedCell on 1 equals 1
-                              join z in relatedCell on 1 equals 1
+                    join y in relatedCell on 1 equals 1
+                    join z in relatedCell on 1 equals 1
 
-                              let indexs = new List<int> { x.Index, y.Index, z.Index, checkcell.Index }
-                              let xrest = x.RestList
-                              let yrest = y.RestList
-                              let zrest = z.RestList
-                              where indexs.Distinct().Count() == 4
-                              && x.Index < y.Index && y.Index < z.Index
-                              && xrest.Intersect(yrest).Intersect(zrest).Count() == 1
-                              && xrest.All(c => checkcellRest.Contains(c))
-                              && yrest.All(c => checkcellRest.Contains(c))
-                              && zrest.All(c => checkcellRest.Contains(c))
-                              && xrest.JoinString() != yrest.JoinString()
-                              && yrest.JoinString() != zrest.JoinString()
-                              select new { indexs, x, y, z, xrest, yrest, zrest }).Distinct().ToList();
+                    let indexs = new List<int> {x.Index, y.Index, z.Index, checkcell.Index}
+                    let xrest = x.RestList
+                    let yrest = y.RestList
+                    let zrest = z.RestList
+                    where indexs.Distinct().Count() == 4
+                          && x.Index < y.Index && y.Index < z.Index
+                          && xrest.Intersect(yrest).Intersect(zrest).Count() == 1
+                          && xrest.Count == 2
+                          && yrest.Count == 2 
+                          && zrest.Count == 2
+                          && xrest.All(c => checkcellRest.Contains(c))
+                          && yrest.All(c => checkcellRest.Contains(c))
+                          && zrest.All(c => checkcellRest.Contains(c))
+                          && xrest.JoinString() != yrest.JoinString()
+                          && yrest.JoinString() != zrest.JoinString()
+                    select new {indexs, x, y, z, xrest, yrest, zrest}).Distinct().ToList();
                 foreach (var item in filter)
                 {
                     var xyzRest = item.xrest.Intersect(item.yrest).Intersect(item.zrest).ToList();

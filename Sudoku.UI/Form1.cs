@@ -23,10 +23,10 @@ namespace Sudoku.UI
             this.HintTree.Nodes.Add(new TreeNode("提示列表"));
             this.ShowInTaskbar = true;
             this.ctlSudoku.ShowCandidates = true;
-            var c = new QSudoku("760051080951038607200760010640010073502380006300640000120806000806000001495123768");
+            var c = new QSudoku("000109030190700006300286001581472003900568002600391785700915008210007050050020000");
             //c.RemoveCells(new List<CellInfo> {new NegativeCell(59, 4), new NegativeCell(77, 4) });
             this.ctlSudoku.Sudoku = c;
-            this.ctlSudoku.RefreshPanel();
+            this.ctlSudoku.RefreshSudokuPanel();
 
         }
 
@@ -66,7 +66,7 @@ namespace Sudoku.UI
         {
             QSudoku example = new MinimalPuzzleFactory().Make(new SudokuBuilder().MakeWholeSudoku());
             this.ctlSudoku.Sudoku = example;
-            this.ctlSudoku.RefreshPanel();
+            this.ctlSudoku.RefreshSudokuPanel();
 
 
         }
@@ -76,7 +76,7 @@ namespace Sudoku.UI
             QSudoku example = new QSudoku();
             this.ctlSudoku.Sudoku = example;
             this.ctlSudoku.Focus();
-            this.ctlSudoku.RefreshPanel();
+            this.ctlSudoku.RefreshSudokuPanel();
 
 
         }
@@ -132,7 +132,7 @@ namespace Sudoku.UI
                         {
                             QSudoku example = new QSudoku(queryString);
                             this.ctlSudoku.Sudoku = example;
-                            this.ctlSudoku.RefreshPanel();
+                            this.ctlSudoku.RefreshSudokuPanel();
 
                         }
                     }
@@ -433,7 +433,7 @@ namespace Sudoku.UI
 
             if (deal)
             {
-                ctlSudoku.RefreshPanel();
+                ctlSudoku.RefreshSudokuPanel();
                 return true;
             }
             else

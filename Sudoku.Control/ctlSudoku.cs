@@ -41,7 +41,7 @@ namespace Sudoku.UI
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
-            RefreshPanel();
+            RefreshSudokuPanel();
         }
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace Sudoku.UI
                 if (Sudoku.CurrentCell == null || Sudoku.CurrentCell.Index != cellIndex)
                 {
                     Sudoku.CurrentCell = Sudoku.AllCell[GetCellIndex(rowIndex, columnIndex)];
-                    RefreshPanel();
+                    RefreshSudokuPanel();
                 }
             }
 
@@ -131,16 +131,16 @@ namespace Sudoku.UI
         };
 
   
-        public void RefreshPanel()
+        public void RefreshSudokuPanel()
         {
             if (IsNotPainting)
             {
                 IsNotPainting = false;
-                var objGraphics = panel1.CreateGraphics();
+                var objGraphics = sudokuPanel.CreateGraphics();
                 var bigSpace = SmallSpace * 3;
-                var panelWidth = panel1.Width;
-                var panel1Height = panel1.Height;
-                Rectangle rectangle = new Rectangle(0, 0, panel1.Width, panel1.Height);
+                var panelWidth = sudokuPanel.Width;
+                var panel1Height = sudokuPanel.Height;
+                Rectangle rectangle = new Rectangle(0, 0, sudokuPanel.Width, sudokuPanel.Height);
                 BufferedGraphics graphBuffer = (new BufferedGraphicsContext()).Allocate(objGraphics, rectangle);
                 Graphics g = graphBuffer.Graphics;
                 var smallFont = new Font("宋体", 14f, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -235,7 +235,47 @@ namespace Sudoku.UI
         private void panel1_MouseLeave(object sender, System.EventArgs e)
         {
             Sudoku.CurrentCell = null;
-            RefreshPanel();
+            RefreshSudokuPanel();
+        }
+
+        private void rowPanel_Paint(object sender, PaintEventArgs e)
+        {
+            var objGraphics = rowPanel.CreateGraphics();
+            var width = 0;
+            var heigth = BigSpace / 2;
+            var smallFont = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+                       Rectangle rectangle = new Rectangle(0, 0, rowPanel.Width, rowPanel.Height);
+            BufferedGraphics graphBuffer = (new BufferedGraphicsContext()).Allocate(objGraphics, rectangle);
+            Graphics g = graphBuffer.Graphics;
+            g.FillRectangle(new SolidBrush(Color.White), rectangle);
+            var color = Color.Black;
+            for (int i = 0; i < G.alpha.Count; i++)
+            {
+                g.DrawString(G.alpha[i], smallFont, new SolidBrush(color),
+                    width,
+                    BigSpace*i+ heigth);
+            }
+            graphBuffer.Render(objGraphics);
+        }
+
+        private void columnPanel_Paint(object sender, PaintEventArgs e)
+        {
+            var objGraphics = columnPanel.CreateGraphics();
+            var width = 0;
+            var heigth = BigSpace / 2;
+            var smallFont = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            Rectangle rectangle = new Rectangle(0, 0, columnPanel.Width, columnPanel.Height);
+            BufferedGraphics graphBuffer = (new BufferedGraphicsContext()).Allocate(objGraphics, rectangle);
+            Graphics g = graphBuffer.Graphics;
+            g.FillRectangle(new SolidBrush(Color.White), rectangle);
+            var color = Color.Black;
+            for (int i = 0; i < G.AllBaseValues.Count; i++)
+            {
+                g.DrawString(G.AllBaseValues[i]+"", smallFont, new SolidBrush(color),
+                    BigSpace * i + heigth,
+                    0);
+            }
+            graphBuffer.Render(objGraphics);
         }
 
 

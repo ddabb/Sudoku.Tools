@@ -22,7 +22,8 @@ namespace Sudoku.Console
                 ConsoleAssignmentExample(typeof(BugType1Handler));
                 //ConsoleEliminationExample(typeof(AlignedTripleExclusionHandler));
 
-                
+                new WXYZWingHandler().Assignment(
+                    new QSudoku("005320007320071500071495002053260000200000005714953826100532000532080900000009253"));
 
 
                 return;

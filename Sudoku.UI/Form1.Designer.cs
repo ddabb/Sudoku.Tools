@@ -343,11 +343,11 @@ namespace Sudoku.UI
             // 
             // ctlSudoku
             // 
-            this.ctlSudoku.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
+            this.ctlSudoku.BackColor = System.Drawing.Color.White;
             this.ctlSudoku.ImeMode = System.Windows.Forms.ImeMode.On;
             this.ctlSudoku.Location = new System.Drawing.Point(12, 53);
             this.ctlSudoku.Name = "ctlSudoku";
-            this.ctlSudoku.Size = new System.Drawing.Size(786, 782);
+            this.ctlSudoku.Size = new System.Drawing.Size(780, 780);
             this.ctlSudoku.TabIndex = 0;
             // 
             // Form1
