@@ -268,7 +268,7 @@ namespace Sudoku.Tools
             foreach (var speacialValue in allrest)
             {
                 var leftIndexs = qSudoku.GetPossibleIndex( speacialValue, directionwhere);
-                var leftIndexs1 = leftIndexs.Except(exceptIndex);
+                var leftIndexs1 = leftIndexs.Except(exceptIndex).ToList();
                 if (leftIndexs.Count > 1 && leftIndexs1.Count() == 1)
                 {
                     //Debug.WriteLine("speacialValue" + speacialValue + "location  " + string.Join(",", leftIndexs1));
@@ -292,7 +292,7 @@ namespace Sudoku.Tools
             {
                 if (rests.Count(c=>c.RestList.Contains(spricevalue))==1)
                 {
-                  var cell=    rests.Where(c => c.RestList.Contains(spricevalue)).First();
+                  var cell=    rests.First(c =>c.Value!=0&& c.RestList.Contains(spricevalue));
                     if (cell.RestCount>1)
                     {
                    

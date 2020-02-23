@@ -19,11 +19,10 @@ namespace Sudoku.Console
             if (runtest)
             {
 
-                ConsoleAssignmentExample(typeof(BugType1Handler));
+                ConsoleAssignmentExample(typeof(XRSize6Type2Handler));
                 //ConsoleEliminationExample(typeof(AlignedTripleExclusionHandler));
 
-                new WXYZWingHandler().Assignment(
-                    new QSudoku("005320007320071500071495002053260000200000005714953826100532000532080900000009253"));
+    
 
 
                 return;
@@ -47,19 +46,47 @@ namespace Sudoku.Console
             var queryString = a.queryString;
             var value = a.value;
             var positionString = a.positionString;
-            ConsoleAssignmentExample(type, queryString, value, positionString);
+            var handers = a.SolveHandlers;
+            ConsoleAssignmentExample(type, queryString, value, positionString,handers);
         }
 
-        private static void ConsoleAssignmentExample(Type type, string queryString, int value, string positionString)
+        private static void ConsoleAssignmentExample(Type type, string queryString, int value, string positionString, SolveMethodEnum[] handlerEnums = null)
         {
+
             var qsudoku = new QSudoku(queryString);
+            if (handlerEnums != null)
+            {
+
+                var eliminationHanders = SolveHandlers.Where(c => handlerEnums.Contains(c.methodType)).ToList();
+
+                foreach (var eliminationHander in eliminationHanders)
+                {
+                    var removeCells = eliminationHander.Elimination(qsudoku);
+                    qsudoku = qsudoku.RemoveCells(removeCells);
+
+                }
+            }
             var cellinfo =
                 ((ISudokuSolveHandler)Activator.CreateInstance(type, true)).Assignment(
                     qsudoku);
 
             Debug.WriteLine("cellinfo " + cellinfo.JoinString());
             qsudoku = qsudoku.ApplyCells(cellinfo);
-            Debug.WriteLine("isValid " + new DanceLink().isValid(qsudoku.QueryString));
+       
+        }
+
+        public static List<ISudokuSolveHandler> SolveHandlers
+        {
+            get
+            {
+                Assembly[] assemblies = new Assembly[] { typeof(SolverHandlerBase).Assembly };
+                var builder = new ContainerBuilder();
+                builder.RegisterAssemblyTypes(assemblies).AsImplementedInterfaces();
+
+                IContainer container = builder.Build();
+                List<ISudokuSolveHandler> solveHandlers = container.Resolve<IEnumerable<ISudokuSolveHandler>>().ToList();
+                return solveHandlers;
+            }
         }
 
         private static void ConsoleEliminationExample(Type type)

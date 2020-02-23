@@ -23,12 +23,62 @@ namespace Sudoku.UI
             this.HintTree.Nodes.Add(new TreeNode("提示列表"));
             this.ShowInTaskbar = true;
             this.ctlSudoku.ShowCandidates = true;
-            var c = new QSudoku("000109030190700006300286001581472003900568002600391785700915008210007050050020000");
+
+            //var c= getQSudoku(typeof(XRSize6Type2Handler));
+            var c = new QSudoku();
             //c.RemoveCells(new List<CellInfo> {new NegativeCell(59, 4), new NegativeCell(77, 4) });
             this.ctlSudoku.Sudoku = c;
             this.ctlSudoku.RefreshSudokuPanel();
 
         }
+
+        private static QSudoku getQSudoku(Type type)
+        {
+            object[] objs = type.GetCustomAttributes(typeof(AssignmentExampleAttribute), true);
+            if (objs.Count() != 1) return new QSudoku();
+            if (!(objs[0] is AssignmentExampleAttribute a)) return new QSudoku();
+            var queryString = a.queryString;
+            var value = a.value;
+            var positionString = a.positionString;
+            var handers = a.SolveHandlers;
+          return  getQSudoku(type, queryString, value, positionString, handers);
+        }
+
+        private static QSudoku getQSudoku(Type type, string queryString, int value, string positionString, SolveMethodEnum[] handlerEnums = null)
+        {
+
+            var qsudoku = new QSudoku(queryString);
+            if (handlerEnums != null)
+            {
+
+                var eliminationHanders = SolveHandlers.Where(c => handlerEnums.Contains(c.methodType)).ToList();
+
+                foreach (var eliminationHander in eliminationHanders)
+                {
+                    var removeCells = eliminationHander.Elimination(qsudoku);
+                    qsudoku = qsudoku.RemoveCells(removeCells);
+
+                }
+            }
+
+            return qsudoku;
+        }
+
+        public static List<ISudokuSolveHandler> SolveHandlers
+        {
+            get
+            {
+                Assembly[] assemblies = new Assembly[] { typeof(SolverHandlerBase).Assembly };
+                var builder = new ContainerBuilder();
+                builder.RegisterAssemblyTypes(assemblies).AsImplementedInterfaces();
+
+                IContainer container = builder.Build();
+                List<ISudokuSolveHandler> solveHandlers = container.Resolve<IEnumerable<ISudokuSolveHandler>>().ToList();
+                return solveHandlers;
+            }
+        }
+
+
 
         private void fileMenuItem_Click(object sender, EventArgs e)
         {
@@ -169,7 +219,6 @@ namespace Sudoku.UI
                     try
                     {
                         var cellinfos = new List<CellInfo>();
-
                         cellinfos = handler.Assignment(sudoku);
                         if (cellinfos.Count != 0)
                         {
@@ -471,6 +520,11 @@ namespace Sudoku.UI
             ctlSudoku.Sudoku = new QSudoku(sudoku.QueryString);
             ctlSudoku.RefreshSudokuPanel();
             InitUI();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -19,7 +19,15 @@ namespace Sudoku.Tools
                 var restList = index.RestList;
                 if (restList.Count==1)
                 {
-                    cellInfo.Add(new PositiveCell(index.Index, restList[0]));
+                    var cell = new PositiveCell(index.Index, restList[0]);
+                    cell.SolveMessages=new List<SolveMessage>
+                    {
+                       
+                        new SolveMessage(index.Location,MessageType.Location),
+                        new SolveMessage(" 只能够填入 "),
+                        new SolveMessage(" "+restList[0],MessageType.Important)
+                    };
+                    cellInfo.Add(cell);
                 }
             }
             return cellInfo;

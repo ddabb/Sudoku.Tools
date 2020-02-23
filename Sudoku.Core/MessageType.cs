@@ -14,6 +14,7 @@ namespace Sudoku.Core
         Result,
         Important,
         Reason,
+        Location,
     }
 
     public class SolveMessage

@@ -37,6 +37,7 @@ namespace Sudoku.UI
             this.LoadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SaveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.QuitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ResetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CopyGirdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PasteGirdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -63,7 +64,6 @@ namespace Sudoku.UI
             this.BtnGetAllHint = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.ctlSudoku = new Sudoku.UI.ctlSudoku();
-            this.ResetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -133,6 +133,14 @@ namespace Sudoku.UI
             this.QuitToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.QuitToolStripMenuItem.Text = "退出";
             this.QuitToolStripMenuItem.Click += new System.EventHandler(this.退出ToolStripMenuItem_Click);
+            // 
+            // ResetToolStripMenuItem
+            // 
+            this.ResetToolStripMenuItem.Name = "ResetToolStripMenuItem";
+            this.ResetToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
+            this.ResetToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.ResetToolStripMenuItem.Text = "重新开始游戏";
+            this.ResetToolStripMenuItem.Click += new System.EventHandler(this.ResetToolStripMenuItem_Click);
             // 
             // editMenuItem
             // 
@@ -289,9 +297,10 @@ namespace Sudoku.UI
             // 
             // button1
             // 
+            this.button1.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.button1.Location = new System.Drawing.Point(1515, 53);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(100, 30);
+            this.button1.Size = new System.Drawing.Size(125, 30);
             this.button1.TabIndex = 7;
             this.button1.Text = "校验有效性";
             this.button1.UseVisualStyleBackColor = true;
@@ -299,9 +308,10 @@ namespace Sudoku.UI
             // 
             // button2
             // 
+            this.button2.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.button2.Location = new System.Drawing.Point(1515, 119);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(100, 30);
+            this.button2.Size = new System.Drawing.Size(125, 30);
             this.button2.TabIndex = 8;
             this.button2.Text = "解题步骤";
             this.button2.UseVisualStyleBackColor = true;
@@ -310,7 +320,7 @@ namespace Sudoku.UI
             // 
             this.button3.Location = new System.Drawing.Point(1515, 185);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(100, 30);
+            this.button3.Size = new System.Drawing.Size(125, 30);
             this.button3.TabIndex = 9;
             this.button3.Text = "获取下一个线索";
             this.button3.UseVisualStyleBackColor = true;
@@ -319,16 +329,17 @@ namespace Sudoku.UI
             // 
             this.button4.Location = new System.Drawing.Point(1515, 317);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(100, 30);
+            this.button4.Size = new System.Drawing.Size(125, 30);
             this.button4.TabIndex = 10;
             this.button4.Text = "应用线索";
             this.button4.UseVisualStyleBackColor = true;
             // 
             // BtnGetAllHint
             // 
+            this.BtnGetAllHint.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.BtnGetAllHint.Location = new System.Drawing.Point(1515, 251);
             this.BtnGetAllHint.Name = "BtnGetAllHint";
-            this.BtnGetAllHint.Size = new System.Drawing.Size(100, 30);
+            this.BtnGetAllHint.Size = new System.Drawing.Size(125, 30);
             this.BtnGetAllHint.TabIndex = 11;
             this.BtnGetAllHint.Text = "获取所有线索";
             this.BtnGetAllHint.UseVisualStyleBackColor = true;
@@ -338,7 +349,7 @@ namespace Sudoku.UI
             // 
             this.button6.Location = new System.Drawing.Point(1515, 383);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(100, 30);
+            this.button6.Size = new System.Drawing.Size(125, 30);
             this.button6.TabIndex = 12;
             this.button6.Text = "撤销动作";
             this.button6.UseVisualStyleBackColor = true;
@@ -351,14 +362,6 @@ namespace Sudoku.UI
             this.ctlSudoku.Name = "ctlSudoku";
             this.ctlSudoku.Size = new System.Drawing.Size(780, 780);
             this.ctlSudoku.TabIndex = 0;
-            // 
-            // ResetToolStripMenuItem
-            // 
-            this.ResetToolStripMenuItem.Name = "ResetToolStripMenuItem";
-            this.ResetToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-            this.ResetToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
-            this.ResetToolStripMenuItem.Text = "重新开始游戏";
-            this.ResetToolStripMenuItem.Click += new System.EventHandler(this.ResetToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -379,6 +382,7 @@ namespace Sudoku.UI
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "超级数独";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

@@ -20,7 +20,7 @@ namespace Sudoku.Tools
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
-            return cells;
+           
             var allUnsetCells = qSudoku.AllUnSetCells;
             var pairCells = allUnsetCells.Where(c => c.RestCount == 2).ToList();
             var ab = (from a in pairCells

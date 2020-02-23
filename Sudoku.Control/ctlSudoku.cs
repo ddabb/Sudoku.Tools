@@ -1,4 +1,5 @@
-﻿using Sudoku.Core;
+﻿using System;
+using Sudoku.Core;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -74,7 +75,7 @@ namespace Sudoku.UI
 
         public static Dictionary<int, DisplacementIntervall> lengths = new Dictionary<int, DisplacementIntervall>()
         {
-            {0,  new DisplacementIntervall{MaxValue = BigSpace*1+2  ,MinValue =0}},
+            {0,  new DisplacementIntervall{MaxValue = BigSpace*1+2  ,MinValue =Int32.MinValue}},//防止拖拽出边界
             {1,  new DisplacementIntervall{MaxValue = BigSpace*2+3  ,MinValue =BigSpace*1+2 }},
             {2,  new DisplacementIntervall{MaxValue = BigSpace*3+4  ,MinValue =BigSpace*2+3 }},
             {3,  new DisplacementIntervall{MaxValue = BigSpace*4+6  ,MinValue =BigSpace*3+4 }},
@@ -82,7 +83,7 @@ namespace Sudoku.UI
             {5,  new DisplacementIntervall{MaxValue = BigSpace*6+8  ,MinValue =BigSpace*5+7 }},
             {6,  new DisplacementIntervall{MaxValue = BigSpace*7+10 ,MinValue =BigSpace*6+8 } },
             {7,  new DisplacementIntervall{MaxValue = BigSpace*8+11 ,MinValue =BigSpace*7+10} },
-            {8,  new DisplacementIntervall{MaxValue = 746,           MinValue =BigSpace*8+11} },
+            {8,  new DisplacementIntervall{MaxValue = Int32.MaxValue,           MinValue =BigSpace*8+11} },
       
         };
 
@@ -143,7 +144,7 @@ namespace Sudoku.UI
                 Rectangle rectangle = new Rectangle(0, 0, sudokuPanel.Width, sudokuPanel.Height);
                 BufferedGraphics graphBuffer = (new BufferedGraphicsContext()).Allocate(objGraphics, rectangle);
                 Graphics g = graphBuffer.Graphics;
-                var smallFont = new Font("宋体", 14f, FontStyle.Bold, GraphicsUnit.Point, 0);
+                var smallFont = new Font("宋体", 18f, FontStyle.Bold, GraphicsUnit.Point, 0);
                 var bigFont = new Font("宋体", smallFont.Size * 3, FontStyle.Bold, GraphicsUnit.Point, 0);
                 var lineweith = 1;
                 g.FillRectangle(new SolidBrush(Color.White), rectangle);
