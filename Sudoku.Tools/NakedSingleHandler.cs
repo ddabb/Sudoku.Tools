@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Sudoku.Core;
+using System;
 using System.Collections.Generic;
-using Sudoku.Core;
 
 namespace Sudoku.Tools
 {
-    [AssignmentExample(5,"R2C9","900400613320190700000000009000017008000000000700360000800000000009045086253001004")]
-    public  class NakedSingleHandler:SolverHandlerBase
+    [AssignmentExample(5, "R2C9", "900400613320190700000000009000017008000000000700360000800000000009045086253001004")]
+    public class NakedSingleHandler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.NakedSingle;
 
@@ -17,16 +17,13 @@ namespace Sudoku.Tools
             foreach (var index in qSudoku.AllUnSetCells)
             {
                 var restList = index.RestList;
-                if (restList.Count==1)
+                if (restList.Count == 1)
                 {
-                    var cell = new PositiveCell(index.Index, restList[0]);
-                    cell.SolveMessages=new List<SolveMessage>
+                    var cell = new PositiveCell(index.Index, restList[0])
                     {
-                       
-                        new SolveMessage(index.Location,MessageType.Location),
-                        new SolveMessage(" 只能够填入 "),
-                        new SolveMessage(" "+restList[0],MessageType.Important)
+                        SolveMessages = new List<SolveMessage> { index.Location, " 只能够填入 ", restList[0] }
                     };
+
                     cellInfo.Add(cell);
                 }
             }

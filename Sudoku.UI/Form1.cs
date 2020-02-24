@@ -365,6 +365,8 @@ namespace Sudoku.UI
                     return new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
                 case MessageType.Reason:
                     return new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+                case MessageType.Location:
+                    return new System.Drawing.Font("宋体", 16.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
                 default:
                     break;
             }
@@ -387,6 +389,8 @@ namespace Sudoku.UI
                     return Color.Green;
                 case MessageType.Reason:
                     return Color.DarkGray;
+                case MessageType.Location:
+                    return Color.SaddleBrown;
                 default:
                     break;
             }

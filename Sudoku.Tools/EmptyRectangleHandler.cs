@@ -59,13 +59,13 @@ namespace Sudoku.Tools
                                         aCell.RestList.First(c => c != value));
                                     cell.SolveMessages = new List<SolveMessage>
                                     {
-                                        new SolveMessage(interectCell.Location, MessageType.Result),
+                                        interectCell.Location,
                                         new SolveMessage(" 和 "),
-                                        new SolveMessage(aCell.Location, MessageType.Result),
+                                        aCell.Location,
                                         new SolveMessage(" 和 "),
-                                        new SolveMessage(bCell.Location, MessageType.Result),
+                                        bCell.Location,
                                         new SolveMessage(" 和 "),
-                                        new SolveMessage(cCell.Location, MessageType.Result),
+                                        cCell.Location,
                                         new SolveMessage("中的"),
                                         new SolveMessage(" "+ value+" ", MessageType.Postive),
                                         new SolveMessage("构成空矩形", MessageType.Important),
@@ -81,13 +81,13 @@ namespace Sudoku.Tools
                                 var cell = new PositiveCell(bCell.Index, bCell.RestList.First(c => c != value));
                                 cell.SolveMessages = new List<SolveMessage>
                                 {
-                                    new SolveMessage(interectCell.Location, MessageType.Result),
+                                    interectCell.Location,
                                     new SolveMessage(" 和 "),
-                                    new SolveMessage(aCell.Location, MessageType.Result),
+                                    aCell.Location,
                                     new SolveMessage(" 和 "),
-                                    new SolveMessage(bCell.Location, MessageType.Result),
+                                    bCell.Location,
                                     new SolveMessage(" 和 "),
-                                    new SolveMessage(cCell.Location, MessageType.Result),
+                                    cCell.Location,
                                     new SolveMessage("中的"),
                                     new SolveMessage(" "+ value+" ", MessageType.Postive),
                                     new SolveMessage("构成空矩形", MessageType.Important),

@@ -16,16 +16,4 @@ namespace Sudoku.Core
         Reason,
         Location,
     }
-
-    public class SolveMessage
-    {
-        public string content;
-        public MessageType messageType;
-
-        public SolveMessage(string message, MessageType type = MessageType.Normal)
-        {
-            this.content = message;
-            this.messageType = type;
-        }
-    }
 }

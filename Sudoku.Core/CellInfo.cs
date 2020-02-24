@@ -97,11 +97,8 @@ namespace Sudoku.Core
         }
 
 
-        public string Location 
-        {
-            get { return this.Index.LoctionDesc(); }
-        
-        }
+        public SolveMessage Location => G.LocationType == LocationType.R1C1? (SolveMessage)Enum.GetValues(typeof(AllR1C1)).Cast<AllR1C1>().ToList()[Index]: Enum.GetValues(typeof(AllA1I9)).Cast<AllA1I9>().ToList()[Index];
+
         public string RrCc
         {
             get { return "R" + (this.Row + 1) + "C" + (this.Column + 1); }
