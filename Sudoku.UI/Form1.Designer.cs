@@ -64,7 +64,12 @@ namespace Sudoku.UI
             this.BtnGetAllHint = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.ctlSudoku = new Sudoku.UI.ctlSudoku();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -77,7 +82,7 @@ namespace Sudoku.UI
             this.helpMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1739, 25);
+            this.menuStrip1.Size = new System.Drawing.Size(1671, 25);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -278,21 +283,23 @@ namespace Sudoku.UI
             // 
             // MessageArea
             // 
+            this.MessageArea.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MessageArea.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.MessageArea.Location = new System.Drawing.Point(822, 457);
+            this.MessageArea.Location = new System.Drawing.Point(0, 0);
             this.MessageArea.Name = "MessageArea";
             this.MessageArea.ReadOnly = true;
-            this.MessageArea.Size = new System.Drawing.Size(848, 378);
+            this.MessageArea.Size = new System.Drawing.Size(838, 231);
             this.MessageArea.TabIndex = 5;
             this.MessageArea.Text = "";
             this.MessageArea.TextChanged += new System.EventHandler(this.MessageArea_TextChanged);
             // 
             // HintTree
             // 
+            this.HintTree.Dock = System.Windows.Forms.DockStyle.Fill;
             this.HintTree.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.HintTree.Location = new System.Drawing.Point(822, 101);
+            this.HintTree.Location = new System.Drawing.Point(0, 0);
             this.HintTree.Name = "HintTree";
-            this.HintTree.Size = new System.Drawing.Size(851, 350);
+            this.HintTree.Size = new System.Drawing.Size(838, 500);
             this.HintTree.TabIndex = 6;
             this.HintTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.HintTree_AfterSelect);
             this.HintTree.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.HintTree_NodeMouseClick);
@@ -300,7 +307,7 @@ namespace Sudoku.UI
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button1.Location = new System.Drawing.Point(847, 53);
+            this.button1.Location = new System.Drawing.Point(822, 53);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(125, 30);
             this.button1.TabIndex = 7;
@@ -311,7 +318,7 @@ namespace Sudoku.UI
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button2.Location = new System.Drawing.Point(988, 53);
+            this.button2.Location = new System.Drawing.Point(953, 53);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(125, 30);
             this.button2.TabIndex = 8;
@@ -320,7 +327,7 @@ namespace Sudoku.UI
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(1136, 53);
+            this.button3.Location = new System.Drawing.Point(1084, 53);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(125, 30);
             this.button3.TabIndex = 9;
@@ -329,9 +336,9 @@ namespace Sudoku.UI
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(1417, 53);
+            this.button4.Location = new System.Drawing.Point(1365, 53);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(125, 30);
+            this.button4.Size = new System.Drawing.Size(134, 30);
             this.button4.TabIndex = 10;
             this.button4.Text = "应用线索";
             this.button4.UseVisualStyleBackColor = true;
@@ -339,9 +346,9 @@ namespace Sudoku.UI
             // BtnGetAllHint
             // 
             this.BtnGetAllHint.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.BtnGetAllHint.Location = new System.Drawing.Point(1286, 53);
+            this.BtnGetAllHint.Location = new System.Drawing.Point(1215, 53);
             this.BtnGetAllHint.Name = "BtnGetAllHint";
-            this.BtnGetAllHint.Size = new System.Drawing.Size(125, 30);
+            this.BtnGetAllHint.Size = new System.Drawing.Size(144, 30);
             this.BtnGetAllHint.TabIndex = 11;
             this.BtnGetAllHint.Text = "获取所有线索";
             this.BtnGetAllHint.UseVisualStyleBackColor = true;
@@ -349,9 +356,9 @@ namespace Sudoku.UI
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(1548, 53);
+            this.button6.Location = new System.Drawing.Point(1505, 53);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(125, 30);
+            this.button6.Size = new System.Drawing.Size(137, 30);
             this.button6.TabIndex = 12;
             this.button6.Text = "撤销动作";
             this.button6.UseVisualStyleBackColor = true;
@@ -365,19 +372,35 @@ namespace Sudoku.UI
             this.ctlSudoku.Size = new System.Drawing.Size(780, 780);
             this.ctlSudoku.TabIndex = 0;
             // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Location = new System.Drawing.Point(822, 98);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.HintTree);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.MessageArea);
+            this.splitContainer1.Size = new System.Drawing.Size(838, 735);
+            this.splitContainer1.SplitterDistance = 500;
+            this.splitContainer1.TabIndex = 13;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1739, 888);
+            this.ClientSize = new System.Drawing.Size(1671, 839);
+            this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.BtnGetAllHint);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.HintTree);
-            this.Controls.Add(this.MessageArea);
             this.Controls.Add(this.ctlSudoku);
             this.Controls.Add(this.menuStrip1);
             this.KeyPreview = true;
@@ -388,6 +411,10 @@ namespace Sudoku.UI
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -429,5 +456,6 @@ namespace Sudoku.UI
         private Button BtnGetAllHint;
         private Button button6;
         private ToolStripMenuItem ResetToolStripMenuItem;
+        private SplitContainer splitContainer1;
     }
 }
