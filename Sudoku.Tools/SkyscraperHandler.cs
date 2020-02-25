@@ -18,7 +18,6 @@ namespace Sudoku.Tools
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
-            var allunsetCell = qSudoku.AllUnSetCells;
             int times = 2;
            
             List<PossibleIndex> allPossibleindex1 = GetAllPossibleIndexInRowOrColumn(qSudoku, times);
@@ -42,8 +41,8 @@ namespace Sudoku.Tools
                 var index2 = item.c.indexs[0];
                 var index3 = item.a.indexs[1];
                 var index4 = item.c.indexs[1];
-                var cellindex1 = 0;
-                var cellindex2 = 0;
+                int cellindex1;
+                int cellindex2;
                 if (IsSameRowOrSameColumn(item.a.indexs[0], item.c.indexs[0]))
                 {
                     cellindex1 = item.a.indexs[1];
@@ -60,8 +59,27 @@ namespace Sudoku.Tools
                 var filter = rest.Where(c => c.RestCount==2&& c.RestList.Contains(SpeacialValue)).ToList();
                 foreach (var cell in filter)
                 {
-                    var cell1 = new PositiveCell(cell.Index, cell.RestList.First(c => c != SpeacialValue));
-                    cell1.SolveDesc = index1.LoctionDesc() + index2.LoctionDesc() + index3.LoctionDesc() + index4.LoctionDesc() + "的值" + SpeacialValue + "构成摩天楼," + cellindex1.LoctionDesc() + cellindex2.LoctionDesc() + "共同影响区域删除" + SpeacialValue;
+                    var cell1 = new PositiveCell(cell.Index, cell.RestList.First(c => c != SpeacialValue))
+                    {
+                        SolveMessages = new List<SolveMessage>
+                        {
+                            index1.LoctionDesc(),
+                            "、",
+                            index2.LoctionDesc(),
+                            "、",
+                            index3.LoctionDesc(),
+                            "、",
+                            index4.LoctionDesc(),
+                            "的值",
+                            SpeacialValue,
+                            "构成摩天楼",
+                            cellindex1.LoctionDesc(),
+                            "、",
+                            cellindex2.LoctionDesc(),
+                            "共同影响区域删除",
+                            SpeacialValue
+                        }
+                    };
                     cells.Add(cell1); ;
                 }
         

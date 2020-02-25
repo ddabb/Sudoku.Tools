@@ -344,9 +344,9 @@ namespace Sudoku.UI
             this.MessageArea.Text = messages.Select(c => c.content).JoinString("");
             foreach (var message in messages)
             {
-                var Font = GetMessageFont(message.messageType);
+                var font = GetMessageFont(message.messageType);
                 var color = GetMessageColor(message.messageType);
-                changeStrColorFont(this.MessageArea, message.content, color, Font);
+                changeStrColorFont(this.MessageArea, message.content, color, font);
             }
         }
 
@@ -402,7 +402,7 @@ namespace Sudoku.UI
             int pos = 0;
             while (true)
             {
-                pos = rtBox.Find(str, pos, RichTextBoxFinds.WholeWord);
+                pos = rtBox.Find(str, pos, RichTextBoxFinds.None);
                 if (pos == -1)
                     break;
                 rtBox.SelectionStart = pos;

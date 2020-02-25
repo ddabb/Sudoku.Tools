@@ -13,11 +13,11 @@ namespace Sudoku.Core
 
         public List<int> indexs;
 
-        public PossibleIndex(Direction direction, int directionIndex, int SpeacialValue, List<int> indexs)
+        public PossibleIndex(Direction direction, int directionIndex, int speacialValue, List<int> indexs)
         {
             this.direction = direction;
             this.directionIndex = directionIndex;
-            this.SpeacialValue = SpeacialValue;
+            this.SpeacialValue = speacialValue;
             indexs.Sort();
             this.indexs = indexs;
 

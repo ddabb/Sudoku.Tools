@@ -345,7 +345,7 @@ namespace Sudoku.UI
             // 
             // BtnGetAllHint
             // 
-            this.BtnGetAllHint.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.BtnGetAllHint.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.BtnGetAllHint.Location = new System.Drawing.Point(1215, 53);
             this.BtnGetAllHint.Name = "BtnGetAllHint";
             this.BtnGetAllHint.Size = new System.Drawing.Size(144, 30);
