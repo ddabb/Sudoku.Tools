@@ -244,12 +244,14 @@ namespace Sudoku.UI
             this.a1I9ToolStripMenuItem.Name = "a1I9ToolStripMenuItem";
             this.a1I9ToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
             this.a1I9ToolStripMenuItem.Text = "A1-I9 单元格显示";
+            this.a1I9ToolStripMenuItem.Click += new System.EventHandler(this.a1I9ToolStripMenuItem_Click);
             // 
             // r1C1R9C9单元格显示ToolStripMenuItem
             // 
             this.r1C1R9C9单元格显示ToolStripMenuItem.Name = "r1C1R9C9单元格显示ToolStripMenuItem";
             this.r1C1R9C9单元格显示ToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
             this.r1C1R9C9单元格显示ToolStripMenuItem.Text = "R1C1-R9C9 单元格显示";
+            this.r1C1R9C9单元格显示ToolStripMenuItem.Click += new System.EventHandler(this.r1C1R9C9单元格显示ToolStripMenuItem_Click);
             // 
             // helpMenuItem
             // 
@@ -288,9 +290,9 @@ namespace Sudoku.UI
             // HintTree
             // 
             this.HintTree.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.HintTree.Location = new System.Drawing.Point(822, 53);
+            this.HintTree.Location = new System.Drawing.Point(822, 101);
             this.HintTree.Name = "HintTree";
-            this.HintTree.Size = new System.Drawing.Size(665, 398);
+            this.HintTree.Size = new System.Drawing.Size(851, 350);
             this.HintTree.TabIndex = 6;
             this.HintTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.HintTree_AfterSelect);
             this.HintTree.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.HintTree_NodeMouseClick);
@@ -298,7 +300,7 @@ namespace Sudoku.UI
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button1.Location = new System.Drawing.Point(1515, 53);
+            this.button1.Location = new System.Drawing.Point(847, 53);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(125, 30);
             this.button1.TabIndex = 7;
@@ -309,7 +311,7 @@ namespace Sudoku.UI
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button2.Location = new System.Drawing.Point(1515, 119);
+            this.button2.Location = new System.Drawing.Point(988, 53);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(125, 30);
             this.button2.TabIndex = 8;
@@ -318,7 +320,7 @@ namespace Sudoku.UI
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(1515, 185);
+            this.button3.Location = new System.Drawing.Point(1136, 53);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(125, 30);
             this.button3.TabIndex = 9;
@@ -327,7 +329,7 @@ namespace Sudoku.UI
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(1515, 317);
+            this.button4.Location = new System.Drawing.Point(1417, 53);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(125, 30);
             this.button4.TabIndex = 10;
@@ -337,7 +339,7 @@ namespace Sudoku.UI
             // BtnGetAllHint
             // 
             this.BtnGetAllHint.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.BtnGetAllHint.Location = new System.Drawing.Point(1515, 251);
+            this.BtnGetAllHint.Location = new System.Drawing.Point(1286, 53);
             this.BtnGetAllHint.Name = "BtnGetAllHint";
             this.BtnGetAllHint.Size = new System.Drawing.Size(125, 30);
             this.BtnGetAllHint.TabIndex = 11;
@@ -347,7 +349,7 @@ namespace Sudoku.UI
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(1515, 383);
+            this.button6.Location = new System.Drawing.Point(1548, 53);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(125, 30);
             this.button6.TabIndex = 12;

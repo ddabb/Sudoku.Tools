@@ -445,26 +445,26 @@ namespace Sudoku.UI
             var deal = false;
             switch (intkey)
             {
-                case 48:
-                case 49:
-                case 50:
-                case 51:
-                case 52:
-                case 53:
-                case 54:
-                case 55:
-                case 56:
-                case 57:
-                case 96:
-                case 97:
-                case 98:
-                case 99:
-                case 100:
-                case 101:
-                case 102:
-                case 103:
-                case 104:
-                case 105:
+                case 48://0
+                case 49://1
+                case 50://2
+                case 51://3
+                case 52://4
+                case 53://5
+                case 54://6
+                case 55://7
+                case 56://8
+                case 57://9
+                case 96: //0
+                case 97: //1
+                case 98: //2
+                case 99: //3
+                case 100://4
+                case 101://5
+                case 102://6
+                case 103://7
+                case 104://8
+                case 105://9
                     if (sudoku.CurrentCell!=null&&(sudoku.CurrentCell.CellType != CellType.Init || sudoku.CurrentCell.Value == 0))
                     {
                         var value = keyCodeNumMap[intkey];
@@ -529,6 +529,18 @@ namespace Sudoku.UI
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void a1I9ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            G.LocationType = LocationType.A1I9;
+            ctlSudoku.RetSetRowAndColumnFormat();
+        }
+
+        private void r1C1R9C9单元格显示ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            G.LocationType = LocationType.R1C1;
+            ctlSudoku.RetSetRowAndColumnFormat();
         }
     }
 }

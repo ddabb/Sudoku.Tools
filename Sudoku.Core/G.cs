@@ -24,6 +24,9 @@ namespace Sudoku.Core
 
         public static List<string> alpha = new List<string> { "A", "B", "C", "D", "E", "F", "G", "H", "I" };
 
+        public static List<string> RowListString = new List<string> { "R1", "R2", "R3", "R4", "R5", "R6", "R7", "R8", "R9" };
+        public static List<string> ColumnListString = new List<string> { "C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9" };
+
         public static readonly List<int> allLocations = new List<int>
         {
             0,1,2,3,4,5,6,7,8,

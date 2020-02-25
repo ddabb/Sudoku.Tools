@@ -31,6 +31,7 @@ namespace Sudoku.UI
             InitializeComponent();
             this.DoubleBuffered = true;
 
+
         }
 
         /// <summary>
@@ -239,32 +240,37 @@ namespace Sudoku.UI
             RefreshSudokuPanel();
         }
 
-        private void rowPanel_Paint(object sender, PaintEventArgs e)
+        private void RefreshRowPanel()
         {
             var objGraphics = rowPanel.CreateGraphics();
             var width = 0;
-            var heigth = BigSpace / 2;
-            var smallFont = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-                       Rectangle rectangle = new Rectangle(0, 0, rowPanel.Width, rowPanel.Height);
+            var heigth = BigSpace / 2-5;
+            var smallFont = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point,
+                ((byte) (134)));
+            Rectangle rectangle = new Rectangle(0, 0, rowPanel.Width, rowPanel.Height);
             BufferedGraphics graphBuffer = (new BufferedGraphicsContext()).Allocate(objGraphics, rectangle);
             Graphics g = graphBuffer.Graphics;
             g.FillRectangle(new SolidBrush(Color.White), rectangle);
             var color = Color.Black;
             for (int i = 0; i < G.alpha.Count; i++)
             {
-                g.DrawString(G.alpha[i], smallFont, new SolidBrush(color),
+                g.DrawString(G.LocationType==LocationType.R1C1?G.RowListString[i]:G.alpha[i], smallFont, new SolidBrush(color),
                     width,
-                    BigSpace*i+ heigth);
+                    BigSpace * i + heigth+ indexOffset[i]);
             }
+
             graphBuffer.Render(objGraphics);
         }
 
-        private void columnPanel_Paint(object sender, PaintEventArgs e)
+   
+
+        private void RefreshColumnPanel()
         {
             var objGraphics = columnPanel.CreateGraphics();
             var width = 0;
-            var heigth = BigSpace / 2;
-            var smallFont = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            var heigth = BigSpace / 2-5;
+            var smallFont = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point,
+                ((byte) (134)));
             Rectangle rectangle = new Rectangle(0, 0, columnPanel.Width, columnPanel.Height);
             BufferedGraphics graphBuffer = (new BufferedGraphicsContext()).Allocate(objGraphics, rectangle);
             Graphics g = graphBuffer.Graphics;
@@ -272,13 +278,30 @@ namespace Sudoku.UI
             var color = Color.Black;
             for (int i = 0; i < G.AllBaseValues.Count; i++)
             {
-                g.DrawString(G.AllBaseValues[i]+"", smallFont, new SolidBrush(color),
-                    BigSpace * i + heigth,
+                g.DrawString(G.LocationType == LocationType.R1C1 ? G.ColumnListString[i] :G.AllBaseValues[i] + "", smallFont, new SolidBrush(color),
+                    BigSpace * i + heigth + indexOffset[i],
                     0);
             }
+
             graphBuffer.Render(objGraphics);
         }
 
+        private void rowPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+            RefreshRowPanel();
+        }
+
+        private void columnPanel_Paint(object sender, PaintEventArgs e)
+        {
+            RefreshColumnPanel();
+        }
+
+        public void RetSetRowAndColumnFormat()
+        {
+            RefreshRowPanel();
+            RefreshColumnPanel();
+        }
 
 
         //keycode 37 = Left ←
