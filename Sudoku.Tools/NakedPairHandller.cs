@@ -7,8 +7,8 @@ using System.Linq;
 
 namespace Sudoku.Tools
 {
-    [AssignmentExample(3,"R8C2","980006375376850140000700860569347218000000537723581496000205780000000950000008620")]
-    public class NakedPairHandller :SolverHandlerBase
+    [AssignmentExample(3, "R8C2", "980006375376850140000700860569347218000000537723581496000205780000000950000008620")]
+    public class NakedPairHandller : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.NakedPair;
 
@@ -17,15 +17,32 @@ namespace Sudoku.Tools
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
-            var checkCells = qSudoku.GetFilterCell(c => c.Value == 0 && c.RestCount ==2);
+            var eliminationCells = Elimination(qSudoku);
+            foreach (var cellInfo in eliminationCells)
+            {
+                foreach (var postiveCell in cellInfo.NextCells)
+                {
+                    cells.Add(postiveCell);
+                }
+
+            }
+
+            return cells;
+        }
+
+        public override List<CellInfo> Elimination(QSudoku qSudoku)
+        {
+            List<CellInfo> cells = new List<CellInfo>();
+            var checkCells = qSudoku.GetFilterCell(c => c.Value == 0 && c.RestCount == 2);
             foreach (var direction in G.AllDirection)
             {
                 foreach (var index in G.baseIndexs)
                 {
                     var subcells = qSudoku.AllUnSetCells.Where(c => G.GetFilter(c, direction, index)).ToList();
-                    if (subcells.Count>2)
+                    if (subcells.Count > 2)
                     {
-                        var temp = checkCells.Where(c => G.GetFilter(c, direction, index)).GroupBy(c => c.RestString).Where(c => c.Count() == 2);
+                        var temp = checkCells.Where(c => G.GetFilter(c, direction, index)).GroupBy(c => c.RestString)
+                            .Where(c => c.Count() == 2);
                         foreach (var sub in temp)
                         {
                             var removeCells = subcells.Where(c => c.RestString != sub.Key);
@@ -33,31 +50,30 @@ namespace Sudoku.Tools
                             foreach (var cell in removeCells)
                             {
                                 var rests = cell.RestList;
-                                if (rests.Count>1&&rests.Intersect(removeValues).Any())
+                                if (rests.Intersect(removeValues).Count() == removeValues.Count)
                                 {
-                                    foreach (var value in removeValues)
+                                    cells.Add(new NegativeValuesGroup(cell.Index, removeValues) { Sudoku = qSudoku });
+                                }
+                                else
+                                {
+                                    foreach (var removeValue in removeValues)
                                     {
-                                        rests.Remove(value);
-                                    }
-                                    if (rests.Count==1)
-                                    {
-                                        cells.Add(new PositiveCell(cell.Index, rests[0]));
+                                        if (rests.Contains(removeValue))
+                                        {
+                                            cells.Add(new NegativeCell(cell.Index, removeValue) { Sudoku = qSudoku });
+                                        }
                                     }
                                 }
-                            }                  
-                       
+                            }
+
                         }
                     }
-  
+
                 }
 
             }
-            return cells;
-        }
 
-        public override List<CellInfo> Elimination(QSudoku qSudoku)
-        {
-            throw new NotImplementedException();
+            return cells;
         }
     }
 }

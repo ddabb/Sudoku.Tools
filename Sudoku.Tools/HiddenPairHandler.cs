@@ -75,10 +75,7 @@ namespace Sudoku.Tools
                             foreach (var value1 in qSudoku.GetRest(index).Except(values).ToList())
                             {
                                 var cell = new NegativeCell(index, value1) {Sudoku = qSudoku};
-
                                 cells.Add(cell);
-
-
                             }
 
 
