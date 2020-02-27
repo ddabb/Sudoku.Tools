@@ -58,14 +58,11 @@ namespace SudoKu.Test
             var qsudoku = new QSudoku(queryString);
             if (handlerEnums != null)
             {
-
-                var eliminationHanders = TestG.SolveHandlers.Where(c => handlerEnums.Contains(c.methodType)).ToList();
-
-                foreach (var eliminationHander in eliminationHanders)
+                foreach (var handerEnum in handlerEnums)
                 {
-                    var removeCells = eliminationHander.Elimination(qsudoku);
-                    qsudoku = qsudoku.RemoveCells(removeCells);
-
+                    var eliminationHanders = TestG.SolveHandlers.First(c => handerEnum == (c.methodType));
+                    var removeCells = eliminationHanders.Elimination(qsudoku);
+                    qsudoku.RemoveCells(removeCells);
                 }
             }
             var cellinfo =

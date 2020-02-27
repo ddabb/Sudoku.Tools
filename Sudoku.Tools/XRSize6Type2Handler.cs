@@ -2,18 +2,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Sockets;
-using System.Text;
 
 namespace Sudoku.Tools
 {
-    /// <summary>
-    /// two hidden pair and two fake naked triple
-    /// </summary>
-    [AssignmentExample(9,"R5C9","000806172817923546062070983006000400100680730003000600054090867708460301601708204", 
-        SolveMethodEnum.HiddenPair,
-                         SolveMethodEnum.NakedPair)]
-    public class XRSize6Type2Handler :SolverHandlerBase
+
+    [AssignmentExample(9, "R5C9", "000806172817923546062070983006000400100680730003000600054090867708460301601708204"
+        , SolveMethodEnum.HiddenPair
+        , SolveMethodEnum.HiddenPair
+        )]
+    public class XRSize6Type2Handler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.XRSize6Type2;
 
@@ -22,17 +19,17 @@ namespace Sudoku.Tools
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
-           
+
             var allUnsetCells = qSudoku.AllUnSetCells;
             var pairCells = allUnsetCells.Where(c => c.RestCount == 2).ToList();
             var ab = (from a in pairCells
                       join b in pairCells on 1 equals 1
-                let arest = a.RestList
-                let brest = b.RestList
-                where a.Index < b.Index
-                      && a.Block != b.Block
-                      && arest.Intersect(brest).Count() == 1
-                select new {a, b, arest, brest}).ToList();
+                      let arest = a.RestList
+                      let brest = b.RestList
+                      where a.Index < b.Index
+                            && a.Block != b.Block
+                            && arest.Intersect(brest).Count() == 1
+                      select new { a, b, arest, brest }).ToList();
             foreach (var item in ab)
             {
                 var a = item.a;
@@ -41,14 +38,14 @@ namespace Sudoku.Tools
                 var brest = item.brest;
                 var publicCells = qSudoku.GetPublicUnsetAreas(a, b);
                 var cd = (from c in publicCells
-                    from d in publicCells
-                    let inRow = a.Column == c.Column
-                    where c.RestString == arest.JoinString()
-                          && d.RestString == brest.JoinString()
-                    select new {inRow, c, d}).ToList();
+                          from d in publicCells
+                          let inRow = a.Column == c.Column
+                          where c.RestString == arest.JoinString()
+                                && d.RestString == brest.JoinString()
+                          select new { inRow, c, d }).ToList();
                 foreach (var item1 in cd)
                 {
-                    
+
                 }
 
             }

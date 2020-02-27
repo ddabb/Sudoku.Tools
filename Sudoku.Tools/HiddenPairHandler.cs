@@ -65,7 +65,6 @@ namespace Sudoku.Tools
                             indexs1.AddRange(item1.indexs);
                             values.Add(item1.SpeacialValue);
                         }
-
                         indexs1= indexs1.Distinct().ToList();
                         var index1 = indexs1[0];
                         var index2 = indexs1[1];

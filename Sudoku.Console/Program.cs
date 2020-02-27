@@ -62,7 +62,7 @@ namespace Sudoku.Console
                 foreach (var eliminationHander in eliminationHanders)
                 {
                     var removeCells = eliminationHander.Elimination(qsudoku);
-                    qsudoku = qsudoku.RemoveCells(removeCells);
+                  qsudoku.RemoveCells(removeCells);
 
                 }
             }

@@ -30,7 +30,7 @@ namespace Sudoku.Core
         {
             this.mRest = null;
         }    
-                public abstract string Desc { get; }
+        public abstract string Desc { get; }
 
         public int RestCount => GetRest().Count;
 

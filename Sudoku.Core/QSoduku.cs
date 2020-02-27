@@ -158,18 +158,17 @@ namespace Sudoku.Core
 
         }
 
-        public QSudoku RemoveCells(List<CellInfo> removeCells)
+        public void RemoveCells(List<CellInfo> removeCells)
         {
             foreach (var cell in removeCells)
             {
                 if (cell.CellType==CellType.Negative)
                 {
-                    var findCell = this.cellInfos.First(c => c.Index == cell.Index);
-                    findCell.NegativeValues.Add(cell.Value);
-                    findCell.ReSetRest();
+                  this.cellInfos[cell.Index].NegativeValues.Add(cell.Value);
+                  this.cellInfos[cell.Index].ReSetRest();
                 }
             }
-            return this;
+    
         }
 
         public List<CellInfo> GetPublicUnsetAreas(CellInfo cell1, CellInfo cell2)

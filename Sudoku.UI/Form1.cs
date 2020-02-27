@@ -41,7 +41,7 @@ namespace Sudoku.UI
             var value = a.value;
             var positionString = a.positionString;
             var handers = a.SolveHandlers;
-          return  getQSudoku(type, queryString, value, positionString, handers);
+            return getQSudoku(type, queryString, value, positionString, handers);
         }
 
         private static QSudoku getQSudoku(Type type, string queryString, int value, string positionString, SolveMethodEnum[] handlerEnums = null)
@@ -50,17 +50,13 @@ namespace Sudoku.UI
             var qsudoku = new QSudoku(queryString);
             if (handlerEnums != null)
             {
-
-                var eliminationHanders = SolveHandlers.Where(c => handlerEnums.Contains(c.methodType)).ToList();
-
-                foreach (var eliminationHander in eliminationHanders)
+                foreach (var handerEnum in handlerEnums)
                 {
-                    var removeCells = eliminationHander.Elimination(qsudoku);
-                    qsudoku = qsudoku.RemoveCells(removeCells);
-
+                    var eliminationHanders = SolveHandlers.First(c => handerEnum==(c.methodType));
+                    var removeCells = eliminationHanders.Elimination(qsudoku);
+                    qsudoku.RemoveCells(removeCells);
                 }
             }
-
             return qsudoku;
         }
 
@@ -162,8 +158,8 @@ namespace Sudoku.UI
         private void CopyGirdToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Clipboard.Clear();
-                Clipboard.SetDataObject(this.ctlSudoku.Sudoku.CurrentString);
-        
+            Clipboard.SetDataObject(this.ctlSudoku.Sudoku.CurrentString);
+
 
         }
 
@@ -230,7 +226,7 @@ namespace Sudoku.UI
                             {
                                 TreeNode hintNode = new TreeNode();
                                 hintNode.Tag = cell;
-                                hintNode.Text = G.GetEnumDescription(handler.methodType)+":" + cell.Desc;
+                                hintNode.Text = G.GetEnumDescription(handler.methodType) + ":" + cell.Desc;
                                 subTreeNode.Nodes.Add(hintNode);
                             }
 
@@ -275,7 +271,7 @@ namespace Sudoku.UI
                 this.HintTree.ExpandAll();
                 this.HintTree.EndUpdate();
             }
-            this.MessageArea.Text = "线索加载完成..." +DateTime.Now ;
+            this.MessageArea.Text = "线索加载完成..." + DateTime.Now;
         }
 
         private void InitUI()
@@ -284,7 +280,7 @@ namespace Sudoku.UI
             this.HintTree.Nodes.Clear();
             this.HintTree.Nodes.Add(new TreeNode("提示列表"));
             this.HintTree.EndUpdate();
-            this.MessageArea.Text ="";
+            this.MessageArea.Text = "";
         }
 
         private void HintTree_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
@@ -292,16 +288,16 @@ namespace Sudoku.UI
             if (e.Node.Tag is CellInfo cell)
             {
                 var solveMessage = cell.SolveMessages;
-                if (solveMessage.Count!=0)
+                if (solveMessage.Count != 0)
                 {
                     SetRichTextBoxValue(solveMessage);
-                
+
                 }
                 else
                 {
                     this.MessageArea.Text = "" + cell.SolveDesc;
                 }
-      
+
             }
             else if (e.Node.Tag is ISudokuSolveHandler hander)
             {
@@ -416,27 +412,27 @@ namespace Sudoku.UI
 
 
 
-    //public ArrayList getIndexArray(String inputStr, String findStr)
-    //{
-    //    ArrayList list = new ArrayList();
-    //    int start = 0;
-    //    while (start < inputStr.Length)
-    //    {
-    //        int index = inputStr.IndexOf(findStr, start);
-    //        if (index >= 0)
-    //        {
-    //            list.Add(index);
-    //            start = index + findStr.Length;
-    //        }
-    //        else
-    //        {
-    //            break;
-    //        }
-    //    }
-    //    return list;
-    //}
+        //public ArrayList getIndexArray(String inputStr, String findStr)
+        //{
+        //    ArrayList list = new ArrayList();
+        //    int start = 0;
+        //    while (start < inputStr.Length)
+        //    {
+        //        int index = inputStr.IndexOf(findStr, start);
+        //        if (index >= 0)
+        //        {
+        //            list.Add(index);
+        //            start = index + findStr.Length;
+        //        }
+        //        else
+        //        {
+        //            break;
+        //        }
+        //    }
+        //    return list;
+        //}
 
-    protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             var intkey = (int)(keyData);
             Debug.WriteLine("ProcessCmdKey" + "intkey" + intkey);
@@ -465,10 +461,10 @@ namespace Sudoku.UI
                 case 103://7
                 case 104://8
                 case 105://9
-                    if (sudoku.CurrentCell!=null&&(sudoku.CurrentCell.CellType != CellType.Init || sudoku.CurrentCell.Value == 0))
+                    if (sudoku.CurrentCell != null && (sudoku.CurrentCell.CellType != CellType.Init || sudoku.CurrentCell.Value == 0))
                     {
                         var value = keyCodeNumMap[intkey];
-                 sudoku.ApplyCell(value == 0 ?(CellInfo)new InitCell(sudoku.CurrentCell.Index,0): new PositiveCell(sudoku.CurrentCell.Index, value));
+                        sudoku.ApplyCell(value == 0 ? (CellInfo)new InitCell(sudoku.CurrentCell.Index, 0) : new PositiveCell(sudoku.CurrentCell.Index, value));
 
                     }
 
@@ -515,7 +511,7 @@ namespace Sudoku.UI
         private void button1_Click_1(object sender, EventArgs e)
         {
             MessageArea.Text = "数独的表达式为：" + "" + ctlSudoku.Sudoku.CurrentString;
-            MessageArea.Text+=new DanceLink().isValid(ctlSudoku.Sudoku.CurrentString)? "这是一个有效的数独":"这是一个无效的数独";
+            MessageArea.Text += new DanceLink().isValid(ctlSudoku.Sudoku.CurrentString) ? "这是一个有效的数独" : "这是一个无效的数独";
         }
 
         private void ResetToolStripMenuItem_Click(object sender, EventArgs e)
