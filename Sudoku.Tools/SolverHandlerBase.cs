@@ -47,6 +47,20 @@ namespace Sudoku.Tools
             return false;
         }
 
+        public List<CellInfo> AssignmentCellByEliminationCell(QSudoku qSudoku)
+        {
+            List<CellInfo> cells = new List<CellInfo>();
+            var eliminationCells = Elimination(qSudoku);
+            foreach (var cellInfo in eliminationCells)
+            {
+                foreach (var postiveCell in cellInfo.NextCells)
+                {
+                    cells.Add(postiveCell);
+                }
+            }
+
+            return cells;
+        }
         public bool IsSameRow(int index1, int index2)
         {
             if (new PositiveCell(index1, 0).Row == new PositiveCell(index2, 0).Row)

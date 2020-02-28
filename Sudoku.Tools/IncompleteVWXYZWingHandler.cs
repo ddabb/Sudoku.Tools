@@ -11,17 +11,7 @@ namespace Sudoku.Tools
     {
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
-            List<CellInfo> cells = new List<CellInfo>();
-            var eliminationCells = Elimination(qSudoku);
-            foreach (var cellInfo in eliminationCells)
-            {
-                foreach (var postiveCell in cellInfo.NextCells)
-                {
-                    cells.Add(postiveCell);
-                }
-                
-            }
-            return cells;
+            return AssignmentCellByEliminationCell(qSudoku);
         }
 
         public override List<CellInfo> Elimination(QSudoku qSudoku)
