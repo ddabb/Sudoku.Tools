@@ -15,12 +15,7 @@ namespace Sudoku.Core
         public NegativeValuesGroup(int index, List<int> values) : base(index, values)
         {
             this.CellType = CellType.NegativeValuesGroup;
-
-            if (Index == 70 && Value == 5)
-            {
-
-            }
-
+            
         }
 
 

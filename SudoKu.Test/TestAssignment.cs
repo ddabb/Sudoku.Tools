@@ -44,8 +44,9 @@ namespace SudoKu.Test
                     qsudoku.RemoveCells(removeCells);
                 }
             }
-            var cellinfo =
-                ((ISudokuSolveHandler)Activator.CreateInstance(type, true)).Assignment(
+
+            var handler = ((ISudokuSolveHandler) Activator.CreateInstance(type, true));
+            var cellinfo = handler.Assignment(
                     qsudoku);
             Assert.AreEqual(true, cellinfo.Exists(c => c.RrCc == positionString && c.Value == value));
             Debug.WriteLine("cellinfo " + cellinfo.JoinString());

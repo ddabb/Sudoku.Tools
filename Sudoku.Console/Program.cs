@@ -19,7 +19,7 @@ namespace Sudoku.Console
             if (runtest)
             {
 
-                ConsoleAssignmentExample(typeof(NakedPairHandller));
+                ConsoleAssignmentExample(typeof(HiddenSingleBlockHandler));
                 //ConsoleEliminationExample(typeof(AlignedTripleExclusionHandler));
 
     
@@ -56,14 +56,11 @@ namespace Sudoku.Console
             var qsudoku = new QSudoku(queryString);
             if (handlerEnums != null)
             {
-
-                var eliminationHanders = SolveHandlers.Where(c => handlerEnums.Contains(c.methodType)).ToList();
-
-                foreach (var eliminationHander in eliminationHanders)
+                foreach (var handerEnum in handlerEnums)
                 {
-                    var removeCells = eliminationHander.Elimination(qsudoku);
-                  qsudoku.RemoveCells(removeCells);
-
+                    var eliminationHanders = SolveHandlers.First(c => handerEnum == (c.methodType));
+                    var removeCells = eliminationHanders.Elimination(qsudoku);
+                    qsudoku.RemoveCells(removeCells);
                 }
             }
             var cellinfo =

@@ -167,6 +167,11 @@ namespace Sudoku.Core
                   this.cellInfos[cell.Index].NegativeValues.Add(cell.Value);
                   this.cellInfos[cell.Index].ReSetRest();
                 }
+                else if(cell.CellType == CellType.NegativeValuesGroup)
+                {
+                    this.cellInfos[cell.Index].NegativeValues.AddRange(cell.NegativeValues);
+                    this.cellInfos[cell.Index].ReSetRest();
+                }
             }
     
         }

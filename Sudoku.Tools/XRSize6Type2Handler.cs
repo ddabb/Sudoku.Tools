@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 
 namespace Sudoku.Tools
 {
@@ -19,7 +20,21 @@ namespace Sudoku.Tools
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
+            var eliminationCells = Elimination(qSudoku);
+            foreach (var cellInfo in eliminationCells)
+            {
+                foreach (var postiveCell in cellInfo.NextCells)
+                {
+                    cells.Add(postiveCell);
+                }
 
+            }
+            return cells;
+        }
+
+        public override List<CellInfo> Elimination(QSudoku qSudoku)
+        {
+            List<CellInfo> cells = new List<CellInfo>();
             var allUnsetCells = qSudoku.AllUnSetCells;
             var pairCells = allUnsetCells.Where(c => c.RestCount == 2).ToList();
             var ab = (from a in pairCells
@@ -36,6 +51,8 @@ namespace Sudoku.Tools
                 var b = item.b;
                 var arest = item.arest;
                 var brest = item.brest;
+                var interRest = arest.Intersect(brest).ToList();
+                var other = arest.Except(interRest).Union(brest.Except(interRest)).ToList();
                 var publicCells = qSudoku.GetPublicUnsetAreas(a, b);
                 var cd = (from c in publicCells
                           from d in publicCells
@@ -45,18 +62,67 @@ namespace Sudoku.Tools
                           select new { inRow, c, d }).ToList();
                 foreach (var item1 in cd)
                 {
+                    var inRow = item1.inRow;
+                    var filte = allUnsetCells.Where(c =>
+                        c.RestList.Count == 3 && c.RestList.Intersect(other).Count() == other.Count()).ToList();
+                    if (inRow)
+                    {
+                        var ef = (from e in filte
+                                  join f in filte on e.Column equals f.Column
+                                  where e.Row == a.Row
+                                        && f.Row == b.Row
+                                        && e.RestString==f.RestString
+                                  select new { e, f }).ToList();
+                        foreach (var item2 in ef)
+                        {
+                            var e = item2.e;
+                            var f = item2.f;
+                            var removeValue = e.RestList.Except(other).First();
+                            var list = allUnsetCells.Where(
+                                c => c.Column == e.Column && c.Row != e.Row && c.Row != f.Row).ToList();
+                            foreach (var item3 in list)
+                            {
+                                if (item3.RestList.Contains(removeValue))
+                                {
+                                    var cell = new NegativeCell(item3.Index, removeValue) { Sudoku = qSudoku };
+                                    cells.Add(cell);
+                                }
+                                
+                            }
+                        }
 
+                    }
+                    else
+                    {
+                        var ef = (from e in filte
+                                  join f in filte on e.Row equals f.Row
+                                  where e.Column == a.Column
+                                  && f.Column == b.Column
+                                  && e.RestString == f.RestString
+                                  select new { e, f }).ToList();
+                        foreach (var item2 in ef)
+                        {
+                            var e = item2.e;
+                            var f = item2.f;
+                            var removeValue = e.RestList.Except(other).First();
+                            var list = allUnsetCells.Where(
+                                c => c.Row == e.Row && c.Column != e.Column && c.Column != f.Column);
+                            foreach (var item3 in list)
+                            {
+                                if (item3.RestList.Contains(removeValue))
+                                {
+                                    var cell = new NegativeCell(item3.Index, removeValue) { Sudoku = qSudoku };
+                                    cells.Add(cell);
+                                }
+
+                            }
+                        }
+
+                    }
                 }
 
             }
-
-
             return cells;
-        }
-
-        public override List<CellInfo> Elimination(QSudoku qSudoku)
-        {
-            throw new NotImplementedException();
         }
     }
 }

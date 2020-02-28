@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Sudoku.Core;
 
 namespace Sudoku.Tools
@@ -14,17 +15,37 @@ namespace Sudoku.Tools
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
-            var direction = Direction.Block;
+            var allUnSetCell = qSudoku.AllUnSetCells;
+
             foreach (var index in G.baseIndexs)
             {
-                cells.AddRange(GetHiddenSingleCellInfo(qSudoku, c => G.GetFilter(c, direction, index) && c.Value == 0));
+                List<int> allRest = new List<int>();
+                var conditionCells = allUnSetCell.Where(c => c.Block == index).ToList();
+                foreach (var cell in conditionCells)
+                {
+                    allRest.AddRange(cell.RestList);
+                }
+
+                foreach (var value in G.AllBaseValues)
+                {
+                    if (allRest.Count(c=>c==value)==1)
+                    {
+                        var findCells = conditionCells.Where(c => c.RestList.Contains(value) && c.RestCount != 1)//和显性数对作区分
+                            .ToList();
+                        if (findCells.Count!=0)
+                        {
+                            var cell = findCells.First();
+                            cells.Add(new PositiveCell(cell.Index,value){Sudoku = qSudoku});
+                        }
+                    }
+                }
             }
             return cells;
         }
 
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
-            throw new NotImplementedException();
+            List<CellInfo> cells = new List<CellInfo>(); return cells;
         }
     }
 }
