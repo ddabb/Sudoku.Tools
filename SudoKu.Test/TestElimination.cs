@@ -35,6 +35,13 @@ namespace SudoKu.Test
             TestEliminationExample(typeof(XRSize10Handler));
         }
 
+
+
+        [TestMethod]
+        public void TestXRSize6Type3Handler()
+        {
+            TestEliminationExample(typeof(XRSize6Type3Handler));
+        }
         [TestMethod]
         public void TestIncompleteVWXYZWingHandler()
         {
