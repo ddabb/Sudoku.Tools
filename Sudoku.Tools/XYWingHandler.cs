@@ -16,6 +16,11 @@ namespace Sudoku.Tools
 
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
+            return AssignmentCellByEliminationCell(qSudoku);
+        }
+
+        public override List<CellInfo> Elimination(QSudoku qSudoku)
+        {
             List<CellInfo> cells = new List<CellInfo>();
             var checkCells = qSudoku.AllUnSetCells.Where(c => c.RestCount == 2).ToList();
             foreach (var checkCell in checkCells)
@@ -24,17 +29,17 @@ namespace Sudoku.Tools
                 var checkCellRest = checkCell.RestList;
                 var relatedCell = checkCell.RelatedUnsetCells;
                 var xy = (from x in relatedCell
-                    join y in relatedCell on 1 equals 1
-                    let xrest = x.RestList
-                    let yrest = y.RestList
-                    where x.Index < y.Index
-                          && xrest.Count==2
-                          && yrest.Count==2
-                          && checkCellRest.Intersect(xrest).Count()==1
-                          && checkCellRest.Intersect(yrest).Count() == 1
-                          && xrest.Except(checkCellRest).First()== yrest .Except(checkCellRest).First()
-                          && xrest.JoinString() != yrest.JoinString()
-                          select new {x, y, xrest, yrest }).ToList();
+                          join y in relatedCell on 1 equals 1
+                          let xrest = x.RestList
+                          let yrest = y.RestList
+                          where x.Index < y.Index
+                                && xrest.Count == 2
+                                && yrest.Count == 2
+                                && checkCellRest.Intersect(xrest).Count() == 1
+                                && checkCellRest.Intersect(yrest).Count() == 1
+                                && xrest.Except(checkCellRest).First() == yrest.Except(checkCellRest).First()
+                                && xrest.JoinString() != yrest.JoinString()
+                          select new { x, y, xrest, yrest }).ToList();
                 foreach (var item in xy)
                 {
                     var x = item.x;
@@ -42,30 +47,25 @@ namespace Sudoku.Tools
                     var xrest = item.xrest;
                     var yrest = item.yrest;
                     var removes = xrest.Intersect(yrest).ToList();
-                    if (checkCellRest.Contains(xrest.Except(removes).First())&& checkCellRest.Contains(yrest.Except(removes).First()))
+                    if (checkCellRest.Contains(xrest.Except(removes).First()) && checkCellRest.Contains(yrest.Except(removes).First()))
                     {
                         var removeValue = removes.First();
                         foreach (var unsetCell in qSudoku.GetPublicUnsetAreas(item.x, item.y).Where(c => c.Index != checkCell.Index))
                         {
                             var unsetCellRest = unsetCell.RestList;
-                            if (unsetCellRest.Contains(removeValue) && unsetCellRest.Count == 2)
+                            if (unsetCellRest.Contains(removeValue))
                             {
-                                cells.Add(new PositiveCell(unsetCell.Index, unsetCellRest.First(c => c != removeValue)));
+                                cells.Add(new NegativeCell(unsetCell.Index, removeValue) { Sudoku = qSudoku });
                             }
                         }
                     }
- 
 
-                   
+
+
                 }
             }
 
             return cells;
-        }
-
-        public override List<CellInfo> Elimination(QSudoku qSudoku)
-        {
-            throw new NotImplementedException();
         }
     }
 }
