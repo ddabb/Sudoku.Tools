@@ -3,6 +3,7 @@ using Sudoku.Console;
 using Sudoku.Core;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 namespace SudoKu.Test
 {
@@ -17,15 +18,21 @@ namespace SudoKu.Test
         {
             var queryString = StaticTools.queryStrings;
             var count = 0;
+            var unsloveList = new List<string>();
             foreach (var c in queryString)
             {
                 Debug.WriteLine("c"+ c);
                 if (StaticTools.SolveSudoku(new QSudoku(c)))
                 {
                     count += 1;
-                }          
+                }
+                else
+                {
+                    unsloveList.Add(c);
+                }
             }
             Debug.WriteLine("count" + count);
+            Debug.WriteLine(string.Join(",",unsloveList.Select(c=>"\""+c+"\"\r\n")));
             Assert.AreEqual(true, count== queryString.Count);
         }
 
