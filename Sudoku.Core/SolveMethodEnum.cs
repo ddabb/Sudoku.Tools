@@ -23,7 +23,14 @@ namespace Sudoku.Core
         HiddenSingleRow,
         [Description("宮区块")]
         [DifficultuRating(1.7)]
+
         DirectPointing,
+        [Description("行区块")]
+        [DifficultuRating(2.8)]
+        ClaimingInRow,
+        [Description("列区块")]
+        [DifficultuRating(2.8)]
+        ClaimingInColumn,
         [Description("隐性数对")]
         [DifficultuRating(2.0)]
         HiddenPair,
@@ -42,12 +49,6 @@ namespace Sudoku.Core
         [Description("显性四数组")]
         [DifficultuRating(5.0)]
         NakedQuadruple,
-        [Description("行区块")]
-        [DifficultuRating(2.8)]
-        ClaimingInRow,
-        [Description("列区块")]
-        [DifficultuRating(2.8)]
-        ClaimingInColumn,
         [DifficultuRating(4.4)]
         WWing,
         [DifficultuRating(3.2)]

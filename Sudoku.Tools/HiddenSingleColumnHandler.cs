@@ -35,7 +35,7 @@ namespace Sudoku.Tools
                         if (findCells.Count != 0)
                         {
                             var cell = findCells.First();
-                            cells.Add(new PositiveCell(cell.Index, value) { Sudoku = qSudoku });
+                            cells.Add(new PositiveCell(cell.Index, value) { Sudoku = qSudoku, SolveMessages = new List<SolveMessage> { cell.Column + 1 + "列只有",cell.Location,"能填入", value } });
                         }
                     }
                 }
