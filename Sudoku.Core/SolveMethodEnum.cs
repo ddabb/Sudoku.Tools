@@ -154,6 +154,6 @@ namespace Sudoku.Core
         AlignedTripleExclusion,
         [Description("均衡数对")]
         AlignedPairExclusion,
-
+        AlignedQuadrupleExclusionHandler,
     }
 }

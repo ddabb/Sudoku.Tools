@@ -56,7 +56,8 @@ namespace Sudoku.Tools
                                                        && f.Row == e.Row && g.Row == e.Row
                                                        && f.RestList.Intersect(e.RestList).Count() == 2
                                                        && g.RestList.Intersect(e.RestList).Count() == 2
-                            select new {f, g}).ToList();
+                                                       && f.RestList.Intersect(e.RestList).JoinString() == g.RestList.Intersect(e.RestList).JoinString()
+                                   select new {f, g}).ToList();
                         foreach (var fg in fgs)
                         {
                             var f = fg.f;
@@ -86,7 +87,8 @@ namespace Sudoku.Tools
                                                         && f.Column == e.Column && g.Column == e.Column
                                                         && f.RestList.Intersect(e.RestList).Count() == 2
                                                         && g.RestList.Intersect(e.RestList).Count() == 2
-                            select new { f, g }).ToList();
+                                                        && f.RestList.Intersect(e.RestList).JoinString() == g.RestList.Intersect(e.RestList).JoinString()
+                                   select new { f, g }).ToList();
                         foreach (var fg in fgs)
                         {
                             var f = fg.f;
