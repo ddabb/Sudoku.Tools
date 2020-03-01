@@ -538,5 +538,10 @@ namespace Sudoku.UI
             G.LocationType = LocationType.R1C1;
             ctlSudoku.RetSetRowAndColumnFormat();
         }
+
+        private void 技巧示例ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new FrmExample().ShowDialog();
+        }
     }
 }

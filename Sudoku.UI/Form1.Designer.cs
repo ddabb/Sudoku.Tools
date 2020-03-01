@@ -63,8 +63,9 @@ namespace Sudoku.UI
             this.button4 = new System.Windows.Forms.Button();
             this.BtnGetAllHint = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
-            this.ctlSudoku = new Sudoku.UI.ctlSudoku();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.技巧示例ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ctlSudoku = new Sudoku.UI.ctlSudoku();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -262,7 +263,8 @@ namespace Sudoku.UI
             // 
             this.helpMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ShowWelComeToolStripMenuItem,
-            this.aboutSoftwareToolStripMenuItem});
+            this.aboutSoftwareToolStripMenuItem,
+            this.技巧示例ToolStripMenuItem});
             this.helpMenuItem.Name = "helpMenuItem";
             this.helpMenuItem.Size = new System.Drawing.Size(44, 21);
             this.helpMenuItem.Text = "帮助";
@@ -270,14 +272,14 @@ namespace Sudoku.UI
             // ShowWelComeToolStripMenuItem
             // 
             this.ShowWelComeToolStripMenuItem.Name = "ShowWelComeToolStripMenuItem";
-            this.ShowWelComeToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.ShowWelComeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.ShowWelComeToolStripMenuItem.Text = "显示欢迎消息";
             this.ShowWelComeToolStripMenuItem.Click += new System.EventHandler(this.ShowWelComeToolStripMenuItem_Click);
             // 
             // aboutSoftwareToolStripMenuItem
             // 
             this.aboutSoftwareToolStripMenuItem.Name = "aboutSoftwareToolStripMenuItem";
-            this.aboutSoftwareToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.aboutSoftwareToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.aboutSoftwareToolStripMenuItem.Text = "关于软件";
             this.aboutSoftwareToolStripMenuItem.Click += new System.EventHandler(this.aboutSoftwareToolStripMenuItem_Click);
             // 
@@ -363,15 +365,6 @@ namespace Sudoku.UI
             this.button6.Text = "撤销动作";
             this.button6.UseVisualStyleBackColor = true;
             // 
-            // ctlSudoku
-            // 
-            this.ctlSudoku.BackColor = System.Drawing.Color.White;
-            this.ctlSudoku.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.ctlSudoku.Location = new System.Drawing.Point(12, 53);
-            this.ctlSudoku.Name = "ctlSudoku";
-            this.ctlSudoku.Size = new System.Drawing.Size(780, 780);
-            this.ctlSudoku.TabIndex = 0;
-            // 
             // splitContainer1
             // 
             this.splitContainer1.Location = new System.Drawing.Point(822, 98);
@@ -388,6 +381,23 @@ namespace Sudoku.UI
             this.splitContainer1.Size = new System.Drawing.Size(838, 735);
             this.splitContainer1.SplitterDistance = 500;
             this.splitContainer1.TabIndex = 13;
+            // 
+            // 技巧示例ToolStripMenuItem
+            // 
+            this.技巧示例ToolStripMenuItem.Name = "技巧示例ToolStripMenuItem";
+            this.技巧示例ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.H)));
+            this.技巧示例ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.技巧示例ToolStripMenuItem.Text = "技巧示例";
+            this.技巧示例ToolStripMenuItem.Click += new System.EventHandler(this.技巧示例ToolStripMenuItem_Click);
+            // 
+            // ctlSudoku
+            // 
+            this.ctlSudoku.BackColor = System.Drawing.Color.White;
+            this.ctlSudoku.ImeMode = System.Windows.Forms.ImeMode.On;
+            this.ctlSudoku.Location = new System.Drawing.Point(12, 53);
+            this.ctlSudoku.Name = "ctlSudoku";
+            this.ctlSudoku.Size = new System.Drawing.Size(780, 780);
+            this.ctlSudoku.TabIndex = 0;
             // 
             // Form1
             // 
@@ -409,6 +419,7 @@ namespace Sudoku.UI
             this.Text = "超级数独";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
+            this.Icon = Sudoku.UI.Resource.sudoku;
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -457,5 +468,6 @@ namespace Sudoku.UI
         private Button button6;
         private ToolStripMenuItem ResetToolStripMenuItem;
         private SplitContainer splitContainer1;
+        private ToolStripMenuItem 技巧示例ToolStripMenuItem;
     }
 }
