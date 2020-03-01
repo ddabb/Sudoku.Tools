@@ -18,6 +18,11 @@ namespace Sudoku.Tools
 
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
+            return AssignmentCellByEliminationCell(qSudoku);
+        }
+
+        public override List<CellInfo> Elimination(QSudoku qSudoku)
+        {
             List<CellInfo> cells = new List<CellInfo>();
             var allunsetCell = qSudoku.AllUnSetCells;
             var possileIndex = GetAllPossibleIndexInRowOrColumn(qSudoku, 2);
@@ -53,28 +58,15 @@ namespace Sudoku.Tools
                     foreach (var cell in restCells)
                     {
                         var rests = cell.RestList;
-                        if (rests.Count == 2 && rests.Contains(rest))
+
+                        if (rests.Contains(rest))
                         {
-                            cells.Add(new PositiveCell(cell.Index, rests.First(c => c != rest)));
+                            cells.Add(new NegativeCell(cell.Index, rest) { Sudoku = qSudoku });
                         }
                     }
-
-
-
-
-
                 }
             }
-
-
-
-
             return cells;
-        }
-
-        public override List<CellInfo> Elimination(QSudoku qSudoku)
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -23,7 +23,6 @@ namespace Sudoku.Core
         HiddenSingleRow,
         [Description("宮区块")]
         [DifficultuRating(1.7)]
-
         DirectPointing,
         [Description("行区块")]
         [DifficultuRating(2.8)]
@@ -156,5 +155,8 @@ namespace Sudoku.Core
         [Description("均衡数对")]
         AlignedPairExclusion,
         AlignedQuadrupleExclusionHandler,
+        URType3HiddenQuadruple,
+        URType3HiddenPair,
+        URType3HiddenTriple,
     }
 }
