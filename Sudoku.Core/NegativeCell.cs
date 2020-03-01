@@ -47,11 +47,6 @@ namespace Sudoku.Core
         {
             get
             {
-                //var list = temp;
-                //if (list != null)
-                //{
-                //    return list;
-                //}
 
                 return GetNextCells();
             }

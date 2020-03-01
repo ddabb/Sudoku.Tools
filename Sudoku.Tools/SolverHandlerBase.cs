@@ -53,10 +53,14 @@ namespace Sudoku.Tools
             var eliminationCells = Elimination(qSudoku);
             foreach (var cellInfo in eliminationCells)
             {
-                foreach (var postiveCell in cellInfo.NextCells)
+                if (cellInfo.NextCells!=null)
                 {
-                    cells.Add(postiveCell);
+                    foreach (var postiveCell in cellInfo.NextCells)
+                    {
+                        cells.Add(postiveCell);
+                    }
                 }
+      
             }
 
             return cells;
