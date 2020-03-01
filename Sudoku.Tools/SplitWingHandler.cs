@@ -7,7 +7,8 @@ using Sudoku.Core;
 
 namespace Sudoku.Tools
 {
- public   class SplitWingHandler : SolverHandlerBase
+    [EliminationExample(2, "R8C1", "000058793093074185578931462010582934005169000982347651054726019009015006060093500")]
+    public   class SplitWingHandler : SolverHandlerBase
     {
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {

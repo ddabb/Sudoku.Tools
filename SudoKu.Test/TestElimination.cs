@@ -48,6 +48,17 @@ namespace SudoKu.Test
             TestEliminationExample(typeof(IncompleteVWXYZWingHandler));
         }
 
+        [TestMethod]
+        public void TestSplitWingHandler()
+        {
+            TestEliminationExample(typeof(SplitWingHandler));
+        }
+        
+        [TestMethod]
+        public void TestURType3HiddenPairHandller()
+        {
+            TestEliminationExample(typeof(URType3HiddenPairHandller));
+        }
         private static void TestEliminationExample(Type type)
         {
             object[] objs = type.GetCustomAttributes(typeof(EliminationExampleAttribute), true);

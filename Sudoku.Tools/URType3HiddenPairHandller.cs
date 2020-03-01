@@ -7,6 +7,7 @@ using Sudoku.Core;
 
 namespace Sudoku.Tools
 {
+    [EliminationExample(3, "R3C6", "000900004400000500760080000290000100071209005004710902100840000907025801002190000")]
     public class URType3HiddenPairHandller : SolverHandlerBase
     {
         public override List<CellInfo> Assignment(QSudoku qSudoku)

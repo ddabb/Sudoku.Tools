@@ -7,7 +7,8 @@ using Sudoku.Core;
 
 namespace Sudoku.Tools
 {
-    class URType3HiddenQuadrupleHandler : SolverHandlerBase
+    [AssignmentExample(9,"R8C3", "193524800850376900007000000000051230001043600035960000000000500500607048006485092")]
+  public  class URType3HiddenQuadrupleHandler : SolverHandlerBase
     {
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {

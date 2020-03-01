@@ -60,12 +60,60 @@ namespace SudoKu.Test
             TestAssignmentExample(typeof(ClaimingInRowHandler));
         }
 
+
+        [TestMethod]
+        public void TestMWingHandler()
+        {
+            TestAssignmentExample(typeof(MWingHandler));
+        }
+
+
+
+        [TestMethod]
+        public void TestURType3NakedPairHandller()
+        {
+            TestAssignmentExample(typeof(URType3NakedPairHandller));
+        }
+
+        [TestMethod]
+        public void TestURType3NakedTripleHandler()
+        {
+            TestAssignmentExample(typeof(URType3NakedTripleHandler));
+        }
+
+        [TestMethod]
+        public void TestURType3NakedQuadrupleHandler()
+        {
+            TestAssignmentExample(typeof(URType3NakedQuadrupleHandler));
+        }
+
+        [TestMethod]
+        public void TestURType3HiddenTripleHandller()
+        {
+            TestAssignmentExample(typeof(URType3HiddenTripleHandller));
+        }
+
+        [TestMethod]
+        public void TestURType3HiddenQuadrupleHandler()
+        {
+            TestAssignmentExample(typeof(URType3HiddenQuadrupleHandler));
+        }
+        
+
+
         [TestMethod]
         public void TestULSize6Type2Handler()
         {
             TestAssignmentExample(typeof(ULSize6Type2Handler));
         }
 
+        [TestMethod]
+        public void TestHybridWingHandler()
+        {
+            TestAssignmentExample(typeof(HybridWingHandler));
+        }
+
+        
         [TestMethod]
         public void TestULSize6Type2Handler1()
         {

@@ -7,7 +7,7 @@ namespace Sudoku.Tools
 {
 
 
-    [AssignmentExample("030150209000360050700490603001273800000519000003684700100000008320040000409001060")]
+    [AssignmentExample(4,"R8C4","738591624691800357254367891382000010049030780067008032423685179975003268816009543")]
     public class URType3NakedTripleHandler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.URType3NakedTriple;

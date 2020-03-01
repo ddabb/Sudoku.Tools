@@ -7,7 +7,8 @@ using Sudoku.Core;
 
 namespace Sudoku.Tools
 {
-   public class MWingHandler : SolverHandlerBase
+    [AssignmentExample(1, "R5C2", "703001006000700030090600207000475801007382000548196372001064720070000000600807409")]
+    public class MWingHandler : SolverHandlerBase
     {
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {

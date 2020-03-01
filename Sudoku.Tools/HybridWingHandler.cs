@@ -7,7 +7,11 @@ using Sudoku.Core;
 
 namespace Sudoku.Tools
 {
-   public class HybridWingHandler : SolverHandlerBase
+
+
+    
+    [AssignmentExample(5, "R6C1", "006020100238617549100080062003750400871346295004890000012460803480230601365178924")]
+    public class HybridWingHandler : SolverHandlerBase
     {
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
