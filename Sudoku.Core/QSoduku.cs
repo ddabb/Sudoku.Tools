@@ -176,6 +176,12 @@ namespace Sudoku.Core
     
         }
 
+        /// <summary>
+        /// 获取两个单元格的共同影响区域
+        /// </summary>
+        /// <param name="cell1"></param>
+        /// <param name="cell2"></param>
+        /// <returns></returns>
         public List<CellInfo> GetPublicUnsetAreas(CellInfo cell1, CellInfo cell2)
         {
             return AllUnSetCells.Where(c => GetPublicUnsetAreaIndexs(cell1, cell2).Contains(c.Index)).ToList();

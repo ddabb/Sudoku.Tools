@@ -1,9 +1,6 @@
-﻿using System;
+﻿using Sudoku.Core;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Sudoku.Core;
 
 namespace Sudoku.Tools
 {
@@ -12,12 +9,58 @@ namespace Sudoku.Tools
     {
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
-            throw new NotImplementedException();
+            return AssignmentCellByEliminationCell(qSudoku);
         }
 
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
-            throw new NotImplementedException();
+            List<CellInfo> cells = new List<CellInfo>();
+            var allUnsetCells = qSudoku.AllUnSetCells;
+            var pairCells = allUnsetCells.Where(c => c.RestCount == 2).ToList();
+            foreach (var cell1 in pairCells)
+            {
+                var keyRest = cell1.RestList;
+           
+                foreach (var cell2 in allUnsetCells.Where(c=>c.Row!=cell1.Row&&c.Column!=cell1.Column&& keyRest.All(rest=> c.RestList.Contains(rest))))
+                {
+                    var interCells = qSudoku.GetPublicUnsetAreas(cell1, cell2);
+                    foreach (var cell3 in interCells)
+                    {
+                        foreach (var one in keyRest)
+                        {
+                            if (cell3.RestList.Contains(one))
+                            {
+                                var other = keyRest.Where(c => c != one).First();
+                                if (new NegativeCell(cell3.Index, one) { Sudoku = qSudoku }.NextCells.Exists(c => c.Index == cell2.Index&&c.Value==one))
+                                {
+                                    var filter = qSudoku.GetPublicUnsetAreas(cell2, cell3).Where(c => c.RestList.Contains(other));
+                                    foreach (var cell4 in filter)
+                                    {
+                                        if (new NegativeCell(cell4.Index, other) { Sudoku = qSudoku }.NextCells.Exists(c => c.Index == cell2.Index && c.Value == other))
+                                        {
+                                            foreach (var cell5 in qSudoku.GetPublicUnsetAreas(cell1, cell4))
+                                            {
+                                                if (cell5.RestList.Contains(other))
+                                                {
+                                                    cells.Add(new NegativeCell(cell5.Index, other) { Sudoku = qSudoku });
+                                                }
+                                            }
+                                        }
+                                    } 
+                                }
+                            }
+                        }
+                     
+                
+                    }
+                }
+            }
+            return cells;
+        }
+
+        public  int GetOne(List<int> list,int index)
+        {
+            return list[index];
         }
 
         public override SolveMethodEnum methodType { get; }
