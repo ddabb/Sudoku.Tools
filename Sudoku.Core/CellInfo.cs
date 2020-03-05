@@ -142,7 +142,7 @@ namespace Sudoku.Core
         public CellInfo Parent { get; set; }
 
 
-        public FromTo Fromto = new FromTo();
+        public fangxiang Fromto = new fangxiang();
 
         private List<CellInfo> parentCache;
 

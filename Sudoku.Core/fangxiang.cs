@@ -4,14 +4,14 @@ using System.Text;
 
 namespace Sudoku.Core
 {
-    public class FromTo
+    public class fangxiang
     {
         public int fromIndex { get; set; }
         public int toIndex { get; set; }
 
         public override bool Equals(object obj)
         {
-            if (obj is FromTo b)
+            if (obj is fangxiang b)
             {
                 return fromIndex==b.fromIndex&&toIndex==b.fromIndex;
             }
