@@ -158,5 +158,6 @@ namespace Sudoku.Core
         URType3HiddenQuadruple,
         URType3HiddenPair,
         URType3HiddenTriple,
+        MWing,
     }
 }

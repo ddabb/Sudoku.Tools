@@ -66,6 +66,11 @@ namespace Sudoku.Tools
             return cells;
         }
 
+        public override string GetDesc()
+        {
+            return "";
+        }
+
         public override SolveMethodEnum methodType => SolveMethodEnum.IncompleteVWXYZWing;
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
     }

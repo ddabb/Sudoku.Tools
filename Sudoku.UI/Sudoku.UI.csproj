@@ -7,7 +7,7 @@
     <ProjectGuid>{3013ADFD-C350-4300-B8E7-D9A92812BD58}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>Sudoku.UI</RootNamespace>
-    <AssemblyName>Sudoku.UI</AssemblyName>
+    <AssemblyName>超级数独</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

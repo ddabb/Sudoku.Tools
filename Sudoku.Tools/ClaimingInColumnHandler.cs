@@ -38,7 +38,7 @@ namespace Sudoku.Tools
                         foreach (var item1 in negativeCells)
                         {
                             var cell = new NegativeCell(item1.Index, value) { Sudoku = qSudoku };
-                            cell.SolveMessages = new List<SolveMessage> { (index+1) + "列只有" + (block+1) + "宫可以填入" + value+"\r\n", "所以", item1.Location ,"不能填入" + value +"\r\n"};
+                            cell.SolveMessages = new List<SolveMessage> { index.ColumnDesc(), "只有", block.BlockDesc(), "可以填入" + value +"\r\n", "所以", item1.Location ,"不能填入" + value +"\r\n"};
                             cells.Add(cell);
 
                         }
@@ -51,7 +51,7 @@ namespace Sudoku.Tools
                             var list1 = AllunsetCells.Where(c => c.Block == block && c.Row == row && c.RestList.Contains(value)).Select(c => c.Index).ToList();
                             var cell = new NegativeIndexsGroup(list1, value) { Sudoku = qSudoku };
                             
-                            cell.SolveMessages = new List<SolveMessage> { (index + 1) + "列只有" + (block + 1) + "宫可以填入" + value+"\r\n", "所以" };
+                            cell.SolveMessages = new List<SolveMessage> { index.ColumnDesc(), "只有", block.BlockDesc(), "可以填入" + value+"\r\n", "所以" };
                             foreach (var item in list1)
                             {
                                 cell.SolveMessages.AddRange(new List<SolveMessage> { item.LoctionDesc()," "});
@@ -69,7 +69,7 @@ namespace Sudoku.Tools
                         {
                             var list1 = AllunsetCells.Where(c => c.Block == block && c.Column == column && c.RestList.Contains(value)).Select(c => c.Index).ToList();
                             var cell = new NegativeIndexsGroup(list1, value) { Sudoku = qSudoku };
-                            cell.SolveMessages = new List<SolveMessage> { (index + 1) + "列只有" + (block + 1) + "宫可以填入"+value+"\r\n", "所以" };
+                            cell.SolveMessages = new List<SolveMessage> { index.ColumnDesc(), "只有" , block.BlockDesc(), "可以填入" +value +"\r\n", "所以" };
                             foreach (var item in list1)
                             {
                                 cell.SolveMessages.AddRange(new List<SolveMessage> { item.LoctionDesc(), " " });
@@ -83,6 +83,11 @@ namespace Sudoku.Tools
 
             }
             return cells;
+        }
+
+        public override string GetDesc()
+        {
+            return "";
         }
     }
 }

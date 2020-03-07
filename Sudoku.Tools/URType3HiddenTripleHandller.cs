@@ -12,12 +12,17 @@ namespace Sudoku.Tools
     {
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
-            throw new NotImplementedException();
+            return new List<CellInfo>();
         }
 
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
-            throw new NotImplementedException();
+            return new List<CellInfo>();
+        }
+
+        public override string GetDesc()
+        {
+            return "";
         }
 
         public override SolveMethodEnum methodType => SolveMethodEnum.URType3HiddenTriple;

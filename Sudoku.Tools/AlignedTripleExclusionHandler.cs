@@ -14,7 +14,7 @@ namespace Sudoku.Tools
 
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
-            throw new NotImplementedException();
+            return new List<CellInfo>();
         }
 
         public override List<CellInfo> Elimination(QSudoku qSudoku)
@@ -70,6 +70,11 @@ namespace Sudoku.Tools
 
             }
             return cells;
+        }
+
+        public override string GetDesc()
+        {
+            return "";
         }
     }
 }

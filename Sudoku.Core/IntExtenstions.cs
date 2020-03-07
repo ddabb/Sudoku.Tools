@@ -23,5 +23,24 @@ namespace Sudoku.Core
         
             
         }
+
+        public static SolveMessage RowDesc(this int input)
+        {
+            return new SolveMessage("R" + (input + 1), MessageType.Location);
+        }
+
+        public static SolveMessage ColumnDesc(this int input)
+        {
+            return new SolveMessage("C" + (input + 1), MessageType.Location);
+        }
+
+        public static SolveMessage BlockDesc(this int input)
+        {
+            return new SolveMessage("B" + (input + 1), MessageType.Location);
+        }
+
     }
+
+
 }
+

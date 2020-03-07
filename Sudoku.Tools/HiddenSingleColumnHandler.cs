@@ -35,7 +35,7 @@ namespace Sudoku.Tools
                         if (findCells.Count != 0)
                         {
                             var cell = findCells.First();
-                            cells.Add(new PositiveCell(cell.Index, value) { Sudoku = qSudoku, SolveMessages = new List<SolveMessage> { cell.Column + 1 + "列只有",cell.Location,"能填入", value } });
+                            cells.Add(new PositiveCell(cell.Index, value) { Sudoku = qSudoku, SolveMessages = new List<SolveMessage> { cell.Column.ColumnDesc(), "只有", cell.Location, "能填入", value } });
                         }
                     }
                 }
@@ -46,6 +46,11 @@ namespace Sudoku.Tools
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>(); return cells;
+        }
+
+        public override string GetDesc()
+        {
+            return "";
         }
     }
 }

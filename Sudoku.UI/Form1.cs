@@ -34,9 +34,12 @@ namespace Sudoku.UI
             this.HintTree.Nodes.Add(new TreeNode("提示列表"));
             this.ShowInTaskbar = true;
             this.ctlSudoku.ShowCandidates = true;
+            var c = new QSudoku();
+#if DEBUG
+            c = getQSudoku(typeof(LocalWingHandler));
 
-            //var c = getQSudoku(typeof(LocalWingHandler));
-            var c = new QSudoku("281300700040000000000200090000405600005060130000810904007600001000004500130000200");
+            c = new QSudoku("281300700040000000000200090000405600005060130000810904007600001000004500130000200");
+#endif
             //c.RemoveCells(new List<CellInfo> {new NegativeCell(59, 4), new NegativeCell(77, 4) });
             this.ctlSudoku.Sudoku = c;
             this.ctlSudoku.RefreshSudokuPanel();
@@ -63,7 +66,7 @@ namespace Sudoku.UI
             {
                 foreach (var handerEnum in handlerEnums)
                 {
-                    var eliminationHanders = FrmG.SolveHandlers.First(c => handerEnum==(c.methodType));
+                    var eliminationHanders = FrmG.SolveHandlers.First(c => handerEnum == (c.methodType));
                     var removeCells = eliminationHanders.Elimination(qsudoku);
                     qsudoku.RemoveCells(removeCells);
                 }
@@ -109,10 +112,15 @@ namespace Sudoku.UI
 
         private void NewToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            InitUI();
+            this.MessageArea.Text = "数独正在生成中，请稍候……" + DateTime.Now + "\r\n";
+            this.ctlSudoku.Sudoku = new QSudoku();
+            this.ctlSudoku.RefreshSudokuPanel();
+
             QSudoku example = new MinimalPuzzleFactory().Make(new SudokuBuilder().MakeWholeSudoku());
             this.ctlSudoku.Sudoku = example;
             this.ctlSudoku.RefreshSudokuPanel();
-
+            this.MessageArea.Text = "数独生成完成" + DateTime.Now + "\r\n";
 
         }
 
@@ -122,6 +130,7 @@ namespace Sudoku.UI
             this.ctlSudoku.Sudoku = example;
             this.ctlSudoku.Focus();
             this.ctlSudoku.RefreshSudokuPanel();
+            InitUI();
 
 
         }
@@ -178,7 +187,7 @@ namespace Sudoku.UI
                             QSudoku example = new QSudoku(queryString);
                             this.ctlSudoku.Sudoku = example;
                             this.ctlSudoku.RefreshSudokuPanel();
-
+                            InitUI();
                         }
                     }
 
@@ -189,6 +198,7 @@ namespace Sudoku.UI
 
         private void BtnGetAllHint_Click(object sender, EventArgs e)
         {
+            this.MessageArea.Text = "线索开始加载,请稍候..." + DateTime.Now + "\r\n";
             var sudoku = this.ctlSudoku.Sudoku;
             var queryString = this.ctlSudoku.Sudoku.CurrentString;
             if (new DanceLink().isValid(queryString))
@@ -196,7 +206,8 @@ namespace Sudoku.UI
                 this.HintTree.BeginUpdate();
 
                 this.HintTree.Nodes.Clear();
-                this.HintTree.Nodes.Add(new TreeNode("提示列表"));
+                var listNode = new TreeNode("提示列表");
+                this.HintTree.Nodes.Add(listNode);
                 var builder = new ContainerBuilder();
                 Assembly[] assemblies = new Assembly[] { typeof(SolverHandlerBase).Assembly };
                 builder.RegisterAssemblyTypes(assemblies).AsImplementedInterfaces();
@@ -249,17 +260,18 @@ namespace Sudoku.UI
 
                 if (rules.Nodes.Count > 0)
                 {
-                    this.HintTree.Nodes.Add(rules);
+                    listNode.Nodes.Add(rules);
 
                 }
 
                 if (techniques.Nodes.Count > 0)
                 {
-                    this.HintTree.Nodes.Add(techniques);
+                    listNode.Nodes.Add(techniques);
                 }
 
                 this.HintTree.ExpandAll();
                 this.HintTree.EndUpdate();
+
             }
             else
             {
@@ -273,6 +285,9 @@ namespace Sudoku.UI
             this.MessageArea.Text = "线索加载完成..." + DateTime.Now;
         }
 
+        /// <summary>
+        /// 重置提示数和消息区域
+        /// </summary>
         private void InitUI()
         {
             this.HintTree.BeginUpdate();
@@ -300,7 +315,7 @@ namespace Sudoku.UI
             }
             else if (e.Node.Tag is ISudokuSolveHandler hander)
             {
-                this.MessageArea.Text = "" + hander;
+                this.MessageArea.Text = "" + hander.GetDesc();
             }
 
         }

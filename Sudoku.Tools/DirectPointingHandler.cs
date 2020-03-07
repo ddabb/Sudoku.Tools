@@ -1,13 +1,11 @@
-﻿using System;
-using Sudoku.Core;
+﻿using Sudoku.Core;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 namespace Sudoku.Tools
 {
 
-    [AssignmentExample(9,"R7C4","000436517000280000006170000000061070001000000050804100000043761003610000000000394")]
+    [AssignmentExample(9, "R7C4", "000436517000280000006170000000061070001000000050804100000043761003610000000000394")]
     public class DirectPointingHandler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.DirectPointing;
@@ -15,6 +13,13 @@ namespace Sudoku.Tools
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
 
         public override List<CellInfo> Assignment(QSudoku qSudoku)
+        {
+            return AssignmentCellByEliminationCell(qSudoku);
+        }
+
+
+
+        public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
             var allunsetcell = qSudoku.AllUnSetCells;
@@ -24,7 +29,7 @@ namespace Sudoku.Tools
             {
                 foreach (var value in G.AllBaseValues)
                 {
-                    foreach (var direction in G.AllDirection.Where(c=>c!= Direction.Block))
+                    foreach (var direction in G.AllDirection.Where(c => c != Direction.Block))
                     {
                         var blockUnSetCell = allunsetcell.Where(c => c.Block == blockindex).ToList();
                         var directionIndex = blockUnSetCell.Where(c => c.RestList.Contains(value))
@@ -37,23 +42,35 @@ namespace Sudoku.Tools
                             foreach (var cell in checks)
                             {
                                 var cellrest = cell.RestList;
-                                if (cellrest.Contains(value) && cellrest.Count(c => c != value) == 1)
+                                if (cellrest.Contains(value))
                                 {
+                                    var cell1 = new NegativeCell(cell.Index, value)
+                                    { Sudoku = qSudoku };
+                                    cell1.SolveMessages = new List<SolveMessage> {
+                                       blockindex.BlockDesc(), "只有" +G.GetEnumDescription(direction) +(index + 1) +   "可以填入" + value + "\r\n",
+                                        "所以", cell.Location, "不能填入" + value + "\r\n" };
 
-                                    cells.Add(new PositiveCell(cell.Index, cellrest.First(c => c != value)));
+                                    cells.Add(cell1);
                                 }
                             }
 
-                            var otherBlocks = checks.Select(c => c.Block).Distinct().ToList();
+                            var otherBlocks = checks.Select(c => c.Block).Distinct().ToList();// 该行/列其他宫
                             foreach (var block in otherBlocks)
                             {
-                                var otherCell = allunsetcell.Where(c => c.Block == block && !G.GetFilter(c, direction, index));
-                                var containsCell = otherCell.Where(c => c.RestList.Contains(value)).ToList();
-                                if (containsCell.Count() == 1)
+                                var otherCell = allunsetcell.Where(c => c.Block == block && G.GetFilter(c, direction, index)&&c.RestList.Contains(value)).ToList();
+                                var indexs = otherCell.Select(c => c.Index).ToList();
+                                var cell1 = new NegativeIndexsGroup(indexs, value)
+                                { Sudoku = qSudoku };
+                                cell1.SolveMessages = new List<SolveMessage> {
+                                         blockindex.BlockDesc(),  "只有" +G.GetEnumDescription(direction) +(index + 1) + "可以填入" + value + "\r\n",
+                                        "所以", };
+                                foreach (var item in indexs)
                                 {
-
-                                    cells.Add(new PositiveCell(containsCell.First().Index, value));
+                                    cell1.SolveMessages.AddRange(new List<SolveMessage> { item.LoctionDesc(), " " });
                                 }
+                                cell1.SolveMessages.Add("不能填入" + value + "\r\n");
+                                cells.Add(cell1);
+
 
                             }
 
@@ -70,14 +87,9 @@ namespace Sudoku.Tools
             return cells;
         }
 
-  
-
-        public override List<CellInfo> Elimination(QSudoku qSudoku)
+        public override string GetDesc()
         {
-            List<CellInfo> cells = new List<CellInfo>();
-            return cells;
+            throw new System.NotImplementedException();
         }
-
-
     }
 }

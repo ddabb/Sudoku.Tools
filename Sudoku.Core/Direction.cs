@@ -7,11 +7,11 @@ namespace Sudoku.Core
 {
     public enum Direction
     {
-        [Description("行")]
+        [Description("R")]
         Row,
-        [Description("列")]
+        [Description("C")]
         Column,
-        [Description("宫")]
+        [Description("B")]
         Block
     }
 }

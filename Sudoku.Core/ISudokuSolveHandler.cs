@@ -26,5 +26,7 @@ namespace Sudoku.Core
 
         MethodClassify methodClassify { get; }
 
+
+        public string GetDesc();
     }
 }

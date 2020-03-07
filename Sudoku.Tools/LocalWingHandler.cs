@@ -101,6 +101,11 @@ namespace Sudoku.Tools
             return cells;
         }
 
+        public override string GetDesc()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public override SolveMethodEnum methodType { get; }
         public override MethodClassify methodClassify { get; }
     }

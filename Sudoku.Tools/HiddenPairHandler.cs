@@ -68,7 +68,7 @@ namespace Sudoku.Tools
                                 var cell = new NegativeCell(index, value) {Sudoku = qSudoku};
                                 cell.SolveMessages = new List<SolveMessage>
                                 {
-                                 value1,value2,"只能填写在",   index1.LoctionDesc(),"和",index2.LoctionDesc(),"",index.LoctionDesc(),"不能填入",value
+                                 value1,value2,"只能填写在",   index1.LoctionDesc(),"和",index2.LoctionDesc(),"\r\n",index.LoctionDesc(),"不能填入",value
 
                                 };
                                 cells.Add(cell);
@@ -85,6 +85,11 @@ namespace Sudoku.Tools
 
 
             return cells;
+        }
+
+        public override string GetDesc()
+        {
+            return "";
         }
     }
 }

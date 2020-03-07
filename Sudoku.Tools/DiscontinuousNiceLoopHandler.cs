@@ -11,7 +11,7 @@ namespace Sudoku.Tools
     {
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
-            throw new NotImplementedException();
+            return new List<CellInfo>();
         }
 
         public override SolveMethodEnum methodType => SolveMethodEnum.DiscontinuousNiceLoop;
@@ -104,6 +104,11 @@ namespace Sudoku.Tools
                 }
                 loop(nextCell, ref nacells, ref relatedIndex, ref otherValues);
             }
+        }
+
+        public override string GetDesc()
+        {
+            return "";
         }
     }
 }

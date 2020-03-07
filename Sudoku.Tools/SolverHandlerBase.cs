@@ -19,6 +19,8 @@ namespace Sudoku.Tools
         public abstract SolveMethodEnum methodType { get; }
         public abstract MethodClassify methodClassify { get; }
 
+        public abstract string GetDesc();
+
         /// <summary>
         /// 出数
         /// </summary>
@@ -57,10 +59,14 @@ namespace Sudoku.Tools
                 {
                     foreach (var postiveCell in cellInfo.NextCells)
                     {
-                        var parentMessage = cellInfo.SolveMessages.ToList();
-                        parentMessage.AddRange(new List<SolveMessage> { "所以", postiveCell.Location,"是",postiveCell.Value});
-                        postiveCell.SolveMessages = parentMessage;
-                        cells.Add(postiveCell);
+                        if (!cells.Exists(c=>c.Value==postiveCell.Value&&c.Index==postiveCell.Index))
+                        {
+                            var parentMessage = cellInfo.SolveMessages.ToList();
+                            parentMessage.AddRange(new List<SolveMessage> { "所以", postiveCell.Location, "是", postiveCell.Value });
+                            postiveCell.SolveMessages = parentMessage;
+                            cells.Add(postiveCell);
+                        }
+                        
                     }
                 }
       

@@ -114,5 +114,10 @@ namespace Sudoku.Tools
             }
             return cells;
         }
+
+        public override string GetDesc()
+        {
+            return "";
+        }
     }
 }

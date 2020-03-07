@@ -64,5 +64,10 @@ namespace Sudoku.Tools
         {
             return AssignmentCellByEliminationCell(qSudoku);
         }
+
+        public override string GetDesc()
+        {
+            return "";
+        }
     }
 }
