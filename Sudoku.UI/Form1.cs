@@ -24,8 +24,8 @@ namespace Sudoku.UI
             this.ShowInTaskbar = true;
             this.ctlSudoku.ShowCandidates = true;
 
-            var c = getQSudoku(typeof(LocalWingHandler));
-            //var c = new QSudoku();
+            //var c = getQSudoku(typeof(LocalWingHandler));
+            var c = new QSudoku("281300700040000000000200090000405600005060130000810904007600001000004500130000200");
             //c.RemoveCells(new List<CellInfo> {new NegativeCell(59, 4), new NegativeCell(77, 4) });
             this.ctlSudoku.Sudoku = c;
             this.ctlSudoku.RefreshSudokuPanel();

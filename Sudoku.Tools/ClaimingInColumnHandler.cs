@@ -48,6 +48,7 @@ namespace Sudoku.Tools
                             if (list1.Count() == 1)
                             {
                                 var result = list1.First();
+
                                 result.Value = value;
                                 cells.Add(result);
                             }

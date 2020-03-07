@@ -36,6 +36,11 @@ namespace Sudoku.UI
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.versionText = new System.Windows.Forms.Label();
             this.authorText = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -94,12 +99,60 @@ namespace Sudoku.UI
             this.authorText.Name = "authorText";
             this.authorText.Size = new System.Drawing.Size(227, 23);
             this.authorText.TabIndex = 5;
+            this.authorText.Text = "十六";
+            // 
+            // textBox1
+            // 
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox1.Enabled = false;
+            this.textBox1.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBox1.Location = new System.Drawing.Point(95, 179);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(530, 84);
+            this.textBox1.TabIndex = 6;
+            this.textBox1.Text = "该软件开始于2020年1月1日，UI界面于新冠肺炎疫情期间逐渐丰富。我妈妈是该软件的第一个测试人员，字体大小或颜色设置偏老年人系列。希望大家多多理解，多谢支持！\r" +
+    "\n";
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(95, 24);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(35, 12);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "0.0.1";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(24, 179);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(65, 12);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "软件说明：";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::Sudoku.UI.Resource.赞赏码;
+            this.pictureBox1.Location = new System.Drawing.Point(95, 269);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(327, 240);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 9;
+            this.pictureBox1.TabStop = false;
             // 
             // AboutForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(341, 182);
+            this.ClientSize = new System.Drawing.Size(654, 543);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.versionText);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.authorText);
@@ -108,6 +161,7 @@ namespace Sudoku.UI
             this.Controls.Add(this.label1);
             this.Name = "AboutForm";
             this.Text = "关于超级数独";
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -121,5 +175,9 @@ namespace Sudoku.UI
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.Label versionText;
         private Label authorText;
+        private TextBox textBox1;
+        private Label label4;
+        private Label label5;
+        private PictureBox pictureBox1;
     }
 }

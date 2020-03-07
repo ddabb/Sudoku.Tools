@@ -37,6 +37,9 @@
     <WarningLevel>4</WarningLevel>
     <DisableOutOfProcTaskHost>true</DisableOutOfProcTaskHost>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>sudoku.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autofac, Version=5.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.5.0.0\lib\net461\Autofac.dll</HintPath>
@@ -142,6 +145,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\sudoku.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\赞赏码.jpg" />
+    <Content Include="sudoku.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
