@@ -15,65 +15,57 @@ namespace Sudoku.Tools
 
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
+            return AssignmentCellByEliminationCell(qSudoku);
+        }
+
+        public override List<CellInfo> Elimination(QSudoku qSudoku)
+        {
             List<CellInfo> cells = new List<CellInfo>();
             var AllunsetCells = qSudoku.AllUnSetCells;
+
             foreach (var index in G.baseIndexs)
             {
                 foreach (var value in G.AllBaseValues)
                 {
-                    var cellList = AllunsetCells.Where(c => c.Column == index && c.RestList.Contains(value)).ToList();
-                    var blocks = cellList.Select(c => c.Block).Distinct().ToList();
-                    if (cellList.Count > 1 && blocks.Count() == 1) //若cellList.Count==1 则是唯余法。
+                    var blockinfo = AllunsetCells.Where(c => c.Column == index && c.RestList.Contains(value)).ToList();
+                    var blocks = blockinfo.Select(c => c.Block).Distinct();
+                    if (blockinfo.Count > 1 && blocks.Count() == 1) //若blockinfo.Count==1 则是唯余法。
                     {
                         var block = blocks.First();
-                        var existsRows = cellList.Select(c => c.Row).Distinct().ToList();
+                        var ExistsRows = blockinfo.Select(c => c.Row).Distinct();
                         #region 同宫不同列
-                        var negativeCells = AllunsetCells.Where(c => c.Block == block && c.Column != index).ToList();
+                        var negativeCells = AllunsetCells.Where(c => c.Block == block && c.Column != index && c.RestList.Contains(value)).ToList();
                         foreach (var item1 in negativeCells)
                         {
-                            var cellrest = item1.RestList;
-                            if (cellrest.Count == 2 && cellrest.Contains(value))
-                            {
-                                item1.Value = cellrest.First(c => c != value);
-                                cells.Add(item1);
-                            }
+                            cells.Add(new NegativeCell(item1.Index, value) { Sudoku = qSudoku });
+
                         }
                         #endregion
 
                         #region 第三行
-                        var checkRow = AllunsetCells.Where(c => c.Block == block && !existsRows.Contains(c.Row)).Select(c => c.Row).ToList();
-                        foreach (var row in checkRow)
+                        var checkrow = AllunsetCells.Where(c => c.Block == block && !ExistsRows.Contains(c.Row)).Select(c => c.Row).ToList();
+                        foreach (var row in checkrow)
                         {
-                            var list1 = AllunsetCells.Where(c => c.Block != block && c.Row == row && c.RestList.Contains(value)).ToList();
-                            if (list1.Count() == 1)
-                            {
-                                var result = list1.First();
+                            var list1 = AllunsetCells.Where(c => c.Block == block && c.Row == row && c.RestList.Contains(value)).Select(c => c.Index).ToList();
 
-                                result.Value = value;
-                                cells.Add(result);
-                            }
+                            cells.Add(new NegativeIndexsGroup(list1, value) { Sudoku = qSudoku });
                         }
                         #endregion
 
-                        var otherColumns = negativeCells.Select(c => c.Column).Distinct().ToList();
-                        foreach (var result in from column in otherColumns select AllunsetCells.Where(c => c.Block != block && c.Column == column && c.RestList.Contains(value)).ToList() into list1 where list1.Count() == 1 select list1.First())
+                        #region 其余列
+                        var otherColumn = negativeCells.Select(c => c.Column).Distinct().ToList();
+             
+                        foreach (var column in otherColumn)
                         {
-                            result.Value = value;
-                            cells.Add(result);
+                            var list1 = AllunsetCells.Where(c => c.Block == block && c.Column == column && c.RestList.Contains(value)).Select(c => c.Index).ToList();
+                            cells.Add(new NegativeIndexsGroup(list1, value) { Sudoku = qSudoku });
                         }
-
-
-
+                        #endregion
                     }
                 }
 
             }
             return cells;
-        }
-
-        public override List<CellInfo> Elimination(QSudoku qSudoku)
-        {
-            throw new NotImplementedException();
         }
     }
 }
