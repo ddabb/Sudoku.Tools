@@ -20,6 +20,17 @@ namespace Sudoku.UI
             InitializeComponent();
             this.Icon = Sudoku.UI.Resource.sudoku;
 
+
+            //指定窗口初始化时的位置（计算机屏幕中间）
+            this.StartPosition = FormStartPosition.CenterScreen;
+
+
+            //指定窗口初始化时的位置,如果为Manual，位置由Location决定(计算机屏幕中间，如果不/2，则计算机右下角)
+            this.StartPosition = FormStartPosition.Manual;
+            this.Location = new Point((Screen.PrimaryScreen.WorkingArea.Width - this.Width) / 2, (Screen.PrimaryScreen.WorkingArea.Height - this.Height) / 2);
+
+
+
             this.HintTree.Nodes.Add(new TreeNode("提示列表"));
             this.ShowInTaskbar = true;
             this.ctlSudoku.ShowCandidates = true;
@@ -52,7 +63,7 @@ namespace Sudoku.UI
             {
                 foreach (var handerEnum in handlerEnums)
                 {
-                    var eliminationHanders = SolveHandlers.First(c => handerEnum==(c.methodType));
+                    var eliminationHanders = FrmG.SolveHandlers.First(c => handerEnum==(c.methodType));
                     var removeCells = eliminationHanders.Elimination(qsudoku);
                     qsudoku.RemoveCells(removeCells);
                 }
@@ -60,19 +71,7 @@ namespace Sudoku.UI
             return qsudoku;
         }
 
-        public static List<ISudokuSolveHandler> SolveHandlers
-        {
-            get
-            {
-                Assembly[] assemblies = new Assembly[] { typeof(SolverHandlerBase).Assembly };
-                var builder = new ContainerBuilder();
-                builder.RegisterAssemblyTypes(assemblies).AsImplementedInterfaces();
 
-                IContainer container = builder.Build();
-                List<ISudokuSolveHandler> solveHandlers = container.Resolve<IEnumerable<ISudokuSolveHandler>>().ToList();
-                return solveHandlers;
-            }
-        }
 
 
 

@@ -100,8 +100,8 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.Icon = global::Sudoku.UI.Resource.sudoku;
             this.Name = "FrmExample";
-            this.Icon = Sudoku.UI.Resource.sudoku;
             this.Text = "技巧示例";
             this.ResumeLayout(false);
             this.PerformLayout();
