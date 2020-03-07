@@ -1,13 +1,12 @@
-﻿using System;
+﻿using Sudoku.Core;
+using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Linq;
 using System.Diagnostics;
-using Sudoku.Core;
+using System.Linq;
 
 namespace Sudoku.Tools
 {
-    [AssignmentExample(8,"R1C9","400090700007810400080060050800130007000070000170028005068051024513249876042080501")]//已调整
+    [AssignmentExample(8, "R1C9", "400090700007810400080060050800130007000070000170028005068051024513249876042080501")]//已调整
     public class HiddenPairHandler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.HiddenPair;
@@ -55,20 +54,28 @@ namespace Sudoku.Tools
                             indexs1.AddRange(item1.indexs);
                             values.Add(item1.SpeacialValue);
                         }
-                        indexs1= indexs1.Distinct().ToList();
+                        indexs1 = indexs1.Distinct().ToList();
                         var index1 = indexs1[0];
                         var index2 = indexs1[1];
                         var value1 = values[0];
                         var value2 = values[1];
+                        var d = pairIndexs.First().direction;
+                        var dirIndex = pairIndexs.First().directionIndex;
 
                         foreach (var index in indexs1)
                         {
                             foreach (var value in qSudoku.GetRest(index).Except(values).ToList())
                             {
-                                var cell = new NegativeCell(index, value) {Sudoku = qSudoku};
+                                var cell = new NegativeCell(index, value) { Sudoku = qSudoku };
                                 cell.SolveMessages = new List<SolveMessage>
                                 {
-                                 value1,value2,"只能填写在",   index1.LoctionDesc(),"和",index2.LoctionDesc(),"\r\n",index.LoctionDesc(),"不能填入",value
+                                    "在", GetSolveMessage(d, dirIndex),"中",
+                                    value1+"和"+value2+"只能填写在",
+                                    index1.LoctionDesc(),
+                                    "和",index2.LoctionDesc(),
+                                    "两个单元格内","\r\n",
+                                    index.LoctionDesc(),
+                                    "不能填入"+value+"\r\n"
 
                                 };
                                 cells.Add(cell);
@@ -77,7 +84,7 @@ namespace Sudoku.Tools
 
                         }
 
-                   
+
                     }
                 }
                 Debug.WriteLine("");
@@ -87,9 +94,11 @@ namespace Sudoku.Tools
             return cells;
         }
 
+
+
         public override string GetDesc()
         {
-            return "";
+            return @"若在某行/列/宫中，候选者a,b只在单元格A,B中出现,则A,B只能填入a,b,可以删除A,B单元格中a,b以外的候选数。";
         }
     }
 }

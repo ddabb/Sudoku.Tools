@@ -113,7 +113,8 @@ namespace Sudoku.Tools
 
         public override string GetDesc()
         {
-            return "";
+
+            return @"若在某行/列/宫中，候选者a,b,c,d只在单元格A,B,C,D中出现,则A,B,C,D只能填入a,b,c,d;可以删除A,B,C,D单元格中a,b,c,d以外的候选数。";
         }
     }
 }

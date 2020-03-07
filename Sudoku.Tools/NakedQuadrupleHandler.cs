@@ -78,7 +78,7 @@ namespace Sudoku.Tools
 
         public override string GetDesc()
         {
-            return "";
+            return @"在某个行/列/宫内,若四个单元格只能填入a、b、c、d四个数,则该行/列/宫的其余单元格不能填入a、b、c、d。";
         }
     }
 }

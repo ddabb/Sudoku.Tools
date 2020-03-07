@@ -393,7 +393,12 @@ namespace Sudoku.Tools
         {
             return index.Split(',').Select(c => Convert.ToInt32(c)).ToList();
         }
-                                   
+
+        public SolveMessage GetSolveMessage(Direction d, int dirIndex)
+        {
+            return new SolveMessage(G.GetEnumDescription(d) + (dirIndex + 1), MessageType.Location);
+        }
+
     }
 
 

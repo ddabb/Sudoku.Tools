@@ -70,7 +70,7 @@ namespace Sudoku.Tools
 
         public override string GetDesc()
         {
-            throw new System.NotImplementedException();
+            return @"在某个行/列/宫内,若两个单元格都只能填入a或者b,则该行/列/宫的其余单元格不能填入a或者b。";
         }
     }
 }

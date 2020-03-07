@@ -21,7 +21,7 @@ namespace SudoKu.Test
             var unsloveList = new List<string>();
             foreach (var c in queryString)
             {
-                Debug.WriteLine("c"+ c);
+                Debug.WriteLine("c" + c);
                 if (StaticTools.SolveSudoku(new QSudoku(c)))
                 {
                     count += 1;
@@ -32,9 +32,24 @@ namespace SudoKu.Test
                 }
             }
             Debug.WriteLine("count" + count);
-            Debug.WriteLine(string.Join(",",unsloveList.Select(c=>"\""+c+"\"\r\n")));
-            Assert.AreEqual(true, count== queryString.Count);
+            Debug.WriteLine(string.Join(",", unsloveList.Select(c => "\"" + c + "\"\r\n")));
+            Assert.AreEqual(true, count == queryString.Count);
         }
+
+        [TestMethod]
+        public void TestAllHasDesc()
+        {
+            var descList = TestG.SolveHandlers.Where(c => string.IsNullOrEmpty(c.GetDesc())).ToList();
+            if (descList.Count()!=0)
+            {
+                Debug.Write(descList.First().GetType());
+
+            }
+
+            Assert.AreEqual(true, descList.Count()==0);
+
+        }
+
 
     }
 }
