@@ -1,8 +1,5 @@
 ﻿using Sudoku.Core;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
 using System.Linq;
 
 namespace Sudoku.Tools
@@ -36,14 +33,16 @@ namespace Sudoku.Tools
                             .Where(c => c.Count() == 2);
                         foreach (var sub in temp)
                         {
-                            var removeCells = subcells.Where(c => c.RestString != sub.Key);
+                            var removeCells = subcells.Where(c => c.RestString != sub.Key).ToList();
                             var removeValues = ConvertToInts(sub.Key);
                             foreach (var cell in removeCells)
                             {
                                 var rests = cell.RestList;
                                 if (rests.Intersect(removeValues).Count() == removeValues.Count)
                                 {
-                                    cells.Add(new NegativeValuesGroup(cell.Index, removeValues) { Sudoku = qSudoku });
+                                    var cell1 = new NegativeValuesGroup(cell.Index, removeValues) { Sudoku = qSudoku };
+                                    cell1.SolveMessages = new List<SolveMessage> { removeCells[0].Location, "和", removeCells[1].Location, "只能填入" + removeValues.JoinString(),"\r\n", cell.Location, "不能填入" + removeValues.JoinString(), "\r\n" };
+                                    cells.Add(cell1);
                                 }
                                 else
                                 {
@@ -51,7 +50,9 @@ namespace Sudoku.Tools
                                     {
                                         if (rests.Contains(removeValue))
                                         {
-                                            cells.Add(new NegativeCell(cell.Index, removeValue) { Sudoku = qSudoku });
+                                            var cell1 = new NegativeCell(cell.Index, removeValue) { Sudoku = qSudoku };
+                                            cell1.SolveMessages = new List<SolveMessage> { removeCells[0].Location, "和", removeCells[1].Location, "只能填入" + removeValues.JoinString(), "\r\n", cell.Location, "不能填入" + removeValue, "\r\n" };
+                                            cells.Add(cell1);
                                         }
                                     }
                                 }

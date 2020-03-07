@@ -58,12 +58,19 @@ namespace Sudoku.Tools
                         indexs1= indexs1.Distinct().ToList();
                         var index1 = indexs1[0];
                         var index2 = indexs1[1];
+                        var value1 = values[0];
+                        var value2 = values[1];
 
                         foreach (var index in indexs1)
                         {
-                            foreach (var value1 in qSudoku.GetRest(index).Except(values).ToList())
+                            foreach (var value in qSudoku.GetRest(index).Except(values).ToList())
                             {
-                                var cell = new NegativeCell(index, value1) {Sudoku = qSudoku};
+                                var cell = new NegativeCell(index, value) {Sudoku = qSudoku};
+                                cell.SolveMessages = new List<SolveMessage>
+                                {
+                                 value1,value2,"只能填写在",   index1.LoctionDesc(),"和",index2.LoctionDesc(),"",index.LoctionDesc(),"不能填入",value
+
+                                };
                                 cells.Add(cell);
                             }
 
