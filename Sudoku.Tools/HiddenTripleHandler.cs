@@ -41,9 +41,7 @@ namespace Sudoku.Tools
                             var keyCell = (from a in restValues
                                            join b in restValues on 1 equals 1
                                            join c in restValues on 1 equals 1
-                                           let kvs = indexRest.Where(kv => kv.Value.Contains(a)
-                                                                || kv.Value.Contains(b)
-                                                                || kv.Value.Contains(c)).ToList()
+                                           let kvs = checkCells.Where(cell => cell.RestList.Contains(a) || cell.RestList.Contains(b) || cell.RestList.Contains(c)).ToList()
                                            let values = new List<int> { a, b, c }
                                            where a < b && b < c
                                            && kvs.Count() == 3
@@ -56,7 +54,7 @@ namespace Sudoku.Tools
                                 var values = item.values;
                                 values.Sort();
                                 var kvs = item.kvs;
-                                var groupCells = kvs.Select(c => c.Key).ToList();
+                                var groupCells = kvs;
                                 var cell1 = groupCells[0];
                                 var cell2 = groupCells[1];
                                 var cell3 = groupCells[2];
@@ -65,9 +63,9 @@ namespace Sudoku.Tools
 
                                 foreach (var kv in kvs)
                                 {
-                                    var cell = kv.Key;
-                                    allValues.AddRange(kv.Value);
-                                    foreach (var rest in kv.Value)
+                                    var cell = kv;
+                                    allValues.AddRange(kv.RestList);
+                                    foreach (var rest in kv.RestList)
                                     {
                                         if (!values.Contains(rest))
                                         {
@@ -77,7 +75,7 @@ namespace Sudoku.Tools
                                                 "在",GetDirectionMessage(direction,index),"中",values.JoinString()+"只出现在",cell1.Location,",",cell2.Location,",",cell3.Location,"之中\r\n所以",
                                                 cell.Location,"不能填入"+rest+"\r\n"
                                             };
-                                            var drawCells = GetDrawCell(groupCells, values);
+                                            var drawCells = GetDrawPostiveCell(groupCells, values);
                                             drawCells.Add(negativeCell);
                                             negativeCell.drawCells = drawCells;
                                             cells.Add(negativeCell);
@@ -99,13 +97,16 @@ namespace Sudoku.Tools
                                                 "在",GetDirectionMessage(direction,index),"中",values.JoinString()+"只出现在",cell1.Location,",",cell2.Location,",",cell3.Location,"之中\r\n所以",
 
                                             };
-                                        foreach (var index1 in indexs)
+                                        for (int i = 0; i < indexs.Count; i++)
                                         {
-                                            negativeCell.SolveMessages.Add(index1.LoctionDesc());
+                                            negativeCell.SolveMessages.Add(indexs[i].LoctionDesc());
+                                            if (i < indexs.Count - 1)
+                                            {
+                                                negativeCell.SolveMessages.Add("、");
+                                            }
                                         }
-
                                         negativeCell.SolveMessages.Add("不能填入" + other + "\r\n");
-                                        var drawCells = GetDrawCell(groupCells, values);
+                                        var drawCells = GetDrawPostiveCell(groupCells, values);
                                         negativeCell.drawCells = drawCells;
                                         cells.Add(negativeCell);
 

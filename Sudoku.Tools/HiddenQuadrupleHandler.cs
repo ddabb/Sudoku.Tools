@@ -1,20 +1,22 @@
 ﻿using Sudoku.Core;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
 
 namespace Sudoku.Tools
 {
-    [AssignmentExample(8, "R9C4","900164080070983215813200964080020000500001070001000042040716000000000000007092000")] //已调整
-    public class HiddenQuadrupleHandler :SolverHandlerBase
+    [AssignmentExample(8, "R9C4", "900164080070983215813200964080020000500001070001000042040716000000000000007092000")] //已调整
+    public class HiddenQuadrupleHandler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.HiddenQuadruple;
 
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
 
         public override List<CellInfo> Assignment(QSudoku qSudoku)
+        {
+            return AssignmentCellByEliminationCell(qSudoku);
+        }
+
+        public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
             foreach (var direction in G.AllDirection)
@@ -26,89 +28,104 @@ namespace Sudoku.Tools
 
                     if (checkCells.Count > 4)
                     {
+                        Dictionary<CellInfo, List<int>> indexRest = new Dictionary<CellInfo, List<int>>();
                         var allRests = new List<int>();
                         foreach (var cell in checkCells)
                         {
+                            indexRest.Add(cell, cell.RestList);
                             allRests.AddRange(cell.RestList);
-
                         }
-
                         var restValues = allRests.Distinct().ToList();
                         if (restValues.Count > 4)
                         {
-                            var values = (from a in restValues
-                                join b in restValues on 1 equals 1
-                                join c in restValues on 1 equals 1
-                                join d in restValues on 1 equals 1
-                                where new List<int> {a, b, c, d}.Select(c => c).Distinct().Count() == 4 && a < b &&
-                                      b < c && c < d
-                                select new List<int> {a, b, c, d}).ToList();
-                            foreach (var eachQuadruple in values)
+                            var keyCell = (from a in restValues
+                                           join b in restValues on 1 equals 1
+                                           join c in restValues on 1 equals 1
+                                           join d in restValues on 1 equals 1
+                                           let kvs = checkCells.Where(cell => cell.RestList.Contains(a) || cell.RestList.Contains(b) || cell.RestList.Contains(c) || cell.RestList.Contains(d)).ToList()
+                                           let values = new List<int> { a, b, c, d }
+                                           where a < b && b < c && c < d
+                                           && kvs.Count() == 4
+                                           select new { a, b, c, kvs, values }).ToList();
+                            foreach (var item in keyCell)
                             {
-                                Dictionary<int, List<int>> a = new Dictionary<int, List<int>>();
-                                foreach (var value in eachQuadruple)
+                                var value1 = item.a;
+                                var value2 = item.b;
+                                var value3 = item.c;
+                                var values = item.values;
+                                values.Sort();
+                                var kvs = item.kvs;
+                                var groupCells = kvs;
+                                var cell1 = groupCells[0];
+                                var cell2 = groupCells[1];
+                                var cell3 = groupCells[2];
+                                var cell4 = groupCells[3];
+                                var drawCell = new List<CellInfo>();
+                                var allValues = new List<int>();
+
+                                foreach (var kv in kvs)
                                 {
-                                    a.Add(value, qSudoku.GetPossibleIndex(value, checkCells));
-                                }
-
-                                var allindexs = new List<int>();
-                                foreach (var kv in a)
-                                {
-                                    allindexs.AddRange(kv.Value);
-                                }
-
-                                var exceptIndexs = allindexs.Distinct().ToList();
-                                if (exceptIndexs.Count() == 4)
-                                {
-
-                                    var rows = exceptIndexs.Select(c => new PositiveCell(c, 0)).Select(c => c.Row)
-                                        .Distinct().ToList();
-                                    var blocks = exceptIndexs.Select(c => new PositiveCell(c, 0))
-                                        .Select(c => c.Block).Distinct().ToList();
-                                    var columns = exceptIndexs.Select(c => new PositiveCell(c, 0))
-                                        .Select(c => c.Column).Distinct().ToList();
-
-                                    var checkValues = G.AllBaseValues.Except(eachQuadruple).ToList();
-                                    foreach (var checkValue in checkValues)
+                                    var cell = kv;
+                                    allValues.AddRange(kv.RestList);
+                                    foreach (var rest in kv.RestList)
                                     {
-                                        if (checkValue==8)
+                                        if (!values.Contains(rest))
                                         {
-                                            
+                                            var negativeCell = new NegativeCell(cell.Index, rest) { Sudoku = qSudoku };
+                                            negativeCell.SolveMessages = new List<SolveMessage>
+                                            {
+                                                "在",GetDirectionMessage(direction,index),"中",values.JoinString()+"只出现在",cell1.Location,",",cell2.Location,",",cell3.Location,",",cell4.Location,"之中\r\n所以",
+                                                cell.Location,"不能填入"+rest+"\r\n"
+                                            };
+                                            var drawCells = GetDrawPostiveCell(groupCells, values);
+                                            drawCells.Add(negativeCell);
+                                            negativeCell.drawCells = drawCells;
+                                            cells.Add(negativeCell);
                                         }
-                                        cells.AddRange((from row in rows
-                                            select qSudoku.GetPossibleIndex(checkValue,
-                                                c => c.Value == 0 && c.Row == row && !exceptIndexs.Contains(c.Index))
-                                            into count
-                                            where count.Count == 1
-                                            select new PositiveCell(count.First(), checkValue)).Cast<CellInfo>());
-                                        cells.AddRange((from column in columns
-                                            select qSudoku.GetPossibleIndex(checkValue,
-                                                c => c.Value == 0 && c.Column == column &&
-                                                     !exceptIndexs.Contains(c.Index))
-                                            into count
-                                            where count.Count == 1
-                                            select new PositiveCell(count.First(), checkValue)).Cast<CellInfo>());
-                                        cells.AddRange((from block in blocks
-                                            select qSudoku.GetPossibleIndex(checkValue,
-                                                c => c.Value == 0 && c.Block == block &&
-                                                     !exceptIndexs.Contains(c.Index))
-                                            into count
-                                            where count.Count == 1
-                                            select new PositiveCell(count.First(), checkValue)).Cast<CellInfo>());
+
                                     }
+
                                 }
+                                var otherValues = allValues.Where(c => !values.Contains(c)).Distinct().ToList();
+                                foreach (var other in otherValues)
+                                {
+                                    var filter = groupCells.Where(c => c.RestList.Contains(other)).ToList();
+                                    if (filter.Count > 1)
+                                    {
+                                        var indexs = filter.Select(c => c.Index).ToList();
+                                        var negativeCell = new NegativeIndexsGroup(indexs, other) { Sudoku = qSudoku };
+                                        negativeCell.SolveMessages = new List<SolveMessage>
+                                            {
+                                                "在",GetDirectionMessage(direction,index),"中",values.JoinString()+"只出现在",cell1.Location,",",cell2.Location,",",cell3.Location,",",cell4.Location,"之中\r\n所以",
+
+                                            };
+
+                                        for (int i = 0; i < indexs.Count; i++)
+                                        {
+                                            negativeCell.SolveMessages.Add(indexs[i].LoctionDesc());
+                                            if (i < indexs.Count - 1)
+                                            {
+                                                negativeCell.SolveMessages.Add("、");
+                                            }
+                                        }
+                                        negativeCell.SolveMessages.Add("不能填入" + other + "\r\n");
+                                        var drawCells = GetDrawPostiveCell(groupCells, values);
+                                        negativeCell.drawCells = drawCells;
+                                        cells.Add(negativeCell);
+
+                                    }
+
+                                }
+
+
+
                             }
+
                         }
                     }
                 }
             }
-
             return cells;
-        }
-
-        public override List<CellInfo> Elimination(QSudoku qSudoku)
-        {
-            return new List<CellInfo>();
         }
 
         public override string GetDesc()

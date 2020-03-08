@@ -364,8 +364,13 @@ namespace Sudoku.Tools
             return new DanceLink().isValid(queryString);
         }
 
-
-        public List<CellInfo> GetDrawCell(List<CellInfo> cellList, List<int> values)
+        /// <summary>
+        /// 将必定范围画绿，否则标红
+        /// </summary>
+        /// <param name="cellList"></param>
+        /// <param name="values"></param>
+        /// <returns></returns>
+        public List<CellInfo> GetDrawPostiveCell(List<CellInfo> cellList, List<int> values)
         {
             List<CellInfo> cells = new List<CellInfo>();
             foreach (var item in cellList)
@@ -377,6 +382,30 @@ namespace Sudoku.Tools
                         cells.Add(new PositiveCell(item.Index, rest));
                     }
                     else
+                    {
+                        cells.Add(new NegativeCell(item.Index, rest));
+                    }
+                }
+
+            }
+
+            return cells;
+        }
+
+        /// <summary>
+        /// 将必定范围画红
+        /// </summary>
+        /// <param name="cellList"></param>
+        /// <param name="values"></param>
+        /// <returns></returns>
+        public List<CellInfo> GetDrawNegativeCell(List<CellInfo> cellList, List<int> values)
+        {
+            List<CellInfo> cells = new List<CellInfo>();
+            foreach (var item in cellList)
+            {
+                foreach (var rest in item.RestList)
+                {
+                    if (values.Contains(rest))
                     {
                         cells.Add(new NegativeCell(item.Index, rest));
                     }

@@ -19,7 +19,7 @@ namespace Sudoku.Console
             if (runtest)
             {
 
-                ConsoleAssignmentExample(typeof(HiddenTripleHandler));
+                ConsoleAssignmentExample(typeof(NakedTripleHandler));
                 //ConsoleEliminationExample(typeof(AlignedTripleExclusionHandler));
 
     

@@ -346,10 +346,11 @@ namespace Sudoku.UI
             this.button3.Text = "获取下一个线索";
             this.button3.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // btnApplyHint
             // 
+            this.btnApplyHint.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnApplyHint.Location = new System.Drawing.Point(1365, 53);
-            this.btnApplyHint.Name = "button4";
+            this.btnApplyHint.Name = "btnApplyHint";
             this.btnApplyHint.Size = new System.Drawing.Size(134, 30);
             this.btnApplyHint.TabIndex = 10;
             this.btnApplyHint.Text = "应用线索";

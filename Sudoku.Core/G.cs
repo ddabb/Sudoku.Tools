@@ -196,6 +196,18 @@ namespace Sudoku.Core
             return result;
         }
 
+        public static List<int> MergeCellRest(params CellInfo[] n)
+        {
+            List<int> result = new List<int>();
+            foreach (var item in n)
+            {
+                result.AddRange(item.RestList);
+            }
+
+            result = result.Distinct().ToList();
+            return result;
+        }
+
         public static List<int> MergeCellBlocks(params CellInfo[] n)
         {
             List<int> result = new List<int>();

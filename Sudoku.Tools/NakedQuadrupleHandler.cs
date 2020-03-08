@@ -14,9 +14,16 @@ namespace Sudoku.Tools
 
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
+
+            return AssignmentCellByEliminationCell(qSudoku);
+        }
+
+
+        public override List<CellInfo> Elimination(QSudoku qSudoku)
+        {
             List<CellInfo> cells = new List<CellInfo>();
             var allUnSetCell = qSudoku.AllUnSetCells;
-            List<int> possibleCount = new List<int> { 2, 3, 4 };
+            List<int> possibleCount = new List<int> { 2, 3,4 };
             //只有2或3个候选数的单元格
             var twoOrThreeRests = allUnSetCell.Where(c => possibleCount.Contains(c.RestCount)).ToList();
             foreach (var direction in G.AllDirection)
@@ -24,56 +31,63 @@ namespace Sudoku.Tools
                 foreach (var index in G.baseIndexs)
                 {
                     //待检查的单元格
-                    var checkCells = allUnSetCell.Where(G.GetDirectionCells(direction, index)).ToList();
-                    var abcd = (from a in checkCells
-                                join b in checkCells on 1 equals 1
-                                join c in checkCells on 1 equals 1
-                                join d in checkCells on 1 equals 1
-                                let abdcIndexs = G.MergeCellIndexs(a, b, c, d)
-                                let values = G.MergeInt(a.RestList, b.RestList, c.RestList, d.RestList)
-                                let aRestList = a.RestList
-                                let bRestList = b.RestList
-                                let cRestList = c.RestList
-                                let dRestList = d.RestList
-                                where a.Index < b.Index && b.Index < c.Index && c.Index < d.Index
-                              && values.Distinct().Count() == 4
-                                select new
-                                {
-                                    a,
-                                    b,
-                                    c,
-                                    d,
-                                    abdcIndexs,
-                                    values,
-                                }).ToList();
-                    foreach (var item in abcd)
+                    var checkCells = twoOrThreeRests.Where(G.GetDirectionCells(direction, index)).ToList();
+                    if (checkCells.Count() > 3)
                     {
-                        var exceptIndexs = item.abdcIndexs;
-                        var values = item.values;
-                        foreach (var cell in checkCells.Where(c => !exceptIndexs.Contains(c.Index)))
+                        var list = (from a in checkCells
+                                    join b in checkCells on 1 equals 1
+                                    join c in checkCells on 1 equals 1
+                                    join d in checkCells on 1 equals 1
+                                    let indexs = G.MergeCellIndexs(a, b, c,d)
+                                    let rests = G.MergeCellRest(a, b, c,d)
+                                    where indexs.Count() == 4
+                                       && rests.Count() == 4
+                                    select new { a, b, c,d, indexs, rests }).ToList();
+                        foreach (var item in list)
                         {
-
-                            if (cell.RestList.Count > 1)
+                            var a = item.a;
+                            var b = item.b;
+                            var c = item.c;
+                            var d = item.d;
+                            var rests = item.rests;
+                            var drawCells = GetDrawPostiveCell(new List<CellInfo> { a, b, c,d }, rests);
+                            var indexs = item.indexs;
+                            var filterCell = allUnSetCell.Where(G.GetDirectionCells(direction, index)).Where(c => !indexs.Contains(c.Index)).ToList();
+                            drawCells.AddRange(GetDrawNegativeCell(filterCell, rests));
+                            foreach (var cell in filterCell)
                             {
-                                var leftvalue = cell.RestList.Except(values);
-                                if (leftvalue.Count() == 1)
+                                var interactList = cell.RestList.Intersect(rests).ToList();
+                                if (interactList.Any())
                                 {
-                                    cells.Add(new PositiveCell(cell.Index, leftvalue.First()));
+                                    if (interactList.Count() == 1)
+                                    {
+                                        var removeValue = interactList.First();
+                                        var negativeCell = new NegativeCell(cell.Index, removeValue) { Sudoku = qSudoku };
+                                        negativeCell.drawCells = drawCells;
+                                        negativeCell.SolveMessages = new List<SolveMessage> { "在", GetDirectionMessage(direction, index), "中", a.Location, "、", b.Location, "、", c.Location, "、", d.Location, "只出现了" + rests.JoinString() + "三个数\r\n", negativeCell.Location, "不能为" + removeValue+"\r\n" };
+                                        cells.Add(negativeCell);
+                                    }
+                                    else
+                                    {
+                                        var removeValue = interactList;
+                                        var negativeCell = new NegativeValuesGroup(cell.Index, removeValue) { Sudoku = qSudoku };
+                                        negativeCell.drawCells = drawCells;
+                                        negativeCell.SolveMessages = new List<SolveMessage> { "在", GetDirectionMessage(direction, index), "中", a.Location, "、", b.Location, "、", c.Location, "、", d.Location, "只出现了" + rests.JoinString() + "三个数\r\n", negativeCell.Location, "不能为" + removeValue.JoinString() + "\r\n" };
+                                        cells.Add(negativeCell);
+                                    }
                                 }
+
+
                             }
+
                         }
+
+
                     }
                 }
 
             }
-
             return cells;
-        }
-
-
-        public override List<CellInfo> Elimination(QSudoku qSudoku)
-        {
-            return new List<CellInfo>();
         }
 
         public override string GetDesc()

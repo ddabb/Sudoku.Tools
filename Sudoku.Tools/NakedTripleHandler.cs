@@ -1,13 +1,11 @@
 ﻿using Sudoku.Core;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Sudoku.Tools
 {
-    [AssignmentExample(8,"R3C6","390000700000000650507000349049380506601054983853000400900800134002940865400000297")]
-    public class NakedTripleHandler :SolverHandlerBase
+    [AssignmentExample(8, "R3C6", "390000700000000650507000349049380506601054983853000400900800134002940865400000297")]
+    public class NakedTripleHandler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.NakedTriple;
 
@@ -15,11 +13,20 @@ namespace Sudoku.Tools
 
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
+            return AssignmentCellByEliminationCell(qSudoku);
+        }
+
+
+
+
+        public override List<CellInfo> Elimination(QSudoku qSudoku)
+        {
+
             List<CellInfo> cells = new List<CellInfo>();
             var allUnSetCell = qSudoku.AllUnSetCells;
-            List<int> possibleCount=new List<int>{2,3};
+            List<int> possibleCount = new List<int> { 2, 3 };
             //只有2或3个候选数的单元格
-            var twoOrThreeRests = allUnSetCell.Where(c=>possibleCount.Contains(c.RestCount)).ToList();
+            var twoOrThreeRests = allUnSetCell.Where(c => possibleCount.Contains(c.RestCount)).ToList();
             foreach (var direction in G.AllDirection)
             {
                 foreach (var index in G.baseIndexs)
@@ -31,74 +38,55 @@ namespace Sudoku.Tools
                         var list = (from a in checkCells
                                     join b in checkCells on 1 equals 1
                                     join c in checkCells on 1 equals 1
-                                    where new List<CellInfo> { a, b, c }.Select(c => c.Index).Distinct().Count() == 3
-                                    select new List<CellInfo> { a, b, c }).ToList();
+                                    let indexs = G.MergeCellIndexs(a, b, c)
+                                    let rests = G.MergeCellRest(a, b, c)
+                                    where indexs.Count() == 3
+                                       && rests.Count() == 3
+                                    select new { a, b, c, indexs, rests }).ToList();
                         foreach (var item in list)
                         {
-                            cells.AddRange(GetCells(qSudoku, item,
-                                direction, index));
+                            var a = item.a;
+                            var b = item.b;
+                            var c = item.c;
+                            var rests = item.rests;
+                            var drawCells = GetDrawPostiveCell(new List<CellInfo> { a, b, c }, rests);
+                            var indexs = item.indexs;
+                            var filterCell = allUnSetCell.Where(G.GetDirectionCells(direction, index)).Where(c => !indexs.Contains(c.Index)).ToList();
+                            drawCells.AddRange(GetDrawNegativeCell(filterCell, rests));
+                            foreach (var cell in filterCell)
+                            {
+                                var interactList = cell.RestList.Intersect(rests).ToList();
+                                if (interactList.Any())
+                                {
+                                    if (interactList.Count() == 1)
+                                    {
+                                        var removeValue = interactList.First();
+                                        var negativeCell = new NegativeCell(cell.Index, removeValue) { Sudoku = qSudoku };
+                                        negativeCell.drawCells = drawCells;
+                                        negativeCell.SolveMessages = new List<SolveMessage> { "在", GetDirectionMessage(direction, index), "中", a.Location, "、", b.Location, "、", c.Location, "只出现了" + rests.JoinString() + "三个数\r\n", negativeCell.Location, "不能为" + removeValue };
+                                        cells.Add(negativeCell);
+                                    }
+                                    else
+                                    {
+                                        var removeValue = interactList;
+                                        var negativeCell = new NegativeValuesGroup(cell.Index, removeValue) { Sudoku = qSudoku };
+                                        negativeCell.drawCells = drawCells;
+                                        negativeCell.SolveMessages = new List<SolveMessage> { "在", GetDirectionMessage(direction, index), "中", a.Location, "、", b.Location, "、", c.Location, "只出现了" + rests.JoinString() + "三个数\r\n", negativeCell.Location, "不能为" + removeValue.JoinString() };
+                                        cells.Add(negativeCell);
+                                    }
+                                }
+
+
+                            }
+
                         }
 
+
                     }
                 }
 
             }
             return cells;
-        }
-
-
-        /// <summary>
-        /// 有三种情况
-        /// <para>ab ac abc</para> 
-        /// <para>abc abc ac</para>
-        /// <para>abc abc abc</para>
-        /// <para>ab ab abc 其实是隐性数对</para>
-        /// </summary>
-        /// <param name="qSudoku"></param>
-        /// <param name="checkCellInfos"></param>
-        /// <param name="direction"></param>
-        /// <param name="index"></param>
-        /// <returns></returns>
-        private List<CellInfo> GetCells(QSudoku qSudoku, List<CellInfo> checkCellInfos, Direction direction, int index
-            )
-        {
-            var allUnSetCell = qSudoku.AllUnSetCells;
-            List<CellInfo> cells =new List<CellInfo>();
-            var exceptIndexs = checkCellInfos.Select(c => c.Index).ToList();
-            var allRest = new List<int>();
-            foreach (var checkCellInfo in checkCellInfos)
-            {
-                allRest.AddRange(checkCellInfo.RestList);
-            }
-
-
-            if (allRest.Distinct().Count() == 3 && allRest.Count >= 7)
-            {
-                var subCheckCells = allUnSetCell
-                    .Where(c => G.GetFilter(c, direction, index) && !exceptIndexs.Contains(c.Index))
-                    .ToList();
-
-                foreach (var subCheckCell in subCheckCells)
-                {
-                    var rests = subCheckCell.RestList;
-                    if (rests.Intersect(allRest).Count() <= 1) continue;
-                    foreach (var value in allRest)
-                    {
-                        rests.Remove(value);
-                    }
-
-                    if (rests.Count == 1)
-                    {
-                        cells.Add(new PositiveCell(subCheckCell.Index, rests[0]));
-                    }
-                }
-            }
-            return cells;
-        }
-
-        public override List<CellInfo> Elimination(QSudoku qSudoku)
-        {
-            return new List<CellInfo>();
         }
 
         public override string GetDesc()
