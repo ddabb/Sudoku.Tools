@@ -248,11 +248,15 @@ namespace Sudoku.UI
                     Color color = Color.Gray;
                     if (item.CellType == CellType.Positive)
                     {
-                        color = Color.LawnGreen;
+                        color = Color.Lime;
+                    }
+                    if (item.CellType == CellType.Possible)
+                    {
+                        color = Color.Orange;
                     }
                     if (item.CellType == CellType.Negative)
                     {
-                        color = Color.Firebrick;
+                        color = Color.Red;
                     }
                     g.DrawString(stringvalue, smallFont, new SolidBrush(color),
                     new PointF(

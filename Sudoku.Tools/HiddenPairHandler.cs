@@ -80,10 +80,10 @@ namespace Sudoku.Tools
                                 };
                                 cell.drawCells = new List<CellInfo>
                                 {
-                                    new PositiveCell(index1,value1),
-                                    new PositiveCell(index2,value1),
-                                    new PositiveCell(index1,value2),
-                                    new PositiveCell(index2,value2),
+                                    new PossibleCell(index1,value1),
+                                    new PossibleCell(index2,value1),
+                                    new PossibleCell(index1,value2),
+                                    new PossibleCell(index2,value2),
                                     new NegativeCell(index,value),
                                 };
                                 cells.Add(cell);

@@ -370,7 +370,7 @@ namespace Sudoku.Tools
         /// <param name="cellList"></param>
         /// <param name="values"></param>
         /// <returns></returns>
-        public List<CellInfo> GetDrawPostiveCell(List<CellInfo> cellList, List<int> values)
+        public List<CellInfo> GetDrawPossibleCell(List<CellInfo> cellList, List<int> values)
         {
             List<CellInfo> cells = new List<CellInfo>();
             foreach (var item in cellList)
@@ -379,7 +379,7 @@ namespace Sudoku.Tools
                 {
                     if (values.Contains(rest))
                     {
-                        cells.Add(new PositiveCell(item.Index, rest));
+                        cells.Add(new PossibleCell(item.Index, rest));
                     }
                     else
                     {

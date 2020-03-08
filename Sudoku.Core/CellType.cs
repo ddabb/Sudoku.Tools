@@ -27,6 +27,9 @@ namespace Sudoku.Core
         [Description("肯定包含某候选数的单元格的集合")]
         PositiveCellGroup,
         [Description("肯定不包含某候选数的单元格的集合")]
-        NegativeIndexsGroup
+        NegativeIndexsGroup,
+        [Description("可能的")]
+        Possible,
+        
     }
 }

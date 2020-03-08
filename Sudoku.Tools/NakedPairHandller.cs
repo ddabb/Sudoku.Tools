@@ -21,46 +21,63 @@ namespace Sudoku.Tools
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
-            var checkCells = qSudoku.GetFilterCell(c => c.Value == 0 && c.RestCount == 2);
+            var allUnSetCell = qSudoku.AllUnSetCells;
             foreach (var direction in G.AllDirection)
             {
                 foreach (var index in G.baseIndexs)
                 {
-                    var subcells = qSudoku.AllUnSetCells.Where(c => G.GetFilter(c, direction, index)).ToList();
-                    if (subcells.Count > 2)
+                    //待检查的单元格
+                    var checkCells = allUnSetCell.Where(G.GetDirectionCells(direction, index)).ToList();
+                    if (checkCells.Count() > 2)
                     {
-                        var temp = checkCells.Where(c => G.GetFilter(c, direction, index)).GroupBy(c => c.RestString)
-                            .Where(c => c.Count() == 2);
-                        foreach (var sub in temp)
+                        var list = (from a in checkCells
+                                    join b in checkCells on 1 equals 1
+                             
+                                    let indexs = G.MergeCellIndexs(a, b)
+                                    let rests = G.MergeCellRest(a, b)
+                                    where indexs.Count() == 2
+                                       && rests.Count() == 2
+                                    select new { a, b, indexs, rests }).ToList();
+                        foreach (var item in list)
                         {
-                            var removeCells = subcells.Where(c => c.RestString != sub.Key).ToList();
-                            var removeValues = ConvertToInts(sub.Key);
-                            foreach (var cell in removeCells)
+                            var a = item.a;
+                            var b = item.b;
+               
+                            var rests = item.rests;
+                            var drawCells = GetDrawPossibleCell(new List<CellInfo> { a, b}, rests);
+                            var indexs = item.indexs;
+                            var filterCell = allUnSetCell.Where(G.GetDirectionCells(direction, index)).Where(c => !indexs.Contains(c.Index)).ToList();
+                            drawCells.AddRange(GetDrawNegativeCell(filterCell, rests));
+                            foreach (var cell in filterCell)
                             {
-                                var rests = cell.RestList;
-                                if (rests.Intersect(removeValues).Count() == removeValues.Count)
+                                var interactList = cell.RestList.Intersect(rests).ToList();
+                                if (interactList.Any())
                                 {
-                                    var cell1 = new NegativeValuesGroup(cell.Index, removeValues) { Sudoku = qSudoku };
-                                    cell1.SolveMessages = new List<SolveMessage> { removeCells[0].Location, "和", removeCells[1].Location, "只能填入" + removeValues.JoinString(),"\r\n", cell.Location, "不能填入" + removeValues.JoinString(), "\r\n" };
-                                    cells.Add(cell1);
-                                }
-                                else
-                                {
-                                    foreach (var removeValue in removeValues)
+                                    if (interactList.Count() == 1)
                                     {
-                                        if (rests.Contains(removeValue))
-                                        {
-                                            var cell1 = new NegativeCell(cell.Index, removeValue) { Sudoku = qSudoku };
-                                            cell1.SolveMessages = new List<SolveMessage> { removeCells[0].Location, "和", removeCells[1].Location, "只能填入" + removeValues.JoinString(), "\r\n", cell.Location, "不能填入" + removeValue, "\r\n" };
-                                            cells.Add(cell1);
-                                        }
+                                        var removeValue = interactList.First();
+                                        var negativeCell = new NegativeCell(cell.Index, removeValue) { Sudoku = qSudoku };
+                                        negativeCell.drawCells = drawCells;
+                                        negativeCell.SolveMessages = new List<SolveMessage> { "在", GetDirectionMessage(direction, index), "中", a.Location, "、", b.Location,"只出现了" + rests.JoinString() + "两个数\r\n", negativeCell.Location, "不能为" + removeValue + "\r\n" };
+                                        cells.Add(negativeCell);
+                                    }
+                                    else
+                                    {
+                                        var removeValue = interactList;
+                                        var negativeCell = new NegativeValuesGroup(cell.Index, removeValue) { Sudoku = qSudoku };
+                                        negativeCell.drawCells = drawCells;
+                                        negativeCell.SolveMessages = new List<SolveMessage> { "在", GetDirectionMessage(direction, index), "中", a.Location, "、", b.Location,"只出现了" + rests.JoinString() + "两个数\r\n", negativeCell.Location, "不能为" + removeValue.JoinString() + "\r\n" };
+                                        cells.Add(negativeCell);
                                     }
                                 }
+
+
                             }
 
                         }
-                    }
 
+
+                    }
                 }
 
             }

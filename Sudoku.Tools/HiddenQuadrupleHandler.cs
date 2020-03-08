@@ -77,7 +77,7 @@ namespace Sudoku.Tools
                                                 "在",GetDirectionMessage(direction,index),"中",values.JoinString()+"只出现在",cell1.Location,",",cell2.Location,",",cell3.Location,",",cell4.Location,"之中\r\n所以",
                                                 cell.Location,"不能填入"+rest+"\r\n"
                                             };
-                                            var drawCells = GetDrawPostiveCell(groupCells, values);
+                                            var drawCells = GetDrawPossibleCell(groupCells, values);
                                             drawCells.Add(negativeCell);
                                             negativeCell.drawCells = drawCells;
                                             cells.Add(negativeCell);
@@ -109,7 +109,7 @@ namespace Sudoku.Tools
                                             }
                                         }
                                         negativeCell.SolveMessages.Add("不能填入" + other + "\r\n");
-                                        var drawCells = GetDrawPostiveCell(groupCells, values);
+                                        var drawCells = GetDrawPossibleCell(groupCells, values);
                                         negativeCell.drawCells = drawCells;
                                         cells.Add(negativeCell);
 
