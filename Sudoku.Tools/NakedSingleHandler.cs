@@ -23,6 +23,7 @@ namespace Sudoku.Tools
                     {
                         SolveMessages = new List<SolveMessage> { index.Location, " 只能够填入 ", restList[0] }
                     };
+                    cell.drawCells.Add(cell);
 
                     cellInfo.Add(cell);
                 }

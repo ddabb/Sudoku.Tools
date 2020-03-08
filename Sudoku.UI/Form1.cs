@@ -298,7 +298,9 @@ namespace Sudoku.UI
             this.HintTree.Nodes.Add(new TreeNode("提示列表"));
             this.HintTree.EndUpdate();
             this.MessageArea.Text = "";
+            this.ctlSudoku.DrawingCell = null;
         }
+ 
 
         private void HintTree_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
@@ -314,6 +316,8 @@ namespace Sudoku.UI
                 {
                     this.MessageArea.Text = "" + cell.SolveDesc;
                 }
+                this.ctlSudoku.DrawingCell= cell;
+                this.ctlSudoku.RefreshSudokuPanel();
 
             }
             else if (e.Node.Tag is ISudokuSolveHandler hander)

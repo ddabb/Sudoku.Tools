@@ -1,5 +1,8 @@
 ﻿namespace Sudoku.Core
 {
+    /// <summary>
+    /// 解题信息
+    /// </summary>
     public class SolveMessage
     {
         public string content;

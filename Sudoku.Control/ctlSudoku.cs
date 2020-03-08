@@ -19,6 +19,10 @@ namespace Sudoku.UI
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), Browsable(false)]
         public QSudoku Sudoku { get; set; }
 
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), Browsable(false)]
+        public CellInfo DrawingCell { get; set; }
+
         public static int SmallSpace { get; private set; } = 27;
 
         public static int BigSpace
@@ -191,7 +195,8 @@ namespace Sudoku.UI
                                 {
                                     var stringvalue = "" + item1;
                                     Size size = TextRenderer.MeasureText(stringvalue, smallFont);
-                                    g.DrawString(stringvalue, smallFont, new SolidBrush(Color.Gray),
+                                    Color color = Color.Gray;
+                                    g.DrawString(stringvalue, smallFont, new SolidBrush(color),
                                     new PointF(
                                         item.Column * bigSpace + indexOffset[item.Column] + (SmallSpace * ((item1 - 1) % 3)) +
                                         (SmallSpace - size.Width) / 2,
@@ -201,6 +206,13 @@ namespace Sudoku.UI
                             }
                         }
                     }
+                    #region
+                    if (ShowCandidates&& DrawingCell != null)
+                    {
+                        DrawHint(DrawingCell, bigSpace, g, smallFont);
+
+                    }
+                    #endregion
                 }
                 ButtonBorderStyle style = ButtonBorderStyle.Solid;
                 ControlPaint.DrawBorder(g, rectangle,
@@ -211,6 +223,47 @@ namespace Sudoku.UI
                 IsNotPainting = true;
                 graphBuffer.Render(objGraphics);
             }
+        }
+
+        /// <summary>
+        /// 绘制提示内容
+        /// </summary>
+        /// <param name="cell"></param>
+        /// <param name="bigSpace"></param>
+        /// <param name="g"></param>
+        /// <param name="smallFont"></param>
+        private void DrawHint(CellInfo cell, int bigSpace, Graphics g, Font smallFont)
+        {
+            #region 绘制单元格
+            foreach (var item in cell.drawCells)
+            {
+                var item1 = item.Value;
+                var stringvalue = "" + item1;
+                Size size = TextRenderer.MeasureText(stringvalue, smallFont);
+                Color color = Color.Gray;
+                if (item.CellType==CellType.Positive)
+                {
+                    color = Color.LawnGreen;
+                }
+                if (item.CellType == CellType.Negative)
+                {
+                    color = Color.Firebrick;
+                }
+                g.DrawString(stringvalue, smallFont, new SolidBrush(color),
+                new PointF(
+                    item.Column * bigSpace + indexOffset[item.Column] + (SmallSpace * ((item1 - 1) % 3)) +
+                    (SmallSpace - size.Width) / 2,
+                    item.Row * bigSpace + indexOffset[item.Row] + (SmallSpace * ((item1 - 1) / 3)) +
+                    +(SmallSpace - size.Height) / 2));
+            }
+            #endregion
+
+            #region 绘制线条
+            foreach (var item in cell.drawChains)
+            {
+
+            }
+            #endregion
         }
 
         private void PaintCurrentCell(Graphics g,Color color, int bigSpace,int rowIndex,int columnIndex)

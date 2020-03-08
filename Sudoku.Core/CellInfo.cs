@@ -16,8 +16,16 @@ namespace Sudoku.Core
 
         public CellType CellType { get; set; }
 
+        public List<DrawChains> drawChains { get; set; } = new List<DrawChains>();
+        /// <summary>
+        /// 绘制信息
+        /// </summary>
+        public DrawType drawType { get; set; }
 
-        public List<SolveProcess> SolveProcesses;
+        /// <summary>
+        /// 需要绘制的单元格
+        /// </summary>
+        public List<CellInfo> drawCells = new List<CellInfo>();
 
         public QSudoku Sudoku;
 
@@ -175,6 +183,8 @@ namespace Sudoku.Core
 
 
         }
+
+
 
         public List<SolveMessage> SolveMessages=new List<SolveMessage>();
         private string mSolveDesc;
