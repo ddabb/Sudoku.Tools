@@ -206,10 +206,13 @@ namespace Sudoku.UI
                             }
                         }
                     }
-                    #region
+                    #region 绘制提示数信息
                     if (ShowCandidates&& DrawingCell != null)
                     {
-                        DrawHint(DrawingCell, bigSpace, g, smallFont);
+                        if (sudoku.AllCell[DrawingCell.Index].Value==0)
+                        {
+                            DrawHint(DrawingCell, bigSpace, g, smallFont);
+                        }                
 
                     }
                     #endregion

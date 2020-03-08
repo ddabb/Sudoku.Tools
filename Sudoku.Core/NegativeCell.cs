@@ -69,7 +69,7 @@ namespace Sudoku.Core
             {
                 PositiveCell positive = new PositiveCell(this.Index, RestList.First(c => c != Value))
                 {
-                    CellType = CellType.Init,
+                    CellType = CellType.Positive,
                     Sudoku = this.Sudoku,
                     Parent = this,
                     Level = this.Level + 1,
@@ -115,7 +115,7 @@ namespace Sudoku.Core
             {
                 PositiveCell positive = new PositiveCell(row.First(), Value)
                 {
-                    CellType = CellType.Init,
+                    CellType = CellType.Positive,
                     Sudoku = this.Sudoku,
                     Parent = this,
                     Level = this.Level + 1,

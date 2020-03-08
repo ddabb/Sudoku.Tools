@@ -23,12 +23,15 @@ namespace Sudoku.Core
         public override List<CellInfo> GetNextCells()
         {
             List < CellInfo > cells=new List<CellInfo>();
-            var restList = Sudoku.GetRest(this.Index).Except(this.NegativeValues).ToList();
-            if (restList.Count()==1)
+            var restListPre = Sudoku.GetRest(this.Index);
+            if (this.NegativeValues.Intersect(restListPre).Any())
             {
-                cells.Add(new PositiveCell(Index, restList.First()));
+                var restList = restListPre.Except(this.NegativeValues).ToList();
+                if (restList.Count() == 1)
+                {
+                    cells.Add(new PositiveCell(Index, restList.First()));
+                }         
             }
-
             return cells;
         }
 

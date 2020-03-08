@@ -21,7 +21,7 @@ namespace Sudoku.Core
         HiddenSingleColumn,
         [Description("行排除")]
         HiddenSingleRow,
-        [Description("宮区块")]
+        [Description("宫区块")]
         [DifficultuRating(1.7)]
         DirectPointing,
         [Description("行区块")]

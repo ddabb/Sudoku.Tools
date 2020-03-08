@@ -70,26 +70,18 @@ namespace Sudoku.Tools
                                 }
                                 cell1.SolveMessages.Add("不能填入" + value + "\r\n");
                                 cells.Add(cell1);
-
-
                             }
-
                         }
                     }
-
-
-
                 }
-
-
             }
-
             return cells;
         }
 
         public override string GetDesc()
         {
-            return "";
+            return "若宫B中只有特定行R可以填入候选数a，则该行R的其余宫不能填入候选数a；\r\n" +
+                   "若宫B中只有特定列C可以填入候选数a，则该列C的其余宫不能填入候选数a；\r\n";
         }
     }
 }

@@ -32,7 +32,7 @@ namespace Sudoku.Core
                 {
                     PositiveCell positive = new PositiveCell(filter.First().Index, Value)
                     {
-                        CellType = CellType.Init,
+                        CellType = CellType.Positive,
                         Sudoku = this.Sudoku,
                         Parent = this,
                         Level = this.Level + 1,
@@ -53,7 +53,7 @@ namespace Sudoku.Core
                 {
                     PositiveCell positive = new PositiveCell(filter.First().Index, Value)
                     {
-                        CellType = CellType.Init,
+                        CellType = CellType.Positive,
                         Sudoku = this.Sudoku,
                         Parent = this,
                         Level = this.Level + 1,
@@ -74,7 +74,7 @@ namespace Sudoku.Core
                 {
                     PositiveCell positive = new PositiveCell(filter.First().Index, Value)
                     {
-                        CellType = CellType.Init,
+                        CellType = CellType.Positive,
                         Sudoku = this.Sudoku,
                         Parent = this,
                         Level = this.Level + 1,

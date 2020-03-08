@@ -25,9 +25,9 @@ namespace Sudoku.UI
             this.HintTree.Nodes.Add(new TreeNode("提示列表"));
             this.ShowInTaskbar = true;
             this.ctlSudoku.ShowCandidates = true;
-            var c = new QSudoku();
+            var c = new QSudoku("080000000600000003572800604000290000009308000000050720400902000298600007000000008");
 #if DEBUG
-            c = getQSudoku(typeof(XYWingHandler));
+            //c = getQSudoku(typeof(XYWingHandler));
 
 
 #endif
@@ -300,7 +300,7 @@ namespace Sudoku.UI
             this.MessageArea.Text = "";
             this.ctlSudoku.DrawingCell = null;
         }
- 
+
 
         private void HintTree_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
@@ -316,7 +316,7 @@ namespace Sudoku.UI
                 {
                     this.MessageArea.Text = "" + cell.SolveDesc;
                 }
-                this.ctlSudoku.DrawingCell= cell;
+                this.ctlSudoku.DrawingCell = cell;
                 this.ctlSudoku.RefreshSudokuPanel();
 
             }
@@ -569,9 +569,9 @@ namespace Sudoku.UI
         private void btnApplyHint_Click(object sender, EventArgs e)
         {
             var currentCell = this.ctlSudoku.DrawingCell;
-            if (currentCell!=null)
+            if (currentCell != null)
             {
-                if (currentCell.CellType==CellType.Positive)
+                if (currentCell.CellType == CellType.Positive)
                 {
 
                     this.ctlSudoku.Sudoku.ApplyCell(currentCell);
@@ -580,9 +580,8 @@ namespace Sudoku.UI
                 {
                     this.ctlSudoku.Sudoku.RemoveCell(currentCell);
                 }
-                InitUI();
             }
-        
+            ctlSudoku.RefreshSudokuPanel();
         }
     }
 }
