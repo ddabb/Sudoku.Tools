@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text;
+﻿using System.ComponentModel;
 
 namespace Sudoku.Core
 {
@@ -49,6 +46,7 @@ namespace Sudoku.Core
         [DifficultuRating(5.0)]
         NakedQuadruple,
         [DifficultuRating(4.4)]
+        [Description("首尾数对匹配法")]
         WWing,
         [DifficultuRating(3.2)]
         XWing,
@@ -58,6 +56,7 @@ namespace Sudoku.Core
         XYZWing,
         [DifficultuRating(4.6)]
         WXYZWing,
+        [Description("双值格链")]        
         XYChain,
         [DifficultuRating(6.6)]
         ForcingXChain,
@@ -74,13 +73,15 @@ namespace Sudoku.Core
         [Description("多宝鱼(普通)")]
         [DifficultuRating(4.2)]
         TurbotFishNormal,
+        [Description("隔一数对匹配法")]
+        MWing,
         Jellyfish,
         HiddenAR,
         LockedSubset,
         [DifficultuRating(4.7)]
         ULSize6Type3,
-        ImcompletedURType2,    
-        ALPExtendedType,   
+        ImcompletedURType2,
+        ALPExtendedType,
         SashimiSwordfish,
         XRSize6Type4,
         [DifficultuRating(4.5)]
@@ -120,7 +121,7 @@ namespace Sudoku.Core
         ImcompletedURType3,
         LockedCandidates,
         LockedURType1,
-        LockedURType2,  
+        LockedURType2,
         SiameseSwordfish,
         SiameseXwing,
         [DifficultuRating(5.0)]
@@ -135,9 +136,11 @@ namespace Sudoku.Core
         SashimiXwing,
         SiameseJeffyfish,
         ULSize12,
-        MWing,
+        [Description("拐角匹配法")]
         LocalWing,
+        [Description("杂合匹配法")]
         HybridWing,
+        [Description("分裂匹配法")]
         SplitWing,
         [Description("强制链(开)")]
         [DifficultuRating(7.3)]
@@ -164,7 +167,5 @@ namespace Sudoku.Core
         URType3HiddenQuadruple,
         URType3HiddenPair,
         URType3HiddenTriple,
-
-     
     }
 }

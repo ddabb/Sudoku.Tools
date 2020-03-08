@@ -64,6 +64,9 @@ namespace Sudoku.Tools
                             var parentMessage = cellInfo.SolveMessages.ToList();
                             parentMessage.AddRange(new List<SolveMessage> { "所以", postiveCell.Location, "是", postiveCell.Value });
                             postiveCell.SolveMessages = parentMessage;
+                            var drawMessage = cellInfo.drawCells.ToList();
+                            drawMessage.Add(postiveCell);
+                            postiveCell.drawCells = drawMessage;
                             cells.Add(postiveCell);
                         }
                         

@@ -51,5 +51,12 @@ namespace SudoKu.Test
         }
 
 
+        [TestMethod]
+        public void TestAllSolveType()
+        {
+            Assert.AreEqual(TestG.SolveHandlers.Count, TestG.SolveHandlers.Select(c=>c.methodType).Distinct().Count());
+
+        }
+
     }
 }

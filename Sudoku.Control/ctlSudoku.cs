@@ -240,24 +240,28 @@ namespace Sudoku.UI
             #region 绘制单元格
             foreach (var item in cell.drawCells)
             {
-                var item1 = item.Value;
-                var stringvalue = "" + item1;
-                Size size = TextRenderer.MeasureText(stringvalue, smallFont);
-                Color color = Color.Gray;
-                if (item.CellType==CellType.Positive)
+                if (Sudoku.AllCell[item.Index].Value == 0)
                 {
-                    color = Color.LawnGreen;
+                    var item1 = item.Value;
+                    var stringvalue = "" + item1;
+                    Size size = TextRenderer.MeasureText(stringvalue, smallFont);
+                    Color color = Color.Gray;
+                    if (item.CellType == CellType.Positive)
+                    {
+                        color = Color.LawnGreen;
+                    }
+                    if (item.CellType == CellType.Negative)
+                    {
+                        color = Color.Firebrick;
+                    }
+                    g.DrawString(stringvalue, smallFont, new SolidBrush(color),
+                    new PointF(
+                        item.Column * bigSpace + indexOffset[item.Column] + (SmallSpace * ((item1 - 1) % 3)) +
+                        (SmallSpace - size.Width) / 2,
+                        item.Row * bigSpace + indexOffset[item.Row] + (SmallSpace * ((item1 - 1) / 3)) +
+                        +(SmallSpace - size.Height) / 2));
                 }
-                if (item.CellType == CellType.Negative)
-                {
-                    color = Color.Firebrick;
-                }
-                g.DrawString(stringvalue, smallFont, new SolidBrush(color),
-                new PointF(
-                    item.Column * bigSpace + indexOffset[item.Column] + (SmallSpace * ((item1 - 1) % 3)) +
-                    (SmallSpace - size.Width) / 2,
-                    item.Row * bigSpace + indexOffset[item.Row] + (SmallSpace * ((item1 - 1) / 3)) +
-                    +(SmallSpace - size.Height) / 2));
+
             }
             #endregion
 
