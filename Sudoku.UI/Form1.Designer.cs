@@ -61,7 +61,7 @@ namespace Sudoku.UI
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.btnApplyHint = new System.Windows.Forms.Button();
             this.BtnGetAllHint = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -348,12 +348,13 @@ namespace Sudoku.UI
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(1365, 53);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(134, 30);
-            this.button4.TabIndex = 10;
-            this.button4.Text = "应用线索";
-            this.button4.UseVisualStyleBackColor = true;
+            this.btnApplyHint.Location = new System.Drawing.Point(1365, 53);
+            this.btnApplyHint.Name = "button4";
+            this.btnApplyHint.Size = new System.Drawing.Size(134, 30);
+            this.btnApplyHint.TabIndex = 10;
+            this.btnApplyHint.Text = "应用线索";
+            this.btnApplyHint.UseVisualStyleBackColor = true;
+            this.btnApplyHint.Click += new System.EventHandler(this.btnApplyHint_Click);
             // 
             // BtnGetAllHint
             // 
@@ -409,7 +410,7 @@ namespace Sudoku.UI
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.BtnGetAllHint);
-            this.Controls.Add(this.button4);
+            this.Controls.Add(this.btnApplyHint);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -465,7 +466,7 @@ namespace Sudoku.UI
         private Button button1;
         private Button button2;
         private Button button3;
-        private Button button4;
+        private Button btnApplyHint;
         private Button BtnGetAllHint;
         private Button button6;
         private ToolStripMenuItem ResetToolStripMenuItem;

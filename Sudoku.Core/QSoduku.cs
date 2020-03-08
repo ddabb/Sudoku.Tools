@@ -176,6 +176,24 @@ namespace Sudoku.Core
     
         }
 
+        public void RemoveCell(CellInfo cell)
+        {
+          
+            
+                if (cell.CellType == CellType.Negative)
+                {
+                    this.cellInfos[cell.Index].NegativeValues.Add(cell.Value);
+                    this.cellInfos[cell.Index].ReSetRest();
+                }
+                else if (cell.CellType == CellType.NegativeValuesGroup)
+                {
+                    this.cellInfos[cell.Index].NegativeValues.AddRange(cell.NegativeValues);
+                    this.cellInfos[cell.Index].ReSetRest();
+                }
+            
+
+        }
+
         /// <summary>
         /// 获取两个单元格的共同影响区域
         /// </summary>

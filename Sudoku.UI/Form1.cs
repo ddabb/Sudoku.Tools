@@ -564,5 +564,25 @@ namespace Sudoku.UI
         {
             new FrmExample().ShowDialog();
         }
+
+        public Stack<CellInfo> stacks;
+        private void btnApplyHint_Click(object sender, EventArgs e)
+        {
+            var currentCell = this.ctlSudoku.DrawingCell;
+            if (currentCell!=null)
+            {
+                if (currentCell.CellType==CellType.Positive)
+                {
+
+                    this.ctlSudoku.Sudoku.ApplyCell(currentCell);
+                }
+                if (currentCell.CellType == CellType.Negative)
+                {
+                    this.ctlSudoku.Sudoku.RemoveCell(currentCell);
+                }
+                InitUI();
+            }
+        
+        }
     }
 }
