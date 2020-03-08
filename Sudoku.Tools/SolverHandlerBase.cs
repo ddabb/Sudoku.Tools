@@ -365,6 +365,28 @@ namespace Sudoku.Tools
         }
 
 
+        public List<CellInfo> GetDrawCell(List<CellInfo> cellList, List<int> values)
+        {
+            List<CellInfo> cells = new List<CellInfo>();
+            foreach (var item in cellList)
+            {
+                foreach (var rest in item.RestList)
+                {
+                    if (values.Contains(rest))
+                    {
+                        cells.Add(new PositiveCell(item.Index, rest));
+                    }
+                    else
+                    {
+                        cells.Add(new NegativeCell(item.Index, rest));
+                    }
+                }
+
+            }
+
+            return cells;
+        }
+
 
         /// <summary>
         /// 

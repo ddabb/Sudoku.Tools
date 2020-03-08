@@ -88,8 +88,6 @@ namespace Sudoku.Tools
                                 };
                                 cells.Add(cell);
                             }
-
-
                         }
 
 
