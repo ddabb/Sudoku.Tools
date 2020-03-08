@@ -129,7 +129,7 @@ namespace Sudoku.Tools
 
         public override string GetDesc()
         {
-            throw new System.NotImplementedException();
+            return "";
         }
     }
 }

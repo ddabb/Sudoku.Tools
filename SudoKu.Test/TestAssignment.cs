@@ -98,8 +98,11 @@ namespace SudoKu.Test
         {
             TestAssignmentExample(typeof(URType3HiddenQuadrupleHandler));
         }
-        
-
+        [TestMethod]
+        public void TestLocalWingHandler()
+        {
+            TestAssignmentExample(typeof(LocalWingHandler));
+        }
 
         [TestMethod]
         public void TestULSize6Type2Handler()
@@ -301,7 +304,7 @@ namespace SudoKu.Test
         [TestMethod]
         public void TestForcingChainHandler3()
         {
-            TestAssignmentExample(typeof(ForcingChainHandler), "104900853385140000070358000653714298741800536800635417007580300508403000430201085", 7, "R1C6");
+            TestAssignmentExample(typeof(ForcingChainOnHandler), "104900853385140000070358000653714298741800536800635417007580300508403000430201085", 7, "R1C6");
         }
 
 
@@ -311,27 +314,27 @@ namespace SudoKu.Test
         [TestMethod]
         public void TestForcingChainHandler7()
         {
-            TestAssignmentExample(typeof(ForcingChainHandler), "000400900324006000060500040000000600040160800600085090718003000000000080400070023", 4, "R6C9");
+            TestAssignmentExample(typeof(ForcingChainOnHandler), "000400900324006000060500040000000600040160800600085090718003000000000080400070023", 4, "R6C9");
         }
 
         [TestMethod]
         public void TestForcingChainHandler8()
         {
-            TestAssignmentExample(typeof(ForcingChainHandler), "318652007497381005600070138849010000531026009700890051900108500100200006203067014", 4, "R3C4");
+            TestAssignmentExample(typeof(ForcingChainOnHandler), "318652007497381005600070138849010000531026009700890051900108500100200006203067014", 4, "R3C4");
         }
 
 
         [TestMethod]
         public void TestForcingChainHandler5()
         {
-            TestAssignmentExample(typeof(ForcingChainHandler), "007000000800439000490071000000000906002000040008103000000002308005300000000710052", 9, "R9C3");
+            TestAssignmentExample(typeof(ForcingChainOnHandler), "007000000800439000490071000000000906002000040008103000000002308005300000000710052", 9, "R9C3");
         }
 
 
         [TestMethod]
         public void TestForcingChainHandler1()
         {
-            TestAssignmentExample(typeof(ForcingChainHandler));
+            TestAssignmentExample(typeof(ForcingChainOnHandler));
 
         }
 
@@ -339,19 +342,19 @@ namespace SudoKu.Test
         [TestMethod]
         public void TestForcingChainHandler2()
         {
-            TestAssignmentExample(typeof(ForcingChainHandler), "060300570052041006000605100580004267429006315607002498006207000005410620290063700", 3, "R2C8");
+            TestAssignmentExample(typeof(ForcingChainOnHandler), "060300570052041006000605100580004267429006315607002498006207000005410620290063700", 3, "R2C8");
         }
 
         [TestMethod]
         public void TestForcingChainHandler4()
         {
-            TestAssignmentExample(typeof(ForcingChainHandler), "030050400000004000200006090007600009080000500300800041073060120020003900050001374", 6, "R8C9");
+            TestAssignmentExample(typeof(ForcingChainOnHandler), "030050400000004000200006090007600009080000500300800041073060120020003900050001374", 6, "R8C9");
         }
 
         [TestMethod]
         public void TestForcingChainHandler6()
         {
-            TestAssignmentExample(typeof(ForcingChainHandler), "000200581072001463000060279020006300743928156600300000237000014410702000008004000", 3, "R3C6");
+            TestAssignmentExample(typeof(ForcingChainOnHandler), "000200581072001463000060279020006300743928156600300000237000014410702000008004000", 3, "R3C6");
         }
 
         [TestMethod]

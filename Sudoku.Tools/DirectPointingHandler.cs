@@ -47,7 +47,7 @@ namespace Sudoku.Tools
                                     var cell1 = new NegativeCell(cell.Index, value)
                                     { Sudoku = qSudoku };
                                     cell1.SolveMessages = new List<SolveMessage> {
-                                       blockindex.BlockDesc(), "只有" +G.GetEnumDescription(direction) +(index + 1) +   "可以填入" + value + "\r\n",
+                                       blockindex.BlockDesc(), "只有" ,GetDirectionMessage(direction,index) ,  "可以填入" + value + "\r\n",
                                         "所以", cell.Location, "不能填入" + value + "\r\n" };
 
                                     cells.Add(cell1);
@@ -62,7 +62,7 @@ namespace Sudoku.Tools
                                 var cell1 = new NegativeIndexsGroup(indexs, value)
                                 { Sudoku = qSudoku };
                                 cell1.SolveMessages = new List<SolveMessage> {
-                                         blockindex.BlockDesc(),  "只有" +G.GetEnumDescription(direction) +(index + 1) + "可以填入" + value + "\r\n",
+                                         blockindex.BlockDesc(),  "只有",GetDirectionMessage(direction,index),"可以填入" + value + "\r\n",
                                         "所以", };
                                 foreach (var item in indexs)
                                 {
@@ -89,7 +89,7 @@ namespace Sudoku.Tools
 
         public override string GetDesc()
         {
-            throw new System.NotImplementedException();
+            return "";
         }
     }
 }

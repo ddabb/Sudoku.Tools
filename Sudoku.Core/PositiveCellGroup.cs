@@ -26,6 +26,6 @@ namespace Sudoku.Core
 
         public override List<CellInfo> NextCells { get; }
 
-        public override string Desc => throw new System.NotImplementedException();
+        public override string Desc => "";
     }
 }

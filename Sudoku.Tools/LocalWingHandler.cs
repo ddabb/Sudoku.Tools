@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Sudoku.Tools
 {
-    [AssignmentExample(4, "R6C4", "900050030400100908006090402000970020004216800090030000803000200700009080049080006")] //todo 待移除8宫4列的4
+    [AssignmentExample(4, "R7C8", "900050030400100908006090402000970020004216800090030000803000200700009080049080006",SolveMethodEnum.ClaimingInColumn)] //todo 待移除8宫4列的4
     public class LocalWingHandler : SolverHandlerBase
     {
         public override List<CellInfo> Assignment(QSudoku qSudoku)
@@ -22,11 +22,6 @@ namespace Sudoku.Tools
                 {
                     if (value1 < value2)
                     {
-
-                        if (value1 == 4 && value2 == 6)
-                        {
-
-                        }
                         var restList = new List<int> { value1, value2 };
                         var pairCells = allUnsetCells.Where(c => c.RestList.Contains(value1) && c.RestList.Contains(value2)).ToList();
                         var list = (from cell1 in pairCells
@@ -38,10 +33,7 @@ namespace Sudoku.Tools
                         {
                             var cell1 = item.cell1;
                             var cell2 = item.cell2;
-                            if (cell1.Index == 3 && cell2.Index == 52)
-                            {
-
-                            }
+            
                             var intercells = qSudoku.GetPublicUnsetAreas(cell1, cell2);
                             foreach (var cell3 in intercells)
                             {
@@ -103,10 +95,10 @@ namespace Sudoku.Tools
 
         public override string GetDesc()
         {
-            throw new System.NotImplementedException();
+            return "";
         }
 
-        public override SolveMethodEnum methodType { get; }
-        public override MethodClassify methodClassify { get; }
+        public override SolveMethodEnum methodType => SolveMethodEnum.LocalWing;
+        public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
     }
 }

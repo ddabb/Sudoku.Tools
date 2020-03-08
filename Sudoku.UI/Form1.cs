@@ -20,6 +20,25 @@ namespace Sudoku.UI
             InitializeComponent();
             this.Icon = Sudoku.UI.Resource.sudoku;
 
+            CenterScreen();
+
+            this.HintTree.Nodes.Add(new TreeNode("提示列表"));
+            this.ShowInTaskbar = true;
+            this.ctlSudoku.ShowCandidates = true;
+            var c = new QSudoku();
+#if DEBUG
+            c = getQSudoku(typeof(XYWingHandler));
+
+
+#endif
+            //c.RemoveCells(new List<CellInfo> {new NegativeCell(59, 4), new NegativeCell(77, 4) });
+            this.ctlSudoku.Sudoku = c;
+            this.ctlSudoku.RefreshSudokuPanel();
+
+        }
+
+        private void CenterScreen()
+        {
 
             //指定窗口初始化时的位置（计算机屏幕中间）
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -28,22 +47,6 @@ namespace Sudoku.UI
             //指定窗口初始化时的位置,如果为Manual，位置由Location决定(计算机屏幕中间，如果不/2，则计算机右下角)
             this.StartPosition = FormStartPosition.Manual;
             this.Location = new Point((Screen.PrimaryScreen.WorkingArea.Width - this.Width) / 2, (Screen.PrimaryScreen.WorkingArea.Height - this.Height) / 2);
-
-
-
-            this.HintTree.Nodes.Add(new TreeNode("提示列表"));
-            this.ShowInTaskbar = true;
-            this.ctlSudoku.ShowCandidates = true;
-            var c = new QSudoku();
-#if DEBUG
-            c = getQSudoku(typeof(LocalWingHandler));
-
-            c = new QSudoku("281300700040000000000200090000405600005060130000810904007600001000004500130000200");
-#endif
-            //c.RemoveCells(new List<CellInfo> {new NegativeCell(59, 4), new NegativeCell(77, 4) });
-            this.ctlSudoku.Sudoku = c;
-            this.ctlSudoku.RefreshSudokuPanel();
-
         }
 
         private static QSudoku getQSudoku(Type type)

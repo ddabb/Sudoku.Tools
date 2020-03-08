@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text;
+﻿using System.ComponentModel;
 
 namespace Sudoku.Tools
 {
-   public enum MethodClassify
+    public enum MethodClassify
     {
-     [Description("数独规则")]
-     SudokuRules,
-     [Description("数独技巧")]
-     SudokuTechniques,
-
+        [Description("数独技巧")]
+        SudokuTechniques,
+        [Description("数独规则")]
+        SudokuRules,
     }
 }

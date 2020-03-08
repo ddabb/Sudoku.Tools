@@ -15,7 +15,7 @@ namespace SudoKu.Test
         [TestMethod]
         public void TestForcingChainHandler()
         {
-            ForcingChainHandler hander = new ForcingChainHandler();
+            ForcingChainOnHandler hander = new ForcingChainOnHandler();
             QSudoku qsudoku = new QSudoku("716000289298176543534928761000490108080607904945812376403089612809201437020000895");
             Debug.WriteLine(new DanceLink().do_solve(qsudoku.QueryString));
             var cells = hander.Elimination(qsudoku);
@@ -26,6 +26,8 @@ namespace SudoKu.Test
         
             Debug.WriteLine(qsudoku.QueryString);
             Assert.AreEqual(true, new DanceLink().isValid(qsudoku.QueryString));
+
+            TestEliminationExample(typeof(ForcingChainOffHandler));
         }
 
 

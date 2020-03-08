@@ -69,7 +69,7 @@ namespace Sudoku.Tools
                                 var cell = new NegativeCell(index, value) { Sudoku = qSudoku };
                                 cell.SolveMessages = new List<SolveMessage>
                                 {
-                                    "在", GetSolveMessage(d, dirIndex),"中",
+                                    "在", GetDirectionMessage(d, dirIndex),"中",
                                     value1+"和"+value2+"只能填写在",
                                     index1.LoctionDesc(),
                                     "和",index2.LoctionDesc(),

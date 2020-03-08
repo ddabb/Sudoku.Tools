@@ -104,6 +104,6 @@ namespace Sudoku.Core
             }
         }
 
-        public override string Desc => throw new System.NotImplementedException();
+        public override string Desc =>"";
     }
 }

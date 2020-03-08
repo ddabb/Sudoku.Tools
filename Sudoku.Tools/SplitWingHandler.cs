@@ -25,7 +25,7 @@ namespace Sudoku.Tools
             return "";
         }
 
-        public override SolveMethodEnum methodType { get; }
-        public override MethodClassify methodClassify { get; }
+        public override SolveMethodEnum methodType => SolveMethodEnum.SplitWing;
+        public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
     }
 }

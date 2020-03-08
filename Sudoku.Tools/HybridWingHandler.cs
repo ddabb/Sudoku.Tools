@@ -52,10 +52,10 @@ namespace Sudoku.Tools
 
         public override string GetDesc()
         {
-            throw new System.NotImplementedException();
+            return "";
         }
 
-        public override SolveMethodEnum methodType { get; }
-        public override MethodClassify methodClassify { get; }
+        public override SolveMethodEnum methodType => SolveMethodEnum.HybridWing;
+        public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
     }
 }

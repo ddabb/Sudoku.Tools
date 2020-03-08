@@ -135,9 +135,15 @@ namespace Sudoku.Core
         SashimiXwing,
         SiameseJeffyfish,
         ULSize12,
-        [Description("强制链")]
+        MWing,
+        LocalWing,
+        HybridWing,
+        SplitWing,
+        [Description("强制链(开)")]
         [DifficultuRating(7.3)]
-        ForcingChain,
+        ForcingChainOn,
+        [Description("强制链(关)")]
+        ForcingChainOff,
         ImcompletedURType4,
         [DifficultuRating(9.1)]
         DymanicForcingChain,
@@ -158,6 +164,7 @@ namespace Sudoku.Core
         URType3HiddenQuadruple,
         URType3HiddenPair,
         URType3HiddenTriple,
-        MWing,
+
+     
     }
 }

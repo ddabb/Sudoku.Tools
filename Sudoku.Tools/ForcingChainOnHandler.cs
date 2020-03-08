@@ -9,9 +9,9 @@ namespace Sudoku.Tools
 
     [AssignmentExample(3, "R1C7", "670000010931746000520009700462538070197624008853971000716400003389067400245003007")]
     //200607984700480230048000710000070598017800623580000471395000847126748359874000162
-    public class ForcingChainHandler : SolverHandlerBase
+    public class ForcingChainOnHandler : SolverHandlerBase
     {
-        public override SolveMethodEnum methodType => SolveMethodEnum.ForcingChain;
+        public override SolveMethodEnum methodType => SolveMethodEnum.ForcingChainOn;
 
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
 

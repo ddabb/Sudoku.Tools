@@ -65,7 +65,7 @@ namespace Sudoku.Tools
 
         public override string GetDesc()
         {
-            throw new System.NotImplementedException();
+            return "";
         }
 
         public override SolveMethodEnum methodType => SolveMethodEnum.MWing;
