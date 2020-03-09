@@ -25,7 +25,7 @@ namespace Sudoku.UI
             this.HintTree.Nodes.Add(new TreeNode("提示列表"));
             this.ShowInTaskbar = true;
             this.ctlSudoku.ShowCandidates = true;
-            var c = new QSudoku("980006375376850140000700860569347218000000537723581496000205780000000950000008620");
+            var c = new QSudoku("004072105000400720000500384020004003600000041401080057340000512100043078008000430");
 #if DEBUG
             //c = getQSudoku(typeof(NakedTripleHandler));
 

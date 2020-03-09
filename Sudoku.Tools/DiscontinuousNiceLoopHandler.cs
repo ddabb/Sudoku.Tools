@@ -91,7 +91,7 @@ namespace Sudoku.Tools
             foreach (var nextCell in cell.NextCells)
             {
 
-                if (nextCell.CellType == CellType.Init)
+                if (nextCell.CellType == CellType.Positive)
                 {
                     if (otherValues.Contains(nextCell.Value) && relatedIndex.Contains(nextCell.Index))
                     {
