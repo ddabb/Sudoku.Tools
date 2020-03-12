@@ -227,6 +227,7 @@ namespace Sudoku.Tools
             return GetAllPossibleIndex(qSudoku, times, c => true);
         }
 
+
         private List<PossibleIndex> GetAllPossibleIndex(QSudoku qSudoku, int times, Func<Direction, bool> predicate)
         {
             List<PossibleIndex> allPossibleindex = new List<PossibleIndex>();
