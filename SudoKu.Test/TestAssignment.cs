@@ -87,6 +87,13 @@ namespace SudoKu.Test
             TestAssignmentExample(typeof(URType3NakedQuadrupleHandler));
         }
 
+
+        [TestMethod]
+        public void TestURType3HiddenPairHandller()
+        {
+            TestAssignmentExample(typeof(URType3HiddenPairHandller));
+        }
+
         [TestMethod]
         public void TestURType3HiddenTripleHandller()
         {

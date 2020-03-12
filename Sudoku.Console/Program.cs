@@ -19,7 +19,7 @@ namespace Sudoku.Console
             if (runtest)
             {
 
-                ConsoleAssignmentExample(typeof(URType3NakedPairHandller));
+                ConsoleAssignmentExample(typeof(URType3HiddenPairHandller));
                 //ConsoleEliminationExample(typeof(SplitWingHandler));
 
 

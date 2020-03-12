@@ -48,9 +48,10 @@ namespace Sudoku.Tools
                                let indexCD = G.MergeCellIndexs(c, d)
                                where c.Index < d.Index
 
+
                                && (sameRow ?
-                                 c.Column == a.Column && d.Column == b.Column
-                               : c.Row == a.Row && d.Row == b.Row)
+                                 c.Column == a.Column && d.Column == b.Column && c.Row == d.Row
+                               : c.Row == a.Row && d.Row == b.Row && c.Column == d.Column)
 
                                 && interc.Count == 2
                                && interd.Count == 2
