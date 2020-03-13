@@ -46,7 +46,7 @@ namespace Sudoku.Core
         [DifficultuRating(5.0)]
         NakedQuadruple,
         [DifficultuRating(4.4)]
-        [Description("首尾数对匹配法")]
+        [Description("首尾数对匹配法(WWing)")]
         WWing,
         [DifficultuRating(3.2)]
         XWing,
@@ -93,12 +93,21 @@ namespace Sudoku.Core
         ARType2,
         ARType1,
         XRSize10,
+        [Description("唯一矩形+显性数对")]
         [DifficultuRating(4.5)]
         URType3NakedPair,
-        [DifficultuRating(4.5)]
-        URType3NakedQuadruple,
+        [Description("唯一矩形+显性三数组")]
         [DifficultuRating(4.5)]
         URType3NakedTriple,
+        [Description("唯一矩形+显性四数组")]
+        [DifficultuRating(4.5)]
+        URType3NakedQuadruple,
+        [Description("唯一矩形+隐性数对")]
+        URType3HiddenPair,
+        [Description("唯一矩形+隐性三数组")]
+        URType3HiddenTriple,
+        [Description("唯一矩形+隐性四数组")]
+        URType3HiddenQuadruple,
         [DifficultuRating(4.5)]
         URType4,
         VWXYZWing,
@@ -164,8 +173,7 @@ namespace Sudoku.Core
         [Description("均衡数对")]
         AlignedPairExclusion,
         AlignedQuadrupleExclusionHandler,
-        URType3HiddenQuadruple,
-        URType3HiddenPair,
-        URType3HiddenTriple,
+
+        CascadingLockedCandidates,
     }
 }

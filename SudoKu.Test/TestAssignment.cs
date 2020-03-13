@@ -19,6 +19,14 @@ namespace SudoKu.Test
             TestAssignmentExample(typeof(HiddenSingleColumnHandler));
         }
 
+        [TestMethod]
+        public void TestCascadingLockedCandidatesHandler()
+        {
+            TestAssignmentExample(typeof(CascadingLockedCandidatesHandler));
+        }
+
+
+        
         private static void TestAssignmentExample(Type type)
         {
             object[] objs = type.GetCustomAttributes(typeof(AssignmentExampleAttribute), true);
