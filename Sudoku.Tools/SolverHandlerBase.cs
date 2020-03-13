@@ -203,6 +203,22 @@ namespace Sudoku.Tools
             return GetAllPossibleIndex(qSudoku, times, c => c == Direction.Block);
         }
 
+        public List<SolveMessage> MergeCellSolveLocationMessage(List<CellInfo> cells)
+        {
+            List<SolveMessage> Message = new List<SolveMessage>();
+            for (int i = 0; i < cells.Count; i++)
+            {
+                Message.Add(cells[i].Location);
+                Message.Add(",");
+            }
+            if (Message.Count>0)
+            {
+                Message= Message.Take(Message.Count - 1).ToList();
+            }
+            return Message;
+        }
+
+
         /// <summary>
         /// 获取所有不在A位置就在B位置的候选数
         /// </summary>

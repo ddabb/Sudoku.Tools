@@ -24,7 +24,7 @@ namespace Sudoku.Tools
             return "";
         }
 
-        public override SolveMethodEnum methodType=>SolveMethodEnum.AlignedQuadrupleExclusionHandler;
+        public override SolveMethodEnum methodType=>SolveMethodEnum.AlignedQuadrupleExclusion;
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
     }
 }

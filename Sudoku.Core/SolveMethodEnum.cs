@@ -151,16 +151,6 @@ namespace Sudoku.Core
         HybridWing,
         [Description("分裂匹配法")]
         SplitWing,
-        [Description("强制链(开)")]
-        [DifficultuRating(7.3)]
-        ForcingChainOn,
-        [Description("强制链(关)")]
-        ForcingChainOff,
-        ImcompletedURType4,
-        [DifficultuRating(9.1)]
-        DymanicForcingChain,
-        [DifficultuRating(4.5)]
-        IncompleteWXYZWing,
         [DifficultuRating(4.6)]
         IncompleteVWXYZWing,
         [Description("空矩形")]
@@ -172,8 +162,22 @@ namespace Sudoku.Core
         AlignedTripleExclusion,
         [Description("均衡数对")]
         AlignedPairExclusion,
-        AlignedQuadrupleExclusionHandler,
-
+        [Description("均衡四数组")]
+        AlignedQuadrupleExclusion,
+        [Description("级联区块")]
         CascadingLockedCandidates,
+        [Description("区块数组")]
+        NakedSubsetWithLockedCandidates,
+        [Description("强制链(开)")]
+        [DifficultuRating(7.3)]
+        ForcingChainOn,
+        [Description("强制链(关)")]
+        ForcingChainOff,
+        ImcompletedURType4,
+        [DifficultuRating(9.1)]
+        DymanicForcingChain,
+        [DifficultuRating(4.5)]
+        IncompleteWXYZWing,
+
     }
 }

@@ -80,7 +80,7 @@ namespace Sudoku.Tools
                         {
                            
                             var allRemoveValues = new List<int>();
-                            var removeCells = findCell.Where(c => !indexCD.Contains(c.Index));
+                            var removeCells = findCell.Where(c => !indexCD.Contains(c.Index)).ToList();
                             var locations=removeCells.Select(c => c.Location).ToList();
                             foreach (var keyCell in removeCells)
                             {

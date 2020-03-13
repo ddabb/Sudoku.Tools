@@ -27,7 +27,7 @@ namespace Sudoku.UI
             this.ctlSudoku.ShowCandidates = true;
             var c = new QSudoku("004072105000400720000500384020004003600000041401080057340000512100043078008000430");
 #if DEBUG
-            //c = getQSudoku(typeof(URType3HiddenPairHandller));
+            c = getQSudoku(typeof(NakedSubsetWithLockedCandidatesHandler));
 
 
 #endif
