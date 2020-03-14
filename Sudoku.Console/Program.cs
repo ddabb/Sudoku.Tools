@@ -19,8 +19,8 @@ namespace Sudoku.Console
             if (runtest)
             {
 
-                ConsoleAssignmentExample(typeof(NakedSubsetWithLockedCandidatesHandler));
-                //ConsoleEliminationExample(typeof(SplitWingHandler));
+                //ConsoleAssignmentExample(typeof(NakedSubsetWithLockedCandidatesHandler));
+                ConsoleEliminationExample(typeof(SplitWingHandler));
 
 
 

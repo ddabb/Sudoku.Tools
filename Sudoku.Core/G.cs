@@ -196,6 +196,16 @@ namespace Sudoku.Core
             return result;
         }
 
+        public static List<CellInfo> MergeCells(params CellInfo[] n)
+        {
+            List<CellInfo> result = new List<CellInfo>();
+            foreach (var item in n)
+            {
+                result.Add(item);
+            }
+            return result;
+        }
+
         public static List<int> MergeCellRest(params CellInfo[] n)
         {
             List<int> result = new List<int>();
