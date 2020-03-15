@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
@@ -584,6 +586,42 @@ namespace Sudoku.UI
                 }
             }
             ctlSudoku.RefreshSudokuPanel();
+        }
+
+ 
+
+        private void btnSavetoPicture_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var pictureBox2 = this.ctlSudoku;
+                var panel = this.ctlSudoku.sudokuPanel;
+                Bitmap bmp = new Bitmap(panel.Width, panel.Height);
+
+                var g = Graphics.FromImage(bmp);
+                var new1 = PointToScreen(panel.Location);
+                new1 = new Point(new1.X + pictureBox2.Location.X, new1.Y + pictureBox2.Location.Y);
+                g.CopyFromScreen(new1, Point.Empty, panel.Size);
+
+
+                var time = DateTime.Now.ToString("yyyyMMddHHmmss");
+                var warpath = AppDomain.CurrentDomain.BaseDirectory + "QuestionImages";
+                var path = warpath + "\\" + time + ".png";
+                if (!Directory.Exists(warpath))
+                    Directory.CreateDirectory(warpath);
+                bmp.Save(path, ImageFormat.Jpeg);
+                MessageArea.Text = "保存图片成功，路径为\r\n" +  path;
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                throw new Exception("请检查文件夹权限！");
+            }
+        }
+
+        private void MessageArea_LinkClicked(object sender, LinkClickedEventArgs e)
+        {
+
         }
     }
 }

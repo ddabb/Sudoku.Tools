@@ -139,6 +139,10 @@
       <Project>{17b5becd-2253-42d4-a968-8ee69c2f2bac}</Project>
       <Name>Sudoku.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Sudoku.Ocr.Core\Sudoku.Ocr.Core.csproj">
+      <Project>{e0716351-c148-47dc-8531-2f9e9bb91430}</Project>
+      <Name>Sudoku.Ocr.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Sudoku.Tools\Sudoku.Tools.csproj">
       <Project>{b46ea5f1-9ea8-4d55-a6d4-5b0c65bfa092}</Project>
       <Name>Sudoku.Tools</Name>

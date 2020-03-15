@@ -80,7 +80,7 @@ namespace Sudoku.UI
         }
 
         #endregion
-        private Panel sudokuPanel;
+        public Panel sudokuPanel;
         private Panel columnPanel;
         private Panel rowPanel;
    
