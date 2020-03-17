@@ -205,32 +205,37 @@ namespace Sudoku.Tools
 
         public List<SolveMessage> MergeCellSolveLocationMessage(params CellInfo[] cells)
         {
-            List<SolveMessage> Message = new List<SolveMessage>();
-            for (int i = 0; i < cells.Length; i++)
-            {
-                Message.Add(cells[i].Location);
-                Message.Add(",");
-            }
-            if (Message.Count>0)
-            {
-                Message= Message.Take(Message.Count - 1).ToList();
-            }
-            return Message;
+            var  orderList = cells.OrderBy(c => c.Index).ToList();
+            return MergeCellSolveMessages(orderList);
         }
 
+        private static List<SolveMessage> MergeCellSolveMessages(List<CellInfo> orderList)
+        {
+            List<SolveMessage> message = new List<SolveMessage>();
+            for (int i = 0; i < orderList.Count; i++)
+            {
+                message.Add(orderList[i].Location);
+                message.Add(",");
+            }
+
+            if (message.Count > 0)
+            {
+                message = message.Take(message.Count - 1).ToList();
+            }
+
+            return message;
+        }
+
+        /// <summary>
+        /// 简化表达N个单元格的坐标
+        /// </summary>
+        /// <param name="cells"></param>
+        /// <returns></returns>
         public List<SolveMessage> MergeCellSolveLocationMessage(List<CellInfo> cells)
         {
-            List<SolveMessage> Message = new List<SolveMessage>();
-            for (int i = 0; i < cells.Count; i++)
-            {
-                Message.Add(cells[i].Location);
-                Message.Add(",");
-            }
-            if (Message.Count > 0)
-            {
-                Message = Message.Take(Message.Count - 1).ToList();
-            }
-            return Message;
+            List<SolveMessage> message = new List<SolveMessage>();
+            cells= cells.OrderBy(c=>c.Index).ToList();
+            return MergeCellSolveMessages(cells);
         }
 
         /// <summary>
