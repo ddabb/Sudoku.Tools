@@ -43,6 +43,54 @@ namespace Sudoku.Core
 
         public static LocationType LocationType { get; set; } = LocationType.R1C1;
 
+        /// <summary>
+        /// 简化坐标
+        /// </summary>
+        /// <param name="group1"></param>
+        /// <param name="group2"></param>
+        /// <returns></returns>
+        public static List<LocationGroup> MergeLocationGroups(LocationGroup group1, LocationGroup group2)
+        {
+            List<LocationGroup>  groups=new List<LocationGroup>();
+            if (Analysis(group1,group2))
+            {
+                groups.Add(MergeGroup(group1, group2));
+            }
+            else
+            {
+                groups.Add(group1);
+                groups.Add(group2);
+            }
+
+            return groups;
+
+        }
+
+        private static LocationGroup MergeGroup(LocationGroup group1, LocationGroup group2)
+        {
+            var cells1 = group1.cells;
+            var cells2 = group2.cells;
+            var mergeCells =new List<CellInfo>();
+            mergeCells.AddRange(cells1.ToList());
+            mergeCells.AddRange(cells2.ToList());
+
+       
+            LocationGroup mergedGroup =new LocationGroup(mergeCells,"");
+            return mergedGroup;
+        }
+
+        /// <summary>
+        /// 分析是否可以合并成同一个 坐标集合~
+        /// </summary>
+        /// <param name="group1"></param>
+        /// <param name="group2"></param>
+        /// <returns></returns>
+        private static bool Analysis(LocationGroup group1, LocationGroup group2)
+        {
+            return false;
+        }
+
+
         public static List<int> GetLocations(List<List<int>> initValues)
         {
             var tempList = new List<int>();
