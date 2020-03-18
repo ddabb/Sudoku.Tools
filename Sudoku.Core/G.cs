@@ -41,6 +41,18 @@ namespace Sudoku.Core
 
         };
 
+        public static int[] visibleState = new[] {0, 1};
+
+        public static List<List<int>> allVisibleState = (from v1 in visibleState
+            join v2 in visibleState on 1 equals 1
+            join v3 in visibleState on 1 equals 1
+            join v4 in visibleState on 1 equals 1
+            join v5 in visibleState on 1 equals 1
+            join v6 in visibleState on 1 equals 1
+            join v7 in visibleState on 1 equals 1
+            join v8 in visibleState on 1 equals 1
+            join v9 in visibleState on 1 equals 1 select new List<int> {v1, v2, v3, v4, v5, v6, v7, v8, v9}).ToList();
+
         public static LocationType LocationType { get; set; } = LocationType.R1C1;
 
         /// <summary>
