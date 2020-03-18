@@ -51,6 +51,7 @@
     </Compile>
     <Compile Include="DisplacementIntervall.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VisibleState.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ctlSudoku.resx">
