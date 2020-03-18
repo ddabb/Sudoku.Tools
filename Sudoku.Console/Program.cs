@@ -18,7 +18,9 @@ namespace Sudoku.Console
             //runtest = false;
             if (runtest)
             {
-           
+
+                Sudoku.Control.VisibleState.BatchDrawing();
+                return;
                 //ConsoleAssignmentExample(typeof(NakedSubsetWithLockedCandidatesHandler));
                 ConsoleEliminationExample(typeof(SplitWingHandler));
 
