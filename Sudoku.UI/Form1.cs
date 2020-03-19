@@ -27,10 +27,11 @@ namespace Sudoku.UI
             this.HintTree.Nodes.Add(new TreeNode("提示列表"));
             this.ShowInTaskbar = true;
             this.ctlSudoku.ShowCandidates = true;
-            var c = new QSudoku("080704021201800000003000000902000100805000692010020000050083217008070000107006438");
-            //var c = new QSudoku("000058793093074185578931462010582934005169000982347651054726019009015006060093500");
 
+            var c = new QSudoku();
 #if DEBUG
+             //c = new QSudoku("080704021201800000003000000902000100805000692010020000050083217008070000107006438");
+            //var c = new QSudoku("000058793093074185578931462010582934005169000982347651054726019009015006060093500");
             c = getQSudoku(typeof(HiddenQuadrupleHandler));
 
 

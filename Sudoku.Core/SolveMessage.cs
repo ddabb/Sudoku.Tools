@@ -1,4 +1,7 @@
-﻿namespace Sudoku.Core
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace Sudoku.Core
 {
     /// <summary>
     /// 解题信息
@@ -33,6 +36,12 @@
         public static implicit operator SolveMessage(AllA1I9 str)
         {
             return new SolveMessage(""+str, MessageType.Location);
+        }
+
+
+        public static implicit operator SolveMessage(List<LocationGroup> groups)
+        {
+            return new SolveMessage(groups.Select(c=>c.LocationDesc).JoinString(), MessageType.Location);
         }
 
         public override string ToString()

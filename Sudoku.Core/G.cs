@@ -68,30 +68,35 @@ namespace Sudoku.Core
 
         }
 
+
         /// <summary>
         /// 简化坐标
         /// </summary>
         /// <param name="group1"></param>
         /// <param name="group2"></param>
         /// <returns></returns>
-        public static List<LocationGroup> MergeLocationGroups(List<CellInfo> cells)
+        public static List<LocationGroup> MergeLocationDesc(List<CellInfo> cells)
         {
-            
+
             if (CanMerge(cells))
             {
-                return new List<LocationGroup>{ mergeGroups(cells) }; 
+                return new List<LocationGroup> { mergeGroups(cells) };
             }
             else
             {
-                var groups = cells.Select(c => new LocationGroup(new List<CellInfo> {c}, c.RrCc)).ToList();
+                var groups = cells.Select(c => new LocationGroup(new List<CellInfo> { c }, c.RrCc)).ToList();
                 groups = RecursionSimplify(groups);
 
 
                 return groups;
             }
+        }
+  
+        public static List<LocationGroup> MergeLocationDesc(params CellInfo[] n)
+        {
+            var cells = n.ToList();
 
-
-
+            return MergeLocationDesc(cells);
         }
 
         private static List<LocationGroup> RecursionSimplify(List<LocationGroup> groups)
