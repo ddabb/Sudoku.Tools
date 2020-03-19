@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace Sudoku.Core
 {
     /// <summary>
     /// 全局类
     /// </summary>
-    public static  class G
+    public static class G
     {
         /// <summary>
         /// 1到9的候选数
@@ -43,7 +41,9 @@ namespace Sudoku.Core
         };
 
 
-            public static LocationType LocationType { get; set; } = LocationType.R1C1;
+        public static LocationType LocationType { get; set; } = LocationType.R1C1;
+
+
 
         /// <summary>
         /// 简化坐标
@@ -51,10 +51,10 @@ namespace Sudoku.Core
         /// <param name="group1"></param>
         /// <param name="group2"></param>
         /// <returns></returns>
-        public static List<LocationGroup> MergeLocationGroups(LocationGroup group1, LocationGroup group2)
+        public static List<LocationGroup> MergeAllloctions(LocationGroup group1, LocationGroup group2)
         {
-            List<LocationGroup>  groups=new List<LocationGroup>();
-            if (Analysis(group1,group2))
+            List<LocationGroup> groups = new List<LocationGroup>();
+            if (CanMerge(group1, group2))
             {
                 groups.Add(MergeGroup(group1, group2));
             }
@@ -68,17 +68,129 @@ namespace Sudoku.Core
 
         }
 
+        /// <summary>
+        /// 简化坐标
+        /// </summary>
+        /// <param name="group1"></param>
+        /// <param name="group2"></param>
+        /// <returns></returns>
+        public static List<LocationGroup> MergeLocationGroups(List<CellInfo> cells)
+        {
+            
+            if (CanMerge(cells))
+            {
+                return new List<LocationGroup>{ mergeGroups(cells) }; 
+            }
+            else
+            {
+                var groups = cells.Select(c => new LocationGroup(new List<CellInfo> {c}, c.RrCc)).ToList();
+                groups = RecursionSimplify(groups);
+
+
+                return groups;
+            }
+
+
+
+        }
+
+        private static List<LocationGroup> RecursionSimplify(List<LocationGroup> groups)
+        {
+            var newGroups = groups.ToList();
+
+            var filter = (from a in newGroups
+                join b in newGroups on 1 equals 1
+                where a.LocationDesc != b.LocationDesc
+                      && CanMerge(a.cells, b.cells)
+                select new {a, b,}).ToList();
+            if (filter.Count>0)
+            {
+                var temp = filter.First();
+                var a = temp.a;
+                var b = temp.b;
+                var left = newGroups.Where(c => c.LocationDesc != a.LocationDesc && c.LocationDesc != b.LocationDesc).ToList();
+                var newLocationGroup = MergeGroup(a, b);
+                left.Add(newLocationGroup);
+                return RecursionSimplify(left);
+
+            }
+            else
+            {
+                return newGroups;
+            }
+
+     
+        }
+
+
+
+        /// <summary>
+        /// 单元格是否合并成一个集合
+        /// </summary>
+        /// <param name="cells"></param>
+        /// <returns></returns>
+        public static bool CanMerge(List<CellInfo> cells1,List<CellInfo> cells2)
+        {
+            var mergeCells = new List<CellInfo>();
+            mergeCells.AddRange(cells1.ToList());
+            mergeCells.AddRange(cells2.ToList());
+            return CanMerge(mergeCells);
+        }
+
+        /// <summary>
+        /// 单元格是否合并成一个集合
+        /// </summary>
+        /// <param name="cells"></param>
+        /// <returns></returns>
+        public static bool CanMerge(List<CellInfo> cells)
+        {
+            var distintRow = cells.Select(c => c.Row).Distinct().ToList();
+            var distintColumn = cells.Select(c => c.Column).Distinct().ToList();
+            var cellindexs = cells.Select(c => c.Index).ToList();
+            var mulIndexs = (from row in distintRow
+                             join column in distintColumn on 1 equals 1
+                             select row * 9 + column).ToList();
+
+            if (mulIndexs.All(c => cellindexs.Contains(c)) && cellindexs.All(c => mulIndexs.Contains(c)))
+            {
+                return true;
+            }
+            return false;
+        }
+
+
+
+
+        private static LocationGroup mergeGroups(List<CellInfo> cells)
+        {
+   
+            var distintRow = cells.Select(c => c.Row).Distinct().ToList();
+            var distintColumn = cells.Select(c => c.Column).Distinct().ToList();
+            distintRow.Sort();
+            distintColumn.Sort();
+            var cellindexs = cells.Select(c => c.Index).ToList();
+            var mulIndexs = (from row in distintRow
+                join column in distintColumn on 1 equals 1
+                select row * 9 + column).ToList();
+            LocationGroup group =null;
+            if (mulIndexs.All(c => cellindexs.Contains(c)) && cellindexs.All(c => mulIndexs.Contains(c)))
+            {
+                var desc = "R" + distintRow.Select(c=>c+1).JoinStringWithEmpty() + "C" + distintColumn.Select(c => c + 1).JoinStringWithEmpty();
+                group = new LocationGroup(cells, desc);
+
+            }
+            return group;
+        }
+
         private static LocationGroup MergeGroup(LocationGroup group1, LocationGroup group2)
         {
             var cells1 = group1.cells;
             var cells2 = group2.cells;
-            var mergeCells =new List<CellInfo>();
+            var mergeCells = new List<CellInfo>();
             mergeCells.AddRange(cells1.ToList());
             mergeCells.AddRange(cells2.ToList());
-
-       
-            LocationGroup mergedGroup =new LocationGroup(mergeCells,"");
-            return mergedGroup;
+            LocationGroup mergedGroup = new LocationGroup(mergeCells, "");
+            return mergeGroups(mergeCells);
         }
 
         /// <summary>
@@ -87,9 +199,12 @@ namespace Sudoku.Core
         /// <param name="group1"></param>
         /// <param name="group2"></param>
         /// <returns></returns>
-        private static bool Analysis(LocationGroup group1, LocationGroup group2)
+        private static bool CanMerge(LocationGroup group1, LocationGroup group2)
         {
-            return false;
+            var cells=new List<CellInfo>();
+            cells.AddRange(group1.cells);
+            cells.AddRange(group2.cells);
+            return CanMerge(cells);
         }
 
 
@@ -198,7 +313,7 @@ namespace Sudoku.Core
         }
 
         public static readonly List<Direction> AllDirection = new List<Direction> { Direction.Row, Direction.Column, Direction.Block };
-    
+
 
         public static List<int> DistinctRow(List<CellInfo> cells)
         {
@@ -213,7 +328,7 @@ namespace Sudoku.Core
 
         public static List<int> DinstinctInt(params List<int>[] n)
         {
-            List<int> result=new List<int>();
+            List<int> result = new List<int>();
             foreach (var item in n)
             {
                 result.AddRange(item);

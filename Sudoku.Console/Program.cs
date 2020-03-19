@@ -18,6 +18,17 @@ namespace Sudoku.Console
             //runtest = false;
             if (runtest)
             {
+                List<CellInfo> cells=new List<CellInfo>();
+                cells.Add(new InitCell(1,2));
+                cells.Add(new InitCell(2, 4));
+                cells.Add(new InitCell(3, 5));
+                cells.Add(new InitCell(6, 6));
+                cells.Add(new InitCell(7, 7));
+                cells.Add(new InitCell(8, 8));
+                cells.Add(new InitCell(12, 8));
+                cells.Add(new InitCell(34, 8));
+                cells.Add(new InitCell(23, 8));
+                Debug.WriteLine(G.MergeLocationGroups(cells).Select(c=>c.LocationDesc).JoinString());
 
                 Sudoku.Control.VisibleState.BatchDrawing();
                 return;
