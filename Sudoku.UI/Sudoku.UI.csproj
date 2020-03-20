@@ -151,12 +151,22 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Convert\label.npy">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Convert\samples.npy">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\sudoku.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\赞赏码.jpg" />
+    <Content Include="Convert\ConvertToMatrix.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\qrcode_for_guanzhu.jpg" />
     <Content Include="sudoku.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
