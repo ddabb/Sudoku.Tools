@@ -334,7 +334,26 @@ namespace Sudoku.UI
 
         private void LoadToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            OpenFileDialog openDialog = new OpenFileDialog();
+            openDialog.Title = "导入数独,支持图片,Txt文件";
+            openDialog.Filter = "txt文件|*.txt;.jpg|*.jpg;.png|*.png";
+            var result = openDialog.ShowDialog();
+            if (result==DialogResult.OK)
+            {
+                var fileName = openDialog.FileName;
+                var safeFileName= openDialog.SafeFileName;
+                if (fileName.EndsWith(".txt"))
+                {
 
+                }
+                else
+                {
+                    #region 导入的是图片
+                    
+
+                    #endregion
+                }
+            }
         }
 
         private Dictionary<int, int> keyCodeNumMap = new Dictionary<int, int>
