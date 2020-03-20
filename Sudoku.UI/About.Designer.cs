@@ -40,7 +40,9 @@ namespace Sudoku.UI
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -68,7 +70,7 @@ namespace Sudoku.UI
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label3.Location = new System.Drawing.Point(24, 140);
+            this.label3.Location = new System.Drawing.Point(19, 103);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(70, 12);
             this.label3.TabIndex = 2;
@@ -77,7 +79,7 @@ namespace Sudoku.UI
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(93, 140);
+            this.linkLabel1.Location = new System.Drawing.Point(88, 103);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(227, 12);
             this.linkLabel1.TabIndex = 3;
@@ -99,18 +101,18 @@ namespace Sudoku.UI
             this.authorText.Name = "authorText";
             this.authorText.Size = new System.Drawing.Size(227, 23);
             this.authorText.TabIndex = 5;
-            this.authorText.Text = "十六";
+            this.authorText.Text = "十六（公众号:60分小站）";
             // 
             // textBox1
             // 
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox1.Enabled = false;
             this.textBox1.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox1.Location = new System.Drawing.Point(95, 179);
+            this.textBox1.Location = new System.Drawing.Point(90, 128);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(530, 84);
+            this.textBox1.Size = new System.Drawing.Size(547, 84);
             this.textBox1.TabIndex = 6;
             this.textBox1.Text = "该软件开始于2020年1月1日，UI界面于新冠肺炎疫情期间逐渐丰富。我妈妈是该软件的第一个测试人员，字体大小或颜色设置偏老年人系列。希望大家多多理解，多谢支持！\r" +
     "\n";
@@ -128,7 +130,7 @@ namespace Sudoku.UI
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(24, 179);
+            this.label5.Location = new System.Drawing.Point(22, 128);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(65, 12);
             this.label5.TabIndex = 8;
@@ -137,18 +139,29 @@ namespace Sudoku.UI
             // pictureBox1
             // 
             this.pictureBox1.Image = global::Sudoku.UI.Resource.赞赏码;
-            this.pictureBox1.Location = new System.Drawing.Point(95, 269);
+            this.pictureBox1.Location = new System.Drawing.Point(348, 269);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(327, 240);
+            this.pictureBox1.Size = new System.Drawing.Size(240, 240);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 9;
             this.pictureBox1.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::Sudoku.UI.Resource.qrcode_for_guanzhu;
+            this.pictureBox2.Location = new System.Drawing.Point(69, 269);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(240, 240);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 10;
+            this.pictureBox2.TabStop = false;
             // 
             // AboutForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(654, 543);
+            this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -159,9 +172,11 @@ namespace Sudoku.UI
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.Icon = global::Sudoku.UI.Resource.sudoku;
             this.Name = "AboutForm";
             this.Text = "关于超级数独";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -179,5 +194,6 @@ namespace Sudoku.UI
         private Label label4;
         private Label label5;
         private PictureBox pictureBox1;
+        private PictureBox pictureBox2;
     }
 }

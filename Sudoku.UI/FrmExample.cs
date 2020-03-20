@@ -2,6 +2,7 @@
 using Sudoku.Tools;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -9,9 +10,17 @@ namespace Sudoku.UI
 {
     public partial class FrmExample : Form
     {
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), Browsable(false)]
+        private string lblTitleText
+        {
+            get { return this.lblTitle.Text;}
+            set { this.lblTitle.Text = value; }
+        }
+
         public FrmExample()
         {
             InitializeComponent();
+            this.lblTitle.Text = lblTitleText;
         }
 
         private void btnShow_Click(object sender, EventArgs e)
@@ -23,14 +32,14 @@ namespace Sudoku.UI
             SetEliminationPanel(EliminationExample);
         }
 
-        private void SetEliminationPanel(List<ISudokuSolveHandler> eliminationExample)
+        private void SetEliminationPanel(List<ISudokuSolveHandler> eliminationExample,string title="删除示例")
         {
-
+            this.lblTitleText = title;
         }
 
-        private void SetAssignPanel(List<ISudokuSolveHandler> assignExample)
+        private void SetAssignPanel(List<ISudokuSolveHandler> assignExample, string title = "出数示例")
         {
-
+            this.lblTitleText = title;
         }
 
         public List<ISudokuSolveHandler> GetHasAssignmentExampleHandler(List<ISudokuSolveHandler> list)

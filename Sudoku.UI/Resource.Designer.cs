@@ -61,6 +61,16 @@ namespace Sudoku.UI {
         }
         
         /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap qrcode_for_guanzhu {
+            get {
+                object obj = ResourceManager.GetObject("qrcode_for_guanzhu", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
         /// </summary>
         internal static System.Drawing.Icon sudoku {

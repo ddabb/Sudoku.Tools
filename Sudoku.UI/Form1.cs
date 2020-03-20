@@ -565,10 +565,16 @@ namespace Sudoku.UI
             ctlSudoku.RetSetRowAndColumnFormat();
         }
 
-        private void 技巧示例ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AssignmentExampleToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new FrmExample().ShowDialog();
         }
+
+        private void EliminationExampleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new FrmExample().ShowDialog();
+        }
+        
 
         public Stack<CellInfo> stacks;
         private void btnApplyHint_Click(object sender, EventArgs e)

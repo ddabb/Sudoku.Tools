@@ -29,9 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblTitle = new System.Windows.Forms.Label();
             this.btnShow = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -41,38 +39,21 @@
             this.panel1.AutoScroll = true;
             this.panel1.Location = new System.Drawing.Point(32, 36);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(699, 148);
+            this.panel1.Size = new System.Drawing.Size(757, 409);
             this.panel1.TabIndex = 1;
             // 
-            // panel2
+            // lblTitle
             // 
-            this.panel2.AutoScroll = true;
-            this.panel2.Location = new System.Drawing.Point(32, 228);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(699, 182);
-            this.panel2.TabIndex = 2;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(32, 18);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 12);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "出数示例";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(34, 210);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(53, 12);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "删数示例";
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Location = new System.Drawing.Point(32, 18);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(53, 12);
+            this.lblTitle.TabIndex = 3;
+            this.lblTitle.Text = "出数示例";
             // 
             // btnShow
             // 
-            this.btnShow.Location = new System.Drawing.Point(531, 451);
+            this.btnShow.Location = new System.Drawing.Point(617, 463);
             this.btnShow.Name = "btnShow";
             this.btnShow.Size = new System.Drawing.Size(75, 23);
             this.btnShow.TabIndex = 5;
@@ -82,7 +63,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(626, 451);
+            this.btnCancel.Location = new System.Drawing.Point(712, 463);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 6;
@@ -96,9 +77,7 @@
             this.ClientSize = new System.Drawing.Size(820, 512);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnShow);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.panel1);
             this.Icon = global::Sudoku.UI.Resource.sudoku;
             this.Name = "FrmExample";
@@ -111,9 +90,7 @@
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Button btnShow;
         private System.Windows.Forms.Button btnCancel;
     }

@@ -55,7 +55,7 @@ namespace Sudoku.UI
             this.helpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ShowWelComeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutSoftwareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.技巧示例ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.AssignmentExampleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MessageArea = new System.Windows.Forms.RichTextBox();
             this.HintTree = new System.Windows.Forms.TreeView();
             this.button1 = new System.Windows.Forms.Button();
@@ -66,6 +66,7 @@ namespace Sudoku.UI
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.ctlSudoku = new Sudoku.UI.ctlSudoku();
             this.btnSavetoPicture = new System.Windows.Forms.Button();
+            this.EliminationExampleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -264,7 +265,8 @@ namespace Sudoku.UI
             this.helpMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ShowWelComeToolStripMenuItem,
             this.aboutSoftwareToolStripMenuItem,
-            this.技巧示例ToolStripMenuItem});
+            this.AssignmentExampleToolStripMenuItem,
+            this.EliminationExampleToolStripMenuItem});
             this.helpMenuItem.Name = "helpMenuItem";
             this.helpMenuItem.Size = new System.Drawing.Size(44, 21);
             this.helpMenuItem.Text = "帮助";
@@ -285,13 +287,14 @@ namespace Sudoku.UI
             this.aboutSoftwareToolStripMenuItem.Text = "关于软件";
             this.aboutSoftwareToolStripMenuItem.Click += new System.EventHandler(this.aboutSoftwareToolStripMenuItem_Click);
             // 
-            // 技巧示例ToolStripMenuItem
+            // AssignmentExampleToolStripMenuItem
             // 
-            this.技巧示例ToolStripMenuItem.Name = "技巧示例ToolStripMenuItem";
-            this.技巧示例ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.H)));
-            this.技巧示例ToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
-            this.技巧示例ToolStripMenuItem.Text = "技巧示例";
-            this.技巧示例ToolStripMenuItem.Click += new System.EventHandler(this.技巧示例ToolStripMenuItem_Click);
+            this.AssignmentExampleToolStripMenuItem.Name = "AssignmentExampleToolStripMenuItem";
+            this.AssignmentExampleToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.H)));
+            this.AssignmentExampleToolStripMenuItem.Click += new System.EventHandler(this.AssignmentExampleToolStripMenuItem_Click);
+            this.AssignmentExampleToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.AssignmentExampleToolStripMenuItem.Text = "出数示例";
+
             // 
             // MessageArea
             // 
@@ -404,6 +407,14 @@ namespace Sudoku.UI
             this.btnSavetoPicture.UseVisualStyleBackColor = true;
             this.btnSavetoPicture.Click += new System.EventHandler(this.btnSavetoPicture_Click);
             // 
+            // EliminationExampleToolStripMenuItem
+            // 
+            this.EliminationExampleToolStripMenuItem.Name = "EliminationExampleToolStripMenuItem";
+            this.EliminationExampleToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.EliminationExampleToolStripMenuItem.Text = "删数示例";
+            this.EliminationExampleToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift |System.Windows.Forms.Keys.H)));
+            this.EliminationExampleToolStripMenuItem.Click += new System.EventHandler(this.EliminationExampleToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -472,8 +483,9 @@ namespace Sudoku.UI
         private Button button6;
         private ToolStripMenuItem ResetToolStripMenuItem;
         private SplitContainer splitContainer1;
-        private ToolStripMenuItem 技巧示例ToolStripMenuItem;
+        private ToolStripMenuItem AssignmentExampleToolStripMenuItem;
 
         private Button btnSavetoPicture;
+        private ToolStripMenuItem EliminationExampleToolStripMenuItem;
     }
 }
