@@ -1,0 +1,180 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>2aa10dc7-dc42-4a5f-b854-96d2956e18a4</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>Image2String.py</StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <Name>Sudoku.Image2String</Name>
+    <RootNamespace>Sudoku.Image2String</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="main.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="preprocess.py" />
+    <Compile Include="Image2String.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="numbers\" />
+    <Folder Include="number\" />
+    <Folder Include="number\0\" />
+    <Folder Include="number\1\" />
+    <Folder Include="number\2\" />
+    <Folder Include="number\3\" />
+    <Folder Include="number\4\" />
+    <Folder Include="number\5\" />
+    <Folder Include="number\6\" />
+    <Folder Include="number\7\" />
+    <Folder Include="number\8\" />
+    <Folder Include="number\9\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="label.npy" />
+    <Content Include="numbers\1.jpg" />
+    <Content Include="numbers\10.jpg" />
+    <Content Include="numbers\11.jpg" />
+    <Content Include="numbers\2.jpg" />
+    <Content Include="numbers\3.jpg" />
+    <Content Include="numbers\4.jpg" />
+    <Content Include="numbers\5.jpg" />
+    <Content Include="numbers\6.jpg" />
+    <Content Include="numbers\7.jpg" />
+    <Content Include="numbers\8.jpg" />
+    <Content Include="numbers\9.jpg" />
+    <Content Include="number\0\14.jpg" />
+    <Content Include="number\0\19.jpg" />
+    <Content Include="number\0\24.jpg" />
+    <Content Include="number\0\29.jpg" />
+    <Content Include="number\0\34.jpg" />
+    <Content Include="number\0\39.jpg" />
+    <Content Include="number\0\4.jpg" />
+    <Content Include="number\0\44.jpg" />
+    <Content Include="number\0\49.jpg" />
+    <Content Include="number\0\54.jpg" />
+    <Content Include="number\0\9.jpg" />
+    <Content Include="number\1\0.jpg" />
+    <Content Include="number\1\10.jpg" />
+    <Content Include="number\1\15.jpg" />
+    <Content Include="number\1\20.jpg" />
+    <Content Include="number\1\25.jpg" />
+    <Content Include="number\1\30.jpg" />
+    <Content Include="number\1\35.jpg" />
+    <Content Include="number\1\40.jpg" />
+    <Content Include="number\1\45.jpg" />
+    <Content Include="number\1\5.jpg" />
+    <Content Include="number\1\50.jpg" />
+    <Content Include="number\2\1.jpg" />
+    <Content Include="number\2\11.jpg" />
+    <Content Include="number\2\16.jpg" />
+    <Content Include="number\2\21.jpg" />
+    <Content Include="number\2\26.jpg" />
+    <Content Include="number\2\31.jpg" />
+    <Content Include="number\2\36.jpg" />
+    <Content Include="number\2\41.jpg" />
+    <Content Include="number\2\46.jpg" />
+    <Content Include="number\2\51.jpg" />
+    <Content Include="number\2\6.jpg" />
+    <Content Include="number\3\12.jpg" />
+    <Content Include="number\3\17.jpg" />
+    <Content Include="number\3\2.jpg" />
+    <Content Include="number\3\22.jpg" />
+    <Content Include="number\3\27.jpg" />
+    <Content Include="number\3\32.jpg" />
+    <Content Include="number\3\37.jpg" />
+    <Content Include="number\3\42.jpg" />
+    <Content Include="number\3\47.jpg" />
+    <Content Include="number\3\52.jpg" />
+    <Content Include="number\3\7.jpg" />
+    <Content Include="number\4\13.jpg" />
+    <Content Include="number\4\18.jpg" />
+    <Content Include="number\4\23.jpg" />
+    <Content Include="number\4\28.jpg" />
+    <Content Include="number\4\3.jpg" />
+    <Content Include="number\4\33.jpg" />
+    <Content Include="number\4\38.jpg" />
+    <Content Include="number\4\43.jpg" />
+    <Content Include="number\4\48.jpg" />
+    <Content Include="number\4\53.jpg" />
+    <Content Include="number\4\8.jpg" />
+    <Content Include="number\5\14.jpg" />
+    <Content Include="number\5\19.jpg" />
+    <Content Include="number\5\24.jpg" />
+    <Content Include="number\5\29.jpg" />
+    <Content Include="number\5\34.jpg" />
+    <Content Include="number\5\39.jpg" />
+    <Content Include="number\5\4.jpg" />
+    <Content Include="number\5\44.jpg" />
+    <Content Include="number\5\49.jpg" />
+    <Content Include="number\5\54.jpg" />
+    <Content Include="number\5\9.jpg" />
+    <Content Include="number\6\0.jpg" />
+    <Content Include="number\6\10.jpg" />
+    <Content Include="number\6\15.jpg" />
+    <Content Include="number\6\20.jpg" />
+    <Content Include="number\6\25.jpg" />
+    <Content Include="number\6\30.jpg" />
+    <Content Include="number\6\35.jpg" />
+    <Content Include="number\6\40.jpg" />
+    <Content Include="number\6\45.jpg" />
+    <Content Include="number\6\5.jpg" />
+    <Content Include="number\6\50.jpg" />
+    <Content Include="number\7\1.jpg" />
+    <Content Include="number\7\11.jpg" />
+    <Content Include="number\7\16.jpg" />
+    <Content Include="number\7\21.jpg" />
+    <Content Include="number\7\26.jpg" />
+    <Content Include="number\7\31.jpg" />
+    <Content Include="number\7\36.jpg" />
+    <Content Include="number\7\41.jpg" />
+    <Content Include="number\7\46.jpg" />
+    <Content Include="number\7\51.jpg" />
+    <Content Include="number\7\6.jpg" />
+    <Content Include="number\8\12.jpg" />
+    <Content Include="number\8\17.jpg" />
+    <Content Include="number\8\2.jpg" />
+    <Content Include="number\8\22.jpg" />
+    <Content Include="number\8\27.jpg" />
+    <Content Include="number\8\32.jpg" />
+    <Content Include="number\8\37.jpg" />
+    <Content Include="number\8\42.jpg" />
+    <Content Include="number\8\47.jpg" />
+    <Content Include="number\8\52.jpg" />
+    <Content Include="number\8\7.jpg" />
+    <Content Include="number\9\13.jpg" />
+    <Content Include="number\9\18.jpg" />
+    <Content Include="number\9\23.jpg" />
+    <Content Include="number\9\28.jpg" />
+    <Content Include="number\9\3.jpg" />
+    <Content Include="number\9\33.jpg" />
+    <Content Include="number\9\38.jpg" />
+    <Content Include="number\9\43.jpg" />
+    <Content Include="number\9\48.jpg" />
+    <Content Include="number\9\53.jpg" />
+    <Content Include="number\9\8.jpg" />
+    <Content Include="number\mkdir.bat" />
+    <Content Include="samples.npy" />
+    <Content Include="sudoku.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
+  <!-- Uncomment the CoreCompile target to enable the Build command in
+       Visual Studio and specify your pre- and post-build commands in
+       the BeforeBuild and AfterBuild targets below. -->
+  <!--<Target Name="CoreCompile" />-->
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+</Project>

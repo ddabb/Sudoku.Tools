@@ -37,3 +37,7 @@ sqlite3/
 /packages/System.Runtime.CompilerServices.Unsafe.4.5.2
 /packages/Microsoft.Bcl.AsyncInterfaces.1.1.0
 /packages/Autofac.5.0.0
+/Sudoku.Image2String/__pycache__
+/Sudoku.Image2String/dist
+/Sudoku.Image2String/build/main
+/Sudoku.Image2String/main.spec

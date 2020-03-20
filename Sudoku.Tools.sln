@@ -15,9 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sudoku.UI", "Sudoku.UI\Sudo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sudoku.Control", "Sudoku.Control\Sudoku.Control.csproj", "{EBC78FC4-AC47-42AB-B004-0B2F00E98C24}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sudoku.AI.Core", "Sudoku.AI.Core\Sudoku.AI.Core.csproj", "{E0716351-C148-47DC-8531-2F9E9BB91430}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sudoku.AI.Test", "Sudoku.AI.Test\Sudoku.AI.Test.csproj", "{FA715E9F-1D50-4CA0-AE85-C8F5D762FB41}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Sudoku.Image2String", "Sudoku.Image2String\Sudoku.Image2String.pyproj", "{2AA10DC7-DC42-4A5F-B854-96D2956E18A4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,14 +47,8 @@ Global
 		{EBC78FC4-AC47-42AB-B004-0B2F00E98C24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EBC78FC4-AC47-42AB-B004-0B2F00E98C24}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EBC78FC4-AC47-42AB-B004-0B2F00E98C24}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E0716351-C148-47DC-8531-2F9E9BB91430}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E0716351-C148-47DC-8531-2F9E9BB91430}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E0716351-C148-47DC-8531-2F9E9BB91430}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E0716351-C148-47DC-8531-2F9E9BB91430}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FA715E9F-1D50-4CA0-AE85-C8F5D762FB41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FA715E9F-1D50-4CA0-AE85-C8F5D762FB41}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FA715E9F-1D50-4CA0-AE85-C8F5D762FB41}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FA715E9F-1D50-4CA0-AE85-C8F5D762FB41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AA10DC7-DC42-4A5F-B854-96D2956E18A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AA10DC7-DC42-4A5F-B854-96D2956E18A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
