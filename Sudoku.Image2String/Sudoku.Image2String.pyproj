@@ -21,7 +21,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="main.py">
+    <Compile Include="ConvertToMatrix.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="preprocess.py" />
@@ -165,6 +165,7 @@
     <Content Include="number\9\53.jpg" />
     <Content Include="number\9\8.jpg" />
     <Content Include="number\mkdir.bat" />
+    <Content Include="readMe.txt" />
     <Content Include="samples.npy" />
     <Content Include="sudoku.ico" />
   </ItemGroup>

@@ -105,9 +105,9 @@ np.save('samples.npy',samples)
 np.save('label.npy',labels)
  
 ## 保存完加载一下试试
-test = np.load('samples.npy')
-label = np.load('label.npy')
-print(test[0])
-print(test[0].shape)
-print('label: ', label[0])
+## test = np.load('samples.npy')
+## label = np.load('label.npy')
+## print(test[0])
+## print(test[0].shape)
+## print('label: ', label[0])
     

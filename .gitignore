@@ -22,6 +22,7 @@ Debug/
 x64/
 x86/
 bld/
+build/
 bin/
 obj/
 [Ll]og/
@@ -41,3 +42,4 @@ sqlite3/
 /Sudoku.Image2String/dist
 /Sudoku.Image2String/build/main
 /Sudoku.Image2String/main.spec
+/Sudoku.Image2String/build/ConvertToMatrix/localpycos
