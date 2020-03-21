@@ -1,9 +1,6 @@
 ﻿using Sudoku.Core;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sudoku.Tools
 {
@@ -38,9 +35,9 @@ namespace Sudoku.Tools
                 var blocks = kv.Value;
                 var pairBlocks = (from a in blocks
                                   join b in blocks on 1 equals 1
-                                  let blockList=new List<int> { a,b}
+                                  let blockList = new List<int> { a, b }
                                   where a < b
-                                  select new { a, b , blockList });
+                                  select new { a, b, blockList });
                 foreach (var item in pairBlocks)
                 {
                     var blockList = item.blockList;
@@ -48,22 +45,22 @@ namespace Sudoku.Tools
                     var blockb = item.b;
                     var otherBlock = blocks.Except(blockList).First();
                     var filterCell = allUnsetCells.Where(c => blockList.Contains(c.Block)).ToList();
-                    if (filterCell.Count>3)
-                    { 
-                      
+                    if (filterCell.Count > 3)
+                    {
+
                         foreach (var value in G.AllBaseValues)
                         {
                             var containsList = filterCell.Where(c => c.RestList.Contains(value)).ToList();
-                            if (containsList.Count==4)
+                            if (containsList.Count == 4)
                             {
-                                if (containsList.Count(c=>c.Block==blocka)==2)//a宫2个数,b宫2个数
+                                if (containsList.Count(c => c.Block == blocka) == 2)//a宫2个数,b宫2个数
                                 {
                                     var distinctRow = containsList.Select(c => c.Row).Distinct().ToList();
                                     var distinctColumn = containsList.Select(c => c.Column).Distinct().ToList();
-                                    if (distinctRow.Count()==2
+                                    if (distinctRow.Count() == 2
                                      && distinctColumn.Count() == 2)
                                     {
-                                        if (key<4) 
+                                        if (key < 4)
                                         {
                                             #region 删除 第三宫 distinctRow 的value
                                             var keyCells = allUnsetCells.Where(c => c.Block == otherBlock && distinctRow.Contains(c.Row) && c.RestList.Contains(value)).ToList();
@@ -71,13 +68,11 @@ namespace Sudoku.Tools
                                             {
                                                 foreach (var keyCell in keyCells)
                                                 {
-
-
                                                     var singleCell = new NegativeCell(keyCell.Index, value) { Sudoku = qSudoku };
                                                     cells.Add(singleCell);
                                                 }
                                                 var indexs = keyCells.Select(c => c.Index).ToList();
-                                                var nagetiveCell = new NegativeIndexsGroup(indexs, value) {Sudoku=qSudoku };
+                                                var nagetiveCell = new NegativeIndexsGroup(indexs, value) { Sudoku = qSudoku };
                                                 cells.Add(nagetiveCell);
 
                                             }
@@ -93,8 +88,6 @@ namespace Sudoku.Tools
                                             {
                                                 foreach (var keyCell in keyCells)
                                                 {
-
-                                                  
                                                     var singleCell = new NegativeCell(keyCell.Index, value) { Sudoku = qSudoku };
                                                     cells.Add(singleCell);
                                                 }
@@ -116,8 +109,8 @@ namespace Sudoku.Tools
                             }
                         }
 
-                }
-            
+                    }
+
                 }
             }
 

@@ -20,6 +20,7 @@ namespace Sudoku.UI
         public FrmExample()
         {
             InitializeComponent();
+            this.CenterScreen();
             this.lblTitle.Text = lblTitleText;
         }
 

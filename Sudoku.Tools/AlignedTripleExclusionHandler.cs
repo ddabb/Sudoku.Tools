@@ -1,5 +1,4 @@
 ﻿using Sudoku.Core;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -25,7 +24,7 @@ namespace Sudoku.Tools
             var triples = allUnsetCell.Where(c => c.RestCount == 3).ToList();
             foreach (var item in triples)
             {
-  
+
                 var itemRest = item.RestList;
                 var filterCells = item.RelatedUnsetCells.Where(c => c.RestCount == 2).ToList();
                 var ab = (from a in filterCells
@@ -48,19 +47,19 @@ namespace Sudoku.Tools
                     var bexcept = item1.bexcept;
                     var removalue = itemRest.ToList().Except(a.RestList).Except(b.RestList).First();
                     var comonValue = aexcept.First();
-           var conditionCells=         qSudoku.GetPublicUnsetAreas(a, b).Where(c =>
-                        c.RestCount == 2 && c.RestList.Contains(removalue) && c.RestList.Contains(comonValue)).ToList();
-           foreach (var cell in conditionCells)
-           {
-               foreach (var checkCell in qSudoku.GetPublicUnsetAreas(item, cell))
-               {
-                   if (checkCell.RestList.Contains(removalue))
-                   {
-                       cells.Add(new NegativeCell(checkCell.Index, removalue));
-                   }
+                    var conditionCells = qSudoku.GetPublicUnsetAreas(a, b).Where(c =>
+                          c.RestCount == 2 && c.RestList.Contains(removalue) && c.RestList.Contains(comonValue)).ToList();
+                    foreach (var cell in conditionCells)
+                    {
+                        foreach (var checkCell in qSudoku.GetPublicUnsetAreas(item, cell))
+                        {
+                            if (checkCell.RestList.Contains(removalue))
+                            {
+                                cells.Add(new NegativeCell(checkCell.Index, removalue));
+                            }
                         }
-               
-           }
+
+                    }
 
 
 

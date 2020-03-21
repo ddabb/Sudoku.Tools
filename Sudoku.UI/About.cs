@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Sudoku.Tools;
 
 namespace Sudoku.UI
 {
@@ -18,6 +19,7 @@ namespace Sudoku.UI
         public AboutForm()
         {
             InitializeComponent();
+            this.CenterScreen();
             this.Icon = Sudoku.UI.Resource.sudoku;
             this.versionText.Text= VersionString;
 

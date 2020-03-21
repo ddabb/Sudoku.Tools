@@ -34,7 +34,7 @@ namespace Sudoku.Tools
                 var intersects = item.intersects;
                 var commonValue = intersects.First();
                 var sameRow = item.sameRow;
-                var unionValues = a.RestList.Except(intersects).Union(b.RestList.Except(intersects));
+                var unionValues = a.RestList.Except(intersects).Union(b.RestList.Except(intersects)).ToList();
                 var list = allUnsetCells.Where(c => unionValues.All(x => c.RestList.Contains(x)) && (sameRow ? c.Column == a.Column : c.Row == a.Row)).ToList();
                 foreach (var keyCell in list)
                 {
