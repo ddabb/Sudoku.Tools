@@ -58,7 +58,7 @@ namespace Sudoku.Tools
                                         var removeValue = interactList.First();
                                         var negativeCell = new NegativeCell(cell.Index, removeValue) { Sudoku = qSudoku };
                                         negativeCell.drawCells = drawCells;
-                                        negativeCell.SolveMessages = new List<SolveMessage> { "在", GetDirectionMessage(direction, index), "中", a.Location, "、", b.Location,"只出现了" + rests.JoinString() + "两个数\r\n", negativeCell.Location, "不能为" + removeValue + "\r\n" };
+                                        negativeCell.SolveMessages = new List<SolveMessage> { "在", GetDirectionMessage(direction, index), "中", G.MergeLocationDesc(a, b),"只出现了" + rests.JoinString() + "两个数\r\n", negativeCell.Location, "不能为" + removeValue + "\r\n" };
                                         cells.Add(negativeCell);
                                     }
                                     else
@@ -66,7 +66,7 @@ namespace Sudoku.Tools
                                         var removeValue = interactList;
                                         var negativeCell = new NegativeValuesGroup(cell.Index, removeValue) { Sudoku = qSudoku };
                                         negativeCell.drawCells = drawCells;
-                                        negativeCell.SolveMessages = new List<SolveMessage> { "在", GetDirectionMessage(direction, index), "中", a.Location, "、", b.Location,"只出现了" + rests.JoinString() + "两个数\r\n", negativeCell.Location, "不能为" + removeValue.JoinString() + "\r\n" };
+                                        negativeCell.SolveMessages = new List<SolveMessage> { "在", GetDirectionMessage(direction, index), "中", G.MergeLocationDesc(a, b), "只出现了" + rests.JoinString() + "两个数\r\n", negativeCell.Location, "不能为" + removeValue.JoinString() + "\r\n" };
                                         cells.Add(negativeCell);
                                     }
                                 }

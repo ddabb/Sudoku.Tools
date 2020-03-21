@@ -99,6 +99,14 @@ namespace Sudoku.Core
             return MergeLocationDesc(cells);
         }
 
+
+        public static List<LocationGroup> MergeLocationDesc(params int[] n)
+        {
+            var cells = n.Select(c=>(CellInfo)new InitCell(c,0)).ToList();
+
+            return MergeLocationDesc(cells);
+        }
+
         private static List<LocationGroup> RecursionSimplify(List<LocationGroup> groups)
         {
             var newGroups = groups.ToList();

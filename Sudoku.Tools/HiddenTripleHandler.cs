@@ -72,7 +72,7 @@ namespace Sudoku.Tools
                                             var negativeCell = new NegativeCell(cell.Index, rest) { Sudoku = qSudoku };
                                             negativeCell.SolveMessages = new List<SolveMessage>
                                             {
-                                                "在",GetDirectionMessage(direction,index),"中",values.JoinString()+"只出现在",cell1.Location,",",cell2.Location,",",cell3.Location,"之中\r\n所以",
+                                                "在",GetDirectionMessage(direction,index),"中",values.JoinString()+"只出现在",G.MergeLocationDesc(cell1,cell2,cell3),"之中\r\n所以",
                                                 cell.Location,"不能填入"+rest+"\r\n"
                                             };
                                             var drawCells = GetDrawPossibleCell(groupCells, values);
@@ -94,7 +94,7 @@ namespace Sudoku.Tools
                                         var negativeCell = new NegativeIndexsGroup(indexs, other) { Sudoku = qSudoku };
                                         negativeCell.SolveMessages = new List<SolveMessage>
                                             {
-                                                "在",GetDirectionMessage(direction,index),"中",values.JoinString()+"只出现在",cell1.Location,",",cell2.Location,",",cell3.Location,"之中\r\n所以",
+                                                "在",GetDirectionMessage(direction,index),"中",values.JoinString()+"只出现在",G.MergeLocationDesc(cell1,cell2,cell3),"之中\r\n所以",
 
                                             };
                                         for (int i = 0; i < indexs.Count; i++)
