@@ -335,8 +335,8 @@ namespace Sudoku.UI
         private void LoadToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog openDialog = new OpenFileDialog();
-            openDialog.Title = "导入数独,支持图片,Txt文件";
-            openDialog.Filter = "txt文件|*.txt;.jpg|*.jpg;.png|*.png";
+            openDialog.Title = "导入数独,支持图片,txt文件";
+            openDialog.Filter = "txt文件|*.txt|.jpg|*.jpg|.png|*.png";
             var result = openDialog.ShowDialog();
             if (result==DialogResult.OK)
             {
