@@ -49,6 +49,7 @@ namespace Sudoku.Tools
                             var b = item.b;
                             var c = item.c;
                             var rests = item.rests;
+                            rests.Sort();
                             var drawCells = GetDrawPossibleCell(new List<CellInfo> { a, b, c }, rests);
                             var indexs = item.indexs;
                             var filterCell = allUnSetCell.Where(G.GetDirectionCells(direction, index)).Where(c => !indexs.Contains(c.Index)).ToList();

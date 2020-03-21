@@ -44,6 +44,7 @@ namespace Sudoku.Tools
                             var b = item.b;
                
                             var rests = item.rests;
+                            rests.Sort();
                             var drawCells = GetDrawPossibleCell(new List<CellInfo> { a, b}, rests);
                             var indexs = item.indexs;
                             var filterCell = allUnSetCell.Where(G.GetDirectionCells(direction, index)).Where(c => !indexs.Contains(c.Index)).ToList();
@@ -64,8 +65,10 @@ namespace Sudoku.Tools
                                     else
                                     {
                                         var removeValue = interactList;
-                                        var negativeCell = new NegativeValuesGroup(cell.Index, removeValue) { Sudoku = qSudoku };
-                                        negativeCell.drawCells = drawCells;
+                                        var negativeCell = new NegativeValuesGroup(cell.Index, removeValue)
+                                        {
+                                            Sudoku = qSudoku, drawCells = drawCells
+                                        };
                                         negativeCell.SolveMessages = new List<SolveMessage> { "在", GetDirectionMessage(direction, index), "中", G.MergeLocationDesc(a, b), "只出现了" + rests.JoinString() + "两个数\r\n", negativeCell.Location, "不能为" + removeValue.JoinString() + "\r\n" };
                                         cells.Add(negativeCell);
                                     }
