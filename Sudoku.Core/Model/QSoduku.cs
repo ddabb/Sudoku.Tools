@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Sudoku.Core.Model;
 
 namespace Sudoku.Core
 {
@@ -27,6 +28,10 @@ namespace Sudoku.Core
             this.QueryString = "000000000000000000000000000000000000000000000000000000000000000000000000000000000";
             Init();
         }
+
+
+        public List<NegativeCell2PostiveCell> StrongLinsLinks { get; set; }
+        public List<PostiveCell2NegativeCell> WeakLink { get; set; }
 
         public QSudoku(string queryString)
         {

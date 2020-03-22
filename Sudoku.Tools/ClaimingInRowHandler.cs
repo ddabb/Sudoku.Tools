@@ -40,8 +40,20 @@ namespace Sudoku.Tools
                         var negativeCells = AllunsetCells.Where(c => c.Block == block && c.Row != index && c.RestList.Contains(value)).ToList();
                         foreach (var item1 in negativeCells)
                         {
-                            var cell = new NegativeCell(item1.Index, value) { Sudoku = qSudoku };
-                            cell.SolveMessages = new List<SolveMessage> { index.RowDesc(), "只有", block.BlockDesc(), "可以填入"+ value + "\r\n", "所以", item1.Location, "不能填入" + value + "\r\n" };
+                            var cell = new NegativeCell(item1.Index, value)
+                            {
+                                Sudoku = qSudoku,
+                                SolveMessages = new List<SolveMessage>
+                                {
+                                    index.RowDesc(),
+                                    "只有",
+                                    block.BlockDesc(),
+                                    "可以填入" + value + "\r\n",
+                                    "所以",
+                                    item1.Location,
+                                    "不能填入" + value + "\r\n"
+                                }
+                            };
                             cells.Add(cell);
 
                         }

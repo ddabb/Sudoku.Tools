@@ -32,6 +32,7 @@ namespace Sudoku.Tools
             foreach (var item in ab)
             {
                 var a = item.a;
+
                 var b = item.b;
                 var arest = item.arest;
                 var brest = item.brest;

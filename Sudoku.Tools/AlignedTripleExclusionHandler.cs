@@ -13,7 +13,7 @@ namespace Sudoku.Tools
 
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
-            return new List<CellInfo>();
+            return AssignmentCellByEliminationCell(qSudoku);
         }
 
         public override List<CellInfo> Elimination(QSudoku qSudoku)
