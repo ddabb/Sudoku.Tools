@@ -392,6 +392,24 @@ namespace Sudoku.Tools
                     {
                         cells.Add(new PossibleCell(item.Index, rest, item.Sudoku));
                     }
+ }
+
+            }
+
+            return cells;
+        }
+
+        public List<CellInfo> GetDrawNakedCell(List<CellInfo> cellList, List<int> values)
+        {
+            List<CellInfo> cells = new List<CellInfo>();
+            foreach (var item in cellList)
+            {
+                foreach (var rest in item.RestList)
+                {
+                    if (values.Contains(rest))
+                    {
+                        cells.Add(new PossibleCell(item.Index, rest, item.Sudoku));
+                    }
                     else
                     {
                         cells.Add(new NegativeCell(item.Index, rest, item.Sudoku));

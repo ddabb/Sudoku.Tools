@@ -51,7 +51,7 @@ namespace Sudoku.Tools
                             var c = item.c;
                             var rests = item.rests;
                             rests.Sort();
-                            var drawCells = GetDrawPossibleCell(new List<CellInfo> { a, b, c }, rests);
+                            var drawCells = GetDrawNakedCell(new List<CellInfo> { a, b, c }, rests);
                             var indexs = item.indexs;
                             var filterCell = allUnSetCell.Where(G.GetDirectionCells(direction, index)).Where(c => !indexs.Contains(c.Index)).ToList();
                             drawCells.AddRange(GetDrawNegativeCell(filterCell, rests));

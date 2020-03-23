@@ -56,6 +56,7 @@ namespace Sudoku.Tools
                             };
                             var drawCells = GetDrawPossibleCell(blockinfo, new List<int> { value });
                             drawCells.Add(cell);
+                            cell.drawCells = drawCells;
                             cells.Add(cell);
 
                         }
@@ -81,6 +82,7 @@ namespace Sudoku.Tools
                             var drawCells = GetDrawPossibleCell(blockinfo, new List<int> { value });
                             drawCells.AddRange(GetDrawNegativeCell(cells1, new List<int> { value }));
                             drawCells.Add(cell);
+                            cell.drawCells = drawCells;
                             cells.Add(cell);
                         }
                         #endregion
@@ -107,6 +109,7 @@ namespace Sudoku.Tools
                             var drawCells = GetDrawPossibleCell(blockinfo, new List<int> { value });
                             drawCells.AddRange(GetDrawNegativeCell(cells1, new List<int> { value }));
                             drawCells.Add(cell);
+                            cell.drawCells = drawCells;
                             cells.Add(cell);
                         }
                         #endregion

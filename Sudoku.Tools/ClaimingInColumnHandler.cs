@@ -16,26 +16,27 @@ namespace Sudoku.Tools
 
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
-            return AssignmentCellByEliminationCell(qSudoku);
+            var temp = AssignmentCellByEliminationCell(qSudoku);
+            return temp;
         }
 
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
-            var AllunsetCells = qSudoku.AllUnSetCells;
+            var allunsetCells = qSudoku.AllUnSetCells;
 
             foreach (var index in G.baseIndexs)
             {
                 foreach (var value in G.AllBaseValues)
                 {
-                    var blockinfo = AllunsetCells.Where(c => c.Column == index && c.RestList.Contains(value)).ToList();
+                    var blockinfo = allunsetCells.Where(c => c.Column == index && c.RestList.Contains(value)).ToList();
                     var blocks = blockinfo.Select(c => c.Block).Distinct();
                     if (blockinfo.Count > 1 && blocks.Count() == 1) //若blockinfo.Count==1 则是唯余法。
                     {
                         var block = blocks.First();
                         var existsRows = blockinfo.Select(c => c.Row).Distinct();
                         #region 同宫不同列
-                        var negativeCells = AllunsetCells.Where(c => c.Block == block && c.Column != index && c.RestList.Contains(value)).ToList();
+                        var negativeCells = allunsetCells.Where(c => c.Block == block && c.Column != index && c.RestList.Contains(value)).ToList();
                         foreach (var item1 in negativeCells)
                         {
                             var cell = new NegativeCell(item1.Index, value, qSudoku)
@@ -61,10 +62,10 @@ namespace Sudoku.Tools
                         #endregion
 
                         #region 第三行
-                        var checkrow = AllunsetCells.Where(c => c.Block == block && !existsRows.Contains(c.Row)).Select(c => c.Row).ToList();
+                        var checkrow = allunsetCells.Where(c => c.Block == block && !existsRows.Contains(c.Row)).Select(c => c.Row).ToList();
                         foreach (var row in checkrow)
                         {
-                            var cells1 = AllunsetCells.Where(c => c.Block == block && c.Row == row && c.RestList.Contains(value)).ToList();
+                            var cells1 = allunsetCells.Where(c => c.Block == block && c.Row == row && c.RestList.Contains(value)).ToList();
                             var list1 = cells1.Select(c => c.Index).ToList();
                             var cell = new NegativeIndexsGroup(list1, value, qSudoku)
                             {
@@ -91,7 +92,7 @@ namespace Sudoku.Tools
 
                         foreach (var column in otherColumn)
                         {
-                            var cells1 = AllunsetCells.Where(c => c.Block == block && c.Column == column && c.RestList.Contains(value)).ToList();
+                            var cells1 = allunsetCells.Where(c => c.Block == block && c.Column == column && c.RestList.Contains(value)).ToList();
                             var list1 = cells1.Select(c => c.Index).ToList();
                             var cell = new NegativeIndexsGroup(list1, value, qSudoku)
                             {
