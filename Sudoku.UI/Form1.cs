@@ -11,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
+using Sudoku.Core.Model;
 using IContainer = Autofac.IContainer;
 
 namespace Sudoku.UI
@@ -31,7 +32,7 @@ namespace Sudoku.UI
             var c = new QSudoku();
 #if DEBUG
             //c = new QSudoku("080704021201800000003000000902000100805000692010020000050083217008070000107006438");
-             c = new QSudoku("860035900700068351530074020070810530005307100183540200020650703057400002010700495");
+             c = new QSudoku("000020080040009003000005700000000030805070020037004000070080056090000300100040000");
             //c = getQSudoku(typeof(HiddenQuadrupleHandler));
 
 

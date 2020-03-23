@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
+using Sudoku.Core.Model;
 
 namespace Sudoku.UI
 {

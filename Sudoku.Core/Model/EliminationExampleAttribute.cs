@@ -1,7 +1,6 @@
-﻿using Sudoku.Core;
-using System;
+﻿using System;
 
-namespace Sudoku.Tools
+namespace Sudoku.Core.Model
 {
     /// <summary>
     /// 删数用例

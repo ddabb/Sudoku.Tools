@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Sudoku.Core.Model;
+
 namespace Sudoku.Tools
 {
     [AssignmentExample(5, "R5C1", "748359126001726840026400705200040387074030009180070004402507608017003452805204070")]

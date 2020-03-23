@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Sudoku.Core.Model;
 
 namespace Sudoku.Tools
 {
@@ -15,9 +16,14 @@ namespace Sudoku.Tools
 
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
+            return AssignmentCellByEliminationCell(qSudoku);
+        }
+
+        public override List<CellInfo> Elimination(QSudoku qSudoku)
+        {
 
             List<CellInfo> cells = new List<CellInfo>();
-            List<int> range = new List<int> {  3 };
+            List<int> range = new List<int> { 3 };
             List<int> sumrange = new List<int> { 9 };
             foreach (var value in G.AllBaseValues)
             {
@@ -43,7 +49,7 @@ namespace Sudoku.Tools
                     cells.AddRange(checkCell.Where(c => !item.rows.Contains(c.Row)
                                                         && item.columns.Contains(c.Column) &&
                                                         c.RestList.Contains(value) &&
-                                                        c.RestCount == 2).Select(cell => new PositiveCell(cell.Index, cell.RestList.First(c => c != value), qSudoku)
+                                                        c.RestCount>1).Select(cell => new NegativeCell(cell.Index, value, qSudoku)
                     ).Cast<CellInfo>());
                 }
 
@@ -68,17 +74,12 @@ namespace Sudoku.Tools
                     cells.AddRange(checkCell.Where(c => item.distinctRows.Contains(c.Row)
                                                         && !item.columns.Contains(c.Column) &&
                                                         c.RestList.Contains(value) &&
-                                                        c.RestCount == 2).Select(cell => new PositiveCell(cell.Index, cell.RestList.First(c => c != value), qSudoku)
+                                                        c.RestCount>1).Select(cell => new NegativeCell(cell.Index, value, qSudoku)
                     ).Cast<CellInfo>());
                 }
             }
 
             return cells;
-        }
-
-        public override List<CellInfo> Elimination(QSudoku qSudoku)
-        {
-            return new List<CellInfo>();
         }
 
         public override string GetDesc()

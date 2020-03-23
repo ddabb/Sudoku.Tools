@@ -2,11 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Sudoku.Core.Model;
 
 namespace Sudoku.Tools
 {
 
-    [AssignmentExample(7,"R4C9","000020080040009003000005700000000030805070020037004000070080056090000300100040000")]
+    [AssignmentExample(7, "R4C9", "000020080040009003000005700000000030805070020037004000070080056090000300100040000")]
     public class ClaimingInColumnHandler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.ClaimingInColumn;
@@ -32,49 +33,82 @@ namespace Sudoku.Tools
                     if (blockinfo.Count > 1 && blocks.Count() == 1) //若blockinfo.Count==1 则是唯余法。
                     {
                         var block = blocks.First();
-                        var ExistsRows = blockinfo.Select(c => c.Row).Distinct();
+                        var existsRows = blockinfo.Select(c => c.Row).Distinct();
                         #region 同宫不同列
                         var negativeCells = AllunsetCells.Where(c => c.Block == block && c.Column != index && c.RestList.Contains(value)).ToList();
                         foreach (var item1 in negativeCells)
                         {
-                            var cell = new NegativeCell(item1.Index, value, qSudoku) ;
-                            cell.SolveMessages = new List<SolveMessage> { index.ColumnDesc(), "只有", block.BlockDesc(), "可以填入" + value +"\r\n", "所以", item1.Location ,"不能填入" + value +"\r\n"};
+                            var cell = new NegativeCell(item1.Index, value, qSudoku)
+                            {
+                                SolveMessages = new List<SolveMessage>
+                                {
+                                    index.ColumnDesc(),
+                                    "只有",
+                                    block.BlockDesc(),
+                                    "可以填入" + value + "\r\n",
+                                    "所以",
+                                    item1.Location,
+                                    "不能填入" + value + "\r\n"
+                                }
+                            };
+
+                            var drawCells = GetDrawPossibleCell(blockinfo, new List<int> { value });
+                            drawCells.Add(cell);
+                            cell.drawCells = drawCells;
                             cells.Add(cell);
 
                         }
                         #endregion
 
                         #region 第三行
-                        var checkrow = AllunsetCells.Where(c => c.Block == block && !ExistsRows.Contains(c.Row)).Select(c => c.Row).ToList();
+                        var checkrow = AllunsetCells.Where(c => c.Block == block && !existsRows.Contains(c.Row)).Select(c => c.Row).ToList();
                         foreach (var row in checkrow)
                         {
-                            var list1 = AllunsetCells.Where(c => c.Block == block && c.Row == row && c.RestList.Contains(value)).Select(c => c.Index).ToList();
-                            var cell = new NegativeIndexsGroup(list1, value, qSudoku) ;
-                            
-                            cell.SolveMessages = new List<SolveMessage> { index.ColumnDesc(), "只有", block.BlockDesc(), "可以填入" + value+"\r\n", "所以" };
-                            foreach (var item in list1)
+                            var cells1 = AllunsetCells.Where(c => c.Block == block && c.Row == row && c.RestList.Contains(value)).ToList();
+                            var list1 = cells1.Select(c => c.Index).ToList();
+                            var cell = new NegativeIndexsGroup(list1, value, qSudoku)
                             {
-                                cell.SolveMessages.AddRange(new List<SolveMessage> { item.LoctionDesc()," "});
-                            }
-                           
-                            cell.SolveMessages.Add("不能填入" + value+"\r\n");
+                                SolveMessages = new List<SolveMessage>
+                                {
+                                    index.ColumnDesc(),
+                                    "只有",
+                                    block.BlockDesc(),
+                                    "可以填入" + value + "\r\n",
+                                    "所以"            ,G.MergeLocationDesc(cells1),"不能填入" + value+"\r\n"
+                                }
+                            };
+
+                            var drawCells = GetDrawPossibleCell(blockinfo, new List<int> { value });
+                            drawCells.AddRange(GetDrawNegativeCell(cells1, new List<int> { value }));
+                            drawCells.Add(cell);
+                            cell.drawCells = drawCells;
                             cells.Add(cell);
                         }
                         #endregion
 
                         #region 其余列
                         var otherColumn = negativeCells.Select(c => c.Column).Distinct().ToList();
-             
+
                         foreach (var column in otherColumn)
                         {
-                            var list1 = AllunsetCells.Where(c => c.Block == block && c.Column == column && c.RestList.Contains(value)).Select(c => c.Index).ToList();
-                            var cell = new NegativeIndexsGroup(list1, value, qSudoku) ;
-                            cell.SolveMessages = new List<SolveMessage> { index.ColumnDesc(), "只有" , block.BlockDesc(), "可以填入" +value +"\r\n", "所以" };
-                            foreach (var item in list1)
+                            var cells1 = AllunsetCells.Where(c => c.Block == block && c.Column == column && c.RestList.Contains(value)).ToList();
+                            var list1 = cells1.Select(c => c.Index).ToList();
+                            var cell = new NegativeIndexsGroup(list1, value, qSudoku)
                             {
-                                cell.SolveMessages.AddRange(new List<SolveMessage> { item.LoctionDesc(), " " });
-                            }
-                            cell.SolveMessages.Add("不能填入" + value+"\r\n");
+                                SolveMessages = new List<SolveMessage>
+                                {
+                                    index.ColumnDesc(),
+                                    "只有",
+                                    block.BlockDesc(),
+                                    "可以填入" + value + "\r\n",
+                                    G.MergeLocationDesc(cells1),"不能填入" + value+"\r\n"
+                                }
+                            };
+
+                            var drawCells = GetDrawPossibleCell(blockinfo, new List<int> { value });
+                            drawCells.AddRange(GetDrawNegativeCell(cells1, new List<int> { value }));
+                            drawCells.Add(cell);
+                            cell.drawCells = drawCells;
                             cells.Add(cell);
                         }
                         #endregion

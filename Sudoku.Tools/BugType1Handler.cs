@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Sudoku.Core.Model;
+
 namespace Sudoku.Tools
 {
     [AssignmentExample(1, "R8C9", "578136294004289705002574180459321800381765942726948500067853420845602300203407658")] //正确的

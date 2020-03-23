@@ -426,7 +426,7 @@ namespace Sudoku.Tools
 
             return cells;
         }
-
+        
 
         /// <summary>
         /// 

@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Sudoku.Core;
+using Sudoku.Core.Model;
 
 namespace Sudoku.Tools
 {
 
-  [EliminationExampleAttribute(8,"R2C6","783060054569700020124503700070005400405007002030800075007050010300906507650070200")]    
+  [EliminationExample(8,"R2C6","783060054569700020124503700070005400405007002030800075007050010300906507650070200")]    
    public class AlignedPairExclusionHandler : SolverHandlerBase
     {
         public override List<CellInfo> Elimination(QSudoku qSudoku)

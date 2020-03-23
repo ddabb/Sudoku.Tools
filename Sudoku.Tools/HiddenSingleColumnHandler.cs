@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Sudoku.Core.Model;
+
 namespace Sudoku.Tools
 {
     [AssignmentExample(5,"R5C4","000000000000040329000651847000000500000000473008473296004000900000005180060180700")]

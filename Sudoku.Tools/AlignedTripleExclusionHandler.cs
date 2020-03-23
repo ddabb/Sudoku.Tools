@@ -1,10 +1,11 @@
 ﻿using Sudoku.Core;
 using System.Collections.Generic;
 using System.Linq;
+using Sudoku.Core.Model;
 
 namespace Sudoku.Tools
 {
-    [EliminationExampleAttribute(4, "R1C4", "000010900001209870029306451697023100482061000135000260000002610056134700010697000")]
+    [EliminationExample(4, "R1C4", "000010900001209870029306451697023100482061000135000260000002610056134700010697000")]
     public class AlignedTripleExclusionHandler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.AlignedTripleExclusion;

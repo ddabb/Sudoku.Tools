@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using Sudoku.Core.Model;
 
 namespace SudoKu.Test
 {

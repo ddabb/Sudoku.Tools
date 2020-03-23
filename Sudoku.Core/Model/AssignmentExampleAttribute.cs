@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Linq;
-using Sudoku.Core;
 
-namespace Sudoku.Tools
+namespace Sudoku.Core.Model
 {
     /// <summary>
     /// 出数用例

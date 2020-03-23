@@ -1,6 +1,7 @@
 ﻿using Sudoku.Core;
 using System.Collections.Generic;
 using System.Linq;
+using Sudoku.Core.Model;
 
 namespace Sudoku.Tools
 {
@@ -44,11 +45,22 @@ namespace Sudoku.Tools
                                 var cellrest = cell.RestList;
                                 if (cellrest.Contains(value))
                                 {
-                                    var cell1 = new NegativeCell(cell.Index, value, qSudoku);
-                                 
-                                    cell1.SolveMessages = new List<SolveMessage> {
-                                       blockindex.BlockDesc(), "只有" ,GetDirectionMessage(direction,index) ,  "可以填入" + value + "\r\n",
-                                        "所以", cell.Location, "不能填入" + value + "\r\n" };
+                                    var cell1 = new NegativeCell(cell.Index, value, qSudoku)
+                                    {
+                                        SolveMessages = new List<SolveMessage>
+                                        {
+                                            blockindex.BlockDesc(),
+                                            "只有",
+                                            GetDirectionMessage(direction, index),
+                                            "可以填入" + value + "\r\n",
+                                            "所以",
+                                            cell.Location,
+                                            "不能填入" + value + "\r\n"
+                                        }
+                                    };
+                                    var drawCells = GetDrawPossibleCell(blockUnSetCell, new List<int> { value });
+                                    drawCells.Add(cell1);
+                                    cell1.drawCells = drawCells;
 
                                     cells.Add(cell1);
                                 }
@@ -59,16 +71,24 @@ namespace Sudoku.Tools
                             {
                                 var otherCell = allunsetcell.Where(c => c.Block == block && G.GetFilter(c, direction, index)&&c.RestList.Contains(value)).ToList();
                                 var indexs = otherCell.Select(c => c.Index).ToList();
-                                var cell1 = new NegativeIndexsGroup(indexs, value, qSudoku);
-                         
-                                cell1.SolveMessages = new List<SolveMessage> {
-                                         blockindex.BlockDesc(),  "只有",GetDirectionMessage(direction,index),"可以填入" + value + "\r\n",
-                                        "所以", };
-                                foreach (var item in indexs)
+                                var cell1 = new NegativeIndexsGroup(indexs, value, qSudoku)
                                 {
-                                    cell1.SolveMessages.AddRange(new List<SolveMessage> { item.LoctionDesc(), " " });
-                                }
-                                cell1.SolveMessages.Add("不能填入" + value + "\r\n");
+                                    SolveMessages = new List<SolveMessage>
+                                    {
+                                        blockindex.BlockDesc(),
+                                        "只有",
+                                        GetDirectionMessage(direction, index),
+                                        "可以填入" + value + "\r\n",
+                                        "所以",
+                                        G.MergeLocationDesc(otherCell),
+                                        "不能填入" + value + "\r\n"
+                                    }
+                                };
+
+                                var drawCells = GetDrawPossibleCell(blockUnSetCell, new List<int> { value });
+                                drawCells.AddRange(GetDrawNegativeCell(otherCell, new List<int> { value }));
+                                drawCells.Add(cell1);
+                                cell1.drawCells = drawCells;
                                 cells.Add(cell1);
                             }
                         }
