@@ -210,8 +210,10 @@ namespace Sudoku.Console
                     if (!types1.Contains(handler.GetType()))
                     {
                         var cellinfos = new List<CellInfo>();
-
+                        DateTime a=DateTime.Now;
                         cellinfos = handler.Assignment(example);
+                        DateTime b = DateTime.Now;
+                        Debug.WriteLine("方法" + G.GetEnumDescription(handler.methodType) + "执行时间" + (b - a).ToString("g"));
                         if (cellinfos.Count != 0)
                         {
                             Debug.WriteLine("handler  " + handler.GetType().ToString());
