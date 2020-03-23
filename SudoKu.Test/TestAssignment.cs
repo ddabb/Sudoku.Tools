@@ -21,6 +21,12 @@ namespace SudoKu.Test
         }
 
         [TestMethod]
+        public void TestXWingHandler()
+        {
+            TestAssignmentExample(typeof(XWingHandler));
+        }
+
+        [TestMethod]
         public void TestCascadingLockedCandidatesHandler()
         {
             TestAssignmentExample(typeof(CascadingLockedCandidatesHandler));

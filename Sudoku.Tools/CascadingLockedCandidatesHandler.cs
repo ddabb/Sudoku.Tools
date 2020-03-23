@@ -13,7 +13,8 @@ namespace Sudoku.Tools
 
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
-            return AssignmentCellByEliminationCell(qSudoku);
+            var temp= AssignmentCellByEliminationCell(qSudoku);
+            return temp;
         }
 
         public override List<CellInfo> Elimination(QSudoku qSudoku)
@@ -56,6 +57,7 @@ namespace Sudoku.Tools
                             {
                                 if (containsList.Count(c => c.Block == blocka) == 2)//a宫2个数,b宫2个数
                                 {
+                                    var drawCells = GetDrawPossibleCell(containsList, new List<int> { value });
                                     var distinctRow = containsList.Select(c => c.Row).Distinct().ToList();
                                     var distinctColumn = containsList.Select(c => c.Column).Distinct().ToList();
                                     if (distinctRow.Count() == 2
@@ -70,10 +72,14 @@ namespace Sudoku.Tools
                                                 foreach (var keyCell in keyCells)
                                                 {
                                                     var singleCell = new NegativeCell(keyCell.Index, value, qSudoku);
+                                                    drawCells.Add(singleCell);
+                                                    singleCell.drawCells = drawCells;
                                                     cells.Add(singleCell);
                                                 }
                                                 var indexs = keyCells.Select(c => c.Index).ToList();
                                                 var nagetiveCell = new NegativeIndexsGroup(indexs, value, qSudoku);
+                                                drawCells.Add(nagetiveCell);
+                                                nagetiveCell.drawCells = drawCells;
                                                 cells.Add(nagetiveCell);
 
                                             }
@@ -90,11 +96,16 @@ namespace Sudoku.Tools
                                                 foreach (var keyCell in keyCells)
                                                 {
                                                     var singleCell = new NegativeCell(keyCell.Index, value, qSudoku) ;
+                                                    drawCells.Add(singleCell);
+                                                    singleCell.drawCells = drawCells;
                                                     cells.Add(singleCell);
                                                 }
 
                                                 var indexs = keyCells.Select(c => c.Index).ToList();
                                                 var nagetiveCell = new NegativeIndexsGroup(indexs, value, qSudoku) ;
+                         
+                                                drawCells.Add(nagetiveCell);
+                                                nagetiveCell.drawCells = drawCells;
                                                 cells.Add(nagetiveCell);
 
                                             }

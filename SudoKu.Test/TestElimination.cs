@@ -38,6 +38,15 @@ namespace SudoKu.Test
         }
 
         [TestMethod]
+        public void TestXWingHandler()
+        {
+            TestEliminationExample(typeof(XWingHandler));
+        }
+
+
+        
+
+        [TestMethod]
         public void TestSplitWingHandler()
         {
             TestEliminationExample(typeof(SplitWingHandler));
