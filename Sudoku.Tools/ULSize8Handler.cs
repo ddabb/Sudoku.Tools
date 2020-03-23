@@ -65,7 +65,7 @@ namespace Sudoku.Tools
                                     select new {a6, a7}).ToList()
                                 into last
                                 where last.Count == 1
-                                select new PositiveCell(a0.Index, a0.RestList.Except(pair).First()));
+                                select new PositiveCell(a0.Index, a0.RestList.Except(pair).First(), qSudoku));
                         }
                     }
                 }

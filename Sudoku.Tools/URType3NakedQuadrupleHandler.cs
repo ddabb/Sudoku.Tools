@@ -84,12 +84,12 @@ namespace Sudoku.Tools
                             {
                                 if (interRest.Count == 1)
                                 {
-                                    var nagetiveCell = new NegativeCell(removeCell.Index, interRest.First()) { Sudoku = qSudoku };
+                                    var nagetiveCell = new NegativeCell(removeCell.Index, interRest.First(), qSudoku);
                                     cells.Add(nagetiveCell);
                                 }
                                 else
                                 {
-                                    var nagetiveCell = new NegativeValuesGroup(removeCell.Index, interRest) { Sudoku = qSudoku };
+                                    var nagetiveCell = new NegativeValuesGroup(removeCell.Index, interRest, qSudoku);
                                     cells.Add(nagetiveCell);
                                 }
 

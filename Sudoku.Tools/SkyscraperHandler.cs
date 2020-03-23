@@ -59,7 +59,7 @@ namespace Sudoku.Tools
                 var filter = rest.Where(c => c.RestCount==2&& c.RestList.Contains(SpeacialValue)).ToList();
                 foreach (var cell in filter)
                 {
-                    var cell1 = new PositiveCell(cell.Index, cell.RestList.First(c => c != SpeacialValue))
+                    var cell1 = new PositiveCell(cell.Index, cell.RestList.First(c => c != SpeacialValue), qSudoku)
                     {
                         SolveMessages = new List<SolveMessage>
                         {

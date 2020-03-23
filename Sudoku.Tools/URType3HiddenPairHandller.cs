@@ -85,7 +85,7 @@ namespace Sudoku.Tools
                             {
                                 foreach (var removeValue in removeValues)
                                 {
-                                    var nagetiveCell1 = new NegativeCell(keyCell.Index, removeValue) { Sudoku = qSudoku };
+                                    var nagetiveCell1 = new NegativeCell(keyCell.Index, removeValue, qSudoku);
                                     nagetiveCell1.SolveMessages = new List<SolveMessage>
                                         {"a  ",a.Location,
                                         "b  ",b.Location,
@@ -103,7 +103,7 @@ namespace Sudoku.Tools
                                 }
                                
                                
-                                var nagetiveCell = new NegativeValuesGroup(keyCell.Index, removeValues) { Sudoku = qSudoku };
+                                var nagetiveCell = new NegativeValuesGroup(keyCell.Index, removeValues, qSudoku);
                                 nagetiveCell.SolveMessages = new List<SolveMessage>
                                         {"a  ",a.Location,
                                         "b  ",b.Location,
@@ -127,7 +127,7 @@ namespace Sudoku.Tools
                             if (allRemoveValues.Count(c => c == value) > 1)
                             {
                                 var indexs1 = removeCells.Where(c => c.RestList.Contains(value)).Select(c => c.Index).ToList();
-                                var nagetiveCell = new NegativeIndexsGroup(indexs1, value) { Sudoku = qSudoku };
+                                var nagetiveCell = new NegativeIndexsGroup(indexs1, value, qSudoku);
                                 nagetiveCell.SolveMessages = new List<SolveMessage>
                                         {"a  ",a.Location,
                                         "b  ",b.Location,

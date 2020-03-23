@@ -74,7 +74,7 @@ namespace Sudoku.Tools
                             {
                                 if (item3.RestList.Contains(removeValue))
                                 {
-                                    var cell = new NegativeCell(item3.Index, removeValue) { Sudoku = qSudoku };
+                                    var cell = new NegativeCell(item3.Index, removeValue, qSudoku) ;
                                     cells.Add(cell);
                                 }
                                 
@@ -101,7 +101,7 @@ namespace Sudoku.Tools
                             {
                                 if (item3.RestList.Contains(removeValue))
                                 {
-                                    var cell = new NegativeCell(item3.Index, removeValue) { Sudoku = qSudoku };
+                                    var cell = new NegativeCell(item3.Index, removeValue, qSudoku);
                                     cells.Add(cell);
                                 }
 

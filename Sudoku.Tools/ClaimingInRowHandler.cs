@@ -40,9 +40,8 @@ namespace Sudoku.Tools
                         var negativeCells = AllunsetCells.Where(c => c.Block == block && c.Row != index && c.RestList.Contains(value)).ToList();
                         foreach (var item1 in negativeCells)
                         {
-                            var cell = new NegativeCell(item1.Index, value)
+                            var cell = new NegativeCell(item1.Index, value, qSudoku)
                             {
-                                Sudoku = qSudoku,
                                 SolveMessages = new List<SolveMessage>
                                 {
                                     index.RowDesc(),
@@ -64,7 +63,7 @@ namespace Sudoku.Tools
                         foreach (var column in checkcolumn)
                         {
                             var list1 = AllunsetCells.Where(c => c.Block == block && c.Column == column && c.RestList.Contains(value)).Select(c => c.Index).ToList();
-                            var cell = new NegativeIndexsGroup(list1, value) { Sudoku = qSudoku };
+                            var cell = new NegativeIndexsGroup(list1, value, qSudoku);
 
                             cell.SolveMessages = new List<SolveMessage> { index.RowDesc(), "只有", block.BlockDesc(), "可以填入" + value + "\r\n", "所以" };
                             foreach (var item in list1)
@@ -79,13 +78,13 @@ namespace Sudoku.Tools
 
                         #region 其余行
                         var otherRows = negativeCells.Select(c => c.Row).Distinct().ToList();
-               
+
                         foreach (var row in otherRows)
                         {
                             var list1 = AllunsetCells.Where(c => c.Block == block && c.Row == row && c.RestList.Contains(value)).Select(c => c.Index).ToList();
-                            var cell = new NegativeIndexsGroup(list1, value) { Sudoku = qSudoku };
+                            var cell = new NegativeIndexsGroup(list1, value, qSudoku);
 
-                            cell.SolveMessages = new List<SolveMessage> {  index.RowDesc(), "只有", block.BlockDesc(), "可以填入"+ value + "\r\n", "所以" };
+                            cell.SolveMessages = new List<SolveMessage> { index.RowDesc(), "只有", block.BlockDesc(), "可以填入" + value + "\r\n", "所以" };
                             foreach (var item in list1)
                             {
                                 cell.SolveMessages.AddRange(new List<SolveMessage> { item.LoctionDesc(), " " });

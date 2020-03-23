@@ -287,7 +287,7 @@ namespace Sudoku.Core
             var chars = QueryString.Select(c => "" + c).ToList();
             foreach (var item in cells)
             {
-                this.cellInfos[item.Index] = new PositiveCell(item.Index, item.Value) {Sudoku = this};
+                this.cellInfos[item.Index] = new PositiveCell(item.Index, item.Value,this) ;
             }
             this.mAllUnSetCell = null;
             foreach (var unset in this.AllUnSetCells)
@@ -302,11 +302,11 @@ namespace Sudoku.Core
 
             if (cell.Value == 0&&cell.CellType==CellType.Init)
             {
-                this.cellInfos[cell.Index] =new InitCell(cell.Index,0) ;
+                this.cellInfos[cell.Index] =new InitCell(cell.Index,0, this) ;
             }
             else
             {
-                this.cellInfos[cell.Index] = new PositiveCell(cell.Index, cell.Value);
+                this.cellInfos[cell.Index] = new PositiveCell(cell.Index, cell.Value, this);
             }
 
             this.cellInfos[cell.Index].Sudoku = this;
@@ -355,7 +355,7 @@ namespace Sudoku.Core
             var chars = QueryString.ToCharArray();
             foreach (var location in G.allLocations)
             {
-                var cellInit = new InitCell(location, Convert.ToInt32("" + chars[location])) { Sudoku = this };
+                var cellInit = new InitCell(location, Convert.ToInt32("" + chars[location]),this) ;
                 cellInfos.Add(cellInit);
             }
         

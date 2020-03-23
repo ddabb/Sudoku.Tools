@@ -34,7 +34,7 @@ namespace Sudoku.Tools
                             c1.Where(c => (c.restCount == (G.AllBaseValues.Count - c.setCount) * 2 + 1)).ToList();
                         if (valueCondition.Count != 1) return cells;
                         var value = valueCondition.First().value;
-                        cells.Add(new PositiveCell(checkcells.First(c => c.RestCount == 3).Index, value));
+                        cells.Add(new PositiveCell(checkcells.First(c => c.RestCount == 3).Index, value, qSudoku));
                     }
                     else
                         return cells;

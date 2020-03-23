@@ -36,13 +36,13 @@ namespace Sudoku.Tools
             {
                 var rest = item.chaina.SpeacialValue;
                 var allIndex = new List<int> { item.chaina.indexs[0], item.chaina.indexs[1], item.chainb.indexs[0], item.chainb.indexs[1] };
-                var Blocks = allIndex.Select(c => new PositiveCell(c, 0)).Select(c => c.Block);
-                if (allIndex.Distinct().Count() == 4 && Blocks.Distinct().Count() == 3)
+                var blocks = allIndex.Select(c => new PositiveCell(c, 0, qSudoku)).Select(c => c.Block);
+                if (allIndex.Distinct().Count() == 4 && blocks.Distinct().Count() == 3)
                 {
                     Dictionary<int, int> blockCount = new Dictionary<int, int>();
                     foreach (var index in allIndex)
                     {
-                        var eachBlock = new PositiveCell(index, 0).Block;
+                        var eachBlock = new PositiveCell(index, 0, qSudoku).Block;
                         if (blockCount.ContainsKey(eachBlock))
                         {
                             blockCount[eachBlock] += 1;
@@ -53,7 +53,7 @@ namespace Sudoku.Tools
                         }
                     }
 
-                    var intersectIndex = allIndex.Where(c => blockCount[new PositiveCell(c, 0).Block] != 2).ToList();
+                    var intersectIndex = allIndex.Where(c => blockCount[new PositiveCell(c, 0, qSudoku).Block] != 2).ToList();
                     var restCells = qSudoku.GetPublicUnsetAreas(intersectIndex[0], intersectIndex[1]);
                     foreach (var cell in restCells)
                     {
@@ -61,7 +61,7 @@ namespace Sudoku.Tools
 
                         if (rests.Contains(rest))
                         {
-                            cells.Add(new NegativeCell(cell.Index, rest) { Sudoku = qSudoku });
+                            cells.Add(new NegativeCell(cell.Index, rest, qSudoku) );
                         }
                     }
                 }

@@ -1,7 +1,5 @@
 ﻿using Sudoku.Core;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 namespace Sudoku.Tools
@@ -36,8 +34,7 @@ namespace Sudoku.Tools
                         //if (testValue1 == 5)
                         {
 
-                            NegativeCell cell = new NegativeCell(index1, testValue1);
-                            cell.Sudoku = qSudoku;
+                            NegativeCell cell = new NegativeCell(index1, testValue1, qSudoku);
                             var nacells = new List<CellInfo>();
                             loop(cell, ref nacells, ref relatedIndex, ref otherValues);
 
@@ -48,8 +45,8 @@ namespace Sudoku.Tools
                                 {
                                     removeValues.Add(value);
 
-                                    NegativeCell cell1 = new NegativeCell(index1, value);
-                                    cell1.Sudoku = qSudoku;
+                                    NegativeCell cell1 = new NegativeCell(index1, value, qSudoku);
+
                                     foreach (var item in cell1.NextCells)
                                     {
                                         cells.Add(item);

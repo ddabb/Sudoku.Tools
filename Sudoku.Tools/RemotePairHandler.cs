@@ -37,7 +37,7 @@ namespace Sudoku.Tools
                 cells.AddRange((from cell in qSudoku.GetPublicUnsetAreas(c, d) 
                     let cellrest = cell.RestList 
                     where cellrest.Intersect(rest).Any() && cellrest.Except(rest).Count() == 1 
-                    select new PositiveCell(cell.Index, cellrest.Except(rest).First())).Cast<CellInfo>());
+                    select new PositiveCell(cell.Index, cellrest.Except(rest).First(), qSudoku)).Cast<CellInfo>());
             }
             return cells;
         }

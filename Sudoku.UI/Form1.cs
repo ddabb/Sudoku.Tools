@@ -497,7 +497,7 @@ namespace Sudoku.UI
                     if (sudoku.CurrentCell != null && (sudoku.CurrentCell.CellType != CellType.Init || sudoku.CurrentCell.Value == 0))
                     {
                         var value = keyCodeNumMap[intkey];
-                        sudoku.ApplyCell(value == 0 ? (CellInfo)new InitCell(sudoku.CurrentCell.Index, 0) : new PositiveCell(sudoku.CurrentCell.Index, value));
+                        sudoku.ApplyCell(value == 0 ? (CellInfo)new InitCell(sudoku.CurrentCell.Index, 0, sudoku) : new PositiveCell(sudoku.CurrentCell.Index, value, sudoku));
 
                     }
 

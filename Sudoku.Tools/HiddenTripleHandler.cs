@@ -69,7 +69,7 @@ namespace Sudoku.Tools
                                     {
                                         if (!values.Contains(rest))
                                         {
-                                            var negativeCell = new NegativeCell(cell.Index, rest) { Sudoku = qSudoku };
+                                            var negativeCell = new NegativeCell(cell.Index, rest, qSudoku) ;
                                             negativeCell.SolveMessages = new List<SolveMessage>
                                             {
                                                 "在",GetDirectionMessage(direction,index),"中",values.JoinString()+"只出现在",G.MergeLocationDesc(cell1,cell2,cell3),"之中\r\n所以",
@@ -91,7 +91,7 @@ namespace Sudoku.Tools
                                     if (filter.Count > 1)
                                     {
                                         var indexs = filter.Select(c => c.Index).ToList();
-                                        var negativeCell = new NegativeIndexsGroup(indexs, other) { Sudoku = qSudoku };
+                                        var negativeCell = new NegativeIndexsGroup(indexs, other, qSudoku) ;
                                         negativeCell.SolveMessages = new List<SolveMessage>
                                             {
                                                 "在",GetDirectionMessage(direction,index),"中",values.JoinString()+"只出现在",G.MergeLocationDesc(cell1,cell2,cell3),"之中\r\n所以",

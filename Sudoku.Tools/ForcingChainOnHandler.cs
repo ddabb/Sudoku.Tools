@@ -25,14 +25,14 @@ namespace Sudoku.Tools
                 {
                     var index1 = cell1.Index;
                     var testValue1 = testValue;
-                    NegativeCell cell = new NegativeCell(index1, testValue1)
+                    NegativeCell cell = new NegativeCell(index1, testValue1, qSudoku)
                     { Sudoku = qSudoku, CellType = CellType.Negative, IsRoot = true };
                     traceCell.Clear();
                     List<CellInfo> initCellInfo = new List<CellInfo>();
                     Fuc(cell, ref initCellInfo);
                     if (traceCell.Count == 1)
                     {
-                        var temp = new PositiveCell(index1, testValue1) { CellType = CellType.Positive };
+                        var temp = new PositiveCell(index1, testValue1, qSudoku) { CellType = CellType.Positive };
                    
                         var list = traceCell.First().GetAllParents().OrderBy(c => c.Level).ToList();
                         var temp1 = new List<SolveMessage>();

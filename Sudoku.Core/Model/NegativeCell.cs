@@ -16,7 +16,7 @@ namespace Sudoku.Core
         /// 后置肯定单元格链表
         /// </summary>
         public List<PositiveCell> reductionAfterCells;
-        public NegativeCell(int index, int value) : base(index, value)
+        public NegativeCell(int index, int value, QSudoku sudoku) : base(index, value,sudoku)
         {
             this.CellType =CellType.Negative;
         }
@@ -67,10 +67,10 @@ namespace Sudoku.Core
 
             if (this.RestCount == 2)
             {
-                PositiveCell positive = new PositiveCell(this.Index, RestList.First(c => c != Value))
+                PositiveCell positive = new PositiveCell(this.Index, RestList.First(c => c != Value), Sudoku)
                 {
                     CellType = CellType.Positive,
-                    Sudoku = this.Sudoku,
+          
                     Parent = this,
                     Level = this.Level + 1,
                     Fromto = { fromIndex = this.Index, toIndex = this.Index }
@@ -113,7 +113,7 @@ namespace Sudoku.Core
             var row = Sudoku.GetPossibleIndex(Value, temp);
             if (row.Count == 1)
             {
-                PositiveCell positive = new PositiveCell(row.First(), Value)
+                PositiveCell positive = new PositiveCell(row.First(), Value, Sudoku)
                 {
                     CellType = CellType.Positive,
                     Sudoku = this.Sudoku,
@@ -139,7 +139,7 @@ namespace Sudoku.Core
             foreach (var item in temp)
             {
                 var positive =
-                    new PositiveCell(item.indexs.First(c => c != cell.Index), cell.Value) { Parent = cell };
+                    new PositiveCell(item.indexs.First(c => c != cell.Index), cell.Value, this.Sudoku) { Parent = cell };
                 cells.Add(positive);
             }
             return cells;

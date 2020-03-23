@@ -41,10 +41,10 @@ namespace Sudoku.Tools
                                 foreach (var one in restList)
                                 {
                                     var other = restList.First(c => c != one);
-                                    if (cell3.RestList.Contains(one) && new NegativeCell(cell3.Index, one) { Sudoku = qSudoku }.NextCells.Exists(c => c.Value == one && c.Index == cell1.Index))
+                                    if (cell3.RestList.Contains(one) && new NegativeCell(cell3.Index, one, qSudoku).NextCells.Exists(c => c.Value == one && c.Index == cell1.Index))
                                     {
-                                        var cell1otherNextCell = new NegativeCell(cell1.Index, other) { Sudoku = qSudoku }.NextCells;
-                                        var cell2otherNextCell = new NegativeCell(cell2.Index, other) { Sudoku = qSudoku }.NextCells;
+                                        var cell1otherNextCell = new NegativeCell(cell1.Index, other, qSudoku) .NextCells;
+                                        var cell2otherNextCell = new NegativeCell(cell2.Index, other, qSudoku) .NextCells;
 
                                         var cellkey = (from cell4 in cell1otherNextCell
                                                        join cell5 in cell2otherNextCell on cell4.Value equals cell5.Value
@@ -58,7 +58,7 @@ namespace Sudoku.Tools
                                             var cell5 = item1.cell5;
                                             if (G.MergeCellIndexs(cell1, cell2, cell3, cell4, cell5).Distinct().Count() == 5)
                                             {
-                                                var cell = new NegativeCell(cell2.Index, one) { Sudoku = qSudoku };
+                                                var cell = new NegativeCell(cell2.Index, one, qSudoku) ;
                                                 cell.SolveMessages = new List<SolveMessage>
                                             {
                                                 cell1.Location,

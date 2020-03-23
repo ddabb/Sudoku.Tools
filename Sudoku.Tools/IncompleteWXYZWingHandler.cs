@@ -42,7 +42,7 @@ namespace Sudoku.Tools
                     {
                         if (qSudoku.GetRest(index).Contains(intersectValue))
                         {
-                            var cell = new NegativeCell(index, intersectValue) { Sudoku = qSudoku };
+                            var cell = new NegativeCell(index, intersectValue, qSudoku);
                             cells.Add(cell);
                         }
 

@@ -12,7 +12,7 @@ namespace Sudoku.Core
         /// </summary>
         /// <param name="index"></param>
         /// <param name="values"></param>
-        public NegativeValuesGroup(int index, List<int> values) : base(index, values)
+        public NegativeValuesGroup(int index, List<int> values, QSudoku sudoku) : base(index, values, sudoku)
         {
             this.CellType = CellType.NegativeValuesGroup;
             
@@ -29,7 +29,7 @@ namespace Sudoku.Core
                 var restList = restListPre.Except(this.NegativeValues).ToList();
                 if (restList.Count() == 1)
                 {
-                    cells.Add(new PositiveCell(Index, restList.First()));
+                    cells.Add(new PositiveCell(Index, restList.First(), Sudoku));
                 }         
             }
             return cells;

@@ -6,7 +6,7 @@ namespace Sudoku.Core
     {
 
 
-        public PositiveCellGroup(List<int> index, int value) : base(index, value)
+        public PositiveCellGroup(List<int> index, int value,QSudoku sudoku) : base(index, value, sudoku)
         {
             this.CellType = CellType.PositiveCellGroup;
 

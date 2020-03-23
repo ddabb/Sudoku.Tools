@@ -47,7 +47,7 @@ namespace Sudoku.Tools
                     {
                         var removeIndexs = cellIndexs.Select(c => c.Index).ToList();
                         var locations = cellIndexs.Select(c => c.Location).ToList();
-                        var group = new NegativeIndexsGroup(removeIndexs, removeValue) { Sudoku = qSudoku };
+                        var group = new NegativeIndexsGroup(removeIndexs, removeValue, qSudoku) { Sudoku = qSudoku };
                         group.SolveMessages = new List<SolveMessage>
                                         {"a  ",a.Location,
                                         "b  ",b.Location,

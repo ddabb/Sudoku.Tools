@@ -43,7 +43,7 @@ namespace Sudoku.Tools
                     cells.AddRange(checkCell.Where(c => !item.rows.Contains(c.Row)
                                                         && item.columns.Contains(c.Column) &&
                                                         c.RestList.Contains(value) &&
-                                                        c.RestCount == 2).Select(cell => new PositiveCell(cell.Index, cell.RestList.First(c => c != value))
+                                                        c.RestCount == 2).Select(cell => new PositiveCell(cell.Index, cell.RestList.First(c => c != value), qSudoku)
                     ).Cast<CellInfo>());
                 }
 
@@ -68,7 +68,7 @@ namespace Sudoku.Tools
                     cells.AddRange(checkCell.Where(c => item.distinctRows.Contains(c.Row)
                                                         && !item.columns.Contains(c.Column) &&
                                                         c.RestList.Contains(value) &&
-                                                        c.RestCount == 2).Select(cell => new PositiveCell(cell.Index, cell.RestList.First(c => c != value))
+                                                        c.RestCount == 2).Select(cell => new PositiveCell(cell.Index, cell.RestList.First(c => c != value), qSudoku)
                     ).Cast<CellInfo>());
                 }
             }

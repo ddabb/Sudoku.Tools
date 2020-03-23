@@ -59,7 +59,7 @@ namespace Sudoku.Tools
                             var unsetCellRest = unsetCell.RestList;
                             if (unsetCellRest.Contains(removeValue))
                             {
-                                var negativeCell = new NegativeCell(unsetCell.Index, removeValue) {Sudoku = qSudoku};
+                                var negativeCell = new NegativeCell(unsetCell.Index, removeValue, qSudoku) ;
                                 negativeCell.SolveMessages = new List<SolveMessage>
                                 {
                                     G.MergeLocationDesc(checkCell,x,y),"构成xy-Wing\r\n",G.MergeLocationDesc(x,y),"共同影响区域不能为"+removes.JoinString()+"\r\n"

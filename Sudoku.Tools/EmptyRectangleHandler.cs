@@ -56,7 +56,7 @@ namespace Sudoku.Tools
                                 if (aCell.RestCount == 2)
                                 {
                                     var cell = new PositiveCell(aCell.Index,
-                                        aCell.RestList.First(c => c != value));
+                                        aCell.RestList.First(c => c != value), qSudoku);
                                     cell.SolveMessages = new List<SolveMessage>
                                     {
                                         interectCell.Location,
@@ -78,7 +78,7 @@ namespace Sudoku.Tools
                             else if (qSudoku.GetPossibleIndex(value, c => c.Value == 0 && c.Column == cCell.Column)
                                          .Count == 2 && bCell.RestCount == 2)
                             {
-                                var cell = new PositiveCell(bCell.Index, bCell.RestList.First(c => c != value));
+                                var cell = new PositiveCell(bCell.Index, bCell.RestList.First(c => c != value), qSudoku);
                                 cell.SolveMessages = new List<SolveMessage>
                                 {
                                     interectCell.Location,

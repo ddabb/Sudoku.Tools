@@ -44,8 +44,8 @@ namespace Sudoku.Tools
                                 var cellrest = cell.RestList;
                                 if (cellrest.Contains(value))
                                 {
-                                    var cell1 = new NegativeCell(cell.Index, value)
-                                    { Sudoku = qSudoku };
+                                    var cell1 = new NegativeCell(cell.Index, value, qSudoku);
+                                 
                                     cell1.SolveMessages = new List<SolveMessage> {
                                        blockindex.BlockDesc(), "只有" ,GetDirectionMessage(direction,index) ,  "可以填入" + value + "\r\n",
                                         "所以", cell.Location, "不能填入" + value + "\r\n" };
@@ -59,8 +59,8 @@ namespace Sudoku.Tools
                             {
                                 var otherCell = allunsetcell.Where(c => c.Block == block && G.GetFilter(c, direction, index)&&c.RestList.Contains(value)).ToList();
                                 var indexs = otherCell.Select(c => c.Index).ToList();
-                                var cell1 = new NegativeIndexsGroup(indexs, value)
-                                { Sudoku = qSudoku };
+                                var cell1 = new NegativeIndexsGroup(indexs, value, qSudoku);
+                         
                                 cell1.SolveMessages = new List<SolveMessage> {
                                          blockindex.BlockDesc(),  "只有",GetDirectionMessage(direction,index),"可以填入" + value + "\r\n",
                                         "所以", };

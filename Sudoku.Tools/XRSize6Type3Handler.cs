@@ -62,7 +62,7 @@ namespace Sudoku.Tools
                         {
                             var f = fg.f;
                             var removeValue = e.RestList.Except(e.RestList.Intersect(f.RestList)).First();
-                            cells.Add(new NegativeCell(e.Index,removeValue){Sudoku = qSudoku});
+                            cells.Add(new NegativeCell(e.Index,removeValue, qSudoku)) ;
                         }
                     }
                 }
@@ -93,7 +93,7 @@ namespace Sudoku.Tools
                         {
                             var f = fg.f;
                             var removeValue = e.RestList.Except(e.RestList.Intersect(f.RestList)).First();
-                            cells.Add(new NegativeCell(e.Index, removeValue) { Sudoku = qSudoku });
+                            cells.Add(new NegativeCell(e.Index, removeValue, qSudoku));
                         }
                     }
                 }

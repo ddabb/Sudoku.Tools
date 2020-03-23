@@ -44,7 +44,7 @@ namespace Sudoku.Tools
                  var tempResult = qSudoku.GetPublicUnsetAreas(item[2], item[3]).Where(c => c.RestCount == 2 && c.RestList.Contains(value));
                     foreach (var cell in tempResult)
                     {
-                        cells.Add(new PositiveCell(cell.Index, cell.RestList.First(c => c != value)));
+                        cells.Add(new PositiveCell(cell.Index, cell.RestList.First(c => c != value), qSudoku));
                     }
                 }
             }

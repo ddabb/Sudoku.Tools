@@ -38,10 +38,10 @@ namespace Sudoku.Tools
                                     let indexs = G.MergeCellIndexs(a, b, c, d).ToList()
                                     let cellLists = G.MergeCells(a, b, c, d).ToList()
                                     let abCells = G.MergeCells(a, b, item).ToList()
-                                    let aNextCell = new NegativeCell(a.Index, value2) { Sudoku = qSudoku }.NextCells
-                                    let bNextCell = new NegativeCell(b.Index, value1) { Sudoku = qSudoku }.NextCells
-                                    let cNextCell = new NegativeCell(c.Index, value2) { Sudoku = qSudoku }.NextCells
-                                    let dNextCell = new NegativeCell(d.Index, value1) { Sudoku = qSudoku }.NextCells
+                                    let aNextCell = new NegativeCell(a.Index, value2, qSudoku).NextCells
+                                    let bNextCell = new NegativeCell(b.Index, value1, qSudoku).NextCells
+                                    let cNextCell = new NegativeCell(c.Index, value2, qSudoku).NextCells
+                                    let dNextCell = new NegativeCell(d.Index, value1, qSudoku).NextCells
 
                                     where indexs.Count() == 4
 
@@ -71,23 +71,23 @@ namespace Sudoku.Tools
                         var c = keyCell.c;
                         var d = keyCell.d;
 
-                        var pa = new PositiveCell(a.Index, value2) { Sudoku = qSudoku }.NextCells;  //a R8C8 7
-                        var pb = new PositiveCell(b.Index, value1) { Sudoku = qSudoku }.NextCells; //b R9C8 2
+                        var pa = new PositiveCell(a.Index, value2, qSudoku) .NextCells;  //a R8C8 7
+                        var pb = new PositiveCell(b.Index, value1, qSudoku) .NextCells; //b R9C8 2
                         if (pa.Exists(x => x.Index == item.Index && x.Value == value2) && pb.Exists(x => x.Index == item.Index && x.Value == value1))
 
 
                         {
-                            var cell1 = new NegativeCell(c.Index, value1)
+                            var cell1 = new NegativeCell(c.Index, value1, qSudoku)
                             {
-                                Sudoku = qSudoku,
+             
                                 SolveMessages = MergeCellSolveLocationMessage(item, a, b, c, d)
                             };
                             cell1.SolveMessages.AddRange(new List<SolveMessage> { "value1是", value1 + "\r\n" });
                             cell1.SolveMessages.AddRange(new List<SolveMessage> { "value2是", value2 + "\r\n" });
                             cell1.SolveMessages.AddRange(new List<SolveMessage> { c.Index.LoctionDesc(), "不能为", value1 });
-                            var cell2 = new NegativeCell(d.Index, value2)
+                            var cell2 = new NegativeCell(d.Index, value2, qSudoku)
                             {
-                                Sudoku = qSudoku,
+                       
                                 SolveMessages = MergeCellSolveLocationMessage(item, a, b, c, d)
                             };
                             cell2.SolveMessages.AddRange(new List<SolveMessage> { "value1是", value1 + "\r\n" });

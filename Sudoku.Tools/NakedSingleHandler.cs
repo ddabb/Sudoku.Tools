@@ -19,7 +19,7 @@ namespace Sudoku.Tools
                 var restList = index.RestList;
                 if (restList.Count == 1)
                 {
-                    var cell = new PositiveCell(index.Index, restList[0])
+                    var cell = new PositiveCell(index.Index, restList[0], qSudoku)
                     {
                         SolveMessages = new List<SolveMessage> { index.Location, " 只能够填入 ", restList[0] }
                     };

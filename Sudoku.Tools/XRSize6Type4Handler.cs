@@ -71,15 +71,15 @@ namespace Sudoku.Tools
                         var filterCell = allUnsetCells.Where(c1 => c1.Column == column).ToList();
                         if (filterCell.Count(cell => cell.RestList.Contains(value1)) == 2)
                         {
-                            cells.Add(new NegativeCell(cell1.Index, value2) { Sudoku = qSudoku });
-                            cells.Add(new NegativeCell(cell2.Index, value2) { Sudoku = qSudoku });
-                            cells.Add(new NegativeIndexsGroup(new List<int> { cell1.Index, cell2.Index }, value2) { Sudoku = qSudoku });
+                            cells.Add(new NegativeCell(cell1.Index, value2, qSudoku));
+                            cells.Add(new NegativeCell(cell2.Index, value2, qSudoku));
+                            cells.Add(new NegativeIndexsGroup(new List<int> { cell1.Index, cell2.Index }, value2, qSudoku));
                         }
                         if (filterCell.Count(cell => cell.RestList.Contains(value2)) == 2)
                         {
-                            cells.Add(new NegativeCell(cell1.Index, value1) { Sudoku = qSudoku });
-                            cells.Add(new NegativeCell(cell2.Index, value1) { Sudoku = qSudoku });
-                            cells.Add(new NegativeIndexsGroup(new List<int> { cell1.Index, cell2.Index }, value1) { Sudoku = qSudoku });
+                            cells.Add(new NegativeCell(cell1.Index, value1, qSudoku) { Sudoku = qSudoku });
+                            cells.Add(new NegativeCell(cell2.Index, value1, qSudoku) { Sudoku = qSudoku });
+                            cells.Add(new NegativeIndexsGroup(new List<int> { cell1.Index, cell2.Index }, value1, qSudoku) );
                         }
                     }
 
@@ -108,15 +108,15 @@ namespace Sudoku.Tools
                         var filterCell = allUnsetCells.Where(c1 => c1.Row == row).ToList();
                         if (filterCell.Count(cell => cell.RestList.Contains(value1)) == 2)
                         {
-                            cells.Add(new NegativeCell(cell1.Index, value2) { Sudoku = qSudoku });
-                            cells.Add(new NegativeCell(cell2.Index, value2) { Sudoku = qSudoku });
-                            cells.Add(new NegativeIndexsGroup(new List<int> { cell1.Index, cell2.Index }, value2) { Sudoku = qSudoku });
+                            cells.Add(new NegativeCell(cell1.Index, value2, qSudoku) );
+                            cells.Add(new NegativeCell(cell2.Index, value2, qSudoku) );
+                            cells.Add(new NegativeIndexsGroup(new List<int> { cell1.Index, cell2.Index }, value2, qSudoku) );
                         }
                         if (filterCell.Count(cell => cell.RestList.Contains(value2)) == 2)
                         {
-                            cells.Add(new NegativeCell(cell1.Index, value1) { Sudoku = qSudoku });
-                            cells.Add(new NegativeCell(cell2.Index, value1) { Sudoku = qSudoku });
-                            cells.Add(new NegativeIndexsGroup(new List<int> { cell1.Index, cell2.Index }, value1) { Sudoku = qSudoku });
+                            cells.Add(new NegativeCell(cell1.Index, value1, qSudoku));
+                            cells.Add(new NegativeCell(cell2.Index, value1, qSudoku));
+                            cells.Add(new NegativeIndexsGroup(new List<int> { cell1.Index, cell2.Index }, value1, qSudoku));
                         }
                     }
 

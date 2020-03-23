@@ -7,7 +7,7 @@ namespace Sudoku.Core
     {
 
 
-        public NegativeIndexsGroup(List<int> index, int value) : base(index, value)
+        public NegativeIndexsGroup(List<int> index, int value, QSudoku sudoku) : base(index, value, sudoku)
         {
             this.CellType = CellType.NegativeIndexsGroup;
 
@@ -30,11 +30,10 @@ namespace Sudoku.Core
                     c.Row == row && !Indexs.Contains(c.Index) && c.RestList.Contains(Value)).ToList();
                 if (filter.Count == 1)
                 {
-                    PositiveCell positive = new PositiveCell(filter.First().Index, Value)
+                    PositiveCell positive = new PositiveCell(filter.First().Index, Value, this.Sudoku)
                     {
                         CellType = CellType.Positive,
-                        Sudoku = this.Sudoku,
-                        Parent = this,
+             Parent = this,
                         Level = this.Level + 1,
                         Fromto = { fromIndex = this.Index },
                     };
@@ -51,10 +50,9 @@ namespace Sudoku.Core
                     c.Column == column && !Indexs.Contains(c.Index) && c.RestList.Contains(Value)).ToList();
                 if (filter.Count == 1)
                 {
-                    PositiveCell positive = new PositiveCell(filter.First().Index, Value)
+                    PositiveCell positive = new PositiveCell(filter.First().Index, Value, this.Sudoku)
                     {
                         CellType = CellType.Positive,
-                        Sudoku = this.Sudoku,
                         Parent = this,
                         Level = this.Level + 1,
                         Fromto = { fromIndex = this.Index },
@@ -72,10 +70,9 @@ namespace Sudoku.Core
                     c.Block == block && !Indexs.Contains(c.Index) && c.RestList.Contains(Value)).ToList();
                 if (filter.Count == 1)
                 {
-                    PositiveCell positive = new PositiveCell(filter.First().Index, Value)
+                    PositiveCell positive = new PositiveCell(filter.First().Index, Value, this.Sudoku)
                     {
                         CellType = CellType.Positive,
-                        Sudoku = this.Sudoku,
                         Parent = this,
                         Level = this.Level + 1,
                         Fromto = { fromIndex = this.Index },

@@ -19,7 +19,7 @@ namespace Sudoku.Core
             throw new NotImplementedException();
         }
 
-        public PossibleCell(int index, int value) : base(index, value)
+        public PossibleCell(int index, int value, QSudoku sudoku) : base(index, value,  sudoku)
         {
             this.CellType = CellType.Possible;
 

@@ -63,7 +63,7 @@ namespace Sudoku.Tools
                             var findCellRest = qSudoku.GetRest(index);
                             if (findCellRest.Contains(intersectValue) && findCellRest.Count == 2)
                             {
-                                cells.Add(new PositiveCell(index, findCellRest.First(c => c != intersectValue)));
+                                cells.Add(new PositiveCell(index, findCellRest.First(c => c != intersectValue), qSudoku));
                             }
                         }
 

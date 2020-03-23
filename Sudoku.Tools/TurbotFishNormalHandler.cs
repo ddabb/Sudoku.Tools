@@ -51,7 +51,7 @@ namespace Sudoku.Tools
                                    let rests = cell.RestList
                                    where rests.Count == 2 && rests.Contains(rest)
                                    && !ab.a.indexs.Intersect(ab.b.indexs).Any() //四个单元格
-                                   select new PositiveCell(cell.Index, rests.First(c => c != rest)));
+                                   select new PositiveCell(cell.Index, rests.First(c => c != rest),qSudoku));
                 }
 
 

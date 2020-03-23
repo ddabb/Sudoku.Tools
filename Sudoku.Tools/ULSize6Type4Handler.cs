@@ -60,7 +60,7 @@ namespace Sudoku.Tools
                                     c.RestList.Count == 2 && c.RestList.Contains(removeValue)).ToList();
                                 if (temp.Count == 1)
                                 {
-                                    cells.Add(new PositiveCell(temp.First().Index, removeValue));
+                                    cells.Add(new PositiveCell(temp.First().Index, removeValue, qSudoku));
                                 }
                             }
 

@@ -102,7 +102,7 @@ namespace Sudoku.Core
 
         public static List<LocationGroup> MergeLocationDesc(params int[] n)
         {
-            var cells = n.Select(c=>(CellInfo)new InitCell(c,0)).ToList();
+            var cells = n.Select(c=>(CellInfo)new InitCell(c,0,null)).ToList();
 
             return MergeLocationDesc(cells);
         }

@@ -64,7 +64,7 @@ namespace Sudoku.Tools
                         select new {e, f}).ToList();
                     foreach (var pair in list)
                     {
-                        cells.Add(new PositiveCell(a.Index, arest.Except(brest).First()));
+                        cells.Add(new PositiveCell(a.Index, arest.Except(brest).First(), qSudoku));
                     }
                 }
             }

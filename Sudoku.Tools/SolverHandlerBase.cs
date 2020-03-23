@@ -42,7 +42,7 @@ namespace Sudoku.Tools
 
         public bool IsSameBlock(int index1, int index2)
         {
-            if (new PositiveCell(index1, 0).Block == new PositiveCell(index2, 0).Block)
+            if (new PositiveCell(index1, 0, null).Block == new PositiveCell(index2, 0, null).Block)
             {
                 return true;
             }
@@ -79,7 +79,7 @@ namespace Sudoku.Tools
         }
         public bool IsSameRow(int index1, int index2)
         {
-            if (new PositiveCell(index1, 0).Row == new PositiveCell(index2, 0).Row)
+            if (new PositiveCell(index1, 0, null).Row == new PositiveCell(index2, 0, null).Row)
             {
                 return true;
             }
@@ -88,7 +88,7 @@ namespace Sudoku.Tools
 
         public bool IsSameColumn(int index1, int index2)
         {
-            if (new PositiveCell(index1, 0).Column == new PositiveCell(index2, 0).Column)
+            if (new PositiveCell(index1, 0,null).Column == new PositiveCell(index2, 0, null).Column)
             {
                 return true;
             }
@@ -181,7 +181,7 @@ namespace Sudoku.Tools
                                         var checkPair = checkList.First();
                                         var cella = checkPair.a;
                                         var cellb = checkPair.b;
-                                        cells.Add(new PositiveCell(cellb.Index, cellb.RestList.Except(cella.RestList).First()));
+                                        cells.Add(new PositiveCell(cellb.Index, cellb.RestList.Except(cella.RestList).First(), qSudoku));
                                     }
                                 }
                             }
@@ -305,7 +305,7 @@ namespace Sudoku.Tools
             var indexs = qSudoku.GetPossibleIndex(speacilValue, c => PositiveCellsInColumn.Select(x => x.Index).Contains(c.Index));
             if (indexs.Count() == 1)
             {
-                cells.Add(new PositiveCell(indexs.First(), speacilValue));
+                cells.Add(new PositiveCell(indexs.First(), speacilValue, qSudoku));
             }
             
             return cells;
@@ -338,7 +338,7 @@ namespace Sudoku.Tools
                 if (leftIndexs.Count > 1 && leftIndexs1.Count() == 1)
                 {
                     //Debug.WriteLine("speacialValue" + speacialValue + "location  " + string.Join(",", leftIndexs1));
-                    cells.Add(new PositiveCell(leftIndexs1.First(), speacialValue));
+                    cells.Add(new PositiveCell(leftIndexs1.First(), speacialValue, qSudoku));
                 }
 
             }
@@ -346,32 +346,7 @@ namespace Sudoku.Tools
 
             return cells;
         }
-
-
-
-         public List<CellInfo> GetHiddenSingleCellInfo(QSudoku qSudoku, Func<CellInfo, bool> predicate)
-        {
-            List<CellInfo> cells = new List<CellInfo>();
-            var rests = qSudoku.GetFilterCell(predicate);
-
-            foreach (var spricevalue in G.AllBaseValues)
-            {
-                if (rests.Count(c=>c.RestList.Contains(spricevalue))==1)
-                {
-                  var cell=    rests.First(c =>c.Value!=0&& c.RestList.Contains(spricevalue));
-                    if (cell.RestCount>1)
-                    {
-                   
-                        cells.Add(new PositiveCell(cell.Index, spricevalue));
-                    }
-                }
-            }
-   
-            return cells;
-        }
-
-
-
+        
         public Func<CellInfo, int> FindDirectionCondtion(Direction direction)
         {
             switch (direction)
@@ -415,11 +390,11 @@ namespace Sudoku.Tools
                 {
                     if (values.Contains(rest))
                     {
-                        cells.Add(new PossibleCell(item.Index, rest));
+                        cells.Add(new PossibleCell(item.Index, rest, item.Sudoku));
                     }
                     else
                     {
-                        cells.Add(new NegativeCell(item.Index, rest));
+                        cells.Add(new NegativeCell(item.Index, rest, item.Sudoku));
                     }
                 }
 
@@ -443,7 +418,7 @@ namespace Sudoku.Tools
                 {
                     if (values.Contains(rest))
                     {
-                        cells.Add(new NegativeCell(item.Index, rest));
+                        cells.Add(new NegativeCell(item.Index, rest, null));
                     }
                 }
 

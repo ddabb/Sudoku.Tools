@@ -52,7 +52,7 @@ namespace Sudoku.Tools
                                 var rests = cell.RestList;
                                 if (rests.Contains(rest))
                                 {
-                                    cells.Add(new NegativeCell(cell.Index, rest) { Sudoku = qSudoku });
+                                    cells.Add(new NegativeCell(cell.Index, rest, qSudoku) );
                                 }
                             }
                         }
@@ -70,7 +70,7 @@ namespace Sudoku.Tools
                       
                                 if (rests.Contains(rest))
                                 {
-                                    cells.Add(new NegativeCell(cell.Index, rest) { Sudoku = qSudoku });
+                                    cells.Add(new NegativeCell(cell.Index, rest, qSudoku) );
                                 }
                             }
                         }

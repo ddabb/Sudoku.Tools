@@ -7,7 +7,7 @@ namespace Sudoku.Core
     {
 
 
-        public PositiveCell(int index, int value) : base(index, value)
+        public PositiveCell(int index, int value, QSudoku sudoku) : base(index, value, sudoku)
         {
             this.CellType = CellType.Positive;
 
@@ -55,10 +55,10 @@ namespace Sudoku.Core
             cells = this.RelatedUnsetCells.Where(c => c.RestList.Contains(this.Value)&&Sudoku.AllChainsIndex.Contains(c.Index)).ToList();
             foreach (var cellInfo in cells)
             {
-                NegativeCell cell = new NegativeCell(cellInfo.Index, Value)
+                NegativeCell cell = new NegativeCell(cellInfo.Index, Value, this.Sudoku)
                 {
                     CellType = CellType.Negative,
-                    Sudoku = this.Sudoku,
+    
                     Parent = this,
              
                     Fromto = {fromIndex = this.Index},
@@ -70,10 +70,10 @@ namespace Sudoku.Core
             }
             foreach (var item in this.RestList.Where(c=>c!=Value))
             {
-                NegativeCell cell = new NegativeCell(Index, item)
+                NegativeCell cell = new NegativeCell(Index, item, this.Sudoku)
                 {
                     CellType = CellType.Negative,
-                    Sudoku = this.Sudoku,
+               
                     Parent = this,
                
 

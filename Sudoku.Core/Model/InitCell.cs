@@ -9,12 +9,14 @@ namespace Sudoku.Core
     public class InitCell : CellInfo
     {
 
-        public InitCell(int index, int value) : base(index, value)
+        public InitCell(int index, int value,QSudoku sudoku) : base(index, value, sudoku)
         {
             this.CellType = CellType.Init;
+        }
 
-
-
+        public InitCell(int index, int value) : this(index, value, null)
+        {
+            this.CellType = CellType.Init;
         }
         public override bool IsError => throw new System.NotImplementedException();
 

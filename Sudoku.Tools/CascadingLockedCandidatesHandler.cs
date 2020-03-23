@@ -68,11 +68,11 @@ namespace Sudoku.Tools
                                             {
                                                 foreach (var keyCell in keyCells)
                                                 {
-                                                    var singleCell = new NegativeCell(keyCell.Index, value) { Sudoku = qSudoku };
+                                                    var singleCell = new NegativeCell(keyCell.Index, value, qSudoku);
                                                     cells.Add(singleCell);
                                                 }
                                                 var indexs = keyCells.Select(c => c.Index).ToList();
-                                                var nagetiveCell = new NegativeIndexsGroup(indexs, value) { Sudoku = qSudoku };
+                                                var nagetiveCell = new NegativeIndexsGroup(indexs, value, qSudoku);
                                                 cells.Add(nagetiveCell);
 
                                             }
@@ -88,12 +88,12 @@ namespace Sudoku.Tools
                                             {
                                                 foreach (var keyCell in keyCells)
                                                 {
-                                                    var singleCell = new NegativeCell(keyCell.Index, value) { Sudoku = qSudoku };
+                                                    var singleCell = new NegativeCell(keyCell.Index, value, qSudoku) ;
                                                     cells.Add(singleCell);
                                                 }
 
                                                 var indexs = keyCells.Select(c => c.Index).ToList();
-                                                var nagetiveCell = new NegativeIndexsGroup(indexs, value) { Sudoku = qSudoku };
+                                                var nagetiveCell = new NegativeIndexsGroup(indexs, value, qSudoku) ;
                                                 cells.Add(nagetiveCell);
 
                                             }

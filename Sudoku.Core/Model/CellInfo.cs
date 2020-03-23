@@ -88,16 +88,25 @@ namespace Sudoku.Core
             get { return RelatedUnsetCells.Select(c => c.Index).ToList(); }
         }
 
-        public CellInfo(int index, int value)
+        public CellInfo(int index, int value, QSudoku qSudoku)
         {
             this.Index = index;
-            Value = value;
+            this.Value = value;
+            this.Sudoku = qSudoku;
         }
 
-        public CellInfo(List<int> indexs, int value)
+        public CellInfo(List<int> indexs, int value, QSudoku qSudoku)
         {
             this.Indexs = indexs;
             Value = value;
+            this.Sudoku = qSudoku;
+        }
+
+        protected CellInfo(int index, List<int> values, QSudoku qSudoku)
+        {
+            this.Index = index;
+            this.NegativeValues = values;
+            this.Sudoku = qSudoku;
         }
         public void SetSudoku(QSudoku qSudoku)
         {
@@ -226,11 +235,7 @@ namespace Sudoku.Core
 
         public int Value;
 
-        protected CellInfo(int index, List<int> values)
-        {
-            this.Index = index;
-            this.NegativeValues = values;
-        }
+
 
         public override bool Equals(object obj)
         {

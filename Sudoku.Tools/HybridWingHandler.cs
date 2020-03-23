@@ -39,9 +39,9 @@ namespace Sudoku.Tools
                 foreach (var keyCell in list)
                 {
                     var keyValue = b.RestList.Except(intersects).First();
-                    if (new NegativeCell(keyCell.Index, keyValue) { Sudoku = qSudoku }.NextCells.Exists(c => c.Value == keyValue && sameRow ? c.Column == b.Column : c.Row == b.Row))
+                    if (new NegativeCell(keyCell.Index, keyValue, qSudoku) .NextCells.Exists(c => c.Value == keyValue && sameRow ? c.Column == b.Column : c.Row == b.Row))
                     {
-                        cells.Add(new NegativeCell(keyCell.Index, unionValues.Except(b.RestList).First()) { Sudoku = qSudoku });
+                        cells.Add(new NegativeCell(keyCell.Index, unionValues.Except(b.RestList).First(), qSudoku));
                     }
                 }
 

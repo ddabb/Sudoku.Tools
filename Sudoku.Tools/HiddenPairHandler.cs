@@ -66,7 +66,7 @@ namespace Sudoku.Tools
                         {
                             foreach (var value in qSudoku.GetRest(index).Except(values).ToList())
                             {
-                                var cell = new NegativeCell(index, value) { Sudoku = qSudoku };
+                                var cell = new NegativeCell(index, value, qSudoku);
                                 cell.SolveMessages = new List<SolveMessage>
                                 {
                                     "在", GetDirectionMessage(d, dirIndex),"中",
@@ -79,11 +79,11 @@ namespace Sudoku.Tools
                                 };
                                 cell.drawCells = new List<CellInfo>
                                 {
-                                    new PossibleCell(index1,value1),
-                                    new PossibleCell(index2,value1),
-                                    new PossibleCell(index1,value2),
-                                    new PossibleCell(index2,value2),
-                                    new NegativeCell(index,value),
+                                    new PossibleCell(index1,value1, qSudoku),
+                                    new PossibleCell(index2,value1, qSudoku),
+                                    new PossibleCell(index1,value2, qSudoku),
+                                    new PossibleCell(index2,value2, qSudoku),
+                                    new NegativeCell(index,value, qSudoku),
                                 };
                                 cells.Add(cell);
                             }

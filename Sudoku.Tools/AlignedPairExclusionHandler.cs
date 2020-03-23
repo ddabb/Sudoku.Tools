@@ -51,7 +51,7 @@ namespace Sudoku.Tools
                     {
                         if (qSudoku.GetRest(index).Contains(removeValue))
                         {
-                            cells.Add(new NegativeCell(index, removeValue));
+                            cells.Add(new NegativeCell(index, removeValue,qSudoku));
                         }
                     }
 
