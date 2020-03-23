@@ -64,7 +64,15 @@ namespace Sudoku.Tools
         //000080000506030080980500102200758000004090058058614000400070860000805000800020009
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
-            return new List<CellInfo>();
+            var cells= new List<CellInfo>();
+
+            foreach (var direction in G.AllDirection.Where(c=>c!=Direction.Block))
+            {
+                
+            }
+
+
+            return cells;
         }
 
         public override string GetDesc()

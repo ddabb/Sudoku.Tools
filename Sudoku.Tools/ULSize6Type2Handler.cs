@@ -23,6 +23,11 @@ namespace Sudoku.Tools
         /// <returns></returns>
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
+            return AssignmentCellByEliminationCell(qSudoku);
+        }
+
+        public override List<CellInfo> Elimination(QSudoku qSudoku)
+        {
             List<CellInfo> cells = new List<CellInfo>();
             var checkCells = qSudoku.AllUnSetCells;
             var restPair = qSudoku.AllUnSetCells.Where(c => c.RestCount == 2);
@@ -47,15 +52,15 @@ namespace Sudoku.Tools
                                       && c.Column == d.Column
                                       && c.Row == cellY.Row
                                       && d.Row == cellX.Row
-                                select new { a,b,c,d}).ToList();
-                if (testLinq.Count()!=0)
+                                select new { a, b, c, d }).ToList();
+                if (testLinq.Count() != 0)
                 {
                     var rest = testLinq.First().a.RestList;
                     var value = cellX.RestList.Except(rest).First();
-                    var tempResult = qSudoku.GetPublicUnsetAreas(cellX, cellY).Where(c => c.RestCount == 2 && c.RestList.Contains(value));
+                    var tempResult = qSudoku.GetPublicUnsetAreas(cellX, cellY).Where(c => c.RestCount>1&& c.RestList.Contains(value));
                     foreach (var cell in tempResult)
                     {
-                        cells.Add(new PositiveCell(cell.Index, cell.RestList.First(c => c != value), qSudoku));
+                        cells.Add(new NegativeCell(cell.Index, value, qSudoku));
                     }
 
                 }
@@ -64,11 +69,6 @@ namespace Sudoku.Tools
 
 
             return cells;
-        }
-
-        public override List<CellInfo> Elimination(QSudoku qSudoku)
-        {
-            return new List<CellInfo>();
         }
 
         public override string GetDesc()
