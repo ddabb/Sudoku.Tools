@@ -10,15 +10,6 @@ namespace Sudoku.Tools
     {
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
-            return new List<CellInfo>();
-        }
-
-        public override SolveMethodEnum methodType => SolveMethodEnum.DiscontinuousNiceLoop;
-
-        public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
-
-        public override List<CellInfo> Assignment(QSudoku qSudoku)
-        {
             List<CellInfo> cells = new List<CellInfo>();
             var allUnsetCell = qSudoku.AllUnSetCells;
             foreach (var unsetCell in allUnsetCell)
@@ -48,11 +39,7 @@ namespace Sudoku.Tools
 
                                     NegativeCell cell1 = new NegativeCell(index1, value, qSudoku);
 
-                                    foreach (var item in cell1.NextCells)
-                                    {
-                                        cells.Add(item);
-                                    }
-
+                                    cells.Add(cell1);
 
                                 }
                             }
@@ -74,18 +61,29 @@ namespace Sudoku.Tools
             return cells;
         }
 
-        private void loop(CellInfo cell, ref List<CellInfo> nacells, ref List<int> relatedIndex, ref List<int> otherValues)
+        public override SolveMethodEnum methodType => SolveMethodEnum.DiscontinuousNiceLoop;
+
+        public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
+
+        public override List<CellInfo> Assignment(QSudoku qSudoku)
+        {
+            return AssignmentCellByEliminationCell(qSudoku);
+        }
+
+        private void loop(CellInfo cell, ref List<CellInfo> nacells, ref List<int> relatedIndex,
+            ref List<int> otherValues)
         {
 
             if (nacells.Any()) return;
 
             if (cell.GetAllParents()
-      .Any(c => c.Index == cell.Index
-      && c.CellType == cell.CellType
-      && c.Value == cell.Value))
+                .Any(c => c.Index == cell.Index
+                          && c.CellType == cell.CellType
+                          && c.Value == cell.Value))
             {
                 return;
             }
+
             foreach (var nextCell in cell.NextCells)
             {
 
@@ -100,6 +98,7 @@ namespace Sudoku.Tools
 
                     }
                 }
+
                 loop(nextCell, ref nacells, ref relatedIndex, ref otherValues);
             }
         }
