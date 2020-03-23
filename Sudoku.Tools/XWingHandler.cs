@@ -83,9 +83,9 @@ namespace Sudoku.Tools
             {
                 var distinctrow = subCells.Select(c => c.Row).Distinct().ToList();
                 var distinctcolumn = subCells.Select(c => c.Column).Distinct().ToList();
-                var FilterCells = qSudoku.GetFilterCell(c => c.Value == 0 && (distinctcolumn.Contains(c.Column) || distinctrow.Contains(c.Row)));
+                var filterCells = qSudoku.GetFilterCell(c => c.Value == 0 && (distinctcolumn.Contains(c.Column) || distinctrow.Contains(c.Row)));
 
-                foreach (var item in FilterCells)
+                foreach (var item in filterCells)
                 {
                     if (!subCells.Exists(c => c.Row == item.Row && c.Column == item.Column))
                     {
