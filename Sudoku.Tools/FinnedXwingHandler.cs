@@ -6,8 +6,8 @@ using Sudoku.Core.Model;
 
 namespace Sudoku.Tools
 {
-    [AssignmentExample("030150209000360050700490603001273800000519000003684700100000008320040000409001060")]
-    class FinnedXwingHandler :SolverHandlerBase
+    [AssignmentExample(7,"R6C4","000800400203060050070050060092480010718526943000009280020090070537248691901005000")]
+  public  class FinnedXwingHandler :SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.FinnedXwing;
 

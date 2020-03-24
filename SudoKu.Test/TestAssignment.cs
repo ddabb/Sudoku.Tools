@@ -33,6 +33,14 @@ namespace SudoKu.Test
         }
 
 
+
+        [TestMethod]
+        public void TestFinnedXwingHandler()
+        {
+            TestAssignmentExample(typeof(FinnedXwingHandler));
+        }
+
+        
         [TestMethod]
         public void TestNakedSubsetWithLockedCandidatesHandler()
         {
