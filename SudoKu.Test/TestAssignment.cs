@@ -85,6 +85,14 @@ namespace SudoKu.Test
 
 
         [TestMethod]
+        public void TestURType1Handler()
+        {
+            TestAssignmentExample(typeof(URType1Handler));
+        }
+        
+
+
+        [TestMethod]
         public void TestMWingHandler()
         {
             TestAssignmentExample(typeof(MWingHandler));

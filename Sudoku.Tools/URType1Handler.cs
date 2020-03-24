@@ -7,7 +7,7 @@ using Sudoku.Core.Model;
 
 namespace Sudoku.Tools
 {
-    [AssignmentExample("534618729297534861600297400760009080009800076853761942976000018000976204000180697")] //已调整
+    [AssignmentExample(5,"R8C3","534618729297534861600297400760009080009800076853761942976000018000976204000180697")] //已调整
     public class URType1Handler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.URType1;

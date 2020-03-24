@@ -43,8 +43,20 @@ namespace SudoKu.Test
             TestEliminationExample(typeof(XWingHandler));
         }
 
+        [TestMethod]
+        public void TestAlignedPairExclusionHandler()
+        {
+            TestEliminationExample(typeof(AlignedPairExclusionHandler));
+        }
 
+        [TestMethod]
+        public void TestAlignedTripleExclusionHandler()
+        {
+            TestEliminationExample(typeof(AlignedTripleExclusionHandler));
+        }
         
+
+
 
         [TestMethod]
         public void TestSplitWingHandler()
