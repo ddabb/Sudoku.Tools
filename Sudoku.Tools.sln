@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sudoku.Control", "Sudoku.Co
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Sudoku.Image2String", "Sudoku.Image2String\Sudoku.Image2String.pyproj", "{2AA10DC7-DC42-4A5F-B854-96D2956E18A4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sudoku.GenWiki", "Sudoku.GenWiki\Sudoku.GenWiki.csproj", "{66ECF380-27E8-4055-875E-9C9C52F4240E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{EBC78FC4-AC47-42AB-B004-0B2F00E98C24}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2AA10DC7-DC42-4A5F-B854-96D2956E18A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2AA10DC7-DC42-4A5F-B854-96D2956E18A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66ECF380-27E8-4055-875E-9C9C52F4240E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66ECF380-27E8-4055-875E-9C9C52F4240E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66ECF380-27E8-4055-875E-9C9C52F4240E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66ECF380-27E8-4055-875E-9C9C52F4240E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
