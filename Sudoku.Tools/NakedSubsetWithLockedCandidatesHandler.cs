@@ -1,8 +1,7 @@
 ﻿using Sudoku.Core;
-using System;
+using Sudoku.Core.Model;
 using System.Collections.Generic;
 using System.Linq;
-using Sudoku.Core.Model;
 
 namespace Sudoku.Tools
 {
@@ -27,11 +26,11 @@ namespace Sudoku.Tools
 
             var pairCells = (from a in filterCells
                              join b in filterCells on a.Block equals b.Block
-                             let rests = a.RestList      
-                             let indexs=G.MergeCellIndexs(a,b)
+                             let rests = a.RestList
+                             let indexs = G.MergeCellIndexs(a, b)
                              where a.Index < b.Index
                              && a.RestString == b.RestString
-                             select new { a,b,rests, indexs });
+                             select new { a, b, rests, indexs });
             foreach (var item in pairCells)
             {
                 var a = item.a;
@@ -39,29 +38,24 @@ namespace Sudoku.Tools
                 var block = a.Block;
                 var indexs = item.indexs;
                 var rests = item.rests;
-                var commonAreas = qSudoku.GetPublicUnsetAreas(a, b).Where(c => c.Block != block&& c.RestCount == 2&& c.RestList.Intersect(rests).Count() == 2).ToList();
+                var commonAreas = qSudoku.GetPublicUnsetAreas(a, b).Where(c => c.Block != block && c.RestCount == 2 && c.RestList.Intersect(rests).Count() == 2).ToList();
                 foreach (var cell in commonAreas)
                 {
                     var removeValue = rests.Except(cell.RestList).First();
                     var cellIndexs = allUnsetCell.Where(c => c.RestList.Contains(removeValue) && c.Block == a.Block && !indexs.Contains(c.Index)).ToList();
-                    if (cellIndexs.Count!=0)
+                    if (cellIndexs.Count != 0)
                     {
                         var removeIndexs = cellIndexs.Select(c => c.Index).ToList();
                         var locations = cellIndexs.Select(c => c.Location).ToList();
                         var group = new NegativeIndexsGroup(removeIndexs, removeValue, qSudoku) { Sudoku = qSudoku };
                         group.SolveMessages = new List<SolveMessage>
-                                        {"a  ",a.Location,
-                                        "b  ",b.Location,
-                                      "cell  ",cell.Location,   "构成"+a.RestString+"的显性三数组\r\n",
-                                      "因为",a.Location,b.Location,"同时位于" ,block.BlockDesc(),"中\r\n",
-                                   
+                                        {G.MergeLocationDesc(a,b,cell),   "构成"+a.RestString+"的显性三数组\r\n",
+                                      "因为",G.MergeLocationDesc(a,b),"位于" ,block.BlockDesc(),"中\r\n",
+                                   "所以",   G.MergeLocationDesc(cellIndexs),     "不能为"+removeValue+"\r\n"
                                         };
-
-                        group.SolveMessages.AddRange(MergeCellSolveLocationMessage(cellIndexs));
-                        group.SolveMessages.AddRange(new List<SolveMessage>
-                                        {
-                                "不能为"+removeValue+"\r\n"
-                                        });
+                        var drawCells = GetDrawPossibleCell(new List<CellInfo> { a, b, cell }, a.RestList);
+                        drawCells.AddRange(GetDrawNegativeCell(cellIndexs, new List<int> { removeValue }));
+                        group.drawCells = drawCells;
                         cells.Add(group);
                     }
                 }
