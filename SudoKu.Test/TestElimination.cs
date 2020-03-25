@@ -27,6 +27,14 @@ namespace SudoKu.Test
         }
 
         [TestMethod]
+        public void TestLockedURType2Handler()
+        {
+            TestEliminationExample(typeof(LockedURType2Handler));
+        }
+
+        
+
+        [TestMethod]
         public void TestXRSize6Type3Handler()
         {
             TestEliminationExample(typeof(XRSize6Type3Handler));
