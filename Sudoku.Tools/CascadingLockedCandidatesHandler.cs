@@ -21,17 +21,9 @@ namespace Sudoku.Tools
         {
             List<CellInfo> cells = new List<CellInfo>();
             var allUnsetCells = qSudoku.AllUnSetCells;
-            Dictionary<int, List<int>> blockMaps = new Dictionary<int, List<int>>
-            {
-                { 1, new List<int> { 0, 1, 2 } },
-                { 2, new List<int> { 3, 4, 5 } },
-                { 3, new List<int> { 6, 7, 8 } },
-                { 4, new List<int> { 0, 3, 6 } },
-                { 5, new List<int> { 1, 4, 7 } },
-                { 6, new List<int> { 2, 5, 8 } }
-            };
 
-            foreach (var kv in blockMaps)
+
+            foreach (var kv in G.blockMaps)
             {
                 var key = kv.Key;
                 var blocks = kv.Value;

@@ -41,6 +41,31 @@ namespace Sudoku.Core
         };
 
 
+        public static Dictionary<int, List<int>> blockMaps = new Dictionary<int, List<int>>
+        {
+            { 1, new List<int> { 0, 1, 2 } },
+            { 2, new List<int> { 3, 4, 5 } },
+            { 3, new List<int> { 6, 7, 8 } },
+            { 4, new List<int> { 0, 3, 6 } },
+            { 5, new List<int> { 1, 4, 7 } },
+            { 6, new List<int> { 2, 5, 8 } }
+        };
+
+
+        public static Dictionary<int, List<int>> RowblockMaps = new Dictionary<int, List<int>>
+        {
+            { 4, new List<int> { 0, 1, 2 } },
+            { 5, new List<int> { 3, 4, 5 } },
+            { 6, new List<int> { 6, 7, 8 } }
+        };
+
+        public static Dictionary<int, List<int>> ColumnblockMaps = new Dictionary<int, List<int>>
+        {
+            { 4, new List<int> { 0, 3, 6 } },
+            { 5, new List<int> { 1, 4, 7 } },
+            { 6, new List<int> { 2, 5, 8 } }
+        };
+
         public static LocationType LocationType { get; set; } = LocationType.R1C1;
 
 
@@ -91,7 +116,7 @@ namespace Sudoku.Core
                 return groups;
             }
         }
-  
+
         public static List<LocationGroup> MergeLocationDesc(params CellInfo[] n)
         {
             var cells = n.ToList();
@@ -102,7 +127,7 @@ namespace Sudoku.Core
 
         public static List<LocationGroup> MergeLocationDesc(params int[] n)
         {
-            var cells = n.Select(c=>(CellInfo)new InitCell(c,0,null)).ToList();
+            var cells = n.Select(c => (CellInfo)new InitCell(c, 0, null)).ToList();
 
             return MergeLocationDesc(cells);
         }
@@ -112,11 +137,11 @@ namespace Sudoku.Core
             var newGroups = groups.ToList();
 
             var filter = (from a in newGroups
-                join b in newGroups on 1 equals 1
-                where a.LocationDesc != b.LocationDesc
-                      && CanMerge(a.cells, b.cells)
-                select new {a, b,}).ToList();
-            if (filter.Count>0)
+                          join b in newGroups on 1 equals 1
+                          where a.LocationDesc != b.LocationDesc
+                                && CanMerge(a.cells, b.cells)
+                          select new { a, b, }).ToList();
+            if (filter.Count > 0)
             {
                 var temp = filter.First();
                 var a = temp.a;
@@ -132,7 +157,7 @@ namespace Sudoku.Core
                 return newGroups;
             }
 
-     
+
         }
 
 
@@ -142,7 +167,7 @@ namespace Sudoku.Core
         /// </summary>
         /// <param name="cells"></param>
         /// <returns></returns>
-        public static bool CanMerge(List<CellInfo> cells1,List<CellInfo> cells2)
+        public static bool CanMerge(List<CellInfo> cells1, List<CellInfo> cells2)
         {
             var mergeCells = new List<CellInfo>();
             mergeCells.AddRange(cells1.ToList());
@@ -176,19 +201,19 @@ namespace Sudoku.Core
 
         private static LocationGroup mergeGroups(List<CellInfo> cells)
         {
-   
+
             var distintRow = cells.Select(c => c.Row).Distinct().ToList();
             var distintColumn = cells.Select(c => c.Column).Distinct().ToList();
             distintRow.Sort();
             distintColumn.Sort();
             var cellindexs = cells.Select(c => c.Index).ToList();
             var mulIndexs = (from row in distintRow
-                join column in distintColumn on 1 equals 1
-                select row * 9 + column).ToList();
-            LocationGroup group =null;
+                             join column in distintColumn on 1 equals 1
+                             select row * 9 + column).ToList();
+            LocationGroup group = null;
             if (mulIndexs.All(c => cellindexs.Contains(c)) && cellindexs.All(c => mulIndexs.Contains(c)))
             {
-                var desc = "R" + distintRow.Select(c=>c+1).JoinStringWithEmpty() + "C" + distintColumn.Select(c => c + 1).JoinStringWithEmpty();
+                var desc = "R" + distintRow.Select(c => c + 1).JoinStringWithEmpty() + "C" + distintColumn.Select(c => c + 1).JoinStringWithEmpty();
                 group = new LocationGroup(cells, desc);
 
             }
@@ -214,7 +239,7 @@ namespace Sudoku.Core
         /// <returns></returns>
         private static bool CanMerge(LocationGroup group1, LocationGroup group2)
         {
-            var cells=new List<CellInfo>();
+            var cells = new List<CellInfo>();
             cells.AddRange(group1.cells);
             cells.AddRange(group2.cells);
             return CanMerge(cells);
@@ -270,7 +295,6 @@ namespace Sudoku.Core
             }
             return tempList;
         }
-
 
 
         public static List<List<int>> StringToList(string str)
@@ -419,6 +443,15 @@ namespace Sudoku.Core
             return result;
         }
 
+        public static List<int> MergeInt(params int[] n)
+        {
+            List<int> result = new List<int>();
+            foreach (var item in n)
+            {
+                result.Add(item);
+            }
+            return result;
+        }
 
         public static List<int> DistinctBlock(List<CellInfo> cells)
         {

@@ -6,7 +6,7 @@ using Sudoku.Core.Model;
 
 namespace Sudoku.Tools
 {
-    [AssignmentExample("030150209000360050700490603001273800000519000003684700100000008320040000409001060")]
+    [EliminationExample(8,"R3C4","706014593390000100100039000032000600018900300047300800409100030871063900203090010")]
    public class ImcompletedURType1Handler :SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.ImcompletedURType1;

@@ -62,9 +62,19 @@ namespace SudoKu.Test
         {
             TestEliminationExample(typeof(AlignedTripleExclusionHandler));
         }
-        
 
 
+        [TestMethod]
+        public void TestFinnedXwingHandler()
+        {
+            TestEliminationExample(typeof(FinnedXwingHandler));
+        }
+
+        [TestMethod]
+        public void TestImcompletedURType1Handler()
+        {
+            TestEliminationExample(typeof(ImcompletedURType1Handler));
+        }
 
         [TestMethod]
         public void TestSplitWingHandler()
@@ -104,5 +114,8 @@ namespace SudoKu.Test
             qsudoku = qsudoku.ApplyCells(cellinfo);
             Assert.AreEqual(true, new DanceLink().isValid(qsudoku.QueryString));
         }
+
+        
+        
     }
 }

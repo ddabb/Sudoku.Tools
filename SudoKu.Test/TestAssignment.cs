@@ -34,11 +34,6 @@ namespace SudoKu.Test
 
 
 
-        [TestMethod]
-        public void TestFinnedXwingHandler()
-        {
-            TestAssignmentExample(typeof(FinnedXwingHandler));
-        }
 
         
         [TestMethod]

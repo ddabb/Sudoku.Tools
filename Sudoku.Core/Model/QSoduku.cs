@@ -235,6 +235,29 @@ namespace Sudoku.Core
             return intersectResult;
         }
 
+
+        public List<int> GetPublicUnsetAreaIndexs(List<CellInfo> cells)
+        {
+            var cellList = cells.ToList();
+            var intersectResult = new List<int>();
+            for (int i = 0; i < cellList.Count; i++)
+            {
+                if (i == 0)
+                {
+                    intersectResult = cellList[i].RelatedUnsetIndexs;
+                }
+                else
+                {
+                    intersectResult = intersectResult.Intersect(cellList[i].RelatedUnsetIndexs).ToList();
+                }
+            }
+
+
+            return intersectResult;
+        }
+
+
+
         public List<int> GetPossibleIndex(int speacialValue, List<CellInfo> cellInfos)
         {
             List<int> indexs = new List<int>();

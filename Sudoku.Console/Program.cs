@@ -19,24 +19,24 @@ namespace Sudoku.Console
             //runtest = false;
             if (runtest)
             {
-                List<CellInfo> cells=new List<CellInfo>();
-                cells.Add(new InitCell(0,2));
-                cells.Add(new InitCell(1, 4));
-                cells.Add(new InitCell(2, 5));
-                cells.Add(new InitCell(9, 6));
-                cells.Add(new InitCell(10, 7));
-                cells.Add(new InitCell(11, 8));
-                cells.Add(new InitCell(18, 8));
-                cells.Add(new InitCell(19, 8));
-                cells.Add(new InitCell(20, 8));
-                cells.Add(new InitCell(21, 8));
-                Debug.WriteLine("start"+DateTime.Now);
-                Debug.WriteLine(G.MergeLocationDesc(cells).Select(c=>c.LocationDesc).JoinString());
-                Debug.WriteLine("end"+DateTime.Now);
-                Sudoku.Control.VisibleState.BatchDrawing();
-                return;
-                //ConsoleAssignmentExample(typeof(NakedSubsetWithLockedCandidatesHandler));
-                ConsoleEliminationExample(typeof(SplitWingHandler));
+                //List<CellInfo> cells=new List<CellInfo>();
+                //cells.Add(new InitCell(0,2));
+                //cells.Add(new InitCell(1, 4));
+                //cells.Add(new InitCell(2, 5));
+                //cells.Add(new InitCell(9, 6));
+                //cells.Add(new InitCell(10, 7));
+                //cells.Add(new InitCell(11, 8));
+                //cells.Add(new InitCell(18, 8));
+                //cells.Add(new InitCell(19, 8));
+                //cells.Add(new InitCell(20, 8));
+                //cells.Add(new InitCell(21, 8));
+                //Debug.WriteLine("start"+DateTime.Now);
+                //Debug.WriteLine(G.MergeLocationDesc(cells).Select(c=>c.LocationDesc).JoinString());
+                //Debug.WriteLine("end"+DateTime.Now);
+                //Sudoku.Control.VisibleState.BatchDrawing();
+                //return;
+                ConsoleAssignmentExample(typeof(FinnedXwingHandler));
+                //ConsoleEliminationExample(typeof(SplitWingHandler));
 
 
 
