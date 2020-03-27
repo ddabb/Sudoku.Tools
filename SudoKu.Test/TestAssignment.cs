@@ -227,9 +227,9 @@ namespace SudoKu.Test
 
 
         [TestMethod]
-        public void TestFinnedSwordfishHandler1()
+        public void TestImcompletedSwordfishHandler1()
         {
-            TestAssignmentExample(typeof(FinnedSwordfishHandler), "900605008070240030001700400200854007489127563715963004007400300090370640300506009", 9, "R2C7");
+            TestAssignmentExample(typeof(ImcompletedSwordfishHandler), "900605008070240030001700400200854007489127563715963004007400300090370640300506009", 9, "R2C7");
         }
 
 
@@ -404,9 +404,9 @@ namespace SudoKu.Test
             TestAssignmentExample(typeof(HiddenSingleBlockHandler));
         }
         [TestMethod]
-        public void TestFinnedJeffyfishHandler()
+        public void TestImcompletedJellyfishHandler()
         {
-            TestAssignmentExample(typeof(FinnedJellyfishHandler));
+            TestAssignmentExample(typeof(ImcompletedJellyfishHandler));
         }
 
         [TestMethod]
@@ -430,9 +430,9 @@ namespace SudoKu.Test
 
 
         [TestMethod]
-        public void TestFinnedJeffyfishHandler1()
+        public void TestImcompletedJellyfishHandler1()
         {
-            TestAssignmentExample(typeof(FinnedJellyfishHandler), "204103580000020341103485600732954168005010900619832400001508200300240000026300004", 9, "R9C5");
+            TestAssignmentExample(typeof(ImcompletedJellyfishHandler), "204103580000020341103485600732954168005010900619832400001508200300240000026300004", 9, "R9C5");
         }
 
 
@@ -467,9 +467,9 @@ namespace SudoKu.Test
 
 
         [TestMethod]
-        public void TestFinnedSwordfishHandler()
+        public void TestImcompletedSwordfishHandler()
         {
-            TestAssignmentExample(typeof(FinnedSwordfishHandler));
+            TestAssignmentExample(typeof(ImcompletedSwordfishHandler));
         }
 
         [TestMethod]

@@ -77,6 +77,30 @@ namespace Sudoku.Tools
 
             return cells;
         }
+
+        /// <summary>
+        /// 检查数值在数独中是否合规。
+        /// </summary>
+        /// <param name="sudoku"></param>
+        /// <param name="value1"></param>
+        /// <returns></returns>
+
+        public bool IsVaildValue(QSudoku sudoku, int value1)
+        {
+            var result = true;
+            var filter = sudoku.AllSetCell.Where(c => c.Value == value1).ToList();
+            var valueCount = filter.Count;
+            var rowCount = filter.Select(c => c.Row).Distinct().Count();
+            var columnCount = filter.Select(c => c.Column).Distinct().Count();
+            var blockCount = filter.Select(c => c.Block).Distinct().Count();
+            if (rowCount < valueCount || columnCount < valueCount || blockCount < valueCount)
+            {
+                result = false;
+            }
+
+            return result;
+        }
+
         public bool IsSameRow(int index1, int index2)
         {
             if (new PositiveCell(index1, 0, null).Row == new PositiveCell(index2, 0, null).Row)
@@ -481,6 +505,53 @@ namespace Sudoku.Tools
         {
             return new SolveMessage(G.GetEnumDescription(d) + (dirIndex + 1), MessageType.Location);
         }
+
+        public class AlignedDTO
+        {
+
+            public List<InitCell> initCells;
+            public bool noValueToSet;
+            public bool allHasValueToSet;
+            public bool result;
+
+
+
+            public AlignedDTO(bool allHasValueToSet, params InitCell[] kvs)
+            {
+                initCells = kvs.ToList();
+                this.allHasValueToSet = allHasValueToSet;
+                if (allHasValueToSet)
+                {
+                    var vailds = (from a in initCells
+                        join b in initCells on a.Value equals b.Value
+
+                        where a.Index < b.Index
+                        select new { a, b }).ToList();
+                    result = !vailds.Exists(c => c.a.Row == c.b.Row || c.a.Column == c.b.Column || c.a.Block == c.b.Block);
+                }
+                else
+                {
+                    result = false;
+                }
+            }
+
+        }
+
+        public List<CellInfo> NewMethod(QSudoku qSudoku, CellInfo cell1, List<AlignedDTO> dtos)
+        {
+            List<CellInfo> cells = new List<CellInfo>();
+            foreach (var value1 in cell1.RestList)
+            {
+                if (dtos.Where(c => c.initCells.Exists(x => x.Value == value1 && x.Index == cell1.Index))
+                    .All(c => c.result == false))
+                {
+                    cells.Add(new NegativeCell(cell1.Index, value1, qSudoku));
+                }
+            }
+
+            return cells;
+        }
+
 
     }
 

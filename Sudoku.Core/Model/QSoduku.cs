@@ -29,7 +29,29 @@ namespace Sudoku.Core
             Init();
         }
 
+        private  Dictionary<int, List<int>> GetAllReleatedIndexsMap()
+        {
+            Dictionary<int, List<int>> indexMap = new Dictionary<int, List<int>>();
+            foreach (var cell in AllUnSetCells)
+            {
+                indexMap.Add(cell.Index, cell.RelatedUnsetIndexs);
+            }
 
+            return indexMap;
+        }
+
+        private Dictionary<int, List<int>> mReleatedIndexsMap = null;
+        private Dictionary<int, List<int>> ReleatedIndexsMap {
+            get
+            {
+                if (mReleatedIndexsMap==null)
+                {
+                    mReleatedIndexsMap = GetAllReleatedIndexsMap();
+                }
+
+                return mReleatedIndexsMap;
+            }
+        }
         public List<NegativeCell2PostiveCell> StrongLinsLinks { get; set; }
         public List<PostiveCell2NegativeCell> WeakLink { get; set; }
 
@@ -178,7 +200,8 @@ namespace Sudoku.Core
                     this.cellInfos[cell.Index].ReSetRest();
                 }
             }
-    
+
+            ClearCache();
         }
 
         public void RemoveCell(CellInfo cell)
@@ -195,8 +218,14 @@ namespace Sudoku.Core
                     this.cellInfos[cell.Index].NegativeValues.AddRange(cell.NegativeValues);
                     this.cellInfos[cell.Index].ReSetRest();
                 }
-            
 
+                ClearCache();
+        }
+
+        public void ClearCache()
+        {
+
+            mReleatedIndexsMap = null;
         }
 
         /// <summary>
@@ -223,15 +252,49 @@ namespace Sudoku.Core
             {
                 if (i==0)
                 {
-                    intersectResult = cellList[i].RelatedUnsetIndexs;
+                    intersectResult = ReleatedIndexsMap[cellList[i].Index];
                 }
                 else
                 {
-                    intersectResult= intersectResult.Intersect(cellList[i].RelatedUnsetIndexs).ToList();
+                    intersectResult= intersectResult.Intersect(ReleatedIndexsMap[cellList[i].Index]).ToList();
                 }
             }
-  
+            return intersectResult;
+        }
 
+        public List<int> GetPublicUnsetAreaIndexs(params int[] cellindex)
+        {
+            var cellList = cellindex.ToList();
+            var intersectResult = new List<int>();
+            for (int i = 0; i < cellList.Count; i++)
+            {
+                if (i == 0)
+                {
+                    intersectResult = ReleatedIndexsMap[cellList[i]];
+                }
+                else
+                {
+                    intersectResult = intersectResult.Intersect(ReleatedIndexsMap[cellList[i]]).ToList();
+                }
+            }
+            return intersectResult;
+        }
+
+        public List<int> GetPublicUnsetAreaIndexs(List<int> cellindex)
+        {
+            var cellList = cellindex.ToList();
+            var intersectResult = new List<int>();
+            for (int i = 0; i < cellList.Count; i++)
+            {
+                if (i == 0)
+                {
+                    intersectResult = ReleatedIndexsMap[cellList[i]];
+                }
+                else
+                {
+                    intersectResult = intersectResult.Intersect(ReleatedIndexsMap[cellList[i]]).ToList();
+                }
+            }
             return intersectResult;
         }
 
@@ -244,11 +307,11 @@ namespace Sudoku.Core
             {
                 if (i == 0)
                 {
-                    intersectResult = cellList[i].RelatedUnsetIndexs;
+                    intersectResult = ReleatedIndexsMap[cellList[i].Index];
                 }
                 else
                 {
-                    intersectResult = intersectResult.Intersect(cellList[i].RelatedUnsetIndexs).ToList();
+                    intersectResult = intersectResult.Intersect(ReleatedIndexsMap[cellList[i].Index]).ToList();
                 }
             }
 
@@ -317,6 +380,8 @@ namespace Sudoku.Core
             {
                 unset.ReSetRest();
             }
+
+            ClearCache();
             return this;
         }
 
@@ -340,6 +405,7 @@ namespace Sudoku.Core
             {
                 unset.ReSetRest();
             }
+            ClearCache();
             return this;
         }
 

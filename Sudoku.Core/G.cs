@@ -476,5 +476,9 @@ namespace Sudoku.Core
             return r;
 
         }
+
+
+
+
     }
 }
