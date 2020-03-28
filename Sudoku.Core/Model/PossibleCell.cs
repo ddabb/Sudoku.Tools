@@ -28,5 +28,7 @@ namespace Sudoku.Core.Model
 
 
         }
+
+
     }
 }

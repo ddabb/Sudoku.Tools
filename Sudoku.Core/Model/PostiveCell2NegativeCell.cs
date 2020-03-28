@@ -11,15 +11,21 @@ namespace Sudoku.Core.Model
     /// </summary>
 
     
-    public class PostiveCell2NegativeCell
+    public class PostiveCell2NegativeCell:IChainCell
     {
-        public CellInfo negativeCell;
-        public CellInfo PostiveCell;
+  
 
         public PostiveCell2NegativeCell(CellInfo postiveCell,CellInfo negativeCell)
         {
             this.PostiveCell = postiveCell;
             this.negativeCell = negativeCell;
+            this.thentype = ThenType.ThenNo;
         }
+
+        public ThenType thentype { get; set; }
+        public CellInfo negativeCell { get; set; }
+        public CellInfo PostiveCell { get; set; }
+        public List<IChainCell> Children { get; set; }
+        public IChainCell Parent { get; set; }
     }
 }

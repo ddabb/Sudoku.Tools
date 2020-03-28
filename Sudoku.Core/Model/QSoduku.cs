@@ -53,23 +53,39 @@ namespace Sudoku.Core.Model
             }
         }
 
-        private List<NegativeCell2PostiveCell> mNegativeCell2PostiveCell;
-        private List<PostiveCell2NegativeCell> mPostiveCell2NegativeCell;
+        private List<IChainCell> mNegativeCell2PostiveCell;
+        private List<IChainCell> mPostiveCell2NegativeCell;
 
-        public List<NegativeCell2PostiveCell> NegativeCell2PostiveCell
+        public List<IChainCell> AllChainCells
+        {
+            get
+            {
+                var temp = this.PostiveCell2NegativeCell.ToList();
+                temp.AddRange(this.NegativeCell2PostiveCell.ToList());
+                return temp;
+            }
+
+        }
+
+        public List<IChainCell> NegativeCell2PostiveCell
         {
             get
             {
                 if (mNegativeCell2PostiveCell == null)
                 {
-                    List<NegativeCell2PostiveCell> cells = new List<NegativeCell2PostiveCell>();
+                    List<IChainCell> cells = new List<IChainCell>();
                     foreach (var cell in this.AllUnSetCells)
                     {
-                        var negativeCell = new NegativeCell(cell.Index, cell.Value, this);
-                        foreach (var variable in negativeCell.InitNextCells())
+                        var list = cell.RestList;
+                        foreach (var value in list)
                         {
-                            cells.Add(new NegativeCell2PostiveCell(negativeCell, variable));
+                            var negativeCell = new NegativeCell(cell.Index, value, this);
+                            foreach (var variable in negativeCell.InitNextCells())
+                            {
+                                cells.Add(new NegativeCell2PostiveCell(negativeCell, variable));
+                            }
                         }
+
                     }
                     mNegativeCell2PostiveCell = cells;
                 }
@@ -77,19 +93,23 @@ namespace Sudoku.Core.Model
             }
         }
 
-        public List<PostiveCell2NegativeCell> PostiveCell2NegativeCell
+        public List<IChainCell> PostiveCell2NegativeCell
         {
             get
             {
                 if (mPostiveCell2NegativeCell == null)
                 {
-                    List<PostiveCell2NegativeCell> cells = new List<PostiveCell2NegativeCell>();
+                    List<IChainCell> cells = new List<IChainCell>();
                     foreach (var cell in this.AllUnSetCells)
                     {
-                        var positiveCell = new PositiveCell(cell.Index, cell.Value, this);
-                        foreach (var variable in positiveCell.InitNextCells())
+                        var list = cell.RestList;
+                        foreach (var value in list)
                         {
-                            cells.Add(new PostiveCell2NegativeCell(positiveCell, variable));
+                            var negativeCell = new PositiveCell(cell.Index, value, this);
+                            foreach (var variable in negativeCell.InitNextCells())
+                            {
+                                cells.Add(new PostiveCell2NegativeCell(negativeCell, variable));
+                            }
                         }
                     }
 
@@ -273,6 +293,7 @@ namespace Sudoku.Core.Model
             mReleatedIndexsMap = null;
             mNegativeCell2PostiveCell = null;
             mPostiveCell2NegativeCell = null;
+            mString = null;
         }
 
         /// <summary>
@@ -564,9 +585,18 @@ namespace Sudoku.Core.Model
             }
         }
 
+        private string mString;
         public string CurrentString
         {
-            get { return this.cellInfos.Select(c => c.Value).JoinString(""); }
+            get
+            {
+                if (mString == null)
+                {
+                    mString = this.cellInfos.Select(c => c.Value).JoinString("");
+                }
+
+                return mString;
+            }
         }
 
         /// <summary>

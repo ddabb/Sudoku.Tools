@@ -93,5 +93,15 @@ namespace Sudoku.Core.Model
         {
             throw new System.NotImplementedException();
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is PositiveCell cell)
+            {
+                return this.Index == cell.Index && this.Value == cell.Value && this.Sudoku == cell.Sudoku;
+            }
+
+            return false;
+        }
     }
 }

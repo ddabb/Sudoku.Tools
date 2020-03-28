@@ -70,7 +70,7 @@ namespace Sudoku.Tools
 
         private void Fuc(CellInfo cell, ref List<CellInfo> initCellInfo)
         {
-            Debug.WriteLine("Fuc in  " + cell + "cell parent" + cell.Parent);
+            //Debug.WriteLine("Fuc in  " + cell + "cell parent" + cell.Parent);
 
             if (!traceCell.Any())
             {
