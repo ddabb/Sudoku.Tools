@@ -53,7 +53,8 @@ namespace Sudoku.Tools
                                 new SolveMessage("\r\n")
                             });
                         }
-                        temp1.Add(new SolveMessage("所以 " + temp.Desc, MessageType.Postive));
+                        temp1.Add(new SolveMessage("与"+ cell.Desc+"矛盾\r\n"));
+                        temp1.Add(new SolveMessage("所以"+ temp.Desc +"\r\n"));
                         temp.SolveMessages = temp1;
                         cells.Add(temp);
                     }
@@ -71,34 +72,34 @@ namespace Sudoku.Tools
         {
             Debug.WriteLine("Fuc in  " + cell + "cell parent" + cell.Parent);
 
-            if (traceCell.Any()) return;
-            if (cell.IsError)
+            if (!traceCell.Any())
             {
-                traceCell.Add(cell);
-                return;
-            }
-            if (cell.GetAllParents()
-                .Any(c => c.Index == cell.Index && c.CellType == cell.CellType && c.Value == cell.Value)) return;
-            var temp = cell.NextCells;
-            foreach (var item in temp)
-            {
-                if (traceCell.Count != 0) //找到一个就跳出循环
+                if (cell.IsError)
                 {
-                    //break;
+                    traceCell.Add(cell);
+                    return;
                 }
-                else
+
+                if (cell.GetAllParents()
+                    .Any(c => c.Index == cell.Index && c.CellType == cell.CellType && c.Value == cell.Value)) return;
+                var temp = cell.NextCells;
+                foreach (var item in temp)
                 {
-                    if (!initCellInfo.Exists(c =>
-                        c.CellType == item.CellType && c.Index == item.Index && item.Value == c.Value))
+                    if (traceCell.Count != 0) //找到一个就跳出循环
                     {
-                        initCellInfo.Add(item);
-                        Fuc(item, ref initCellInfo);
+                        //break;
                     }
-
+                    else
+                    {
+                        if (!initCellInfo.Exists(c =>
+                            c.CellType == item.CellType && c.Index == item.Index && item.Value == c.Value))
+                        {
+                            initCellInfo.Add(item);
+                            Fuc(item, ref initCellInfo);
+                        }
+                    }
                 }
-
             }
-
         }
 
         private void Output(CellInfo found, ref List<string> infoList)
