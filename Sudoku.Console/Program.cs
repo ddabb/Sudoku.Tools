@@ -36,7 +36,7 @@ namespace Sudoku.Console
                 //Sudoku.Control.VisibleState.BatchDrawing();
                 //return;
                 //ConsoleAssignmentExample(typeof(FinnedXwingHandler));
-                ConsoleEliminationExample(typeof(AlignedQuadrupleExclusionHandler));
+                ConsoleEliminationExample(typeof(FinnedXwingHandler));
 
 
 

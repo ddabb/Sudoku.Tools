@@ -28,17 +28,8 @@ namespace Sudoku.Core
         {
             get
             {
-                //var sameValueList = this.NextCells.Where(c => c.Value == Value).ToList();
-                //var sameValueCount = sameValueList.Count();
-                //var distinctBlock = sameValueList.Select(c => c.Block).Distinct().Count();
-                //var distinctRow = sameValueList.Select(c => c.Row).Distinct().Count();
-                //var distinctColumn = sameValueList.Select(c => c.Column).Distinct().Count();
-                //if (distinctBlock< sameValueCount|| distinctRow < sameValueCount|| distinctColumn < sameValueCount)
-                //{
-                //    return true;
-                //}
-
-                return false;
+                return GetAllParents().Count(c => c.Index == Index && c.CellType == CellType.Init && c.Value != Value) > 0 ||
+                       GetAllParents().Count(c => c.Index == Index && c.CellType == CellType.Positive && c.Value == Value) > 0;
             }
         }
 
