@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Sudoku.Core.Model;
 
-namespace Sudoku.Core
+namespace Sudoku.Core.Model
 {
     /// <summary>
     /// 数独题
@@ -29,7 +28,7 @@ namespace Sudoku.Core
             Init();
         }
 
-        private  Dictionary<int, List<int>> GetAllReleatedIndexsMap()
+        private Dictionary<int, List<int>> GetAllReleatedIndexsMap()
         {
             Dictionary<int, List<int>> indexMap = new Dictionary<int, List<int>>();
             foreach (var cell in AllUnSetCells)
@@ -41,10 +40,11 @@ namespace Sudoku.Core
         }
 
         private Dictionary<int, List<int>> mReleatedIndexsMap = null;
-        private Dictionary<int, List<int>> ReleatedIndexsMap {
+        private Dictionary<int, List<int>> ReleatedIndexsMap
+        {
             get
             {
-                if (mReleatedIndexsMap==null)
+                if (mReleatedIndexsMap == null)
                 {
                     mReleatedIndexsMap = GetAllReleatedIndexsMap();
                 }
@@ -52,8 +52,54 @@ namespace Sudoku.Core
                 return mReleatedIndexsMap;
             }
         }
-        public List<NegativeCell2PostiveCell> StrongLinsLinks { get; set; }
-        public List<PostiveCell2NegativeCell> WeakLink { get; set; }
+
+        private List<NegativeCell2PostiveCell> mNegativeCell2PostiveCell;
+        private List<PostiveCell2NegativeCell> mPostiveCell2NegativeCell;
+
+        public List<NegativeCell2PostiveCell> NegativeCell2PostiveCell
+        {
+            get
+            {
+                if (mNegativeCell2PostiveCell == null)
+                {
+                    List<NegativeCell2PostiveCell> cells = new List<NegativeCell2PostiveCell>();
+                    foreach (var cell in this.AllUnSetCells)
+                    {
+                        var negativeCell = new NegativeCell(cell.Index, cell.Value, this);
+                        foreach (var variable in negativeCell.InitNextCells())
+                        {
+                            cells.Add(new NegativeCell2PostiveCell(negativeCell, variable));
+                        }
+                    }
+                    mNegativeCell2PostiveCell = cells;
+                }
+                return mNegativeCell2PostiveCell;
+            }
+        }
+
+        public List<PostiveCell2NegativeCell> PostiveCell2NegativeCell
+        {
+            get
+            {
+                if (mPostiveCell2NegativeCell == null)
+                {
+                    List<PostiveCell2NegativeCell> cells = new List<PostiveCell2NegativeCell>();
+                    foreach (var cell in this.AllUnSetCells)
+                    {
+                        var positiveCell = new PositiveCell(cell.Index, cell.Value, this);
+                        foreach (var variable in positiveCell.InitNextCells())
+                        {
+                            cells.Add(new PostiveCell2NegativeCell(positiveCell, variable));
+                        }
+                    }
+
+                    mPostiveCell2NegativeCell = cells;
+                }
+
+                return mPostiveCell2NegativeCell;
+
+            }
+        }
 
         public QSudoku(string queryString)
         {
@@ -105,7 +151,7 @@ namespace Sudoku.Core
         {
             var column = CurrentCell?.Column ?? 0;
             var row = CurrentCell?.Row ?? 0;
-            if (column==0)
+            if (column == 0)
             {
                 column = 8;
             }
@@ -189,12 +235,12 @@ namespace Sudoku.Core
         {
             foreach (var cell in removeCells)
             {
-                if (cell.CellType==CellType.Negative)
+                if (cell.CellType == CellType.Negative)
                 {
-                  this.cellInfos[cell.Index].NegativeValues.Add(cell.Value);
-                  this.cellInfos[cell.Index].ReSetRest();
+                    this.cellInfos[cell.Index].NegativeValues.Add(cell.Value);
+                    this.cellInfos[cell.Index].ReSetRest();
                 }
-                else if(cell.CellType == CellType.NegativeValuesGroup)
+                else if (cell.CellType == CellType.NegativeValuesGroup)
                 {
                     this.cellInfos[cell.Index].NegativeValues.AddRange(cell.NegativeValues);
                     this.cellInfos[cell.Index].ReSetRest();
@@ -206,26 +252,27 @@ namespace Sudoku.Core
 
         public void RemoveCell(CellInfo cell)
         {
-          
-            
-                if (cell.CellType == CellType.Negative)
-                {
-                    this.cellInfos[cell.Index].NegativeValues.Add(cell.Value);
-                    this.cellInfos[cell.Index].ReSetRest();
-                }
-                else if (cell.CellType == CellType.NegativeValuesGroup)
-                {
-                    this.cellInfos[cell.Index].NegativeValues.AddRange(cell.NegativeValues);
-                    this.cellInfos[cell.Index].ReSetRest();
-                }
 
-                ClearCache();
+
+            if (cell.CellType == CellType.Negative)
+            {
+                this.cellInfos[cell.Index].NegativeValues.Add(cell.Value);
+                this.cellInfos[cell.Index].ReSetRest();
+            }
+            else if (cell.CellType == CellType.NegativeValuesGroup)
+            {
+                this.cellInfos[cell.Index].NegativeValues.AddRange(cell.NegativeValues);
+                this.cellInfos[cell.Index].ReSetRest();
+            }
+
+            ClearCache();
         }
 
         public void ClearCache()
         {
-
             mReleatedIndexsMap = null;
+            mNegativeCell2PostiveCell = null;
+            mPostiveCell2NegativeCell = null;
         }
 
         /// <summary>
@@ -241,22 +288,22 @@ namespace Sudoku.Core
 
         public List<CellInfo> GetPublicUnsetAreas(int index1, int index2)
         {
-            return AllUnSetCells.Where(c => GetPublicUnsetAreaIndexs(cellInfos.First(x=>x.Index==index1), cellInfos.First(x => x.Index == index2)).Contains(c.Index)).ToList();
+            return AllUnSetCells.Where(c => GetPublicUnsetAreaIndexs(cellInfos.First(x => x.Index == index1), cellInfos.First(x => x.Index == index2)).Contains(c.Index)).ToList();
         }
 
         public List<int> GetPublicUnsetAreaIndexs(params CellInfo[] cells)
         {
             var cellList = cells.ToList();
-            var intersectResult=new List<int>();
+            var intersectResult = new List<int>();
             for (int i = 0; i < cellList.Count; i++)
             {
-                if (i==0)
+                if (i == 0)
                 {
                     intersectResult = ReleatedIndexsMap[cellList[i].Index];
                 }
                 else
                 {
-                    intersectResult= intersectResult.Intersect(ReleatedIndexsMap[cellList[i].Index]).ToList();
+                    intersectResult = intersectResult.Intersect(ReleatedIndexsMap[cellList[i].Index]).ToList();
                 }
             }
             return intersectResult;
@@ -373,7 +420,7 @@ namespace Sudoku.Core
             var chars = QueryString.Select(c => "" + c).ToList();
             foreach (var item in cells)
             {
-                this.cellInfos[item.Index] = new PositiveCell(item.Index, item.Value,this) ;
+                this.cellInfos[item.Index] = new PositiveCell(item.Index, item.Value, this);
             }
             this.mAllUnSetCell = null;
             foreach (var unset in this.AllUnSetCells)
@@ -388,9 +435,9 @@ namespace Sudoku.Core
         public QSudoku ApplyCell(CellInfo cell)
         {
 
-            if (cell.Value == 0&&cell.CellType==CellType.Init)
+            if (cell.Value == 0 && cell.CellType == CellType.Init)
             {
-                this.cellInfos[cell.Index] =new InitCell(cell.Index,0, this) ;
+                this.cellInfos[cell.Index] = new InitCell(cell.Index, 0, this);
             }
             else
             {
@@ -444,10 +491,10 @@ namespace Sudoku.Core
             var chars = QueryString.ToCharArray();
             foreach (var location in G.allLocations)
             {
-                var cellInit = new InitCell(location, Convert.ToInt32("" + chars[location]),this) ;
+                var cellInit = new InitCell(location, Convert.ToInt32("" + chars[location]), this);
                 cellInfos.Add(cellInit);
             }
-        
+
         }
         public Dictionary<int, List<int>> GetRowSetInfo(int rowIndex)
         {
@@ -476,7 +523,7 @@ namespace Sudoku.Core
         private List<CellInfo> mAllUnSetCell = null;
         public List<CellInfo> AllUnSetCells
         {
-            get { return mAllUnSetCell ?? (mAllUnSetCell = cellInfos.Where(c => c.Value == 0).ToList()); }
+            get { return mAllUnSetCell ??= cellInfos.Where(c => c.Value == 0).ToList(); }
         }
 
         public List<CellInfo> AllCell
@@ -519,7 +566,7 @@ namespace Sudoku.Core
 
         public string CurrentString
         {
-            get { return this.cellInfos.Select(c=>c.Value).JoinString(""); }
+            get { return this.cellInfos.Select(c => c.Value).JoinString(""); }
         }
 
         /// <summary>

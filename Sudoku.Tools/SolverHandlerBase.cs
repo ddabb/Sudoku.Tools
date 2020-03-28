@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Reflection;
 using System.Diagnostics;
 using Sudoku.Core;
+using Sudoku.Core.Model;
 
 namespace Sudoku.Tools
 {

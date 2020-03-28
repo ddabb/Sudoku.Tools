@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace Sudoku.Core
+namespace Sudoku.Core.Model
 {
     public class InitCell : CellInfo
     {
@@ -24,9 +20,14 @@ namespace Sudoku.Core
 
         public override string Desc => this.Location + " 初始值是：" + Value;
 
-        public override List<CellInfo> GetNextCells()
+        public override List<CellInfo> InitNextCells()
         {
-            throw new System.NotImplementedException();
+          return new List<CellInfo>();
+        }
+
+        public override List<CellInfo> GetNextCellsFromSudokuCache()
+        {
+            return new List<CellInfo>();
         }
     }
 }

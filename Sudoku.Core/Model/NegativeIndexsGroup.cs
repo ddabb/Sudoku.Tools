@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Sudoku.Core
+namespace Sudoku.Core.Model
 {
     public class NegativeIndexsGroup : CellInfo
     {
@@ -16,7 +16,7 @@ namespace Sudoku.Core
 
 
         public override bool IsError { get; }
-        public override List<CellInfo> GetNextCells()
+        public override List<CellInfo> InitNextCells()
         {
             List<CellInfo> cells = new List<CellInfo>();
             var find = Sudoku.AllUnSetCells.Where(c => !Indexs.Contains(c.Index) && c.RestList.Contains(Value))
@@ -87,6 +87,11 @@ namespace Sudoku.Core
             return cells;
         }
 
+        public override List<CellInfo> GetNextCellsFromSudokuCache()
+        {
+            return new List<CellInfo>();
+        }
+
         public override List<CellInfo> NextCells
         {
             get
@@ -97,7 +102,7 @@ namespace Sudoku.Core
                 //    return list;
                 //}
 
-                return GetNextCells();
+                return InitNextCells();
             }
         }
 

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Sudoku.Core
+namespace Sudoku.Core.Model
 {
     public class PositiveCellGroup : CellInfo
     {
@@ -19,7 +19,12 @@ namespace Sudoku.Core
 
 
         public override bool IsError { get; }
-        public override List<CellInfo> GetNextCells()
+        public override List<CellInfo> InitNextCells()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override List<CellInfo> GetNextCellsFromSudokuCache()
         {
             throw new System.NotImplementedException();
         }

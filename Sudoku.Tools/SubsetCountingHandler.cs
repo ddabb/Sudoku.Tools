@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Sudoku.Core;
+using Sudoku.Core.Model;
 
 namespace Sudoku.Tools
 {

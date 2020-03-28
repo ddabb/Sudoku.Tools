@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Sudoku.Tools
+namespace Sudoku.Core
 {
     public enum MethodClassify
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Sudoku.Core
+namespace Sudoku.Core.Model
 {
     public class PositiveCell : CellInfo
     {
@@ -32,7 +32,7 @@ namespace Sudoku.Core
 
         public override List<CellInfo> NextCells
         {
-            get { return GetNextCells(); }
+            get { return InitNextCells(); }
 
         }
 
@@ -42,7 +42,7 @@ namespace Sudoku.Core
         /// 如果指定单元格为真,则其关联的单元格都不能取该值。获取这些单元格的位置信息。
         /// </summary>
         /// <returns></returns>
-        public override List<CellInfo> GetNextCells()
+        public override List<CellInfo> InitNextCells()
         {
             if (Index == 68 && Value == 9)
             {
@@ -87,6 +87,11 @@ namespace Sudoku.Core
                 cellsA = cellsA.Where(c => !(c.Index == Parent.Index && c.Value == Parent.Value)).ToList();
             return cellsA.ToList();
 
+        }
+
+        public override List<CellInfo> GetNextCellsFromSudokuCache()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Sudoku.Core
+namespace Sudoku.Core.Model
 {
     public class NegativeCell : CellInfo
     {
@@ -39,7 +39,7 @@ namespace Sudoku.Core
             get
             {
 
-                return GetNextCells();
+                return InitNextCells();
             }
 
         }
@@ -51,7 +51,7 @@ namespace Sudoku.Core
         /// 如果单元格X的值不为a，且同行，同宫，同列，只有另外一个位置X1可以取a,则X1的值为a。
         /// </summary>
         /// <returns></returns>
-        public override List<CellInfo> GetNextCells()
+        public override List<CellInfo> InitNextCells()
         {
 
             List<CellInfo> cells = new List<CellInfo>();
@@ -96,6 +96,11 @@ namespace Sudoku.Core
             if (this.Parent != null)
                 cells = cells.Where(c => !(c.Index == Parent.Index && c.Value == Parent.Value)).ToList();
             return cells.ToList();
+        }
+
+        public override List<CellInfo> GetNextCellsFromSudokuCache()
+        {
+            throw new NotImplementedException();
         }
 
         private List<CellInfo> GetPostiveCellInDirtion(Func<CellInfo, bool> temp)

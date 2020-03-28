@@ -12,5 +12,13 @@ namespace Sudoku.Core.Model
 
     public class NegativeCell2PostiveCell
     {
+        public CellInfo negativeCell;
+        public CellInfo PostiveCell;
+
+        public NegativeCell2PostiveCell(CellInfo negativeCell, CellInfo postiveCell)
+        {
+            this.PostiveCell = postiveCell;
+            this.negativeCell = negativeCell;
+        }
     }
 }

@@ -10,7 +10,16 @@ namespace Sudoku.Core.Model
     /// 强链 PostiveCell.NextCell的缓存信息
     /// </summary>
 
+    
     public class PostiveCell2NegativeCell
     {
+        public CellInfo negativeCell;
+        public CellInfo PostiveCell;
+
+        public PostiveCell2NegativeCell(CellInfo postiveCell,CellInfo negativeCell)
+        {
+            this.PostiveCell = postiveCell;
+            this.negativeCell = negativeCell;
+        }
     }
 }

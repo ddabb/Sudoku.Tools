@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Sudoku.Core
+namespace Sudoku.Core.Model
 {
     /// <summary>
     /// 
@@ -250,7 +250,12 @@ namespace Sudoku.Core
             return false; ;
         }
 
-        public abstract List<CellInfo> GetNextCells();
+        public abstract List<CellInfo> InitNextCells();
 
+        /// <summary>
+        /// 从qsudoku中获取缓存数据
+        /// </summary>
+        /// <returns></returns>
+        public abstract List<CellInfo> GetNextCellsFromSudokuCache();
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Sudoku.Core.Model;
 
 namespace Sudoku.Core
 {

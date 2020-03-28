@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using Sudoku.Tools;
 using System;
 using System.Collections.Generic;
 using System.IO;

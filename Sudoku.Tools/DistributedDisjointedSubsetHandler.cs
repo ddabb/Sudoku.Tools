@@ -1,6 +1,7 @@
 ﻿using Sudoku.Core;
 using System;
 using System.Collections.Generic;
+using Sudoku.Core.Model;
 
 namespace Sudoku.Tools
 {

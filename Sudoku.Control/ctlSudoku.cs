@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Sudoku.Control;
+using Sudoku.Core.Model;
 
 namespace Sudoku.UI
 {

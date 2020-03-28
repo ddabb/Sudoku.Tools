@@ -1,8 +1,8 @@
-﻿using Sudoku.Tools;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using Sudoku.Core.Model;
 
 namespace Sudoku.Core
 {
