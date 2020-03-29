@@ -1,8 +1,7 @@
 ﻿using Sudoku.Core;
-using System;
+using Sudoku.Core.Model;
 using System.Collections.Generic;
 using System.Linq;
-using Sudoku.Core.Model;
 
 namespace Sudoku.Tools
 {
@@ -20,9 +19,14 @@ namespace Sudoku.Tools
         /// <returns></returns>
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
+            return AssignmentCellByEliminationCell(qSudoku);
+        }
+
+        public override List<CellInfo> Elimination(QSudoku qSudoku)
+        {
             List<CellInfo> cells = new List<CellInfo>();
             var checkCells = qSudoku.AllUnSetCells.Where(c => c.RestCount == 4).ToList();
-            List<int> countRange = new List<int> {2, 3};
+            List<int> countRange = new List<int> { 2, 3 };
             foreach (var checkcell in checkCells)
             {
                 var checkcellRest = checkcell.RestList;
@@ -30,43 +34,48 @@ namespace Sudoku.Tools
                     countRange.Contains(c.RestCount) && c.RestList.Intersect(checkcellRest).Any()).ToList();
 
                 var filter = (from x in relatedCell
-                    join y in relatedCell on 1 equals 1
-                    join z in relatedCell on 1 equals 1
+                              join y in relatedCell on 1 equals 1
+                              join z in relatedCell on 1 equals 1
 
-                    let indexs = new List<int> {x.Index, y.Index, z.Index, checkcell.Index}
-                    let xrest = x.RestList
-                    let yrest = y.RestList
-                    let zrest = z.RestList
-                    where indexs.Distinct().Count() == 4
-                          && x.Index < y.Index && y.Index < z.Index
-                          && xrest.Intersect(yrest).Intersect(zrest).Count() == 1
-                          && xrest.Count == 2
-                          && yrest.Count == 2 
-                          && zrest.Count == 2
-                          && xrest.All(c => checkcellRest.Contains(c))
-                          && yrest.All(c => checkcellRest.Contains(c))
-                          && zrest.All(c => checkcellRest.Contains(c))
-                          && xrest.JoinString() != yrest.JoinString()
-                          && yrest.JoinString() != zrest.JoinString()
-                    select new {indexs, x, y, z, xrest, yrest, zrest}).Distinct().ToList();
+                              let indexs = new List<int> { x.Index, y.Index, z.Index, checkcell.Index }
+                              let xrest = x.RestList
+                              let yrest = y.RestList
+                              let zrest = z.RestList
+                              where indexs.Distinct().Count() == 4
+                                    && x.Index < y.Index && y.Index < z.Index
+                                    && xrest.Intersect(yrest).Intersect(zrest).Count() == 1
+                                    && xrest.Count == 2
+                                    && yrest.Count == 2
+                                    && zrest.Count == 2
+                                    && xrest.All(c => checkcellRest.Contains(c))
+                                    && yrest.All(c => checkcellRest.Contains(c))
+                                    && zrest.All(c => checkcellRest.Contains(c))
+                                    && new List<string> { x.RestString,y.RestString,z.RestString}.Distinct().Count()==3
+                              select new { indexs, x, y, z, xrest, yrest, zrest }).Distinct().ToList();
                 foreach (var item in filter)
                 {
                     var xyzRest = item.xrest.Intersect(item.yrest).Intersect(item.zrest).ToList();
                     if (xyzRest.Count == 1)
                     {
                         var intersectValue = xyzRest.First();
-                        var publicIndexs = checkcell.RelatedUnsetIndexs
-                            .Intersect(item.x.RelatedUnsetIndexs)
-                            .Intersect(item.y.RelatedUnsetIndexs)
-                            .Intersect(item.z.RelatedUnsetIndexs).ToList();
+                        var publicIndexs = qSudoku.GetPublicUnsetAreaIndexs(checkcell, item.x, item.y, item.z);
                         foreach (var index in publicIndexs)
                         {
                             var findCellRest = qSudoku.GetRest(index);
-                            if (findCellRest.Contains(intersectValue) && findCellRest.Count == 2)
+                            if (findCellRest.Contains(intersectValue))
                             {
-                                cells.Add(new PositiveCell(index, findCellRest.First(c => c != intersectValue), qSudoku));
+                                cells.Add(new NegativeCell(index, intersectValue, qSudoku));
                             }
                         }
+
+                        var list1 = qSudoku.AllUnSetCells
+                                    .Where(c => publicIndexs.Contains(c.Index) && c.RestList.Contains(intersectValue)).ToList();
+                        if (list1.Count > 1)
+                        {
+                            cells.Add(new NegativeIndexsGroup(list1.Select(c => c.Index).ToList(), intersectValue, qSudoku));
+                        }
+
+
 
                     }
 
@@ -75,11 +84,6 @@ namespace Sudoku.Tools
             }
 
             return cells;
-        }
-
-        public override List<CellInfo> Elimination(QSudoku qSudoku)
-        {
-            return new List<CellInfo>();
         }
 
         public override string GetDesc()

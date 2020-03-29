@@ -58,6 +58,14 @@ namespace Sudoku.Tools
                         }
           
                     }
+
+                    var list1 = qSudoku.AllUnSetCells
+                        .Where(c => publicIndexs.Contains(c.Index) && c.RestList.Contains(intersectValue)).ToList();
+                    if (list1.Count > 1)
+                    {
+                        cells.Add(new NegativeIndexsGroup(list1.Select(c => c.Index).ToList(), intersectValue, qSudoku));
+                    }
+
                 }
 
             }

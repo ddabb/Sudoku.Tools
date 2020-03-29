@@ -39,7 +39,7 @@ namespace SudoKu.Test
         [TestMethod]
         public void TestNakedSubsetWithLockedCandidatesHandler()
         {
-            TestAssignmentExample(typeof(NakedSubsetWithLockedCandidatesHandler));
+            TestAssignmentExample(typeof(NakedTripleWithLockedCandidatesHandler));
         }
 
 

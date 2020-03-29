@@ -44,7 +44,13 @@ namespace SudoKu.Test
         {
             TestEliminationExample(typeof(IncompleteVWXYZWingHandler));
         }
+        [TestMethod]
+        public void TestVWXYZWingHandler()
+        {
+            TestEliminationExample(typeof(VWXYZWingHandler));
+        }
 
+        
         [TestMethod]
         public void TestXWingHandler()
         {

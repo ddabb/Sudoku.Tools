@@ -1,8 +1,7 @@
 ﻿using Sudoku.Core;
-using System;
+using Sudoku.Core.Model;
 using System.Collections.Generic;
 using System.Linq;
-using Sudoku.Core.Model;
 
 namespace Sudoku.Tools
 {
@@ -15,16 +14,22 @@ namespace Sudoku.Tools
 
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
+            return AssignmentCellByEliminationCell(qSudoku);
+
+        }
+
+        public override List<CellInfo> Elimination(QSudoku qSudoku)
+        {
             List<CellInfo> cells = new List<CellInfo>();
             var unsetsell = qSudoku.AllUnSetCells;
             var checkCells = qSudoku.AllUnSetCells.Where(c => c.RestCount == 3).ToList();
             foreach (var checkCell in checkCells)
             {
                 var cellrest = checkCell.RestList;
-                var relatedCell = checkCell.RelatedUnsetCells.Where(c => c.RestCount == 2 && c.RestList.Intersect(checkCell.RestList).Count() > 1).ToList();
+                var relatedCell = checkCell.RelatedUnsetCells.Where(c => c.RestCount == 2 && c.RestList.Intersect(checkCell.RestList).Count() == 2).ToList();
                 var cell = (from a in relatedCell
                             join b in relatedCell on 1 equals 1
-                            join cellInfo in qSudoku.AllUnSetCells.Where(c => c.RestCount == 2) on 1 equals 1
+                            join cellInfo in qSudoku.AllUnSetCells on 1 equals 1
                             let arest = a.RestList
                             let brest = b.RestList
                             let cellRest = cellInfo.RestList
@@ -32,23 +37,32 @@ namespace Sudoku.Tools
                             let cellInforest = cellInfo.RestList
                             let restvalue = cellRest.First(c => c != comvalue)
                             where a.Index < b.Index
-                          && cellInfo.Index != a.Index
-                          && cellInfo.Index != b.Index
-                          && cellInfo.Index != checkCell.Index
-                          && cellInforest.Contains(comvalue)
-                          && qSudoku.GetPublicUnsetAreaIndexs(a, checkCell).Contains(cellInfo.Index)
-                          && qSudoku.GetPublicUnsetAreaIndexs(b, checkCell).Contains(cellInfo.Index)
+                                  && cellInfo.Index != a.Index
+                                  && cellInfo.Index != b.Index
+                                  && arest.All(c => cellrest.Contains(c))
+                                  && brest.All(c => cellrest.Contains(c))
+                                  && cellInfo.Index != checkCell.Index
+                                  && a.RestString != b.RestString
+                                  && cellInforest.Contains(comvalue)
+                                  && qSudoku.GetPublicUnsetAreaIndexs(a, checkCell, b).Contains(cellInfo.Index)
                             select new { cellInfo, comvalue, a, b, restvalue, checkCells }).ToList();
-                cells.AddRange(cell.Select(item => new PositiveCell(item.cellInfo.Index, item.restvalue, qSudoku)).Cast<CellInfo>());
+
+                foreach (var item in cell)
+                {
+                    var cellSingle = new NegativeCell(item.cellInfo.Index, item.comvalue, qSudoku);
+                    cells.Add(cellSingle);
+                }
+
+                var indexs = cell.Select(c => c.cellInfo.Index).ToList();
+                if (indexs.Count > 1)
+                {
+                    var comvalue = cell.First().comvalue;
+                    cells.Add(new NegativeIndexsGroup(indexs, comvalue, qSudoku));
+                }
+
             }
 
             return cells;
-
-        }
-
-        public override List<CellInfo> Elimination(QSudoku qSudoku)
-        {
-            return new List<CellInfo>();
         }
 
         public override string GetDesc()

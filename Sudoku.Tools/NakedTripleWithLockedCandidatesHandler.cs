@@ -7,9 +7,9 @@ namespace Sudoku.Tools
 {
 
     [AssignmentExample(8, "R9C7", "154703200072100004030402000040028000280917046010340020020071090790004102061239057")]
-    public class NakedSubsetWithLockedCandidatesHandler : SolverHandlerBase
+    public class NakedTripleWithLockedCandidatesHandler : SolverHandlerBase
     {
-        public override SolveMethodEnum methodType => SolveMethodEnum.NakedSubsetWithLockedCandidates;
+        public override SolveMethodEnum methodType => SolveMethodEnum.NakedTripleWithLockedCandidates;
 
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
 

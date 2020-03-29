@@ -47,8 +47,8 @@ namespace Sudoku.Core
         [Description("显性四数组")]
         [DifficultuRating(5.0)]
         NakedQuadruple,
-        [Description("区块数组")]
-        NakedSubsetWithLockedCandidates,
+        [Description("区块三数组")]
+        NakedTripleWithLockedCandidates,
         [Description("跨区数组")]
         DistributedDisjointedSubset,
         [Description("假数组/伪数组")]
