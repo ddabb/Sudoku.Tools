@@ -23,7 +23,7 @@ namespace Sudoku.GenWiki
             {
                 var fileName = Path.Combine(folder, "数独技巧", G.GetEnumDescription(handler.methodType) + ".md");
                 List<string> allString = new List<string>();
-                allString.Add("该文件由 https://github.com/ddabb/Sudoku.Tools/blob/master/Sudoku.GenWiki/AutoGenWiki.cs 自动生成");
+      
                 var desc = handler.GetDesc();
                 if (!string.IsNullOrEmpty(desc))
                 {
@@ -63,6 +63,7 @@ namespace Sudoku.GenWiki
 
 
                 }
+                allString.Add("该文件由 https://github.com/ddabb/Sudoku.Tools/blob/master/Sudoku.GenWiki/AutoGenWiki.cs 自动生成");
                 File.WriteAllLines(fileName, allString);
             }
 
@@ -72,6 +73,10 @@ namespace Sudoku.GenWiki
 
             var sidebarFile = Path.Combine(folder, "_Sidebar.md");
             List<string> fileStrs = new List<string>();
+            fileStrs.Add("## 软件现状");
+            fileStrs.Add("");
+            fileStrs.Add("* [" + "软件现状" + "](https://github.com/ddabb/Sudoku.Tools/wiki/task_list)");
+            
             fileStrs.Add("## 基础文档");
             fileStrs.Add("");
 

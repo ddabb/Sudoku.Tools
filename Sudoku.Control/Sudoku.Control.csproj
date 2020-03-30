@@ -50,6 +50,7 @@
       <DependentUpon>ctlSudoku.cs</DependentUpon>
     </Compile>
     <Compile Include="DisplacementIntervall.cs" />
+    <Compile Include="DrawGird.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VisibleState.cs" />
   </ItemGroup>
