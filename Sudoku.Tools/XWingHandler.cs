@@ -74,7 +74,8 @@ namespace Sudoku.Tools
 
         public override string GetDesc()
         {
-            return "";
+            return "若候选数a在特定两行，只出现在特定两列，且这四个候选数位于4个宫内，则这两行两列的其余单元格中不包含候选数a；\r\n" +
+                   "若候选数a在特定两列，只出现在特定两行，且这四个候选数位于4个宫内，则这两行两列的其余单元格中不包含候选数a；\r\n";
         }
 
         internal List<CellInfo> XwingWithNakeSingle(QSudoku qSudoku, List<CellInfo> subCells, int speacilValue)

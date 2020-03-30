@@ -74,7 +74,7 @@ namespace Sudoku.Tools
 
         public override string GetDesc()
         {
-            return "";
+            return "若四个单元格的候选数满足WZ,XZ,YZ,WXY形式，且WXY位于WZ,XZ,YZ的共同相关格上，则WZ,XZ,YZ的其余共同相关格不包含候选数Z。";
         }
     }
 }

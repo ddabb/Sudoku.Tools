@@ -77,7 +77,7 @@ namespace Sudoku.Tools
 
         public override string GetDesc()
         {
-            return "";
+            return "若五个单元格的候选数满足VZ,WZ,XZ,YZ,VWXY形式，且VWXY位于VZ,WZ,XZ,YZ的共同相关格上，则VZ,WZ,XZ,YZ的其余共同相关格不包含候选数Z。";
         }
 
         public override SolveMethodEnum methodType => SolveMethodEnum.IncompleteVWXYZWing;

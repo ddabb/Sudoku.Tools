@@ -67,7 +67,7 @@ namespace Sudoku.Tools
 
         public override string GetDesc()
         {
-            return "";
+            return "若三个单元格的候选数满足XZ,YZ,XYZ形式，且XYZ位于XZ,YZ的共同相关格上，则XZ,YZ,XYZ的其余共同相关格不包含候选数Z。";
         }
     }
 }
