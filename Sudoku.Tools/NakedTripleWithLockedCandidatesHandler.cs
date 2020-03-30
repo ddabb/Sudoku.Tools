@@ -70,7 +70,8 @@ namespace Sudoku.Tools
 
         public override string GetDesc()
         {
-            return "";
+            return "若一个行内的显性三数组中，候选数a只出现在了某宫中，则该宫的其余行不包含该候选数。\r\n" +
+                   "若一个列内的显性三数组中，候选数a只出现在了某宫中，则该宫的其余列不包含该候选数。\r\n";
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Sudoku.Core;
+using Sudoku.Core.Model;
 using System.Collections.Generic;
 using System.Linq;
-using Sudoku.Core.Model;
 
 namespace Sudoku.Tools
 {
@@ -13,7 +13,7 @@ namespace Sudoku.Tools
 
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
-            var temp= AssignmentCellByEliminationCell(qSudoku);
+            var temp = AssignmentCellByEliminationCell(qSudoku);
             return temp;
         }
 
@@ -66,14 +66,23 @@ namespace Sudoku.Tools
                                                     var singleCell = new NegativeCell(keyCell.Index, value, qSudoku);
                                                     drawCells.Add(singleCell);
                                                     singleCell.drawCells = drawCells;
+                                                    singleCell.SolveMessages = new List<SolveMessage>
+                                                    {
+                                                        G.MergeLocationDesc(containsList),"中的"+value,"构成"+G.GetEnumDescription(this.methodType)+"\r\n",
+                                                        "所以",singleCell.Location,"不能为"+value+ "\r\n",
+                                                    };
                                                     cells.Add(singleCell);
                                                 }
                                                 var indexs = keyCells.Select(c => c.Index).ToList();
                                                 var nagetiveCell = new NegativeIndexsGroup(indexs, value, qSudoku);
                                                 drawCells.Add(nagetiveCell);
                                                 nagetiveCell.drawCells = drawCells;
+                                                nagetiveCell.SolveMessages = new List<SolveMessage>
+                                                {
+                                                    G.MergeLocationDesc(containsList),"中的"+value,"构成"+G.GetEnumDescription(this.methodType)+"\r\n",
+                                                    "所以",nagetiveCell.Location,"不能为"+value+ "\r\n",
+                                                };
                                                 cells.Add(nagetiveCell);
-
                                             }
 
                                             #endregion
@@ -87,15 +96,31 @@ namespace Sudoku.Tools
                                             {
                                                 foreach (var keyCell in keyCells)
                                                 {
-                                                    var singleCell = new NegativeCell(keyCell.Index, value, qSudoku) ;
+                                                    var singleCell = new NegativeCell(keyCell.Index, value, qSudoku);
                                                     drawCells.Add(singleCell);
                                                     singleCell.drawCells = drawCells;
+                                                    singleCell.SolveMessages = new List<SolveMessage>
+                                                    {
+                                                        G.MergeLocationDesc(containsList),"中的"+value,"构成"+G.GetEnumDescription(this.methodType)+"\r\n",
+                                                        "所以",singleCell.Location,"不能为"+value+ "\r\n",
+                                                    };
                                                     cells.Add(singleCell);
                                                 }
 
                                                 var indexs = keyCells.Select(c => c.Index).ToList();
-                                                var nagetiveCell = new NegativeIndexsGroup(indexs, value, qSudoku) ;
-                         
+                                                var nagetiveCell = new NegativeIndexsGroup(indexs, value, qSudoku)
+                                                {
+                                                    SolveMessages = new List<SolveMessage>
+                                                    {
+                                                        G.MergeLocationDesc(containsList),
+                                                        "中的" + value,
+                                                        "构成" + G.GetEnumDescription(this.methodType) + "\r\n",
+                                                        "所以",
+                                                        G.MergeLocationDesc(keyCells),
+                                                        "不能为" + value+ "\r\n",
+                                                    }
+                                                };
+
                                                 drawCells.Add(nagetiveCell);
                                                 nagetiveCell.drawCells = drawCells;
                                                 cells.Add(nagetiveCell);
@@ -126,7 +151,8 @@ namespace Sudoku.Tools
 
         public override string GetDesc()
         {
-            return "";
+            return "若候选数a在两个宫中，只出现在了特定两行的特定两列，则这两列的其余宫不包含候选数\r\n" +
+                   "若候选数a在两个宫中，只出现在了特定两列的特定两行，则这两行的其余宫不包含候选数\r\n";
         }
     }
 }

@@ -49,6 +49,8 @@ namespace Sudoku.Core
         NakedQuadruple,
         [Description("区块三数组")]
         NakedTripleWithLockedCandidates,
+        [Description("区块四数组")]
+        NakedQuadrupleWithLockedCandidates,
         [Description("跨区数组")]
         DistributedDisjointedSubset,
         [Description("假数组/伪数组")]
@@ -184,6 +186,7 @@ namespace Sudoku.Core
         [DifficultuRating(9.1)]
         DymanicForcingChain,
 
-        NishioForcingChains
+        NishioForcingChains,
+
     }
 }
