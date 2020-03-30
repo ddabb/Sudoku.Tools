@@ -45,6 +45,17 @@ namespace SudoKu.Test
             VaildMethod(queryString);
         }
 
+
+
+        [TestMethod]
+        public void TestFinallyEmptyRectangle()
+        {
+            var queryString = new List<string> { "598643002003759648674128593457200830906307425032405060005904380341872956009530204" };
+            VaildMethod(queryString);
+        }
+
+        
+
         private static void VaildMethod(List<string> queryString)
         {
             var count = 0;

@@ -32,7 +32,7 @@ namespace Sudoku.UI
             var c = new QSudoku();
 #if DEBUG
             //c = new QSudoku("080704021201800000003000000902000100805000692010020000050083217008070000107006438");
-             c = new QSudoku("670000010931746000520009700462538070197624008853971000716400003389067400245003007");
+             c = new QSudoku("893000076756080304142673859580020003429036705630000002214568937368297541975314008");
             //c = getQSudoku(typeof(HiddenQuadrupleHandler));
 
 
@@ -219,39 +219,43 @@ namespace Sudoku.UI
                 for (int i = 0; i < solveHandlers.Count; i++)
                 {
                     var handler = solveHandlers[i];
-                    try
+                    //if (handler is  EmptyRectangleHandler)  //用于判断某一类性的出数是否正常。
                     {
-                        var cellinfos = new List<CellInfo>();
-                        cellinfos = handler.Assignment(sudoku);
-                        if (cellinfos.Count != 0)
+                        try
                         {
-                            TreeNode subTreeNode = new TreeNode();
-                            subTreeNode.Text = G.GetEnumDescription(handler.methodType);
-                            subTreeNode.Tag = handler;
+                            var cellinfos = new List<CellInfo>();
+                            cellinfos = handler.Assignment(sudoku);
+                            if (cellinfos.Count != 0)
+                            {
+                                TreeNode subTreeNode = new TreeNode();
+                                subTreeNode.Text = G.GetEnumDescription(handler.methodType);
+                                subTreeNode.Tag = handler;
 
-                            foreach (var cell in cellinfos)
-                            {
-                                TreeNode hintNode = new TreeNode();
-                                hintNode.Tag = cell;
-                                hintNode.Text = G.GetEnumDescription(handler.methodType) + ":" + cell.Desc;
-                                subTreeNode.Nodes.Add(hintNode);
+                                foreach (var cell in cellinfos)
+                                {
+                                    TreeNode hintNode = new TreeNode();
+                                    hintNode.Tag = cell;
+                                    hintNode.Text = G.GetEnumDescription(handler.methodType) + ":" + cell.Desc;
+                                    subTreeNode.Nodes.Add(hintNode);
+                                }
+
+                                if (handler.methodClassify == MethodClassify.SudokuRules)
+                                {
+                                    rules.Nodes.Add(subTreeNode);
+                                }
+                                else
+                                {
+                                    techniques.Nodes.Add(subTreeNode);
+                                }
                             }
 
-                            if (handler.methodClassify == MethodClassify.SudokuRules)
-                            {
-                                rules.Nodes.Add(subTreeNode);
-                            }
-                            else
-                            {
-                                techniques.Nodes.Add(subTreeNode);
-                            }
                         }
+                        catch (Exception ex)
+                        {
 
+                        }
                     }
-                    catch (Exception ex)
-                    {
-
-                    }
+  
 
                 }
 
