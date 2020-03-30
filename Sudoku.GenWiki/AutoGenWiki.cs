@@ -23,7 +23,7 @@ namespace Sudoku.GenWiki
             {
                 var fileName = Path.Combine(folder, "数独技巧", G.GetEnumDescription(handler.methodType) + ".md");
                 List<string> allString = new List<string>();
-                allString.Add("**该文件由 https://github.com/ddabb/Sudoku.Tools/tree/master/Sudoku.GenWiki 自动生成**");
+                allString.Add("该文件由 https://github.com/ddabb/Sudoku.Tools/blob/master/Sudoku.GenWiki/AutoGenWiki.cs 自动生成");
                 var desc = handler.GetDesc();
                 if (!string.IsNullOrEmpty(desc))
                 {
