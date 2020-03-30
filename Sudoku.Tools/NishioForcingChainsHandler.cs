@@ -20,7 +20,7 @@ namespace Sudoku.Tools
         public override MethodClassify methodClassify { get; }
         public override string GetDesc()
         {
-            throw new NotImplementedException();
+            return "";
         }
 
         public override List<CellInfo> Assignment(QSudoku qSudoku)

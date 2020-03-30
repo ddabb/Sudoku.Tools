@@ -53,7 +53,7 @@ namespace Sudoku.Core
         NakedQuadrupleWithLockedCandidates,
         [Description("跨区数组")]
         DistributedDisjointedSubset,
-        [Description("假数组/伪数组")]
+        [Description("假数组_伪数组")]
         SubsetCounting,
         [Description("隔一数对匹配法")]
         MWing,

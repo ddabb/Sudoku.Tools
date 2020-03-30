@@ -1,11 +1,14 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworks>net47;netcoreapp3.1</TargetFrameworks>
+    <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Sudoku.Tools\Sudoku.Tools.csproj" />
+    <ProjectReference Include="..\Sudoku.UI\Sudoku.UI.csproj" />
   </ItemGroup>
 
 </Project>
