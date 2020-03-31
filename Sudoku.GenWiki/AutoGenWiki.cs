@@ -60,7 +60,7 @@ namespace Sudoku.GenWiki
 
                             allString.Add("");
                             allString.Add("<p align= \"center\" >");
-                            allString.Add(" <img src = \"https://github.com/ddabb/Sudoku.Tools/Images/AssignmentExample/" + UrlEncode(G.GetEnumDescription(handler.methodType)+".jpg")+"\" />");
+                            allString.Add(" <img src = \"/ddabb/Sudoku.Tools/blob/master/Images/AssignmentExample/" + UrlEncode(G.GetEnumDescription(handler.methodType) + ".jpg") + "\" />");
                             allString.Add(" </p>");
                                 
                           
@@ -68,6 +68,8 @@ namespace Sudoku.GenWiki
 
                     }
                 }
+
+                
 
                 object[] objs1 = type.GetCustomAttributes(typeof(EliminationExampleAttribute), true);
                 if (handler is SplitWingHandler t)
@@ -100,7 +102,7 @@ namespace Sudoku.GenWiki
 
                                 allString.Add("");
                                 allString.Add("<p align= \"center\" >");
-                                allString.Add(" <img src = \"https://github.com/ddabb/Sudoku.Tools/Images/EliminationExample/" + UrlEncode(G.GetEnumDescription(handler.methodType) + ".jpg") + "\" />");
+                                allString.Add(" <img src = \"/ddabb/Sudoku.Tools/blob/master/Images/EliminationExample/" + UrlEncode(G.GetEnumDescription(handler.methodType) + ".jpg") + "\" />");
                                 allString.Add(" </p >");
 
                             }
