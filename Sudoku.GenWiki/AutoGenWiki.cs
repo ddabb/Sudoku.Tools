@@ -53,15 +53,15 @@ namespace Sudoku.GenWiki
                             {
                                 var drawingCell =
                                     cellinfo.First(c => c.RrCc == positionString && c.Value == a.value);
-                                Draw(drawingCell, qsudoku, @"D:\Git\Sudoku.Tools.wiki\AssignmentExample",
+                                Draw(drawingCell, qsudoku, @"D:\Git\Sudoku.Tools\Images\AssignmentExample",
                                     G.GetEnumDescription(handler.methodType));
 
                             }
 
                             allString.Add("");
-                            allString.Add("< p align = \"center\" >");
-                            allString.Add(" < img src = \"https://github.com/ddabb/Sudoku.Tools/wiki/AssignmentExample/"+ UrlEncode(G.GetEnumDescription(handler.methodType)+".jpg")+"\" />");
-                            allString.Add(" </ p >");
+                            allString.Add("<p align= \"center\" >");
+                            allString.Add(" <img src = \"https://github.com/ddabb/Sudoku.Tools/Images/AssignmentExample/" + UrlEncode(G.GetEnumDescription(handler.methodType)+".jpg")+"\" />");
+                            allString.Add(" </p>");
                                 
                           
                         }
@@ -95,13 +95,13 @@ namespace Sudoku.GenWiki
                             {
                                 var drawingCell =
                                     cellinfo.First(c => c.RrCc == positionString && c.Value == e.value);
-                                Draw(drawingCell, qsudoku, @"D:\Git\Sudoku.Tools.wiki\EliminationExample",
+                                Draw(drawingCell, qsudoku, @"D:\Git\Sudoku.Tools\Images\EliminationExample",
                                     G.GetEnumDescription(handler.methodType));
 
                                 allString.Add("");
-                                allString.Add("< p align = \"center\" >");
-                                allString.Add(" < img src = \"https://github.com/ddabb/Sudoku.Tools/wiki/EliminationExample/" + UrlEncode(G.GetEnumDescription(handler.methodType) + ".jpg") + "\" />");
-                                allString.Add(" </ p >");
+                                allString.Add("<p align= \"center\" >");
+                                allString.Add(" <img src = \"https://github.com/ddabb/Sudoku.Tools/Images/EliminationExample/" + UrlEncode(G.GetEnumDescription(handler.methodType) + ".jpg") + "\" />");
+                                allString.Add(" </p >");
 
                             }
 
