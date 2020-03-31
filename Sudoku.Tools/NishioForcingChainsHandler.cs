@@ -25,7 +25,7 @@ namespace Sudoku.Tools
 
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
-            throw new NotImplementedException();
+            return new List<CellInfo>();
         }
     }
 }
