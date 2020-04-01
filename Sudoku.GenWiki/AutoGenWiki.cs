@@ -31,7 +31,7 @@ namespace Sudoku.GenWiki
 
                 allString.Add("");
                 allString.Add("## 技巧描述");
-                allString.Add(!string.IsNullOrEmpty(desc) ? "请联系作者,要求其补充描述。" : desc);
+                allString.Add(string.IsNullOrEmpty(desc) ? "请联系作者,要求其补充描述。" : desc);
 
                 var type = handler.GetType();
                 object[] objs = type.GetCustomAttributes(typeof(AssignmentExampleAttribute), true);
@@ -55,13 +55,21 @@ namespace Sudoku.GenWiki
                                     cellinfo.First(c => c.RrCc == positionString && c.Value == a.value);
                                 Draw(drawingCell, qsudoku, @"D:\Git\Sudoku.Tools\Images\AssignmentExample",
                                     G.GetEnumDescription(handler.methodType));
-
+                                allString.Add("");
+                                allString.Add("<p align= \"center\" >");
+                                allString.Add(" <img src = \"/ddabb/Sudoku.Tools/blob/master/Images/AssignmentExample/" + UrlEncode(G.GetEnumDescription(handler.methodType) + ".jpg") + "\" />");
+                                allString.Add(" </p>");
+                                var solveMessage = drawingCell.SolveMessages;
+                                if (solveMessage.Count != 0)
+                                {
+                                    allString.Add("");
+                                    allString.Add("## 出数描述");
+                                    allString.Add(solveMessage.JoinStringWithEmpty() + "\t\t");
+                                }
+ 
                             }
 
-                            allString.Add("");
-                            allString.Add("<p align= \"center\" >");
-                            allString.Add(" <img src = \"/ddabb/Sudoku.Tools/blob/master/Images/AssignmentExample/" + UrlEncode(G.GetEnumDescription(handler.methodType) + ".jpg") + "\" />");
-                            allString.Add(" </p>");
+            
                                 
                           
                         }
@@ -104,13 +112,19 @@ namespace Sudoku.GenWiki
                                 allString.Add("<p align= \"center\" >");
                                 allString.Add(" <img src = \"/ddabb/Sudoku.Tools/blob/master/Images/EliminationExample/" + UrlEncode(G.GetEnumDescription(handler.methodType) + ".jpg") + "\" />");
                                 allString.Add(" </p >");
-
+                                var solveMessage = drawingCell.SolveMessages;
+                                if (solveMessage.Count != 0)
+                                {
+                                    allString.Add("");
+                                    allString.Add("## 删数描述");
+                                    allString.Add(solveMessage.JoinStringWithEmpty()+ "\t\t");
+                                }
                             }
 
                         }
                     }
                 }
-                allString.Add("该文件由 https://github.com/ddabb/Sudoku.Tools/blob/master/Sudoku.GenWiki/AutoGenWiki.cs 自动生成");
+                allString.Add("该文件由[AutoGenWiki.cs](https://github.com/ddabb/Sudoku.Tools/blob/master/Sudoku.GenWiki/AutoGenWiki.cs)自动生成");
                 File.WriteAllLines(fileName, allString);
             }
 
