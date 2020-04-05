@@ -47,6 +47,16 @@ namespace Sudoku.GenWiki
 
                             var positionString = a.positionString;
                             var qsudoku = new QSudoku(a.queryString);
+                            var handers = a.SolveHandlers;
+                            if (handers!=null)
+                            {
+                                foreach (var handerEnum in handers)
+                                {
+                                    var eliminationHanders = handlers.First(c => handerEnum == (c.methodType));
+                                    var removeCells = eliminationHanders.Elimination(qsudoku);
+                                    qsudoku.RemoveCells(removeCells);
+                                }
+                            }
                             var cellinfo = handler.Assignment(
                                 qsudoku);
                             if (cellinfo.Exists(c => c.RrCc == positionString && c.Value == a.value))
@@ -66,18 +76,18 @@ namespace Sudoku.GenWiki
                                     allString.Add("## 出数描述");
                                     allString.Add(solveMessage.JoinStringWithEmpty() + "\t\t\r\n");
                                 }
- 
+
                             }
 
-            
-                                
-                          
+
+
+
                         }
 
                     }
                 }
 
-                
+
 
                 object[] objs1 = type.GetCustomAttributes(typeof(EliminationExampleAttribute), true);
                 if (handler is SplitWingHandler t)
@@ -96,6 +106,16 @@ namespace Sudoku.GenWiki
 
                             var positionString = e.positionString;
                             var qsudoku = new QSudoku(e.queryString);
+                            var handers = e.SolveHandlers;
+                            if (handers != null)
+                            {
+                                foreach (var handerEnum in handers)
+                                {
+                                    var eliminationHanders = handlers.First(c => handerEnum == (c.methodType));
+                                    var removeCells = eliminationHanders.Elimination(qsudoku);
+                                    qsudoku.RemoveCells(removeCells);
+                                }
+                            }
                             var cellinfo = handler.Elimination(
                                 qsudoku);
                             if (cellinfo.Exists(c => (c.CellType == CellType.Negative && c.RrCc == positionString && c.Value == e.value)
@@ -117,7 +137,7 @@ namespace Sudoku.GenWiki
                                 {
                                     allString.Add("");
                                     allString.Add("## 删数描述");
-                                    allString.Add(solveMessage.JoinStringWithEmpty()+ "\t\t\r\n");
+                                    allString.Add(solveMessage.JoinStringWithEmpty() + "\t\t\r\n");
                                 }
                             }
 

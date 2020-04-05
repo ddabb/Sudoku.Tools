@@ -32,8 +32,8 @@ namespace Sudoku.UI
             var c = new QSudoku();
 #if DEBUG
             //c = new QSudoku("080704021201800000003000000902000100805000692010020000050083217008070000107006438");
-             c = new QSudoku("012009600600012094749635821428397100397156482156020009904573210070261940201900007");
-            //c = getQSudoku(typeof(HiddenQuadrupleHandler));
+             //c = new QSudoku("900050030400100908006090402000970020004216800090030000803000200700009080049080006");
+            c = getQSudoku(typeof(LocalWingHandler));
 
 
 #endif
@@ -219,7 +219,7 @@ namespace Sudoku.UI
                 for (int i = 0; i < solveHandlers.Count; i++)
                 {
                     var handler = solveHandlers[i];
-                    if (handler is  WWingHandler)  //用于判断某一类性的出数是否正常。
+                    if (handler is LocalWingHandler)  //用于判断某一类性的出数是否正常。
                     {
                         try
                         {
