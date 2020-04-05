@@ -1,11 +1,11 @@
 ﻿using Sudoku.Core;
+using Sudoku.Core.Model;
 using System.Collections.Generic;
 using System.Linq;
-using Sudoku.Core.Model;
 
 namespace Sudoku.Tools
 {
-    [AssignmentExample(4, "R7C8", "900050030400100908006090402000970020004216800090030000803000200700009080049080006",SolveMethodEnum.ClaimingInColumn)] //todo 待移除8宫4列的4
+    [AssignmentExample(4, "R7C8", "900050030400100908006090402000970020004216800090030000803000200700009080049080006", SolveMethodEnum.ClaimingInColumn)] //todo 待移除8宫4列的4
     public class LocalWingHandler : SolverHandlerBase
     {
         public override List<CellInfo> Assignment(QSudoku qSudoku)
@@ -34,7 +34,7 @@ namespace Sudoku.Tools
                         {
                             var cell1 = item.cell1;
                             var cell2 = item.cell2;
-            
+
                             var intercells = qSudoku.GetPublicUnsetAreas(cell1, cell2);
                             foreach (var cell3 in intercells)
                             {
@@ -44,8 +44,8 @@ namespace Sudoku.Tools
                                     var other = restList.First(c => c != one);
                                     if (cell3.RestList.Contains(one) && new NegativeCell(cell3.Index, one, qSudoku).NextCells.Exists(c => c.Value == one && c.Index == cell1.Index))
                                     {
-                                        var cell1otherNextCell = new NegativeCell(cell1.Index, other, qSudoku) .NextCells;
-                                        var cell2otherNextCell = new NegativeCell(cell2.Index, other, qSudoku) .NextCells;
+                                        var cell1otherNextCell = new NegativeCell(cell1.Index, other, qSudoku).NextCells;
+                                        var cell2otherNextCell = new NegativeCell(cell2.Index, other, qSudoku).NextCells;
 
                                         var cellkey = (from cell4 in cell1otherNextCell
                                                        join cell5 in cell2otherNextCell on cell4.Value equals cell5.Value
@@ -59,15 +59,18 @@ namespace Sudoku.Tools
                                             var cell5 = item1.cell5;
                                             if (G.MergeCellIndexs(cell1, cell2, cell3, cell4, cell5).Distinct().Count() == 5)
                                             {
-                                                var cell = new NegativeCell(cell2.Index, one, qSudoku) ;
+                                                var cell = new NegativeCell(cell2.Index, one, qSudoku);
                                                 cell.SolveMessages = new List<SolveMessage>
                                             {
-                                                cell1.Location,
-                                                cell2.Location,
-                                                cell3.Location,
-                                                cell4.Location,
-                                                cell5.Location
+                                                G.MergeLocationDesc(cell1,cell2,cell3,cell4,cell5),"构成",one+"和"+other+"的",G.GetEnumDescription(methodType),"\t\t\r\n所以",cell.Location,"不能为"+one+"\t\t\r\n"
                                             };
+                                                cell.drawCells.Add(new ChainCell(cell1.Index, one, qSudoku));
+                                                cell.drawCells.Add(new ChainCell(cell1.Index, other, qSudoku));
+                                                cell.drawCells.Add(new ChainCell(cell4.Index, other, qSudoku));
+                                                cell.drawCells.Add(new ChainCell(cell5.Index, other, qSudoku));
+                                                cell.drawCells.Add(new ChainCell(cell3.Index, one, qSudoku));
+                                                cell.drawCells.Add(new ChainCell(cell2.Index, other, qSudoku));
+                                                cell.drawCells.Add(cell);
                                                 cells.Add(cell);
                                             }
 
