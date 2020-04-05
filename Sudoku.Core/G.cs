@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using Sudoku.Core.Model;
@@ -125,6 +126,32 @@ namespace Sudoku.Core
             return MergeLocationDesc(cells);
         }
 
+
+
+        public static Color GetCellColor(CellInfo item)
+        {
+            Color color = Color.White;
+            if (item.CellType == CellType.Positive)
+            {
+                color = Color.FromArgb(134, 242, 128);
+            }
+
+            if (item.CellType == CellType.Possible)
+            {
+                color = Color.FromArgb(255, 192, 89);
+            }
+
+            if (item.CellType == CellType.Chain)
+            {
+                color = Color.FromArgb(177, 165, 243);
+            }
+            if (item.CellType == CellType.Negative)
+            {
+                color = Color.FromArgb(245, 165, 167);
+            }
+
+            return color;
+        }
 
         public static List<LocationGroup> MergeLocationDesc(params int[] n)
         {

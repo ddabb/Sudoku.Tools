@@ -32,7 +32,7 @@ namespace Sudoku.UI
             var c = new QSudoku();
 #if DEBUG
             //c = new QSudoku("080704021201800000003000000902000100805000692010020000050083217008070000107006438");
-             c = new QSudoku("900164080070983215813200964080020000500001070001000042040716000000000000007092000");
+             c = new QSudoku("703001006000700030090600207000475801007382000548196372001064720070000000600807409");
             //c = getQSudoku(typeof(HiddenQuadrupleHandler));
 
 
@@ -219,7 +219,7 @@ namespace Sudoku.UI
                 for (int i = 0; i < solveHandlers.Count; i++)
                 {
                     var handler = solveHandlers[i];
-                    //if (handler is  EmptyRectangleHandler)  //用于判断某一类性的出数是否正常。
+                    if (handler is  MWingHandler)  //用于判断某一类性的出数是否正常。
                     {
                         try
                         {
@@ -252,7 +252,7 @@ namespace Sudoku.UI
                         }
                         catch (Exception ex)
                         {
-
+                            Debug.WriteLine("ex error"+ex);
                         }
                     }
   

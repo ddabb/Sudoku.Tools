@@ -5,11 +5,12 @@ using Sudoku.Core.Model;
 
 namespace Sudoku.Tools
 {
+    [AssignmentExample("")]
     public class DistributedDisjointedSubsetHandler : SolverHandlerBase
     {
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
-            throw new NotImplementedException();
+            return new List<CellInfo>();
         }
 
         public override SolveMethodEnum methodType => SolveMethodEnum.DistributedDisjointedSubset;
@@ -21,7 +22,7 @@ namespace Sudoku.Tools
 
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
-            throw new NotImplementedException();
+            return new List<CellInfo>();
         }
     }
 }

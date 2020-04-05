@@ -16,7 +16,7 @@ namespace Sudoku.GenWiki
     {
         static void Main(string[] args)
         {
-            var handlers = FrmG.SolveHandlers.OrderBy(c => (int)c.methodType);
+            var handlers = FrmG.SolveHandlers.OrderBy(c => (int)c.methodType).ToList();
             var folder = @"D:\Git\Sudoku.Tools.wiki";
             if (!Directory.Exists(folder))
             {
@@ -64,7 +64,7 @@ namespace Sudoku.GenWiki
                                 {
                                     allString.Add("");
                                     allString.Add("## 出数描述");
-                                    allString.Add(solveMessage.JoinStringWithEmpty() + "\t\t");
+                                    allString.Add(solveMessage.JoinStringWithEmpty() + "\t\t\r\n");
                                 }
  
                             }
@@ -117,7 +117,7 @@ namespace Sudoku.GenWiki
                                 {
                                     allString.Add("");
                                     allString.Add("## 删数描述");
-                                    allString.Add(solveMessage.JoinStringWithEmpty()+ "\t\t");
+                                    allString.Add(solveMessage.JoinStringWithEmpty()+ "\t\t\r\n");
                                 }
                             }
 
@@ -298,21 +298,9 @@ namespace Sudoku.GenWiki
                     var item1 = item.Value;
                     var stringvalue = "" + item1;
                     Size size = TextRenderer.MeasureText(stringvalue, smallFont);
-                    Color color = Color.White;
-                    if (item.CellType == CellType.Positive)
-                    {
-                        color = Color.FromArgb(134, 242, 128);
-                    }
-                    if (item.CellType == CellType.Possible)
-                    {
-                        color = Color.FromArgb(255, 192, 89);
-                    }
-                    if (item.CellType == CellType.Negative)
-                    {
-                        color = Color.FromArgb(245, 165, 167);
-                    }
+                    var color = G.GetCellColor(item);
                     g.FillRectangle(new SolidBrush(color), new Rectangle(item.Column * bigSpace + indexOffset[item.Column] + (SmallSpace * ((item1 - 1) % 3)) +
-                                                                        (SmallSpace - size.Width) / 2, item.Row * bigSpace + indexOffset[item.Row] + (SmallSpace * ((item1 - 1) / 3)) + (SmallSpace - size.Height) / 2, size.Width, size.Height));
+                                                                         (SmallSpace - size.Width) / 2, item.Row * bigSpace + indexOffset[item.Row] + (SmallSpace * ((item1 - 1) / 3)) + (SmallSpace - size.Height) / 2, size.Width, size.Height));
                     g.DrawString(stringvalue, smallFont, new SolidBrush(Color.Gray),
                     new PointF(
                         item.Column * bigSpace + indexOffset[item.Column] + (SmallSpace * ((item1 - 1) % 3)) +
@@ -331,6 +319,7 @@ namespace Sudoku.GenWiki
             }
             #endregion
         }
+
 
         /// <summary>
         /// panel的size=bigSpace*9+15;

@@ -55,32 +55,39 @@ namespace Sudoku.Core
         DistributedDisjointedSubset,
         [Description("假数组_伪数组")]
         SubsetCounting,
-        [Description("隔一数对匹配法")]
+        [Description("M-Wing")]
         MWing,
         [DifficultuRating(4.4)]
-        [Description("首尾数对匹配法(WWing)")]
+        [Description("W-Wing")]
         WWing,
         FinnedXwing,
         SashimiXwing,
         SiameseXwing,
+        [Description("X-Wing")]
         [DifficultuRating(3.2)]
         XWing,
+        [Description("XY-Wing")]
         [DifficultuRating(4.2)]
         XYWing,
+        [Description("XYZ-Wing")]
         [DifficultuRating(4.4)]
         XYZWing,
+        [Description("WXYZ-Wing")]
         [DifficultuRating(4.6)]
         WXYZWing,
+        [Description("VWXYZ-Wing")]
         VWXYZWing,
-        [Description("拐角匹配法")]
+        [Description("Local-Wing")]
         LocalWing,
-        [Description("杂合匹配法")]
+        [Description("Hybrid-Wing")]
         HybridWing,
-        [Description("分裂匹配法")]
+        [Description("Split-Wing")]
         SplitWing,
         [DifficultuRating(4.6)]
+        [Description("Incomplete VWXYZ-Wing")]
         IncompleteVWXYZWing,
         [DifficultuRating(4.5)]
+        [Description("Incomplete WXYZ-Wing")]
         IncompleteWXYZWing,
         [Description("双值格链")]
         XYChain,
@@ -146,6 +153,7 @@ namespace Sudoku.Core
         SiameseJeffyfish,
         [DifficultuRating(5.2)]
         FinnedJeffyfish,
+        ImcompletedSwordfish,
         Jellyfish,
         HiddenAR,
         LockedSubset,
@@ -187,6 +195,6 @@ namespace Sudoku.Core
         DymanicForcingChain,
 
         NishioForcingChains,
-
+        ImcompletedJellyfish,
     }
 }

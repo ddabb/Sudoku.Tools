@@ -30,6 +30,7 @@ namespace Sudoku.Core
         NegativeIndexsGroup,
         [Description("可能的")]
         Possible,
-        
+        [Description("链单元格")]
+        Chain
     }
 }

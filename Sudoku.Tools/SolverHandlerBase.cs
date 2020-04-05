@@ -1,11 +1,8 @@
-﻿using System;
+﻿using Sudoku.Core;
+using Sudoku.Core.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.ComponentModel;
-using System.Reflection;
-using System.Diagnostics;
-using Sudoku.Core;
-using Sudoku.Core.Model;
 
 namespace Sudoku.Tools
 {
@@ -38,7 +35,7 @@ namespace Sudoku.Tools
 
         public bool IsSameRowOrSameColumn(int index1, int index2)
         {
-            return IsSameRow(index1,index2) || IsSameColumn(index1, index2);
+            return IsSameRow(index1, index2) || IsSameColumn(index1, index2);
         }
 
         public bool IsSameBlock(int index1, int index2)
@@ -56,11 +53,11 @@ namespace Sudoku.Tools
             var eliminationCells = Elimination(qSudoku);
             foreach (var cellInfo in eliminationCells)
             {
-                if (cellInfo.NextCells!=null)
+                if (cellInfo.NextCells != null)
                 {
                     foreach (var postiveCell in cellInfo.NextCells)
                     {
-                        if (!cells.Exists(c=>c.Value==postiveCell.Value&&c.Index==postiveCell.Index))
+                        if (!cells.Exists(c => c.Value == postiveCell.Value && c.Index == postiveCell.Index))
                         {
                             var parentMessage = cellInfo.SolveMessages.ToList();
                             parentMessage.AddRange(new List<SolveMessage> { "所以", postiveCell.Location, "是", postiveCell.Value });
@@ -70,10 +67,10 @@ namespace Sudoku.Tools
                             postiveCell.drawCells = drawMessage;
                             cells.Add(postiveCell);
                         }
-                        
+
                     }
                 }
-      
+
             }
 
             return cells;
@@ -113,7 +110,7 @@ namespace Sudoku.Tools
 
         public bool IsSameColumn(int index1, int index2)
         {
-            if (new PositiveCell(index1, 0,null).Column == new PositiveCell(index2, 0, null).Column)
+            if (new PositiveCell(index1, 0, null).Column == new PositiveCell(index2, 0, null).Column)
             {
                 return true;
             }
@@ -156,7 +153,7 @@ namespace Sudoku.Tools
         public List<PossibleIndex> GetAllPossibleIndexInRowOrColumn(QSudoku qSudoku, int times)
         {
             List<PossibleIndex> allPossibleindex = new List<PossibleIndex>();
-            allPossibleindex.AddRange(GetAllPossibleIndexInRow(qSudoku,times));
+            allPossibleindex.AddRange(GetAllPossibleIndexInRow(qSudoku, times));
             allPossibleindex.AddRange(GetAllPossibleIndexInColumn(qSudoku, times));
             return allPossibleindex;
         }
@@ -188,9 +185,9 @@ namespace Sudoku.Tools
                         {
                             var baseIndex = baseCell.Key;
                             var otherIndex = otherCell.Key;
-                            if (baseIndex==3&&otherIndex==5)
+                            if (baseIndex == 3 && otherIndex == 5)
                             {
-                                
+
                             }
                             var ab = (from a in allunsetcell.Where(G.GetDirectionCells(direction, baseIndex))
                                       join b in allunsetcell.Where(G.GetDirectionCells(direction, otherIndex)) on 1 equals 1
@@ -230,7 +227,7 @@ namespace Sudoku.Tools
 
         public List<SolveMessage> MergeCellSolveLocationMessage(params CellInfo[] cells)
         {
-            var  orderList = cells.OrderBy(c => c.Index).ToList();
+            var orderList = cells.OrderBy(c => c.Index).ToList();
             return MergeCellSolveMessages(orderList);
         }
 
@@ -259,7 +256,7 @@ namespace Sudoku.Tools
         public List<SolveMessage> MergeCellSolveLocationMessage(List<CellInfo> cells)
         {
             List<SolveMessage> message = new List<SolveMessage>();
-            cells= cells.OrderBy(c=>c.Index).ToList();
+            cells = cells.OrderBy(c => c.Index).ToList();
             return MergeCellSolveMessages(cells);
         }
 
@@ -332,7 +329,7 @@ namespace Sudoku.Tools
             {
                 cells.Add(new PositiveCell(indexs.First(), speacilValue, qSudoku));
             }
-            
+
             return cells;
         }
 
@@ -358,7 +355,7 @@ namespace Sudoku.Tools
             allrest = allrest.Distinct().ToList();
             foreach (var speacialValue in allrest)
             {
-                var leftIndexs = qSudoku.GetPossibleIndex( speacialValue, directionwhere);
+                var leftIndexs = qSudoku.GetPossibleIndex(speacialValue, directionwhere);
                 var leftIndexs1 = leftIndexs.Except(exceptIndex).ToList();
                 if (leftIndexs.Count > 1 && leftIndexs1.Count() == 1)
                 {
@@ -371,7 +368,7 @@ namespace Sudoku.Tools
 
             return cells;
         }
-        
+
         public Func<CellInfo, int> FindDirectionCondtion(Direction direction)
         {
             switch (direction)
@@ -388,7 +385,7 @@ namespace Sudoku.Tools
                 default:
                     throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
             }
-      
+
         }
 
 
@@ -417,7 +414,7 @@ namespace Sudoku.Tools
                     {
                         cells.Add(new PossibleCell(item.Index, rest, item.Sudoku));
                     }
- }
+                }
 
             }
 
@@ -469,7 +466,7 @@ namespace Sudoku.Tools
 
             return cells;
         }
-        
+
 
         /// <summary>
         /// 
@@ -524,10 +521,10 @@ namespace Sudoku.Tools
                 if (allHasValueToSet)
                 {
                     var vailds = (from a in initCells
-                        join b in initCells on a.Value equals b.Value
+                                  join b in initCells on a.Value equals b.Value
 
-                        where a.Index < b.Index
-                        select new { a, b }).ToList();
+                                  where a.Index < b.Index
+                                  select new { a, b }).ToList();
                     result = !vailds.Exists(c => c.a.Row == c.b.Row || c.a.Column == c.b.Column || c.a.Block == c.b.Block);
                 }
                 else

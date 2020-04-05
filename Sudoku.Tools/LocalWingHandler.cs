@@ -96,7 +96,7 @@ namespace Sudoku.Tools
 
         public override string GetDesc()
         {
-            return "";
+            return "参考链文本";
         }
 
         public override SolveMethodEnum methodType => SolveMethodEnum.LocalWing;

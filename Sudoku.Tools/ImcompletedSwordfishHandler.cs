@@ -9,7 +9,7 @@ namespace Sudoku.Tools
     [AssignmentExample(1, "R6C5", "000074200200906740004520009100457928547892000002600574400705092005209403629040057")]
     public class ImcompletedSwordfishHandler : SolverHandlerBase
     {
-        public override SolveMethodEnum methodType => SolveMethodEnum.FinnedSwordfish;
+        public override SolveMethodEnum methodType => SolveMethodEnum.ImcompletedSwordfish;
 
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
 

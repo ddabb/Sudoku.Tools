@@ -10,7 +10,7 @@ namespace Sudoku.Tools
     [AssignmentExample(8,"R9C5","200000003080030050003402100001205400000090000009308600002506900090020070400000001")]
     public class ImcompletedJellyfishHandler : SolverHandlerBase
     {
-        public override SolveMethodEnum methodType => SolveMethodEnum.FinnedJeffyfish;
+        public override SolveMethodEnum methodType => SolveMethodEnum.ImcompletedJellyfish;
 
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
 

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Sudoku.Core.Model;
+﻿using Sudoku.Core.Model;
 
 namespace Sudoku.Core
 {
@@ -16,7 +11,7 @@ namespace Sudoku.Core
 
         bool DrawLine { get; set; }
 
-       CellInfo fromCell { get; set; }
-        CellInfo toCell  { get; set; }
+        CellInfo fromCell { get; set; }
+        CellInfo toCell { get; set; }
     }
 }

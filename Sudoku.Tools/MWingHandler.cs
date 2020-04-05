@@ -43,7 +43,28 @@ namespace Sudoku.Tools
                                             {
                                                 if (cell5.RestList.Contains(other))
                                                 {
-                                                    cells.Add(new NegativeCell(cell5.Index, other, qSudoku) );
+                                                    var negativeCell = new NegativeCell(cell5.Index, other, qSudoku);
+                                                    negativeCell.SolveMessages=new List<SolveMessage>
+                                                    {
+                                                        G.MergeLocationDesc(cell1,cell2,cell3,cell4),"构成"+other+"和"+one+"的"+G.GetEnumDescription(this.methodType)+"\r\n",
+                                                        "所以",negativeCell.Location,"不能为"+other+"\r\n"
+                                                    };
+                                                    negativeCell.drawCells=new List<CellInfo>
+                                                    {
+                                                        new ChainCell(cell4.Index,other,qSudoku),
+                                                        new ChainCell(cell2.Index,other,qSudoku),
+                                                        new ChainCell(cell3.Index,one,qSudoku),
+                                                        new ChainCell(cell1.Index,one,qSudoku),
+                                                        new ChainCell(cell4.Index,other,qSudoku),
+                                                        new ChainCell(cell2.Index,one,qSudoku),
+                                                    };
+                                                    negativeCell.drawCells.Add(negativeCell);
+                                                    negativeCell.SolveMessages=new List<SolveMessage>
+                                                    {
+                                                        "链文本：",string.Format("{0}={1}({2}-{3})={4}-{5}({3}-{2})=>{6}<>{2}",cell4.Location,cell2.Location,other, one,cell3.Location,cell1.Location,cell5.Location),"\r\n"
+                                                    };
+                                                
+                                                    cells.Add(negativeCell);
                                                 }
                                             }
                                         }
@@ -66,7 +87,7 @@ namespace Sudoku.Tools
 
         public override string GetDesc()
         {
-            return "";
+            return "参考链文本";
         }
 
         public override SolveMethodEnum methodType => SolveMethodEnum.MWing;

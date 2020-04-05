@@ -19,7 +19,7 @@ def convert(img_path):
     img = cv2.imread(path)
     gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
     ## 阈值分割
-    ret,thresh = cv2.threshold(gray,200,255,1)
+    ret,thresh = cv2.threshold(gray,200,255,1) ##该部分改成255 应该可以包含提示数的转换。
 
     kernel = cv2.getStructuringElement(cv2.MORPH_CROSS,(5, 5))     
     dilated = cv2.dilate(thresh,kernel)

@@ -13,7 +13,7 @@ namespace Sudoku.Tools
     {
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
-            throw new NotImplementedException();
+            return new List<CellInfo>();
         }
 
         public override SolveMethodEnum methodType => SolveMethodEnum.NishioForcingChains;
