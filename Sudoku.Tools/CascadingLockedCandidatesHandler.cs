@@ -49,7 +49,7 @@ namespace Sudoku.Tools
                             {
                                 if (containsList.Count(c => c.Block == blocka) == 2)//a宫2个数,b宫2个数
                                 {
-                                    var drawCells = GetDrawPossibleCell(containsList, new List<int> { value });
+                                    var drawCells = GetDrawPossibleCell( new List<int> { value }, containsList);
                                     var distinctRow = containsList.Select(c => c.Row).Distinct().ToList();
                                     var distinctColumn = containsList.Select(c => c.Column).Distinct().ToList();
                                     if (distinctRow.Count() == 2
@@ -68,8 +68,8 @@ namespace Sudoku.Tools
                                                     singleCell.drawCells = drawCells;
                                                     singleCell.SolveMessages = new List<SolveMessage>
                                                     {
-                                                        G.MergeLocationDesc(containsList),"中的"+value,"构成"+G.GetEnumDescription(this.methodType)+"\r\n",
-                                                        "所以",singleCell.Location,"不能为"+value+ "\r\n",
+                                                        G.MergeLocationDesc(containsList),"中的"+value,"构成"+G.GetEnumDescription(this.methodType)+"\t\t\r\n",
+                                                        "所以",singleCell.Location,"不能为"+value+ "\t\t\r\n",
                                                     };
                                                     cells.Add(singleCell);
                                                 }
@@ -79,8 +79,8 @@ namespace Sudoku.Tools
                                                 nagetiveCell.drawCells = drawCells;
                                                 nagetiveCell.SolveMessages = new List<SolveMessage>
                                                 {
-                                                    G.MergeLocationDesc(containsList),"中的"+value,"构成"+G.GetEnumDescription(this.methodType)+"\r\n",
-                                                    "所以",nagetiveCell.Location,"不能为"+value+ "\r\n",
+                                                    G.MergeLocationDesc(containsList),"中的"+value,"构成"+G.GetEnumDescription(this.methodType)+"\t\t\r\n",
+                                                    "所以",nagetiveCell.Location,"不能为"+value+ "\t\t\r\n",
                                                 };
                                                 cells.Add(nagetiveCell);
                                             }
@@ -101,8 +101,8 @@ namespace Sudoku.Tools
                                                     singleCell.drawCells = drawCells;
                                                     singleCell.SolveMessages = new List<SolveMessage>
                                                     {
-                                                        G.MergeLocationDesc(containsList),"中的"+value,"构成"+G.GetEnumDescription(this.methodType)+"\r\n",
-                                                        "所以",singleCell.Location,"不能为"+value+ "\r\n",
+                                                        G.MergeLocationDesc(containsList),"中的"+value,"构成"+G.GetEnumDescription(this.methodType)+"\t\t\r\n",
+                                                        "所以",singleCell.Location,"不能为"+value+ "\t\t\r\n",
                                                     };
                                                     cells.Add(singleCell);
                                                 }
@@ -114,10 +114,10 @@ namespace Sudoku.Tools
                                                     {
                                                         G.MergeLocationDesc(containsList),
                                                         "中的" + value,
-                                                        "构成" + G.GetEnumDescription(this.methodType) + "\r\n",
+                                                        "构成" + G.GetEnumDescription(this.methodType) + "\t\t\r\n",
                                                         "所以",
                                                         G.MergeLocationDesc(keyCells),
-                                                        "不能为" + value+ "\r\n",
+                                                        "不能为" + value+ "\t\t\r\n",
                                                     }
                                                 };
 
@@ -151,8 +151,8 @@ namespace Sudoku.Tools
 
         public override string GetDesc()
         {
-            return "若候选数a在两个宫中，只出现在了特定两行的特定两列，则这两列的其余宫不包含候选数\r\n" +
-                   "若候选数a在两个宫中，只出现在了特定两列的特定两行，则这两行的其余宫不包含候选数\r\n";
+            return "若候选数a在两个宫中，只出现在了特定两行的特定两列，则这两列的其余宫不包含候选数\t\t\r\n" +
+                   "若候选数a在两个宫中，只出现在了特定两列的特定两行，则这两行的其余宫不包含候选数\t\t\r\n";
         }
     }
 }

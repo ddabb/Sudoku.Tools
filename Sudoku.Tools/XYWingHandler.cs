@@ -53,8 +53,8 @@ namespace Sudoku.Tools
                     {
                         var removeValue = removes.First();
                         var filter = qSudoku.GetPublicUnsetAreas(item.x, item.y).Where(c => c.Index != checkCell.Index).ToList();
-                        var drawCells = GetDrawNegativeCell(filter, removes);
-                        drawCells.AddRange(GetDrawPossibleCell(new List<CellInfo> { x, y, checkCell }, G.MergeCellRest(x, y, checkCell)));
+                        var drawCells = GetDrawNegativeCell(removes,filter);
+                        drawCells.AddRange(GetDrawPossibleCell(G.MergeCellRest(x, y, checkCell), new List<CellInfo> { x, y, checkCell }));
                         foreach (var unsetCell in filter)
                         {
                             var unsetCellRest = unsetCell.RestList;
@@ -63,7 +63,7 @@ namespace Sudoku.Tools
                                 var negativeCell = new NegativeCell(unsetCell.Index, removeValue, qSudoku) ;
                                 negativeCell.SolveMessages = new List<SolveMessage>
                                 {
-                                    G.MergeLocationDesc(checkCell,x,y),"构成xy-Wing\r\n",G.MergeLocationDesc(x,y),"共同影响区域不能为"+removes.JoinString()+"\r\n"
+                                    G.MergeLocationDesc(checkCell,x,y),"构成xy-Wing\t\t\r\n",G.MergeLocationDesc(x,y),"共同影响区域不能为"+removes.JoinString()+"\t\t\r\n"
                                 };
                                 negativeCell.drawCells = drawCells;
                                 cells.Add(negativeCell);

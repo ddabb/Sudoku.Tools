@@ -327,7 +327,7 @@ namespace Sudoku.Core
 
         public static List<List<int>> StringToList(string str)
         {
-            str = str.Replace("*", "0").Replace(".", "").Replace("\r\n", "").Trim();
+            str = str.Replace("*", "0").Replace(".", "").Replace("\t\t\r\n", "").Trim();
             var arr = str.ToCharArray();
             List<List<int>> result = new List<List<int>>()
             {

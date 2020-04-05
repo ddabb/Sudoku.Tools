@@ -33,7 +33,7 @@ namespace SudoKu.Test
         //        }
         //    }
         //    Debug.WriteLine("count" + count);
-        //    Debug.WriteLine(string.Join(",", unsloveList.Select(c => "\"" + c + "\"\r\n")));
+        //    Debug.WriteLine(string.Join(",", unsloveList.Select(c => "\"" + c + "\"\t\t\r\n")));
         //    Assert.AreEqual(true, count == queryString.Count);
         //}
 
@@ -73,7 +73,7 @@ namespace SudoKu.Test
                 }
             }
             Debug.WriteLine("count" + count);
-            Debug.WriteLine(string.Join(",", unsloveList.Select(c => "\"" + c + "\"\r\n")));
+            Debug.WriteLine(string.Join(",", unsloveList.Select(c => "\"" + c + "\"\t\t\r\n")));
             Assert.AreEqual(true, count == queryString.Count);
         }
 

@@ -637,7 +637,7 @@ namespace Sudoku.Core.Model
             var allstring = "";
             foreach (var item in cellInfos)
             {
-                allstring += item.ToString() + "\r\n";
+                allstring += item.ToString() + "\t\t\r\n";
             }
 
             return allstring;

@@ -46,8 +46,8 @@ namespace Sudoku.Tools
                                                     var negativeCell = new NegativeCell(cell5.Index, other, qSudoku);
                                                     negativeCell.SolveMessages=new List<SolveMessage>
                                                     {
-                                                        G.MergeLocationDesc(cell1,cell2,cell3,cell4),"构成"+other+"和"+one+"的"+G.GetEnumDescription(this.methodType)+"\r\n",
-                                                        "所以",negativeCell.Location,"不能为"+other+"\r\n"
+                                                        G.MergeLocationDesc(cell1,cell2,cell3,cell4),"构成"+other+"和"+one+"的"+G.GetEnumDescription(this.methodType)+"\t\t\r\n",
+                                                        "所以",negativeCell.Location,"不能为"+other+"\t\t\r\n"
                                                     };
                                                     negativeCell.drawCells=new List<CellInfo>
                                                     {
@@ -61,7 +61,7 @@ namespace Sudoku.Tools
                                                     negativeCell.drawCells.Add(negativeCell);
                                                     negativeCell.SolveMessages=new List<SolveMessage>
                                                     {
-                                                        "链文本：",string.Format("{0}={1}({2}-{3})={4}-{5}({3}-{2})=>{6}<>{2}",cell4.Location,cell2.Location,other, one,cell3.Location,cell1.Location,cell5.Location),"\r\n"
+                                                        "链文本：",string.Format("{0}={1}({2}-{3})={4}-{5}({3}-{2})=>{6}<>{2}",cell4.Location,cell2.Location,other, one,cell3.Location,cell1.Location,cell5.Location),"\t\t\r\n"
                                                     };
                                                 
                                                     cells.Add(negativeCell);

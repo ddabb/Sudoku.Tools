@@ -98,13 +98,13 @@ namespace Sudoku.Tools
                                         nagetiveCell1.SolveMessages = new List<SolveMessage>
                                         {
                                             G.MergeLocationDesc(a, b, c, d),
-                                            "隐性四数组" + HiddenValues.JoinString() + "位置\r\n"
+                                            "隐性四数组" + HiddenValues.JoinString() + "位置\t\t\r\n"
                                         };
                                         nagetiveCell1.SolveMessages.AddRange(locations);
-                                        nagetiveCell1.SolveMessages.Add("\r\n");
+                                        nagetiveCell1.SolveMessages.Add("\t\t\r\n");
                                         nagetiveCell1.SolveMessages.AddRange(new List<SolveMessage>
                                         {
-                                            keyCell.Location, "不能为" + removeValue + "\r\n"
+                                            keyCell.Location, "不能为" + removeValue + "\t\t\r\n"
                                         });
                                         cells.Add(nagetiveCell1);
                                     }
@@ -114,13 +114,13 @@ namespace Sudoku.Tools
                                     nagetiveCell.SolveMessages = new List<SolveMessage>
                                     {
                                         G.MergeLocationDesc(a, b, c, d),
-                                        "隐性四数组" + HiddenValues.JoinString() + "位置\r\n"
+                                        "隐性四数组" + HiddenValues.JoinString() + "位置\t\t\r\n"
                                     };
                                     nagetiveCell.SolveMessages.AddRange(locations);
-                                    nagetiveCell.SolveMessages.Add("\r\n");
+                                    nagetiveCell.SolveMessages.Add("\t\t\r\n");
                                     nagetiveCell.SolveMessages.AddRange(new List<SolveMessage>
                                     {
-                                        keyCell.Location, "不能为" + removeValues.JoinString() + "\r\n"
+                                        keyCell.Location, "不能为" + removeValues.JoinString() + "\t\t\r\n"
                                     });
                                     cells.Add(nagetiveCell);
 
@@ -138,13 +138,13 @@ namespace Sudoku.Tools
                                     nagetiveCell.SolveMessages = new List<SolveMessage>
                                     {
                                         G.MergeLocationDesc(a, b, c, d),
-                                        "隐性四数组" + HiddenValues.JoinString() + "位置\r\n"
+                                        "隐性四数组" + HiddenValues.JoinString() + "位置\t\t\r\n"
                                     };
                                     nagetiveCell.SolveMessages.AddRange(locations);
-                                    nagetiveCell.SolveMessages.Add("\r\n");
+                                    nagetiveCell.SolveMessages.Add("\t\t\r\n");
                                     nagetiveCell.SolveMessages.AddRange(new List<SolveMessage>
                                     {
-                                        "位置", indexs1.Select(c => c.LoctionDesc()).JoinString(), "不能为" + value + "\r\n"
+                                        "位置", indexs1.Select(c => c.LoctionDesc()).JoinString(), "不能为" + value + "\t\t\r\n"
                                     });
                                     cells.Add(nagetiveCell);
                                 }

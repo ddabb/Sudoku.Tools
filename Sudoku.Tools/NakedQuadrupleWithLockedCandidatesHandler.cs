@@ -46,7 +46,7 @@ namespace Sudoku.Tools
                             var drawCells = GetDrawNakedCell(new List<CellInfo> { a, b, c, d }, rests);
                             var indexs = item.indexs;
                             var filterCell = allUnSetCell.Where(G.GetDirectionCells(direction, index)).Where(c => !indexs.Contains(c.Index)).ToList();
-                            drawCells.AddRange(GetDrawNegativeCell(filterCell, rests));
+                            drawCells.AddRange(GetDrawNegativeCell(rests,filterCell ));
                             foreach (var cell in filterCell)
                             {
                                 var interactList = cell.RestList.Intersect(rests).ToList();
@@ -59,7 +59,7 @@ namespace Sudoku.Tools
                                         {
                                             drawCells = drawCells
                                         };
-                                        negativeCell.SolveMessages = new List<SolveMessage> { "在", GetDirectionMessage(direction, index), "中", G.MergeLocationDesc(a, b, c, d), "只出现了" + rests.JoinString() + "四个数\r\n", negativeCell.Location, "不能为" + removeValue + "\r\n" };
+                                        negativeCell.SolveMessages = new List<SolveMessage> { "在", GetDirectionMessage(direction, index), "中", G.MergeLocationDesc(a, b, c, d), "只出现了" + rests.JoinString() + "四个数\t\t\r\n", negativeCell.Location, "不能为" + removeValue + "\t\t\r\n" };
                                     
                                         //cells.Add(negativeCell);
                                     }
@@ -70,7 +70,7 @@ namespace Sudoku.Tools
                                         {
                                             drawCells = drawCells
                                         };
-                                        negativeCell.SolveMessages = new List<SolveMessage> { "在", GetDirectionMessage(direction, index), "中", G.MergeLocationDesc(a, b, c, d), "只出现了" + rests.JoinString() + "四个数\r\n", negativeCell.Location, "不能为" + removeValue.JoinString() + "\r\n" };
+                                        negativeCell.SolveMessages = new List<SolveMessage> { "在", GetDirectionMessage(direction, index), "中", G.MergeLocationDesc(a, b, c, d), "只出现了" + rests.JoinString() + "四个数\t\t\r\n", negativeCell.Location, "不能为" + removeValue.JoinString() + "\t\t\r\n" };
                                    //     cells.Add(negativeCell);
                                     }
                                 }
@@ -92,9 +92,9 @@ namespace Sudoku.Tools
         public override MethodClassify methodClassify { get; }
         public override string GetDesc()
         {
-            return "若一个宫内的显性四数组中，候选数a只出现在了某行/某列，则其余宫的该行该列不包含该候选数。\r\n" +
-                   "若一个行内的显性四数组中，候选数a只出现在了某宫中，则该宫的其余行不包含该候选数。\r\n" +
-                   "若一个列内的显性四数组中，候选数a只出现在了某宫中，则该宫的其余列不包含该候选数。\r\n";
+            return "若一个宫内的显性四数组中，候选数a只出现在了某行/某列，则其余宫的该行该列不包含该候选数。\t\t\r\n" +
+                   "若一个行内的显性四数组中，候选数a只出现在了某宫中，则该宫的其余行不包含该候选数。\t\t\r\n" +
+                   "若一个列内的显性四数组中，候选数a只出现在了某宫中，则该宫的其余列不包含该候选数。\t\t\r\n";
         }
 
         public override List<CellInfo> Assignment(QSudoku qSudoku)

@@ -49,7 +49,7 @@ namespace Sudoku.Tools
                             var drawCells = GetDrawNakedCell(new List<CellInfo> { a, b}, rests);
                             var indexs = item.indexs;
                             var filterCell = allUnSetCell.Where(G.GetDirectionCells(direction, index)).Where(c => !indexs.Contains(c.Index)).ToList();
-                            drawCells.AddRange(GetDrawNegativeCell(filterCell, rests));
+                            drawCells.AddRange(GetDrawNegativeCell( rests, filterCell));
                             foreach (var cell in filterCell)
                             {
                                 var interactList = cell.RestList.Intersect(rests).ToList();
@@ -60,7 +60,7 @@ namespace Sudoku.Tools
                                         var removeValue = interactList.First();
                                         var negativeCell = new NegativeCell(cell.Index, removeValue, qSudoku);
                                         negativeCell.drawCells = drawCells;
-                                        negativeCell.SolveMessages = new List<SolveMessage> { "在", GetDirectionMessage(direction, index), "中", G.MergeLocationDesc(a, b),"只出现了" + rests.JoinString() + "两个数\r\n", negativeCell.Location, "不能为" + removeValue + "\r\n" };
+                                        negativeCell.SolveMessages = new List<SolveMessage> { "在", GetDirectionMessage(direction, index), "中", G.MergeLocationDesc(a, b),"只出现了" + rests.JoinString() + "两个数\t\t\r\n", negativeCell.Location, "不能为" + removeValue + "\t\t\r\n" };
                                         cells.Add(negativeCell);
                                     }
                                     else
@@ -70,7 +70,7 @@ namespace Sudoku.Tools
                                         {
                                           drawCells = drawCells
                                         };
-                                        negativeCell.SolveMessages = new List<SolveMessage> { "在", GetDirectionMessage(direction, index), "中", G.MergeLocationDesc(a, b), "只出现了" + rests.JoinString() + "两个数\r\n", negativeCell.Location, "不能为" + removeValue.JoinString() + "\r\n" };
+                                        negativeCell.SolveMessages = new List<SolveMessage> { "在", GetDirectionMessage(direction, index), "中", G.MergeLocationDesc(a, b), "只出现了" + rests.JoinString() + "两个数\t\t\r\n", negativeCell.Location, "不能为" + removeValue.JoinString() + "\t\t\r\n" };
                                         cells.Add(negativeCell);
                                     }
                                 }

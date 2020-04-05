@@ -50,14 +50,14 @@ namespace Sudoku.Tools
 
                                     new SolveMessage("中的"),
                                     new SolveMessage(" "+ value+" ", MessageType.Postive),
-                                    new SolveMessage("构成空矩形"+"\r\n", MessageType.Important),
+                                    new SolveMessage("构成空矩形"+"\t\t\r\n", MessageType.Important),
                                     new SolveMessage("所以"),
-                                    new SolveMessage(cell.Location+"不为"+value+"\r\n", MessageType.Nagetive),
+                                    new SolveMessage(cell.Location+"不为"+value+"\t\t\r\n", MessageType.Nagetive),
                                 };
 
-                                var drawCells = GetDrawPossibleCell(blockCells, new List<int> { value });
+                                var drawCells = GetDrawPossibleCell(new List<int> { value }, blockCells);
 
-                                drawCells.AddRange(GetDrawPossibleCell(G.MergeCells(aCell, bCell, cCell), new List<int> { value }));
+                                drawCells.AddRange(GetDrawPossibleCell(new List<int> { value }, G.MergeCells(aCell, bCell, cCell) ));
                                 drawCells.Add(cell);
                                 cell.drawCells = drawCells;
                                 cells.Add(cell);
@@ -71,12 +71,12 @@ namespace Sudoku.Tools
                                     G.MergeLocationDesc(interectCell,aCell,bCell,cCell),
                                     new SolveMessage("中的"),
                                     new SolveMessage(" "+ value+" ", MessageType.Postive),
-                                    new SolveMessage("构成空矩形"+"\r\n", MessageType.Important),
+                                    new SolveMessage("构成空矩形"+"\t\t\r\n", MessageType.Important),
                                     new SolveMessage("所以"),
-                                    new SolveMessage(cell.Location+"不为"+value+"\r\n", MessageType.Nagetive),
+                                    new SolveMessage(cell.Location+"不为"+value+"\t\t\r\n", MessageType.Nagetive),
                                 };
-                                var drawCells = GetDrawPossibleCell(blockCells, new List<int> { value });
-                                drawCells.AddRange(GetDrawPossibleCell(G.MergeCells(aCell, bCell, cCell), new List<int> { value }));
+                                var drawCells = GetDrawPossibleCell(new List<int> { value }, blockCells);
+                                drawCells.AddRange(GetDrawPossibleCell( new List<int> { value }, G.MergeCells(aCell, bCell, cCell)));
                                 drawCells.Add(cell);
                                 cell.drawCells = drawCells;
                                 cells.Add(cell);

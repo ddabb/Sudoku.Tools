@@ -50,11 +50,11 @@ namespace Sudoku.Tools
                             {
                                 new SolveMessage("若"+list[i].Desc, MessageType.Reason),
                                 new SolveMessage(" 则"+list[i+1].Desc, MessageType.Result),
-                                new SolveMessage("\r\n")
+                                new SolveMessage("\t\t\r\n")
                             });
                         }
-                        temp1.Add(new SolveMessage("与"+ cell.Desc+"矛盾\r\n"));
-                        temp1.Add(new SolveMessage("所以"+ temp.Desc +"\r\n"));
+                        temp1.Add(new SolveMessage("与"+ cell.Desc+"矛盾\t\t\r\n"));
+                        temp1.Add(new SolveMessage("所以"+ temp.Desc +"\t\t\r\n"));
                         temp.SolveMessages = temp1;
                         cells.Add(temp);
                     }

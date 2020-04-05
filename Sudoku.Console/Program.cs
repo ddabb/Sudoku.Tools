@@ -217,7 +217,7 @@ namespace Sudoku.Console
                         if (cellinfos.Count != 0)
                         {
                             Debug.WriteLine("handler  " + handler.GetType().ToString());
-                            Debug.WriteLine("cellinfo" + cellinfos.JoinString("\r\n"));
+                            Debug.WriteLine("cellinfo" + cellinfos.JoinString("\t\t\r\n"));
                             Debug.WriteLine("example before" + example.QueryString + "isvalid" + new DanceLink().isValid(example.QueryString));
 
                             example = example.ApplyCells(cellinfos);

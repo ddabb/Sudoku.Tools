@@ -397,13 +397,25 @@ namespace Sudoku.Tools
             return new DanceLink().isValid(queryString);
         }
 
+
         /// <summary>
-        /// 将必定范围画绿，否则标红
+        /// 将指定单元格范围的指定提示数的值画255, 192, 89
         /// </summary>
         /// <param name="cellList"></param>
         /// <param name="values"></param>
         /// <returns></returns>
-        public List<CellInfo> GetDrawPossibleCell(List<CellInfo> cellList, List<int> values)
+        public List<CellInfo> GetDrawPossibleCell(int values, List<CellInfo> cellList)
+        {
+            return GetDrawPossibleCell(new List<int> { values }, cellList);
+        }
+
+        /// <summary>
+        /// 将指定单元格范围的指定提示数的值画255, 192, 89
+        /// </summary>
+        /// <param name="cellList"></param>
+        /// <param name="values"></param>
+        /// <returns></returns>
+        public List<CellInfo> GetDrawPossibleCell(List<int> values, List<CellInfo> cellList)
         {
             List<CellInfo> cells = new List<CellInfo>();
             foreach (var item in cellList)
@@ -420,6 +432,90 @@ namespace Sudoku.Tools
 
             return cells;
         }
+
+        /// <summary>
+        /// 将指定单元格范围的指定提示数的值画255, 192, 89
+        /// </summary>
+        /// <param name="cellList"></param>
+        /// <param name="values"></param>
+        /// <returns></returns>
+        public List<CellInfo> GetDrawPossibleCell(List<int> values, params CellInfo[] cellList)
+        {
+            List<CellInfo> cells = new List<CellInfo>();
+            foreach (var item in cellList)
+            {
+                foreach (var rest in item.RestList)
+                {
+                    if (values.Contains(rest))
+                    {
+                        cells.Add(new PossibleCell(item.Index, rest, item.Sudoku));
+                    }
+                }
+
+            }
+
+            return cells;
+        }
+
+        /// <summary>
+        /// 将指定单元格范围的指定提示数的值画177,165,243
+        /// </summary>
+        /// <param name="cellList"></param>
+        /// <param name="values">指定值</param>
+        /// <returns></returns>
+        public List<CellInfo> GetDrawChainCell(List<int> values, params CellInfo[] cellList)
+        {
+            List<CellInfo> cells = new List<CellInfo>();
+            foreach (var item in cellList)
+            {
+                foreach (var rest in item.RestList)
+                {
+                    if (values.Contains(rest))
+                    {
+                        cells.Add(new ChainCell(item.Index, rest, item.Sudoku));
+                    }
+                }
+
+            }
+
+            return cells;
+        }
+
+        /// <summary>
+        /// 将指定单元格范围的指定提示数的值画255, 192, 89
+        /// </summary>
+        /// <param name="cellList"></param>
+        /// <param name="values"></param>
+        /// <returns></returns>
+        public List<CellInfo> GetDrawChainCell(int values, List<CellInfo> cellList)
+        {
+            return GetDrawChainCell(new List<int> { values }, cellList);
+        }
+
+        /// <summary>
+        /// 将指定单元格范围的指定提示数的值画177,165,243
+        /// </summary>
+        /// <param name="cellList"></param>
+        /// <param name="values">指定值</param>
+        /// <returns></returns>
+        public List<CellInfo> GetDrawChainCell(List<int> values, List<CellInfo> cellList)
+        {
+            List<CellInfo> cells = new List<CellInfo>();
+            foreach (var item in cellList)
+            {
+                foreach (var rest in item.RestList)
+                {
+                    if (values.Contains(rest))
+                    {
+                        cells.Add(new ChainCell(item.Index, rest, item.Sudoku));
+                    }
+                }
+
+            }
+
+            return cells;
+        }
+
 
         public List<CellInfo> GetDrawNakedCell(List<CellInfo> cellList, List<int> values)
         {
@@ -449,7 +545,43 @@ namespace Sudoku.Tools
         /// <param name="cellList"></param>
         /// <param name="values"></param>
         /// <returns></returns>
-        public List<CellInfo> GetDrawNegativeCell(List<CellInfo> cellList, List<int> values)
+        public List<CellInfo> GetDrawNegativeCell(List<int> values, List<CellInfo> cellList)
+        {
+            List<CellInfo> cells = new List<CellInfo>();
+            foreach (var item in cellList)
+            {
+                foreach (var rest in item.RestList)
+                {
+                    if (values.Contains(rest))
+                    {
+                        cells.Add(new NegativeCell(item.Index, rest, null));
+                    }
+                }
+
+            }
+
+            return cells;
+        }
+
+
+
+        /// <summary>
+        /// 将指定单元格范围的指定提示数的值画255, 192, 89
+        /// </summary>
+        /// <param name="cellList"></param>
+        /// <param name="values"></param>
+        /// <returns></returns>
+        public List<CellInfo> GetDrawNegativeCell(int values, List<CellInfo> cellList)
+        {
+            return GetDrawNegativeCell(new List<int> { values }, cellList);
+        }
+        /// <summary>
+        /// 将必定范围画红
+        /// </summary>
+        /// <param name="cellList"></param>
+        /// <param name="values"></param>
+        /// <returns></returns>
+        public List<CellInfo> GetDrawNegativeCell(List<int> values, params CellInfo[] cellList)
         {
             List<CellInfo> cells = new List<CellInfo>();
             foreach (var item in cellList)

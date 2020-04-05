@@ -46,14 +46,14 @@ namespace Sudoku.Tools
                                     index.ColumnDesc(),
                                     "只有",
                                     block.BlockDesc(),
-                                    "可以填入" + value + "\r\n",
+                                    "可以填入" + value + "\t\t\r\n",
                                     "所以",
                                     item1.Location,
-                                    "不能填入" + value + "\r\n"
+                                    "不能填入" + value + "\t\t\r\n"
                                 }
                             };
 
-                            var drawCells = GetDrawPossibleCell(blockinfo, new List<int> { value });
+                            var drawCells = GetDrawPossibleCell( new List<int> { value }, blockinfo);
                             drawCells.Add(cell);
                             cell.drawCells = drawCells;
                             cells.Add(cell);
@@ -74,13 +74,13 @@ namespace Sudoku.Tools
                                     index.ColumnDesc(),
                                     "只有",
                                     block.BlockDesc(),
-                                    "可以填入" + value + "\r\n",
-                                    "所以"            ,G.MergeLocationDesc(cells1),"不能填入" + value+"\r\n"
+                                    "可以填入" + value + "\t\t\r\n",
+                                    "所以"            ,G.MergeLocationDesc(cells1),"不能填入" + value+"\t\t\r\n"
                                 }
                             };
 
-                            var drawCells = GetDrawPossibleCell(blockinfo, new List<int> { value });
-                            drawCells.AddRange(GetDrawNegativeCell(cells1, new List<int> { value }));
+                            var drawCells = GetDrawPossibleCell(value,blockinfo);
+                            drawCells.AddRange(GetDrawNegativeCell(value,cells1));
                             drawCells.Add(cell);
                             cell.drawCells = drawCells;
                             cells.Add(cell);
@@ -101,13 +101,13 @@ namespace Sudoku.Tools
                                     index.ColumnDesc(),
                                     "只有",
                                     block.BlockDesc(),
-                                    "可以填入" + value + "\r\n",
-                                    G.MergeLocationDesc(cells1),"不能填入" + value+"\r\n"
+                                    "可以填入" + value + "\t\t\r\n",
+                                    G.MergeLocationDesc(cells1),"不能填入" + value+"\t\t\r\n"
                                 }
                             };
 
-                            var drawCells = GetDrawPossibleCell(blockinfo, new List<int> { value });
-                            drawCells.AddRange(GetDrawNegativeCell(cells1, new List<int> { value }));
+                            var drawCells = GetDrawPossibleCell(value,blockinfo);
+                            drawCells.AddRange(GetDrawNegativeCell(value , cells1));
                             drawCells.Add(cell);
                             cell.drawCells = drawCells;
                             cells.Add(cell);

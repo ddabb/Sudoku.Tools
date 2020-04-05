@@ -74,8 +74,8 @@ namespace Sudoku.Tools
 
         public override string GetDesc()
         {
-            return "若候选数a在特定两行，只出现在特定两列，且这四个候选数位于4个宫内，则这两行两列的其余单元格中不包含候选数a；\r\n" +
-                   "若候选数a在特定两列，只出现在特定两行，且这四个候选数位于4个宫内，则这两行两列的其余单元格中不包含候选数a；\r\n";
+            return "若候选数a在特定两行，只出现在特定两列，且这四个候选数位于4个宫内，则这两行两列的其余单元格中不包含候选数a；\t\t\r\n" +
+                   "若候选数a在特定两列，只出现在特定两行，且这四个候选数位于4个宫内，则这两行两列的其余单元格中不包含候选数a；\t\t\r\n";
         }
 
         internal List<CellInfo> XwingWithNakeSingle(QSudoku qSudoku, List<CellInfo> subCells, int speacilValue)
@@ -93,13 +93,13 @@ namespace Sudoku.Tools
                     if (item.RestCount > 1)
                     {
                         var negativeCell = new NegativeCell(item.Index, speacilValue, qSudoku);
-                        var drawCells = GetDrawPossibleCell(subCells, new List<int> { speacilValue });
-                        drawCells.AddRange(GetDrawNegativeCell(filterCells, new List<int> { speacilValue }));
+                        var drawCells = GetDrawPossibleCell(speacilValue, subCells );
+                        drawCells.AddRange(GetDrawNegativeCell(speacilValue,filterCells));
                         negativeCell.drawCells = drawCells;
                         negativeCell.SolveMessages = new List<SolveMessage>
                         {
-                            G.MergeLocationDesc(subCells),"的"+speacilValue+ "构成"+G.GetEnumDescription(this.methodType)+"\r\n",
-                            "所以",negativeCell.Location,"不能为"+speacilValue+"\r\n",
+                            G.MergeLocationDesc(subCells),"的"+speacilValue+ "构成"+G.GetEnumDescription(this.methodType)+"\t\t\r\n",
+                            "所以",negativeCell.Location,"不能为"+speacilValue+"\t\t\r\n",
 
                         };
                         cells.Add(negativeCell);

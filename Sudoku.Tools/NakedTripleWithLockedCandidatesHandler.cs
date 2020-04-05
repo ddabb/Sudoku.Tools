@@ -49,12 +49,12 @@ namespace Sudoku.Tools
                         var locations = cellIndexs.Select(c => c.Location).ToList();
                         var group = new NegativeIndexsGroup(removeIndexs, removeValue, qSudoku) { Sudoku = qSudoku };
                         group.SolveMessages = new List<SolveMessage>
-                                        {G.MergeLocationDesc(a,b,cell),   "构成"+a.RestString+"的显性三数组\r\n",
-                                      "因为",G.MergeLocationDesc(a,b),"位于" ,block.BlockDesc(),"中\r\n",
-                                   "所以",   G.MergeLocationDesc(cellIndexs),     "不能为"+removeValue+"\r\n"
+                                        {G.MergeLocationDesc(a,b,cell),   "构成"+a.RestString+"的显性三数组\t\t\r\n",
+                                      "因为",G.MergeLocationDesc(a,b),"位于" ,block.BlockDesc(),"中\t\t\r\n",
+                                   "所以",   G.MergeLocationDesc(cellIndexs),     "不能为"+removeValue+"\t\t\r\n"
                                         };
-                        var drawCells = GetDrawPossibleCell(new List<CellInfo> { a, b, cell }, a.RestList);
-                        drawCells.AddRange(GetDrawNegativeCell(cellIndexs, new List<int> { removeValue }));
+                        var drawCells = GetDrawPossibleCell(a.RestList,new List<CellInfo> { a, b, cell });
+                        drawCells.AddRange(GetDrawNegativeCell(removeValue,cellIndexs));
                         group.drawCells = drawCells;
                         cells.Add(group);
                     }
@@ -70,8 +70,8 @@ namespace Sudoku.Tools
 
         public override string GetDesc()
         {
-            return "若一个行内的显性三数组中，候选数a只出现在了某宫中，则该宫的其余行不包含该候选数。\r\n" +
-                   "若一个列内的显性三数组中，候选数a只出现在了某宫中，则该宫的其余列不包含该候选数。\r\n";
+            return "若一个行内的显性三数组中，候选数a只出现在了某宫中，则该宫的其余行不包含该候选数。\t\t\r\n" +
+                   "若一个列内的显性三数组中，候选数a只出现在了某宫中，则该宫的其余列不包含该候选数。\t\t\r\n";
         }
     }
 }

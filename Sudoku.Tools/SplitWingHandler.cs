@@ -88,8 +88,8 @@ namespace Sudoku.Tools
 
                                         SolveMessages = MergeCellSolveLocationMessage(item, a, b, c, d)
                                     };
-                                    cell1.SolveMessages.AddRange(new List<SolveMessage> {"value1是", value1 + "\r\n"});
-                                    cell1.SolveMessages.AddRange(new List<SolveMessage> {"value2是", value2 + "\r\n"});
+                                    cell1.SolveMessages.AddRange(new List<SolveMessage> {"value1是", value1 + "\t\t\r\n"});
+                                    cell1.SolveMessages.AddRange(new List<SolveMessage> {"value2是", value2 + "\t\t\r\n"});
                                     cell1.SolveMessages.AddRange(new List<SolveMessage>
                                         {c.Index.LoctionDesc(), "不能为", value1});
                                     var cell2 = new NegativeCell(d.Index, value2, qSudoku)
@@ -97,8 +97,8 @@ namespace Sudoku.Tools
 
                                         SolveMessages = MergeCellSolveLocationMessage(item, a, b, c, d)
                                     };
-                                    cell2.SolveMessages.AddRange(new List<SolveMessage> {"value1是", value1 + "\r\n"});
-                                    cell2.SolveMessages.AddRange(new List<SolveMessage> {"value2是", value2 + "\r\n"});
+                                    cell2.SolveMessages.AddRange(new List<SolveMessage> {"value1是", value1 + "\t\t\r\n"});
+                                    cell2.SolveMessages.AddRange(new List<SolveMessage> {"value2是", value2 + "\t\t\r\n"});
                                     cell2.SolveMessages.AddRange(new List<SolveMessage>
                                         {d.Index.LoctionDesc(), "不能为", value2});
 

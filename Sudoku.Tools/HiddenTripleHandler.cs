@@ -73,8 +73,8 @@ namespace Sudoku.Tools
                                             var negativeCell = new NegativeCell(cell.Index, rest, qSudoku) ;
                                             negativeCell.SolveMessages = new List<SolveMessage>
                                             {
-                                                "在",GetDirectionMessage(direction,index),"中",values.JoinString()+"只出现在",G.MergeLocationDesc(cell1,cell2,cell3),"之中\r\n所以",
-                                                cell.Location,"不能填入"+rest+"\r\n"
+                                                "在",GetDirectionMessage(direction,index),"中",values.JoinString()+"只出现在",G.MergeLocationDesc(cell1,cell2,cell3),"之中\t\t\r\n所以",
+                                                cell.Location,"不能填入"+rest+"\t\t\r\n"
                                             };
                                             var drawCells = GetDrawNakedCell(groupCells, values);
                                             drawCells.Add(negativeCell);
@@ -95,7 +95,7 @@ namespace Sudoku.Tools
                                         var negativeCell = new NegativeIndexsGroup(indexs, other, qSudoku) ;
                                         negativeCell.SolveMessages = new List<SolveMessage>
                                             {
-                                                "在",GetDirectionMessage(direction,index),"中",values.JoinString()+"只出现在",G.MergeLocationDesc(cell1,cell2,cell3),"之中\r\n所以",
+                                                "在",GetDirectionMessage(direction,index),"中",values.JoinString()+"只出现在",G.MergeLocationDesc(cell1,cell2,cell3),"之中\t\t\r\n所以",
 
                                             };
                                         for (int i = 0; i < indexs.Count; i++)
@@ -106,7 +106,7 @@ namespace Sudoku.Tools
                                                 negativeCell.SolveMessages.Add("、");
                                             }
                                         }
-                                        negativeCell.SolveMessages.Add("不能填入" + other + "\r\n");
+                                        negativeCell.SolveMessages.Add("不能填入" + other + "\t\t\r\n");
                                         var drawCells = GetDrawNakedCell(groupCells, values);
                                         negativeCell.drawCells = drawCells;
                                         cells.Add(negativeCell);

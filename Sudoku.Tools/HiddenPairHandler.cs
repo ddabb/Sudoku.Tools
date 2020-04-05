@@ -73,9 +73,9 @@ namespace Sudoku.Tools
                                     "在", GetDirectionMessage(d, dirIndex),"中",
                                     value1+"和"+value2+"只能填写在",
                                     G.MergeLocationDesc(index1,index2),
-                                    "两个单元格内","\r\n",
+                                    "两个单元格内","\t\t\r\n",
                                     index.LoctionDesc(),
-                                    "不能填入"+value+"\r\n"
+                                    "不能填入"+value+"\t\t\r\n"
 
                                 };
                                 cell.drawCells = new List<CellInfo>

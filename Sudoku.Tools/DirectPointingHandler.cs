@@ -52,13 +52,13 @@ namespace Sudoku.Tools
                                             blockindex.BlockDesc(),
                                             "只有",
                                             GetDirectionMessage(direction, index),
-                                            "可以填入" + value + "\r\n",
+                                            "可以填入" + value + "\t\t\r\n",
                                             "所以",
                                             cell.Location,
-                                            "不能填入" + value + "\r\n"
+                                            "不能填入" + value + "\t\t\r\n"
                                         }
                                     };
-                                    var drawCells = GetDrawPossibleCell(blockUnSetCell, new List<int> { value });
+                                    var drawCells = GetDrawPossibleCell(new List<int> { value },blockUnSetCell);
                                     drawCells.Add(cell1);
                                     cell1.drawCells = drawCells;
 
@@ -78,15 +78,15 @@ namespace Sudoku.Tools
                                         blockindex.BlockDesc(),
                                         "只有",
                                         GetDirectionMessage(direction, index),
-                                        "可以填入" + value + "\r\n",
+                                        "可以填入" + value + "\t\t\r\n",
                                         "所以",
                                         G.MergeLocationDesc(otherCell),
-                                        "不能填入" + value + "\r\n"
+                                        "不能填入" + value + "\t\t\r\n"
                                     }
                                 };
 
-                                var drawCells = GetDrawPossibleCell(blockUnSetCell, new List<int> { value });
-                                drawCells.AddRange(GetDrawNegativeCell(otherCell, new List<int> { value }));
+                                var drawCells = GetDrawPossibleCell(value,blockUnSetCell);
+                                drawCells.AddRange(GetDrawNegativeCell(value,otherCell));
                                 drawCells.Add(cell1);
                                 cell1.drawCells = drawCells;
                                 cells.Add(cell1);
@@ -100,8 +100,8 @@ namespace Sudoku.Tools
 
         public override string GetDesc()
         {
-            return "若宫B中只有特定行R可以填入候选数a，则该行R的其余宫不能填入候选数a；\r\n" +
-                   "若宫B中只有特定列C可以填入候选数a，则该列C的其余宫不能填入候选数a；\r\n";
+            return "若宫B中只有特定行R可以填入候选数a，则该行R的其余宫不能填入候选数a；\t\t\r\n" +
+                   "若宫B中只有特定列C可以填入候选数a，则该列C的其余宫不能填入候选数a；\t\t\r\n";
         }
     }
 }
