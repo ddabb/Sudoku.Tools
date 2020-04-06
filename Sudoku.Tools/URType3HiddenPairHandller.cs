@@ -1,14 +1,11 @@
-﻿using System;
+﻿using Sudoku.Core;
+using Sudoku.Core.Model;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Sudoku.Core;
-using Sudoku.Core.Model;
 
 namespace Sudoku.Tools
 {
-    [AssignmentExample(4, "R4C6", "000900004400000500760080000290000100071209005004710902100840000907025801002190000",SolveMethodEnum.NakedQuadruple)]
+    [AssignmentExample(4, "R4C6", "000900004400000500760080000290000100071209005004710902100840000907025801002190000", SolveMethodEnum.NakedQuadruple)]
     public class URType3HiddenPairHandller : SolverHandlerBase
     {
         public override List<CellInfo> Assignment(QSudoku qSudoku)
@@ -68,9 +65,9 @@ namespace Sudoku.Tools
 
                                       select new { value1 }
                                                                       ).ToList();
-                 
+
                     var HiddenValues = new List<int> { keyValue1, keyValue2 };
-                    var findCell = (filterCells.Where(c => c.RestList.Contains(keyValue1) || c.RestList.Contains(keyValue2) )).ToList();
+                    var findCell = (filterCells.Where(c => c.RestList.Contains(keyValue1) || c.RestList.Contains(keyValue2))).ToList();
                     if (findCell.Count == 3 && HiddenValues.All(value => filterCells.Count(cell1 => cell1.RestList.Contains(value)) > 0))
                     {
 
@@ -86,14 +83,21 @@ namespace Sudoku.Tools
                             {
                                 foreach (var removeValue in removeValues)
                                 {
-                                    var nagetiveCell1 = new NegativeCell(keyCell.Index, removeValue, qSudoku);
-                                    nagetiveCell1.SolveMessages = new List<SolveMessage>
-                                        {"a  ",a.Location,
-                                        "b  ",b.Location,
-                                        "c  ",c.Location,
-                                          "d  ",d.Location,
-                                           "隐藏数对"+HiddenValues.JoinString()+"位置\t\t\r\n"
-                                        };
+                                    var nagetiveCell1 = new NegativeCell(keyCell.Index, removeValue, qSudoku)
+                                    {
+                                        SolveMessages = new List<SolveMessage>
+                                        {
+                                            "a  ",
+                                            a.Location,
+                                            "b  ",
+                                            b.Location,
+                                            "c  ",
+                                            c.Location,
+                                            "d  ",
+                                            d.Location,
+                                            "隐藏数对" + HiddenValues.JoinString() + "位置\t\t\r\n"
+                                        }
+                                    };
                                     nagetiveCell1.SolveMessages.AddRange(locations);
                                     nagetiveCell1.SolveMessages.Add("\t\t\r\n");
                                     nagetiveCell1.SolveMessages.AddRange(new List<SolveMessage>
@@ -102,16 +106,23 @@ namespace Sudoku.Tools
                                         });
                                     cells.Add(nagetiveCell1);
                                 }
-                               
-                               
-                                var nagetiveCell = new NegativeValuesGroup(keyCell.Index, removeValues, qSudoku);
-                                nagetiveCell.SolveMessages = new List<SolveMessage>
-                                        {"a  ",a.Location,
-                                        "b  ",b.Location,
-                                        "c  ",c.Location,
-                                          "d  ",d.Location,
-                                           "隐藏数对"+HiddenValues.JoinString()+"位置\t\t\r\n"
-                                        };
+
+
+                                var nagetiveCell = new NegativeValuesGroup(keyCell.Index, removeValues, qSudoku)
+                                {
+                                    SolveMessages = new List<SolveMessage>
+                                    {
+                                        "a  ",
+                                        a.Location,
+                                        "b  ",
+                                        b.Location,
+                                        "c  ",
+                                        c.Location,
+                                        "d  ",
+                                        d.Location,
+                                        "隐藏数对" + HiddenValues.JoinString() + "位置\t\t\r\n"
+                                    }
+                                };
                                 nagetiveCell.SolveMessages.AddRange(locations);
                                 nagetiveCell.SolveMessages.Add("\t\t\r\n");
                                 nagetiveCell.SolveMessages.AddRange(new List<SolveMessage>

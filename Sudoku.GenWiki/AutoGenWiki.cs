@@ -78,8 +78,8 @@ namespace Sudoku.GenWiki
 
                             }
 
-                            allString.Add("**数独特征码：**" + a.queryString);
-
+                            allString.Add("## 出数数独特征码" );
+                            allString.Add(a.queryString + "\t\t\r\n");
 
 
 
@@ -142,7 +142,8 @@ namespace Sudoku.GenWiki
                                     allString.Add(solveMessage.JoinStringWithEmpty() + "\t\t\r\n");
                                 }
                             }
-                            allString.Add("**数独特征码：**"+e.queryString);
+                            allString.Add("## 删数数独特征码");
+                            allString.Add(e.queryString + "\t\t\r\n");
 
                         }
                     }

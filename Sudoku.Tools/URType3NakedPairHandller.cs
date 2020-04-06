@@ -1,14 +1,12 @@
 ﻿using Sudoku.Core;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Linq;
 using Sudoku.Core.Model;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Sudoku.Tools
 {
-    [AssignmentExample(2,"R7C8","416080200753126948289400010600700185895214030371008492500801309138002064900040801")]
-    public class URType3NakedPairHandller :SolverHandlerBase
+    [AssignmentExample(2, "R7C8", "416080200753126948289400010600700185895214030371008492500801309138002064900040801")]
+    public class URType3NakedPairHandller : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.URType3NakedPair;
 
@@ -69,14 +67,16 @@ namespace Sudoku.Tools
                     var efg = (from e in filterCells
                                let exceptIndexs = G.MergeCellIndexs(c, d, e)
                                let otherValues = G.MergeInt(exceptC, exceptD, e.RestList).Distinct().ToList()
-                               where 
+                               where
                                 otherValues.Count == 2
                                select new { exceptIndexs, otherValues, e }).ToList();
                     foreach (var removeCells in efg)
                     {
                         var exceptIndexs = removeCells.exceptIndexs;
                         var otherValues = removeCells.otherValues;
+                        otherValues.Sort();
                         var cellss = filterCells.Where(c => !exceptIndexs.Contains(c.Index)).ToList();
+                        var keycell = removeCells.e;
                         foreach (var removeCell in cellss)
                         {
                             var interRest = removeCell.RestList.Intersect(otherValues).ToList();
@@ -85,11 +85,50 @@ namespace Sudoku.Tools
                                 if (interRest.Count == 1)
                                 {
                                     var nagetiveCell = new NegativeCell(removeCell.Index, interRest.First(), qSudoku);
+                                    nagetiveCell.SolveMessages = new List<SolveMessage>
+                                    {
+                                        G.MergeLocationDesc(a,b),"构成"+rest.JoinString()+"的显性数对\t\t\r\n",
+                                        G.MergeLocationDesc(a,b,c,d),"都存在候选数"+rest.JoinString()+"\t\t\r\n",
+                                        G.MergeLocationDesc(c,d,keycell),"除了"+rest.JoinString()+"之外","只可以填入"+otherValues.JoinString()+"\t\t\r\n",
+                                        "所以",nagetiveCell.Location,"不能为"+nagetiveCell.Value+"\t\t\r\n"
+                                    };
+                                    nagetiveCell.drawCells.Add(nagetiveCell);
+                                    nagetiveCell.drawCells.AddRange(GetDrawChainCell(rest, a, b, c, d));
+                                    foreach (var value in otherValues.Where(value => c.RestList.Contains(value)))
+                                    {
+                                        nagetiveCell.drawCells.Add(new PossibleCell(c.Index, value, qSudoku));
+                                    }
+                                    foreach (var value in otherValues.Where(value => d.RestList.Contains(value)))
+                                    {
+                                        nagetiveCell.drawCells.Add(new PossibleCell(d.Index, value, qSudoku));
+                                    }
+                                    nagetiveCell.drawCells.AddRange(GetDrawPossibleCell(otherValues, keycell));
                                     cells.Add(nagetiveCell);
                                 }
                                 else
                                 {
-                                    var nagetiveCell = new NegativeValuesGroup(removeCell.Index, interRest, qSudoku) ;
+                                    var nagetiveCell = new NegativeValuesGroup(removeCell.Index, interRest, qSudoku);
+                                    nagetiveCell.SolveMessages = new List<SolveMessage>
+                                    {
+                                        G.MergeLocationDesc(a,b),"构成"+rest.JoinString()+"的显性数对\t\t\r\n",
+                                        G.MergeLocationDesc(a,b,c,d),"都存在候选数"+rest.JoinString()+"\t\t\r\n",
+                                        G.MergeLocationDesc(c,d,keycell),"除了"+rest.JoinString()+"之外","只可以填入"+otherValues.JoinString()+"\t\t\r\n",
+                                        "所以",nagetiveCell.Location,"不能为"+interRest.JoinString()+"\t\t\r\n"
+                                    };
+                                    nagetiveCell.drawCells.AddRange(GetDrawChainCell(rest, a, b, c, d));
+                                    foreach (var value in otherValues.Where(value => c.RestList.Contains(value)))
+                                    {
+                                        nagetiveCell.drawCells.Add(new PossibleCell(c.Index, value, qSudoku));
+                                    }
+                                    foreach (var value in otherValues.Where(value => d.RestList.Contains(value)))
+                                    {
+                                        nagetiveCell.drawCells.Add(new PossibleCell(d.Index, value, qSudoku));
+                                    }
+                                    nagetiveCell.drawCells.AddRange(GetDrawPossibleCell(otherValues, keycell));
+                                    foreach (var value in interRest)
+                                    {
+                                        nagetiveCell.drawCells.Add(new NegativeCell(nagetiveCell.Index, value, qSudoku));
+                                    }
                                     cells.Add(nagetiveCell);
                                 }
 

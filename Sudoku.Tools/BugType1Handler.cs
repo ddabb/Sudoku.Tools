@@ -1,8 +1,7 @@
 ﻿using Sudoku.Core;
-using System;
+using Sudoku.Core.Model;
 using System.Collections.Generic;
 using System.Linq;
-using Sudoku.Core.Model;
 
 namespace Sudoku.Tools
 {
@@ -34,9 +33,28 @@ namespace Sudoku.Tools
                     {
                         var valueCondition =
                             c1.Where(c => (c.restCount == (G.AllBaseValues.Count - c.setCount) * 2 + 1)).ToList();
-                        if (valueCondition.Count != 1) return cells;
-                        var value = valueCondition.First().value;
-                        cells.Add(new PositiveCell(checkcells.First(c => c.RestCount == 3).Index, value, qSudoku));
+                        if (valueCondition.Count == 1)
+                        {
+                            var value = valueCondition.First().value;
+                            var cell = new PositiveCell(checkcells.First(c => c.RestCount == 3).Index, value, qSudoku);
+                            cell.SolveMessages=new List<SolveMessage>
+                            {
+                                "只有候选数"+value+"满足可以填的位置个数"+"(9-已经填入的"+value+"的个数)*2+1\t\t\r\n",
+                                "其余候选数y满足可以填的位置个数"+"(9-已经填入的y的个数)*2\t\t\r\n",
+                                "所以",cell.Location,"必须填入"+value+"\t\t\r\n"
+                            };
+                            cell.drawCells=new List<CellInfo>
+                            {
+                                cell,
+                                new NegativeCell(cell.Index,cell.RestList.First(c=>c!=cell.Value),qSudoku),
+                                new NegativeCell(cell.Index,cell.RestList.Last(c=>c!=cell.Value),qSudoku),
+                            };
+                            cells.Add(cell);
+                        }
+                        else
+                        {
+                            return cells;
+                        }
                     }
                     else
                         return cells;
@@ -53,7 +71,11 @@ namespace Sudoku.Tools
 
         public override string GetDesc()
         {
-            return "";
+            return "若所有候选数格中，只存在一个单元格只能填入3个候选数，其余都是两个候选数。\t\t\r\n" +
+                   "所有候选数y满足可以填的位置个数=(9-已经填入的y的个数)*2\t\t\r\n" +
+                   "只有一个候选数x满足可以填的位置个数=(9-已经填入的x的个数)*2+1\t\t\r\n" +
+                   "则可以填入3个候选数的单元格中必须填入x。"
+                ;
         }
     }
 }

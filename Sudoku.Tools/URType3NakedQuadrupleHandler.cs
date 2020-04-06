@@ -77,20 +77,69 @@ namespace Sudoku.Tools
                     {
                         var exceptIndexs = removeCells.exceptIndexs;
                         var otherValues = removeCells.otherValues;
+                        otherValues.Sort();
+                        var keycell = removeCells.e;
+                        var keycell1 = removeCells.f;
+                        var keycell2= removeCells.g;
                         var cellss = filterCells.Where(c => !exceptIndexs.Contains(c.Index)).ToList();
                         foreach (var removeCell in cellss)
                         {
                             var interRest = removeCell.RestList.Intersect(otherValues).ToList();
+                           
                             if (interRest.Any())
                             {
                                 if (interRest.Count == 1)
                                 {
                                     var nagetiveCell = new NegativeCell(removeCell.Index, interRest.First(), qSudoku);
+                                    nagetiveCell.SolveMessages = new List<SolveMessage>
+                                    {
+                                        G.MergeLocationDesc(a,b),"构成"+rest.JoinString()+"的显性数对\t\t\r\n",
+                                        G.MergeLocationDesc(a,b,c,d),"都存在候选数"+rest.JoinString()+"\t\t\r\n",
+                                        G.MergeLocationDesc(c,d,keycell,keycell1,keycell2),"除了"+rest.JoinString()+"之外","只可以填入"+otherValues.JoinString()+"\t\t\r\n",
+                                        "所以",nagetiveCell.Location,"不能为"+nagetiveCell.Value+"\t\t\r\n"
+                                    };
+                                    nagetiveCell.drawCells.Add(nagetiveCell);
+                                    nagetiveCell.drawCells.AddRange(GetDrawChainCell(rest, a, b, c, d));
+                                    foreach (var value in otherValues.Where(value => c.RestList.Contains(value)))
+                                    {
+                                        nagetiveCell.drawCells.Add(new PossibleCell(c.Index, value, qSudoku));
+                                    }
+                                    foreach (var value in otherValues.Where(value => d.RestList.Contains(value)))
+                                    {
+                                        nagetiveCell.drawCells.Add(new PossibleCell(d.Index, value, qSudoku));
+                                    }
+                                    nagetiveCell.drawCells.AddRange(GetDrawPossibleCell(otherValues, keycell));
+                                    nagetiveCell.drawCells.AddRange(GetDrawPossibleCell(otherValues, keycell1));
+                                    nagetiveCell.drawCells.AddRange(GetDrawPossibleCell(otherValues, keycell2));
                                     cells.Add(nagetiveCell);
                                 }
                                 else
                                 {
                                     var nagetiveCell = new NegativeValuesGroup(removeCell.Index, interRest, qSudoku);
+                                    nagetiveCell.SolveMessages = new List<SolveMessage>
+                                    {
+                                        G.MergeLocationDesc(a,b),"构成"+rest.JoinString()+"的显性数对\t\t\r\n",
+                                        G.MergeLocationDesc(a,b,c,d),"都存在候选数"+rest.JoinString()+"\t\t\r\n",
+                                        G.MergeLocationDesc(c,d,keycell,keycell1),"除了"+rest.JoinString()+"之外","只可以填入"+otherValues.JoinString()+"\t\t\r\n",
+                                        "所以",nagetiveCell.Location,"不能为"+interRest.JoinString()+"\t\t\r\n"
+                                    };
+                                    nagetiveCell.drawCells.AddRange(GetDrawChainCell(rest, a, b, c, d));
+                                    foreach (var value in otherValues.Where(value => c.RestList.Contains(value)))
+                                    {
+                                        nagetiveCell.drawCells.Add(new PossibleCell(c.Index, value, qSudoku));
+                                    }
+                                    foreach (var value in otherValues.Where(value => d.RestList.Contains(value)))
+                                    {
+                                        nagetiveCell.drawCells.Add(new PossibleCell(d.Index, value, qSudoku));
+                                    }
+                                    nagetiveCell.drawCells.AddRange(GetDrawPossibleCell(otherValues, keycell));
+                                    nagetiveCell.drawCells.AddRange(GetDrawPossibleCell(otherValues, keycell1));
+                                    nagetiveCell.drawCells.AddRange(GetDrawPossibleCell(otherValues, keycell2));
+                                    foreach (var value in interRest)
+                                    {
+                                        nagetiveCell.drawCells.Add(new NegativeCell(nagetiveCell.Index, value, qSudoku));
+                                    }
+                                    
                                     cells.Add(nagetiveCell);
                                 }
 
