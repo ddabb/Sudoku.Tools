@@ -35,6 +35,13 @@ namespace SudoKu.Test
         
 
         [TestMethod]
+        public void TestAlignedTripleExclusionHandler1()
+        {
+            TestEliminationExample(typeof(AlignedTripleExclusionHandler), "205000000080000007060010902007039500010000078002000009070390000509060000000001300", 4, "R3C1");
+        }
+
+
+        [TestMethod]
         public void TestXRSize6Type3Handler()
         {
             TestEliminationExample(typeof(XRSize6Type3Handler));
@@ -69,7 +76,13 @@ namespace SudoKu.Test
             TestEliminationExample(typeof(AlignedTripleExclusionHandler));
         }
 
+        [TestMethod]
+        public void TestAlignedQuadrupleExclusionHandler()
+        {
+            TestEliminationExample(typeof(AlignedQuadrupleExclusionHandler));
+        }
 
+        
         [TestMethod]
         public void TestFinnedXwingHandler()
         {

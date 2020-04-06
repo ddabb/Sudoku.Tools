@@ -43,8 +43,7 @@ namespace Sudoku.GenWiki
                         {
                             allString.Add("");
                             allString.Add("## 出数示例");
-                            allString.Add(a.queryString);
-
+                         
                             var positionString = a.positionString;
                             var qsudoku = new QSudoku(a.queryString);
                             var handers = a.SolveHandlers;
@@ -79,6 +78,8 @@ namespace Sudoku.GenWiki
 
                             }
 
+                            allString.Add("**数独特征码：**" + a.queryString);
+
 
 
 
@@ -102,7 +103,7 @@ namespace Sudoku.GenWiki
                         {
                             allString.Add("");
                             allString.Add("## 删数示例");
-                            allString.Add(e.queryString);
+                           
 
                             var positionString = e.positionString;
                             var qsudoku = new QSudoku(e.queryString);
@@ -132,6 +133,7 @@ namespace Sudoku.GenWiki
                                 allString.Add("<p align= \"center\" >");
                                 allString.Add(" <img src = \"/ddabb/Sudoku.Tools/blob/master/Images/EliminationExample/" + UrlEncode(G.GetEnumDescription(handler.methodType) + ".jpg") + "\" />");
                                 allString.Add(" </p >");
+                               
                                 var solveMessage = drawingCell.SolveMessages;
                                 if (solveMessage.Count != 0)
                                 {
@@ -140,6 +142,7 @@ namespace Sudoku.GenWiki
                                     allString.Add(solveMessage.JoinStringWithEmpty() + "\t\t\r\n");
                                 }
                             }
+                            allString.Add("**数独特征码：**"+e.queryString);
 
                         }
                     }

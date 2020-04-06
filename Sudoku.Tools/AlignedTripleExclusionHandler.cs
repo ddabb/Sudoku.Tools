@@ -5,7 +5,6 @@ using Sudoku.Core.Model;
 
 namespace Sudoku.Tools
 {
-    //205000000080000007060010902007039500010000078002000009070390000509060000000001300 假装是个出数用例
     [EliminationExample(4, "R1C4", "000010900001209870029306451697023100482061000135000260000002610056134700010697000")]
     public class AlignedTripleExclusionHandler : SolverHandlerBase
     {
@@ -58,10 +57,12 @@ namespace Sudoku.Tools
 
                                 }
 
-                                NewMethod1(NewMethod(qSudoku, cell1, dtos), cells);
-                                NewMethod1(NewMethod(qSudoku, cell2, dtos), cells);
-                                NewMethod1(NewMethod(qSudoku, cell3, dtos), cells);
+                                List<CellInfo> all = G.MergeCells(cell1, cell2, cell3);
+                                foreach (var item in all)
+                                {
+                                    NewMethod1(NewMethod(qSudoku, item, dtos, all), cells);
 
+                                }
                             }
                         }
                     }
@@ -73,19 +74,10 @@ namespace Sudoku.Tools
             return cells;
 
         }
-        private static void NewMethod1(List<CellInfo> temp, List<CellInfo> cells)
-        {
-            foreach (var cellx in temp)
-            {
-                if (!cells.Exists(c => c.Value == cellx.Value && c.Index == cellx.Index))
-                {
-                    cells.Add(cellx);
-                }
-            }
-        }
+     
         public override string GetDesc()
         {
-            return "";
+            return "若三个候选数格X,Y,Z值任意组合，当X为x时，若无论Y,Z任意组合，该三个单元格的共同相关格都没有有效数字可以填，则X不为x。";
         }
     }
 

@@ -8,7 +8,7 @@ using Sudoku.Core.Model;
 
 namespace Sudoku.Tools
 {
-    [EliminationExample(7,"R8C2", "109340050850000143364510000003850001080691030600034580000080320208003015030025908")]//测试用例待优化
+    [EliminationExample(7,"R8C2", "109340050850000143364510000003850001080691030600034580000080320208003015030025908",SolveMethodEnum.DirectPointing,SolveMethodEnum.NakedTriple)]//测试用例待优化
    public class AlignedQuadrupleExclusionHandler : SolverHandlerBase
     {
         public override List<CellInfo> Assignment(QSudoku qSudoku)
@@ -63,12 +63,15 @@ namespace Sudoku.Tools
 
                                     }
 
-                                  
-                                    NewMethod1(NewMethod(qSudoku, cell1, dtos), cells);
-                                    NewMethod1(NewMethod(qSudoku, cell2, dtos), cells);
-                                    NewMethod1(NewMethod(qSudoku, cell3, dtos), cells);
-                                    NewMethod1(NewMethod(qSudoku, cell4, dtos), cells);
-                        
+                                    List<CellInfo> all = G.MergeCells(cell1, cell2, cell3, cell4);
+                                    foreach (var item in all)
+                                    {
+                                        NewMethod1(NewMethod(qSudoku, item, dtos, all), cells);
+
+                                    }
+
+
+
                                 }
                             }
                         }
@@ -82,20 +85,12 @@ namespace Sudoku.Tools
             return cells;
         }
 
-        private static void NewMethod1(List<CellInfo> temp, List<CellInfo> cells)
-        {
-            foreach (var cellx in temp)
-            {
-                if (!cells.Exists(c => c.Value == cellx.Value && c.Index == cellx.Index))
-                {
-                    cells.Add(cellx);
-                }
-            }
-        }
+  
 
         public override string GetDesc()
         {
-            return "";
+
+            return "若四个候选数格X,Y,Z,W值任意组合，当X为x时，若无论W,Y,Z任意组合，该四个单元格的共同相关格存在单元格没有有效数字可以填，则X不为x。";
         }
 
         public override SolveMethodEnum methodType=>SolveMethodEnum.AlignedQuadrupleExclusion;

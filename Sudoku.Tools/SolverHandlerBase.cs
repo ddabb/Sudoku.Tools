@@ -667,7 +667,7 @@ namespace Sudoku.Tools
 
         }
 
-        public List<CellInfo> NewMethod(QSudoku qSudoku, CellInfo cell1, List<AlignedDTO> dtos)
+        public List<CellInfo> NewMethod(QSudoku qSudoku, CellInfo cell1, List<AlignedDTO> dtos,List<CellInfo> all)
         {
             List<CellInfo> cells = new List<CellInfo>();
             foreach (var value1 in cell1.RestList)
@@ -675,11 +675,32 @@ namespace Sudoku.Tools
                 if (dtos.Where(c => c.initCells.Exists(x => x.Value == value1 && x.Index == cell1.Index))
                     .All(c => c.result == false))
                 {
-                    cells.Add(new NegativeCell(cell1.Index, value1, qSudoku));
+                    var negativeCell = new NegativeCell(cell1.Index, value1, qSudoku);
+                    negativeCell.drawCells.Add(negativeCell);
+                    foreach (var item in all)
+                    {
+                        negativeCell.drawCells.AddRange(GetDrawPossibleCell(item.RestList,item));
+                    }
+
+                    negativeCell.drawCells = negativeCell.drawCells.Where(c =>
+                        !(c.CellType == CellType.Possible && c.Index == negativeCell.Index &&
+                          c.Value == negativeCell.Value)).ToList();
+                    cells.Add(negativeCell);
                 }
             }
 
             return cells;
+        }
+
+        public static void NewMethod1(List<CellInfo> temp, List<CellInfo> cells)
+        {
+            foreach (var cellx in temp)
+            {
+                if (!cells.Exists(c => c.Value == cellx.Value && c.Index == cellx.Index))
+                {
+                    cells.Add(cellx);
+                }
+            }
         }
 
 

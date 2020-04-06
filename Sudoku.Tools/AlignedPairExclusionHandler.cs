@@ -1,13 +1,12 @@
 ﻿using Sudoku.Core;
 using Sudoku.Core.Model;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 namespace Sudoku.Tools
 {
 
-    [EliminationExample(8, "R9C9", "783060054569700020124503700070005400405007002030800075007050010300906507650070200")]
+    [EliminationExample(8, "R2C6", "783060054569700020124503700070005400405007002030800075007050010300906507650070200",SolveMethodEnum.ClaimingInColumn)]
     public class AlignedPairExclusionHandler : SolverHandlerBase
     {
         public override List<CellInfo> Elimination(QSudoku qSudoku)
@@ -39,15 +38,17 @@ namespace Sudoku.Tools
                                     bool allHasValueToSet = qSudoku.AllUnSetCells.Where(c => checkIndex.Contains(c.Index)).ToList().All(c => c.RestList.Except(mergeList).Any());
 
 
-                                    dtos.Add(new AlignedDTO(allHasValueToSet, new InitCell(index1,value1),new InitCell(index2,value2)));
+                                    dtos.Add(new AlignedDTO(allHasValueToSet, new InitCell(index1, value1), new InitCell(index2, value2)));
                                 }
 
                             }
 
-                            NewMethod1(NewMethod(qSudoku, cell1, dtos), cells);
-                            NewMethod1(NewMethod(qSudoku, cell2, dtos), cells);
+                            List<CellInfo> all = G.MergeCells(cell1, cell2);
+                            foreach (var item in all)
+                            {
+                                NewMethod1(NewMethod(qSudoku, item, dtos, all), cells);
 
-
+                            }
                         }
                     }
 
@@ -56,17 +57,7 @@ namespace Sudoku.Tools
 
             return cells;
         }
-        private static void NewMethod1(List<CellInfo> temp, List<CellInfo> cells)
-        {
-            foreach (var cellx in temp)
-            {
-                if (!cells.Exists(c => c.Value == cellx.Value && c.Index == cellx.Index))
-                {
-                    cells.Add(cellx);
-                }
-            }
-        }
-
+    
 
         public override SolveMethodEnum methodType => SolveMethodEnum.AlignedPairExclusion;
 
@@ -81,7 +72,8 @@ namespace Sudoku.Tools
 
         public override string GetDesc()
         {
-            return "";
+
+            return "若两个候选数格X,Y值任意组合，当X为x时，若无论Y取什么值，该两个单元格的共同相关格存在单元格没有有效数字可以填，则X不为x。";
         }
     }
 
