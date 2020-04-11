@@ -29,35 +29,64 @@ namespace Sudoku.Tools
                 var relatedCell = checkCell.RelatedUnsetCells.Where(c => c.RestCount == 2 && c.RestList.Intersect(checkCell.RestList).Count() == 2).ToList();
                 var cell = (from a in relatedCell
                             join b in relatedCell on 1 equals 1
-                            join cellInfo in qSudoku.AllUnSetCells on 1 equals 1
+                       
                             let arest = a.RestList
                             let brest = b.RestList
-                            let cellRest = cellInfo.RestList
                             let comvalue = cellrest.Intersect(a.RestList).Intersect(b.RestList).First()
-                            let cellInforest = cellInfo.RestList
-                            let restvalue = cellRest.First(c => c != comvalue)
                             where a.Index < b.Index
-                                  && cellInfo.Index != a.Index
-                                  && cellInfo.Index != b.Index
                                   && arest.All(c => cellrest.Contains(c))
                                   && brest.All(c => cellrest.Contains(c))
-                                  && cellInfo.Index != checkCell.Index
                                   && a.RestString != b.RestString
-                                  && cellInforest.Contains(comvalue)
-                                  && qSudoku.GetPublicUnsetAreaIndexs(a, checkCell, b).Contains(cellInfo.Index)
-                            select new { cellInfo, comvalue, a, b, restvalue, checkCells }).ToList();
+                            select new {  comvalue, a, b, checkCells }).ToList();
 
                 foreach (var item in cell)
                 {
-                    var cellSingle = new NegativeCell(item.cellInfo.Index, item.comvalue, qSudoku);
-                    cells.Add(cellSingle);
-                }
+                    var a = item.a;
+                    var b = item.b;
+                    var comvalue = item.comvalue;
+                    var filterCell = qSudoku.GetPublicUnsetAreaIndexs(a, checkCell, b)
+                        .Where(c => qSudoku.GetRest(c).Contains(comvalue)).ToList();
+                    if (filterCell.Count>0)
+                    {
+                        var drawCells = new List<CellInfo>();
+                        drawCells.AddRange(GetDrawPossibleCell(a.RestList, a));
+                        drawCells.AddRange(GetDrawPossibleCell(b.RestList, b));
+                        drawCells.AddRange(GetDrawPossibleCell(checkCell.RestList, checkCell));
+                        drawCells.AddRange(GetDrawNegativeCell(comvalue, qSudoku.AllCell.Where(c=>filterCell.Contains(c.Index)).ToList()));
+                        
+                        foreach (var cellinfo in qSudoku.GetPublicUnsetAreaIndexs(a, checkCell, b))
+                        {
+                            var cellSingle = new NegativeCell(cellinfo, comvalue, qSudoku);
+                            var message1 = G.MergeLocationDesc(a, b, checkCell);
+                            cellSingle.SolveMessages=new List<SolveMessage>
+                            {
+                                message1 ,"包含了",checkCell.RestString,"三个候选数，"
+                                ,"且",checkCell.Location,"位于",G.MergeLocationDesc(a,b),"的共同相关格上\t\t\r\n",
+                                "所以",message1,"的共同相关格上不包含共同值"+comvalue+"\t\t\r\n"
+                            };
+                            cellSingle.drawCells.AddRange(drawCells);
+                            cells.Add(cellSingle);
+                        }
 
-                var indexs = cell.Select(c => c.cellInfo.Index).ToList();
-                if (indexs.Count > 1)
-                {
-                    var comvalue = cell.First().comvalue;
-                    cells.Add(new NegativeIndexsGroup(indexs, comvalue, qSudoku));
+                        if (filterCell.Count > 1)
+                        {
+                            var c = new NegativeIndexsGroup(filterCell, comvalue, qSudoku);
+                            var message1 = G.MergeLocationDesc(a, b, checkCell);
+                            c.SolveMessages = new List<SolveMessage>
+                            {
+                                message1 ,"包含了",checkCell.RestString,"三个候选数，"
+                                ,"且",checkCell.Location,"位于",G.MergeLocationDesc(a,b),"的共同相关格上\t\t\r\n",
+                                "所以",message1,"的共同相关格上不包含共同值"+comvalue+"\t\t\r\n"
+                            };
+                            c.drawCells.AddRange(drawCells);
+                            cells.Add(c);
+                        }
+
+                    }
+
+
+
+
                 }
 
             }

@@ -330,6 +330,7 @@ namespace Sudoku.Core.Model
             return intersectResult;
         }
 
+        
         public List<int> GetPublicUnsetAreaIndexs(params int[] cellindex)
         {
             var cellList = cellindex.ToList();
@@ -407,6 +408,11 @@ namespace Sudoku.Core.Model
         public List<int> GetRest(int Index)
         {
             return this.cellInfos.First(c => c.Index == Index).RestList;
+        }
+
+        public CellInfo GetCell(int Index)
+        {
+            return this.cellInfos.First(c => c.Index == Index);
         }
 
         /// <summary>

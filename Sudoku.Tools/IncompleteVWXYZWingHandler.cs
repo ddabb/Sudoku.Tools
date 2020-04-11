@@ -42,11 +42,11 @@ namespace Sudoku.Tools
                               select new { a, b, c,d, removeValue, indexs }).ToList();
                 foreach (var item in filter)
                 {
-
-                    var publicIndexs = item.a.RelatedUnsetIndexs
-                        .Intersect(item.b.RelatedUnsetIndexs)
-                        .Intersect(item.c.RelatedUnsetIndexs)
-                        .Intersect(item.d.RelatedUnsetIndexs).ToList();
+                    var a = item.a;
+                    var b = item.b;
+                    var c = item.c;
+                    var d = item.d;
+                    var publicIndexs = qSudoku.GetPublicUnsetAreaIndexs(a,b,c,d).ToList();
                     var intersectValue = item.removeValue;
              
                     foreach (var index in publicIndexs)

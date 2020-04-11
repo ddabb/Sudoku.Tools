@@ -564,6 +564,17 @@ namespace Sudoku.Tools
         }
 
 
+        /// <summary>
+        /// 将指定单元格范围的指定提示数的值画255, 192, 89
+        /// </summary>
+        /// <param name="cellList"></param>
+        /// <param name="values"></param>
+        /// <returns></returns>
+        public List<CellInfo> GetDrawNegativeCell(int values, CellInfo cellList)
+        {
+            return GetDrawNegativeCell(new List<int> { values }, cellList);
+        }
+
 
         /// <summary>
         /// 将指定单元格范围的指定提示数的值画255, 192, 89

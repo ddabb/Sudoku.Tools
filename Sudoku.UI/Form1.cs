@@ -32,8 +32,8 @@ namespace Sudoku.UI
             var c = new QSudoku();
 #if DEBUG
             //c = new QSudoku("080704021201800000003000000902000100805000692010020000050083217008070000107006438");
-            //c = new QSudoku("425000800638725941719684235003002694000430500540000103267148359354269718001000400");
-            c = getQSudoku(typeof(URType3HiddenPairHandller));
+            c = new QSudoku("893000076756080304142673859580020003429036705630000002214568937368297541975314008");
+            //c = getQSudoku(typeof(URType3HiddenPairHandller));
 
 
 #endif
@@ -42,6 +42,101 @@ namespace Sudoku.UI
             this.ctlSudoku.RefreshSudokuPanel();
 
         }
+
+
+        private void BtnGetAllHint_Click(object sender, EventArgs e)
+        {
+            this.MessageArea.Text = "线索开始加载,请稍候..." + DateTime.Now + "\t\t\r\n";
+            var sudoku = this.ctlSudoku.Sudoku;
+            var queryString = this.ctlSudoku.Sudoku.CurrentString;
+            if (new DanceLink().isValid(queryString))
+            {
+                this.HintTree.BeginUpdate();
+
+                this.HintTree.Nodes.Clear();
+                var listNode = new TreeNode("提示列表");
+                this.HintTree.Nodes.Add(listNode);
+                var builder = new ContainerBuilder();
+                Assembly[] assemblies = new Assembly[] { typeof(SolverHandlerBase).Assembly };
+                builder.RegisterAssemblyTypes(assemblies).AsImplementedInterfaces();
+                var initString = sudoku.CurrentString;
+                IContainer container = builder.Build();
+                var solveHandlers = container.Resolve<IEnumerable<ISudokuSolveHandler>>()
+                    .OrderBy(c => (int)c.methodType).ToList();
+                TreeNode rules = new TreeNode();
+                rules.Text = "数独规则";
+                TreeNode techniques = new TreeNode();
+                techniques.Text = "数独技巧";
+                for (int i = 0; i < solveHandlers.Count; i++)
+                {
+                    var handler = solveHandlers[i];
+                    if (handler is WXYZWingHandler)  //用于判断某一类性的出数是否正常。
+                    {
+                        try
+                        {
+                            var cellinfos = new List<CellInfo>();
+                            cellinfos = handler.Assignment(sudoku);
+                            if (cellinfos.Count != 0)
+                            {
+                                TreeNode subTreeNode = new TreeNode();
+                                subTreeNode.Text = G.GetEnumDescription(handler.methodType);
+                                subTreeNode.Tag = handler;
+
+                                foreach (var cell in cellinfos)
+                                {
+                                    TreeNode hintNode = new TreeNode();
+                                    hintNode.Tag = cell;
+                                    hintNode.Text = G.GetEnumDescription(handler.methodType) + ":" + cell.Desc;
+                                    subTreeNode.Nodes.Add(hintNode);
+                                }
+
+                                if (handler.methodClassify == MethodClassify.SudokuRules)
+                                {
+                                    rules.Nodes.Add(subTreeNode);
+                                }
+                                else
+                                {
+                                    techniques.Nodes.Add(subTreeNode);
+                                }
+                            }
+
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.WriteLine("ex error" + ex);
+                        }
+                    }
+
+
+                }
+
+                if (rules.Nodes.Count > 0)
+                {
+                    listNode.Nodes.Add(rules);
+
+                }
+
+                if (techniques.Nodes.Count > 0)
+                {
+                    listNode.Nodes.Add(techniques);
+                }
+
+                this.HintTree.ExpandAll();
+                this.HintTree.EndUpdate();
+
+            }
+            else
+            {
+                this.HintTree.BeginUpdate();
+                this.HintTree.Nodes.Clear();
+
+                this.HintTree.Nodes.Add(new TreeNode("该数独不存在解或者存在多个解。"));
+                this.HintTree.ExpandAll();
+                this.HintTree.EndUpdate();
+            }
+            this.MessageArea.Text = "线索加载完成..." + DateTime.Now;
+        }
+
 
         private static QSudoku getQSudoku(Type type)
         {
@@ -191,99 +286,6 @@ namespace Sudoku.UI
                 }
             }
 
-        }
-
-        private void BtnGetAllHint_Click(object sender, EventArgs e)
-        {
-            this.MessageArea.Text = "线索开始加载,请稍候..." + DateTime.Now + "\t\t\r\n";
-            var sudoku = this.ctlSudoku.Sudoku;
-            var queryString = this.ctlSudoku.Sudoku.CurrentString;
-            if (new DanceLink().isValid(queryString))
-            {
-                this.HintTree.BeginUpdate();
-
-                this.HintTree.Nodes.Clear();
-                var listNode = new TreeNode("提示列表");
-                this.HintTree.Nodes.Add(listNode);
-                var builder = new ContainerBuilder();
-                Assembly[] assemblies = new Assembly[] { typeof(SolverHandlerBase).Assembly };
-                builder.RegisterAssemblyTypes(assemblies).AsImplementedInterfaces();
-                var initString = sudoku.CurrentString;
-                IContainer container = builder.Build();
-                var solveHandlers = container.Resolve<IEnumerable<ISudokuSolveHandler>>()
-                    .OrderBy(c => (int)c.methodType).ToList();
-                TreeNode rules = new TreeNode();
-                rules.Text = "数独规则";
-                TreeNode techniques = new TreeNode();
-                techniques.Text = "数独技巧";
-                for (int i = 0; i < solveHandlers.Count; i++)
-                {
-                    var handler = solveHandlers[i];
-                    //if (handler is URType3HiddenPairHandller)  //用于判断某一类性的出数是否正常。
-                    {
-                        try
-                        {
-                            var cellinfos = new List<CellInfo>();
-                            cellinfos = handler.Assignment(sudoku);
-                            if (cellinfos.Count != 0)
-                            {
-                                TreeNode subTreeNode = new TreeNode();
-                                subTreeNode.Text = G.GetEnumDescription(handler.methodType);
-                                subTreeNode.Tag = handler;
-
-                                foreach (var cell in cellinfos)
-                                {
-                                    TreeNode hintNode = new TreeNode();
-                                    hintNode.Tag = cell;
-                                    hintNode.Text = G.GetEnumDescription(handler.methodType) + ":" + cell.Desc;
-                                    subTreeNode.Nodes.Add(hintNode);
-                                }
-
-                                if (handler.methodClassify == MethodClassify.SudokuRules)
-                                {
-                                    rules.Nodes.Add(subTreeNode);
-                                }
-                                else
-                                {
-                                    techniques.Nodes.Add(subTreeNode);
-                                }
-                            }
-
-                        }
-                        catch (Exception ex)
-                        {
-                            Debug.WriteLine("ex error"+ex);
-                        }
-                    }
-  
-
-                }
-
-                if (rules.Nodes.Count > 0)
-                {
-                    listNode.Nodes.Add(rules);
-
-                }
-
-                if (techniques.Nodes.Count > 0)
-                {
-                    listNode.Nodes.Add(techniques);
-                }
-
-                this.HintTree.ExpandAll();
-                this.HintTree.EndUpdate();
-
-            }
-            else
-            {
-                this.HintTree.BeginUpdate();
-                this.HintTree.Nodes.Clear();
-
-                this.HintTree.Nodes.Add(new TreeNode("该数独不存在解或者存在多个解。"));
-                this.HintTree.ExpandAll();
-                this.HintTree.EndUpdate();
-            }
-            this.MessageArea.Text = "线索加载完成..." + DateTime.Now;
         }
 
         /// <summary>

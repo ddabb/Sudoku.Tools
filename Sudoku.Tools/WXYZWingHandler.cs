@@ -50,7 +50,7 @@ namespace Sudoku.Tools
                                     && xrest.All(c => checkcellRest.Contains(c))
                                     && yrest.All(c => checkcellRest.Contains(c))
                                     && zrest.All(c => checkcellRest.Contains(c))
-                                    && new List<string> { x.RestString,y.RestString,z.RestString}.Distinct().Count()==3
+                                    && new List<string> { x.RestString, y.RestString, z.RestString }.Distinct().Count() == 3
                               select new { indexs, x, y, z, xrest, yrest, zrest }).Distinct().ToList();
                 foreach (var item in filter)
                 {
@@ -58,13 +58,29 @@ namespace Sudoku.Tools
                     if (xyzRest.Count == 1)
                     {
                         var intersectValue = xyzRest.First();
+                        var x = item.x;
+                        var y = item.y;
+                        var z = item.z;
                         var publicIndexs = qSudoku.GetPublicUnsetAreaIndexs(checkcell, item.x, item.y, item.z);
                         foreach (var index in publicIndexs)
                         {
                             var findCellRest = qSudoku.GetRest(index);
                             if (findCellRest.Contains(intersectValue))
                             {
-                                cells.Add(new NegativeCell(index, intersectValue, qSudoku));
+                                var negativeCell = new NegativeCell(index, intersectValue, qSudoku);
+                                negativeCell.drawCells.AddRange(GetDrawPossibleCell(x.RestList, x));
+                                negativeCell.drawCells.AddRange(GetDrawPossibleCell(y.RestList, y));
+                                negativeCell.drawCells.AddRange(GetDrawPossibleCell(z.RestList, z));
+                                negativeCell.drawCells.AddRange(GetDrawPossibleCell(checkcell.RestList, checkcell));
+                                var message1 = G.MergeLocationDesc(x, y, z, checkcell);
+                                negativeCell.SolveMessages = new List<SolveMessage>
+                                {
+                                    message1 ,"包含了",checkcell.RestString,"四个候选数，"
+                                    ,"且",checkcell.Location,"位于",G.MergeLocationDesc(x, y, z),"的共同相关格上\t\t\r\n",
+                                    "所以",message1,"的共同相关格上不包含共同值"+intersectValue+"\t\t\r\n"
+                                };
+                                negativeCell.drawCells.Add(negativeCell);
+                                cells.Add(negativeCell);
                             }
                         }
 
@@ -72,7 +88,25 @@ namespace Sudoku.Tools
                                     .Where(c => publicIndexs.Contains(c.Index) && c.RestList.Contains(intersectValue)).ToList();
                         if (list1.Count > 1)
                         {
-                            cells.Add(new NegativeIndexsGroup(list1.Select(c => c.Index).ToList(), intersectValue, qSudoku));
+                            var indexs = list1.Select(c => c.Index).ToList();
+                            var cellgroup = new NegativeIndexsGroup(indexs, intersectValue,
+                                qSudoku);
+                            cellgroup.drawCells.AddRange(GetDrawPossibleCell(x.RestList, x));
+                            cellgroup.drawCells.AddRange(GetDrawPossibleCell(y.RestList, y));
+                            cellgroup.drawCells.AddRange(GetDrawPossibleCell(z.RestList, z));
+                            cellgroup.drawCells.AddRange(GetDrawPossibleCell(checkcell.RestList, checkcell));
+                            foreach (var index in indexs)
+                            {
+                                cellgroup.drawCells.AddRange(GetDrawNegativeCell(intersectValue, qSudoku.GetCell(index)));
+                            }
+                            var message1 = G.MergeLocationDesc(x, y, z, checkcell);
+                            cellgroup.SolveMessages = new List<SolveMessage>
+                            {
+                                message1 ,"包含了",checkcell.RestString,"四个候选数，"
+                                ,"且",checkcell.Location,"位于",G.MergeLocationDesc(x, y, z),"的共同相关格上\t\t\r\n",
+                                "所以",message1,"的共同相关格上不包含共同值"+intersectValue+"\t\t\r\n"
+                            };
+                            cells.Add(cellgroup);
                         }
 
 
