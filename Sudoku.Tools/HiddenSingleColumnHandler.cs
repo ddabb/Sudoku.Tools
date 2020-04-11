@@ -55,7 +55,7 @@ namespace Sudoku.Tools
 
         public override string GetDesc()
         {
-            return "在列内只有一个位置可以填入候选数";
+            return "列内只有一个位置可以填入候选数x，则该位置的值为x。";
         }
     }
 }

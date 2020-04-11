@@ -40,7 +40,7 @@ namespace Sudoku.Tools
 
         public override string GetDesc()
         {
-            return "单元格只有一个数可以填";
+            return "单元格只有一个候选数可以填。";
         }
     }
 }

@@ -122,7 +122,7 @@ namespace Sudoku.Tools
 
         public override string GetDesc()
         {
-            return "若特定列C中只有特定宫B中，包含候选数a。则该宫的其余列不包含该候选数。";
+            return "若特定列C中只有特定宫B中，包含候选数a，则该宫的其余列不包含该候选数。";
         }
     }
 }
