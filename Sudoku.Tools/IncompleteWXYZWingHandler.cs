@@ -1,8 +1,7 @@
 ﻿using Sudoku.Core;
-using System;
+using Sudoku.Core.Model;
 using System.Collections.Generic;
 using System.Linq;
-using Sudoku.Core.Model;
 
 namespace Sudoku.Tools
 {
@@ -33,17 +32,35 @@ namespace Sudoku.Tools
                               select new { a, b, c, removeValue, indexs }).ToList();
                 foreach (var item in filter)
                 {
+                    var a = item.a;
+                    var b = item.b;
+                    var c = item.c;
+
 
                     var publicIndexs = item.a.RelatedUnsetIndexs
                         .Intersect(item.b.RelatedUnsetIndexs)
                         .Intersect(item.c.RelatedUnsetIndexs).ToList();
                     var intersectValue = item.removeValue;
-
+                    var message = G.MergeLocationDesc(checkCell, a, b, c);
+                    var message1 = G.MergeLocationDesc(a, b, c);
                     foreach (var index in publicIndexs)
                     {
                         if (qSudoku.GetRest(index).Contains(intersectValue))
                         {
                             var cell = new NegativeCell(index, intersectValue, qSudoku);
+                            cell.drawCells.AddRange(GetDrawPossibleCell(a.RestList, a));
+                            cell.drawCells.AddRange(GetDrawPossibleCell(b.RestList, b));
+                            cell.drawCells.AddRange(GetDrawPossibleCell(c.RestList, c));
+                            cell.drawCells.AddRange(GetDrawPossibleCell(checkCell.RestList, checkCell));
+                            cell.drawCells.Add(cell);
+                            var checkCellRest1 = checkCellRest.ToList();
+                            checkCellRest1.Add(intersectValue);
+                            checkCellRest1.Sort();
+                            cell.SolveMessages = new List<SolveMessage>
+                            {
+                                message,"的候选数满足WZ,XZ,YZ,WXY形式。","其中Z为"+intersectValue,"且"+checkCell.Location+"位于",message1,"共同相关格上,"
+                                ,message1,"的其余共同相关格不包含候选数"+intersectValue+"\t\t\r\n"
+                            };
                             cells.Add(cell);
                         }
 
@@ -52,7 +69,20 @@ namespace Sudoku.Tools
                         .Where(c => publicIndexs.Contains(c.Index) && c.RestList.Contains(intersectValue)).ToList();
                     if (list1.Count > 1)
                     {
-                        cells.Add(new NegativeIndexsGroup(list1.Select(c => c.Index).ToList(), intersectValue, qSudoku));
+                        var group = new NegativeIndexsGroup(list1.Select(cellInfo => cellInfo.Index).ToList(), intersectValue,
+                            qSudoku);
+                        group.drawCells.AddRange(GetDrawPossibleCell(a.RestList, a));
+                        group.drawCells.AddRange(GetDrawPossibleCell(b.RestList, b));
+                        group.drawCells.AddRange(GetDrawPossibleCell(c.RestList, c));
+
+                        group.drawCells.AddRange(GetDrawPossibleCell(checkCell.RestList, checkCell));
+                        group.drawCells.AddRange(GetDrawNegativeCell(intersectValue, list1));
+                        group.SolveMessages = new List<SolveMessage>
+                        {
+                            message,"的候选数满足VZ,WZ,XZ,YZ,VWXY形式。","其中Z为"+intersectValue+"\t\t\r\n","且"+checkCell.Location+"位于",message1,"共同相关格上,"
+                            ,message1,"的其余共同相关格不包含候选数"+intersectValue+"\t\t\r\n"
+                        };
+                        cells.Add(group);
                     }
                 }
 
