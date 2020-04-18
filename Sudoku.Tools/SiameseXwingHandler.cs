@@ -6,7 +6,7 @@ using Sudoku.Core.Model;
 
 namespace Sudoku.Tools
 {
-    [AssignmentExample("030150209000360050700490603001273800000519000003684700100000008320040000409001060")]
+    [AssignmentExample(8,"R4C6","016000482450260713203014659327400061060132074140076328534000096000045037000000845")]
     public class SiameseXwingHandler :SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.SiameseXwing;

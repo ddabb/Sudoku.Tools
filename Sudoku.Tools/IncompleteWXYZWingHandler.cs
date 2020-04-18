@@ -58,7 +58,7 @@ namespace Sudoku.Tools
                             checkCellRest1.Sort();
                             cell.SolveMessages = new List<SolveMessage>
                             {
-                                message,"的候选数满足WZ,XZ,YZ,WXY形式。","其中Z为"+intersectValue,"且"+checkCell.Location+"位于",message1,"共同相关格上,"
+                                message,"的候选数满足WZ,XZ,YZ,WXY形式。","其中Z为"+intersectValue+"\t\t\r\n","且"+checkCell.Location+"位于",message1,"共同相关格上；"
                                 ,message1,"的其余共同相关格不包含候选数"+intersectValue+"\t\t\r\n"
                             };
                             cells.Add(cell);
@@ -79,7 +79,7 @@ namespace Sudoku.Tools
                         group.drawCells.AddRange(GetDrawNegativeCell(intersectValue, list1));
                         group.SolveMessages = new List<SolveMessage>
                         {
-                            message,"的候选数满足VZ,WZ,XZ,YZ,VWXY形式。","其中Z为"+intersectValue+"\t\t\r\n","且"+checkCell.Location+"位于",message1,"共同相关格上,"
+                            message,"的候选数满足VZ,WZ,XZ,YZ,VWXY形式。","其中Z为"+intersectValue+"\t\t\r\n","且"+checkCell.Location+"位于",message1,"共同相关格上；"
                             ,message1,"的其余共同相关格不包含候选数"+intersectValue+"\t\t\r\n"
                         };
                         cells.Add(group);

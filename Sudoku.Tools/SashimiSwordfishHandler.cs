@@ -6,7 +6,7 @@ using Sudoku.Core.Model;
 
 namespace Sudoku.Tools
 {
-    [AssignmentExample("030150209000360050700490603001273800000519000003684700100000008320040000409001060")]
+    [EliminationExample(5,"R1C1","080671009000394010901285037016037090098106703030928164100802075070019080800703041")]
     public class SashimiSwordfishHandler :SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.SashimiSwordfish;

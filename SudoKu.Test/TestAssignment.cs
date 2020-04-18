@@ -42,8 +42,25 @@ namespace SudoKu.Test
             TestAssignmentExample(typeof(NakedTripleWithLockedCandidatesHandler));
         }
 
+        [TestMethod]
+        public void TestSiameseXwingHandler()
+        {
+            TestAssignmentExample(typeof(SiameseXwingHandler));
+        }
+
+        [TestMethod]
+        public void TestSiameseJeffyfishHandler()
+        {
+            TestAssignmentExample(typeof(SiameseJeffyfishHandler));
+        }
+
+
 
         
+
+
+
+
 
         private static void TestAssignmentExample(Type type)
         {

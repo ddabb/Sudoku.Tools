@@ -6,7 +6,7 @@ using Sudoku.Core.Model;
 
 namespace Sudoku.Tools
 {
-    [AssignmentExample("030150209000360050700490603001273800000519000003684700100000008320040000409001060")]
+    [AssignmentExample(2,"R1C9", "000160870010875003807300651050621730001700504730500100070000000080256917062007000")]
     public class SiameseJeffyfishHandler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.SiameseJeffyfish;

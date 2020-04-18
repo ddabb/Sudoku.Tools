@@ -100,7 +100,34 @@ namespace SudoKu.Test
         {
             TestEliminationExample(typeof(SplitWingHandler));
         }
- 
+
+
+        [TestMethod]
+        public void TestSashimiJellyfishHandler()
+        {
+            TestEliminationExample(typeof(SashimiJellyfishHandler));
+        }
+
+        [TestMethod]
+        public void TestSashimiSwordfishHandler()
+        {
+            TestEliminationExample(typeof(SashimiSwordfishHandler));
+        }
+
+        [TestMethod]
+        public void TestSashimiXwingHandler()
+        {
+            TestEliminationExample(typeof(SashimiXwingHandler));
+        }
+
+
+        [TestMethod]
+        public void TestSiameseSwordfishHandler()
+        {
+            TestEliminationExample(typeof(SiameseSwordfishHandler));
+        }
+        
+
         private static void TestEliminationExample(Type type)
         {
             object[] objs = type.GetCustomAttributes(typeof(EliminationExampleAttribute), true);
