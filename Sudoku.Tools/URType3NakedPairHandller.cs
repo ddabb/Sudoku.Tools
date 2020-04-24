@@ -148,7 +148,7 @@ namespace Sudoku.Tools
 
         public override string GetDesc()
         {
-            return "";
+            return "若a,b在一个矩形的四个顶点中都存在，且其中一行（列）满足a，b构成显性数对，另外一行（列）S2上存在另外一个单元格满足三个单元格只能填入a，b，c，d四个数，则S2S2所在行(列)剩余6个单元格不包含c，d两个候选数。\t\t\r\n";
         }
     }
 }

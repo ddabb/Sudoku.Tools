@@ -176,7 +176,7 @@ namespace Sudoku.Tools
 
         public override string GetDesc()
         {
-            return "";
+            return "若a,b在一个矩形的四个顶点中都存在，且其中存在一行(列)S1满足a,b构成显性数对，另外一行(列)S2上，a,b只在三个单元格中存在，则第三个单元格不包含a和b之外的其余候选数。\t\t\r\n";
         }
 
         public override SolveMethodEnum methodType => SolveMethodEnum.URType3HiddenPair;
