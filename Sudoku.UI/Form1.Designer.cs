@@ -56,6 +56,7 @@ namespace Sudoku.UI
             this.ShowWelComeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutSoftwareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AssignmentExampleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.EliminationExampleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MessageArea = new System.Windows.Forms.RichTextBox();
             this.HintTree = new System.Windows.Forms.TreeView();
             this.button1 = new System.Windows.Forms.Button();
@@ -64,9 +65,7 @@ namespace Sudoku.UI
             this.BtnGetAllHint = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.ctlSudoku = new Sudoku.UI.ctlSudoku();
             this.btnSavetoPicture = new System.Windows.Forms.Button();
-            this.EliminationExampleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -84,7 +83,8 @@ namespace Sudoku.UI
             this.helpMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1671, 25);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(7, 3, 0, 3);
+            this.menuStrip1.Size = new System.Drawing.Size(1924, 27);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -275,7 +275,7 @@ namespace Sudoku.UI
             // 
             this.ShowWelComeToolStripMenuItem.Name = "ShowWelComeToolStripMenuItem";
             this.ShowWelComeToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
-            this.ShowWelComeToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.ShowWelComeToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.ShowWelComeToolStripMenuItem.Text = "显示欢迎消息";
             this.ShowWelComeToolStripMenuItem.Click += new System.EventHandler(this.ShowWelComeToolStripMenuItem_Click);
             // 
@@ -283,7 +283,7 @@ namespace Sudoku.UI
             // 
             this.aboutSoftwareToolStripMenuItem.Name = "aboutSoftwareToolStripMenuItem";
             this.aboutSoftwareToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
-            this.aboutSoftwareToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.aboutSoftwareToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.aboutSoftwareToolStripMenuItem.Text = "关于软件";
             this.aboutSoftwareToolStripMenuItem.Click += new System.EventHandler(this.aboutSoftwareToolStripMenuItem_Click);
             // 
@@ -291,19 +291,28 @@ namespace Sudoku.UI
             // 
             this.AssignmentExampleToolStripMenuItem.Name = "AssignmentExampleToolStripMenuItem";
             this.AssignmentExampleToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.H)));
-            this.AssignmentExampleToolStripMenuItem.Click += new System.EventHandler(this.AssignmentExampleToolStripMenuItem_Click);
-            this.AssignmentExampleToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.AssignmentExampleToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.AssignmentExampleToolStripMenuItem.Text = "出数示例";
-
+            this.AssignmentExampleToolStripMenuItem.Click += new System.EventHandler(this.AssignmentExampleToolStripMenuItem_Click);
+            // 
+            // EliminationExampleToolStripMenuItem
+            // 
+            this.EliminationExampleToolStripMenuItem.Name = "EliminationExampleToolStripMenuItem";
+            this.EliminationExampleToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.H)));
+            this.EliminationExampleToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.EliminationExampleToolStripMenuItem.Text = "删数示例";
+            this.EliminationExampleToolStripMenuItem.Click += new System.EventHandler(this.EliminationExampleToolStripMenuItem_Click);
             // 
             // MessageArea
             // 
             this.MessageArea.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MessageArea.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.MessageArea.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.MessageArea.Location = new System.Drawing.Point(0, 0);
+            this.MessageArea.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MessageArea.Name = "MessageArea";
             this.MessageArea.ReadOnly = true;
-            this.MessageArea.Size = new System.Drawing.Size(838, 231);
+            this.MessageArea.Size = new System.Drawing.Size(978, 327);
             this.MessageArea.TabIndex = 5;
             this.MessageArea.Text = "";
             this.MessageArea.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.MessageArea_LinkClicked);
@@ -312,20 +321,22 @@ namespace Sudoku.UI
             // HintTree
             // 
             this.HintTree.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.HintTree.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.HintTree.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.HintTree.Location = new System.Drawing.Point(0, 0);
+            this.HintTree.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.HintTree.Name = "HintTree";
-            this.HintTree.Size = new System.Drawing.Size(838, 500);
+            this.HintTree.Size = new System.Drawing.Size(978, 708);
             this.HintTree.TabIndex = 6;
             this.HintTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.HintTree_AfterSelect);
             this.HintTree.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.HintTree_NodeMouseClick);
             // 
             // button1
             // 
-            this.button1.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button1.Location = new System.Drawing.Point(822, 53);
+            this.button1.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.button1.Location = new System.Drawing.Point(959, 75);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(125, 30);
+            this.button1.Size = new System.Drawing.Size(146, 42);
             this.button1.TabIndex = 7;
             this.button1.Text = "校验有效性";
             this.button1.UseVisualStyleBackColor = true;
@@ -333,19 +344,21 @@ namespace Sudoku.UI
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(1084, 53);
+            this.button3.Location = new System.Drawing.Point(1265, 75);
+            this.button3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(125, 30);
+            this.button3.Size = new System.Drawing.Size(146, 42);
             this.button3.TabIndex = 9;
             this.button3.Text = "获取下一个线索";
             this.button3.UseVisualStyleBackColor = true;
             // 
             // btnApplyHint
             // 
-            this.btnApplyHint.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnApplyHint.Location = new System.Drawing.Point(1365, 53);
+            this.btnApplyHint.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnApplyHint.Location = new System.Drawing.Point(1592, 75);
+            this.btnApplyHint.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnApplyHint.Name = "btnApplyHint";
-            this.btnApplyHint.Size = new System.Drawing.Size(134, 30);
+            this.btnApplyHint.Size = new System.Drawing.Size(156, 42);
             this.btnApplyHint.TabIndex = 10;
             this.btnApplyHint.Text = "应用线索";
             this.btnApplyHint.UseVisualStyleBackColor = true;
@@ -353,10 +366,11 @@ namespace Sudoku.UI
             // 
             // BtnGetAllHint
             // 
-            this.BtnGetAllHint.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.BtnGetAllHint.Location = new System.Drawing.Point(1215, 53);
+            this.BtnGetAllHint.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.BtnGetAllHint.Location = new System.Drawing.Point(1418, 75);
+            this.BtnGetAllHint.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.BtnGetAllHint.Name = "BtnGetAllHint";
-            this.BtnGetAllHint.Size = new System.Drawing.Size(144, 30);
+            this.BtnGetAllHint.Size = new System.Drawing.Size(168, 42);
             this.BtnGetAllHint.TabIndex = 11;
             this.BtnGetAllHint.Text = "获取所有线索";
             this.BtnGetAllHint.UseVisualStyleBackColor = true;
@@ -364,16 +378,18 @@ namespace Sudoku.UI
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(1505, 53);
+            this.button6.Location = new System.Drawing.Point(1756, 75);
+            this.button6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(137, 30);
+            this.button6.Size = new System.Drawing.Size(160, 42);
             this.button6.TabIndex = 12;
             this.button6.Text = "撤销动作";
             this.button6.UseVisualStyleBackColor = true;
             // 
             // splitContainer1
             // 
-            this.splitContainer1.Location = new System.Drawing.Point(822, 98);
+            this.splitContainer1.Location = new System.Drawing.Point(959, 139);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -384,42 +400,27 @@ namespace Sudoku.UI
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.MessageArea);
-            this.splitContainer1.Size = new System.Drawing.Size(838, 735);
-            this.splitContainer1.SplitterDistance = 500;
+            this.splitContainer1.Size = new System.Drawing.Size(978, 1041);
+            this.splitContainer1.SplitterDistance = 708;
+            this.splitContainer1.SplitterWidth = 6;
             this.splitContainer1.TabIndex = 13;
-            // 
-            // ctlSudoku
-            // 
-            this.ctlSudoku.BackColor = System.Drawing.Color.White;
-            this.ctlSudoku.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.ctlSudoku.Location = new System.Drawing.Point(12, 53);
-            this.ctlSudoku.Name = "ctlSudoku";
-            this.ctlSudoku.Size = new System.Drawing.Size(780, 780);
-            this.ctlSudoku.TabIndex = 0;
             // 
             // btnSavetoPicture
             // 
-            this.btnSavetoPicture.Location = new System.Drawing.Point(953, 53);
+            this.btnSavetoPicture.Location = new System.Drawing.Point(1112, 75);
+            this.btnSavetoPicture.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnSavetoPicture.Name = "btnSavetoPicture";
-            this.btnSavetoPicture.Size = new System.Drawing.Size(125, 30);
+            this.btnSavetoPicture.Size = new System.Drawing.Size(146, 42);
             this.btnSavetoPicture.TabIndex = 14;
             this.btnSavetoPicture.Text = "保存数独（图片）";
             this.btnSavetoPicture.UseVisualStyleBackColor = true;
             this.btnSavetoPicture.Click += new System.EventHandler(this.btnSavetoPicture_Click);
             // 
-            // EliminationExampleToolStripMenuItem
-            // 
-            this.EliminationExampleToolStripMenuItem.Name = "EliminationExampleToolStripMenuItem";
-            this.EliminationExampleToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
-            this.EliminationExampleToolStripMenuItem.Text = "删数示例";
-            this.EliminationExampleToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift |System.Windows.Forms.Keys.H)));
-            this.EliminationExampleToolStripMenuItem.Click += new System.EventHandler(this.EliminationExampleToolStripMenuItem_Click);
-            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1671, 839);
+            this.ClientSize = new System.Drawing.Size(1924, 1061);
             this.Controls.Add(this.btnSavetoPicture);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.button6);
@@ -427,11 +428,10 @@ namespace Sudoku.UI
             this.Controls.Add(this.btnApplyHint);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.ctlSudoku);
             this.Controls.Add(this.menuStrip1);
-            this.Icon = global::Sudoku.UI.Resource.sudoku;
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form1";
             this.Text = "超级数独";
             this.Load += new System.EventHandler(this.Form1_Load);
