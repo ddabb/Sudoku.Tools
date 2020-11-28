@@ -1,5 +1,4 @@
 using Autofac;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Sudoku.Core;
 using Sudoku.Tools;
 using System;
@@ -8,25 +7,26 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using Sudoku.Core.Model;
+using Xunit;
 
 namespace SudoKu.Test
 {
-    [TestClass]
+    
     public class TestAssignment
     {
-        [TestMethod]
+        [Fact]
         public void TestHiddenSingleColumnHandler()
         {
             TestAssignmentExample(typeof(HiddenSingleColumnHandler));
         }
 
-        [TestMethod]
+        [Fact]
         public void TestXWingHandler()
         {
             TestAssignmentExample(typeof(XWingHandler));
         }
 
-        [TestMethod]
+        [Fact]
         public void TestCascadingLockedCandidatesHandler()
         {
             TestAssignmentExample(typeof(CascadingLockedCandidatesHandler));
@@ -36,19 +36,19 @@ namespace SudoKu.Test
 
 
         
-        [TestMethod]
+        [Fact]
         public void TestNakedSubsetWithLockedCandidatesHandler()
         {
             TestAssignmentExample(typeof(NakedTripleWithLockedCandidatesHandler));
         }
 
-        [TestMethod]
+        [Fact]
         public void TestSiameseXwingHandler()
         {
             TestAssignmentExample(typeof(SiameseXwingHandler));
         }
 
-        [TestMethod]
+        [Fact]
         public void TestSiameseJeffyfishHandler()
         {
             TestAssignmentExample(typeof(SiameseJeffyfishHandler));
@@ -91,20 +91,20 @@ namespace SudoKu.Test
             var handler = ((ISudokuSolveHandler) Activator.CreateInstance(type, true));
             var cellinfo = handler.Assignment(
                     qsudoku);
-            Assert.AreEqual(true, cellinfo.Exists(c => c.RrCc == positionString && c.Value == value));
+            Assert.True( cellinfo.Exists(c => c.RrCc == positionString && c.Value == value));
             Debug.WriteLine("cellinfo " + cellinfo.JoinString());
             qsudoku = qsudoku.ApplyCells(cellinfo);
-            Assert.AreEqual(true, new DanceLink().isValid(qsudoku.QueryString));
+            Assert.True( new DanceLink().isValid(qsudoku.QueryString));
         }
 
-        [TestMethod]
+        [Fact]
         public void TestClaimingInRowHandler()
         {
             TestAssignmentExample(typeof(ClaimingInRowHandler));
         }
 
 
-        [TestMethod]
+        [Fact]
         public void TestURType1Handler()
         {
             TestAssignmentExample(typeof(URType1Handler));
@@ -112,7 +112,7 @@ namespace SudoKu.Test
         
 
 
-        [TestMethod]
+        [Fact]
         public void TestMWingHandler()
         {
             TestAssignmentExample(typeof(MWingHandler));
@@ -120,62 +120,62 @@ namespace SudoKu.Test
 
 
 
-        [TestMethod]
+        [Fact]
         public void TestURType3NakedPairHandller()
         {
             TestAssignmentExample(typeof(URType3NakedPairHandller));
         }
 
-        [TestMethod]
+        [Fact]
         public void TestURType3NakedTripleHandler()
         {
             TestAssignmentExample(typeof(URType3NakedTripleHandler));
         }
 
-        [TestMethod]
+        [Fact]
         public void TestURType3NakedQuadrupleHandler()
         {
             TestAssignmentExample(typeof(URType3NakedQuadrupleHandler));
         }
 
 
-        [TestMethod]
+        [Fact]
         public void TestURType3HiddenPairHandller()
         {
             TestAssignmentExample(typeof(URType3HiddenPairHandller));
         }
 
-        [TestMethod]
+        [Fact]
         public void TestURType3HiddenTripleHandller()
         {
             TestAssignmentExample(typeof(URType3HiddenTripleHandller));
         }
 
-        [TestMethod]
+        [Fact]
         public void TestURType3HiddenQuadrupleHandler()
         {
             TestAssignmentExample(typeof(URType3HiddenQuadrupleHandler));
         }
-        [TestMethod]
+        [Fact]
         public void TestLocalWingHandler()
         {
             TestAssignmentExample(typeof(LocalWingHandler));
         }
 
-        [TestMethod]
+        [Fact]
         public void TestULSize6Type2Handler()
         {
             TestAssignmentExample(typeof(ULSize6Type2Handler));
         }
 
-        [TestMethod]
+        [Fact]
         public void TestHybridWingHandler()
         {
             TestAssignmentExample(typeof(HybridWingHandler));
         }
 
         
-        [TestMethod]
+        [Fact]
         public void TestULSize6Type2Handler1()
         {
             TestAssignmentExample(typeof(ULSize6Type2Handler), "016705920492160750057290106273600589145879000689352417500900001900500800720406395", 3, "R3C8");
@@ -183,37 +183,37 @@ namespace SudoKu.Test
 
 
 
-        [TestMethod]
+        [Fact]
         public void TestXRSize6Type1Handler()
         {
             TestAssignmentExample(typeof(XRSize6Type1Handler));
         }
 
-        [TestMethod]
+        [Fact]
         public void TestXRSize6Type2Handler()
         {
             TestAssignmentExample(typeof(XRSize6Type2Handler));
         }
 
-        [TestMethod]
+        [Fact]
         public void TestXRSize6Type3Handler()
         {
             TestAssignmentExample(typeof(XRSize6Type3Handler));
         }
 
-        [TestMethod]
+        [Fact]
         public void TestBugType1Handler()
         {
             TestAssignmentExample(typeof(BugType1Handler));
         }
 
-        [TestMethod]
+        [Fact]
         public void TestXRSize6Type4Handler()
         {
             TestAssignmentExample(typeof(XRSize6Type4Handler));
         }
 
-        [TestMethod]
+        [Fact]
         public void TestXRSize8Handler()
         {
             TestAssignmentExample(typeof(XRSize8Handler));
@@ -222,66 +222,66 @@ namespace SudoKu.Test
 
 
 
-        [TestMethod]
+        [Fact]
         public void TestXRSize12Handler()
         {
             TestAssignmentExample(typeof(XRSize12Handler));
         }
 
 
-        [TestMethod]
+        [Fact]
         public void TestXRSize14Handler()
         {
             TestAssignmentExample(typeof(XRSize14Handler));
         }
 
 
-        [TestMethod]
+        [Fact]
         public void TestULSize6Type2Handler4()
         {
             TestAssignmentExample(typeof(ULSize6Type2Handler), "390002804120864039048739012273000008080327145451698327032080006814976253760203081", 5, "R9C5");
         }
 
 
-        [TestMethod]
+        [Fact]
         public void TestImcompletedSwordfishHandler1()
         {
             TestAssignmentExample(typeof(ImcompletedSwordfishHandler), "900605008070240030001700400200854007489127563715963004007400300090370640300506009", 9, "R2C7");
         }
 
 
-        [TestMethod]
+        [Fact]
         public void TestURType2Handler()
         {
             TestAssignmentExample(typeof(URType2Handler));
         }
 
 
-        [TestMethod]
+        [Fact]
         public void TestURType4Handler()
         {
             TestAssignmentExample(typeof(URType4Handler));
         }
 
-        [TestMethod]
+        [Fact]
         public void TestLockedURType1Handler()
         {
             TestAssignmentExample(typeof(LockedURType1Handler));
         }
 
-        [TestMethod]
+        [Fact]
         public void TestULSize8Handler()
         {
             TestAssignmentExample(typeof(ULSize8Handler));
         }
 
-        [TestMethod]
+        [Fact]
         public void TestULSize6Type1Handler()
         {
             TestAssignmentExample(typeof(ULSize6Type1Handler));
         }
 
-        [TestMethod]
+        [Fact]
         public void TestULSize6Type3Handler()
         {
             TestAssignmentExample(typeof(ULSize6Type3Handler));
@@ -289,46 +289,46 @@ namespace SudoKu.Test
 
 
 
-        [TestMethod]
+        [Fact]
         public void TestULSize6Type4Handler()
         {
             TestAssignmentExample(typeof(ULSize6Type4Handler));
         }
 
-        [TestMethod]
+        [Fact]
         public void TestULSize8Handler1()
         {
             TestAssignmentExample(typeof(ULSize8Handler), "361095240045002901092010635209008510486159723150200890914526300620081459508940162", 4, "R3C4");
         }
 
 
-        [TestMethod]
+        [Fact]
         public void TestULSize8Handler3()
         {
             TestAssignmentExample(typeof(ULSize8Handler), "361240095045901002092635010209510008486723159150890200914300526620459081508162940", 4, "R3C7");
         }
 
 
-        [TestMethod]
+        [Fact]
         public void TestULSize10Handler()
         {
 
             TestAssignmentExample(typeof(ULSize10Handler));
         }
 
-        [TestMethod]
+        [Fact]
         public void TestULSize10Handler1()
         {
             TestAssignmentExample(typeof(ULSize10Handler), "003400879008093002902068534750284093294316785830975240009800007325047908087009000", 5, "R9C4");
         }
 
-        [TestMethod]
+        [Fact]
         public void TestIncompleteWXYZWingHandler()
         {
             TestAssignmentExample(typeof(IncompleteWXYZWingHandler));
         }
 
-        [TestMethod]
+        [Fact]
         public void TestURType4Handler1()
         {
             TestAssignmentExample(typeof(URType4Handler), "318652007497381005600070138849010000531026009700890051900108500100200006203067014", 2, "R4C9");
@@ -336,7 +336,7 @@ namespace SudoKu.Test
 
 
 
-        [TestMethod]
+        [Fact]
         public void TestXYWingHandler1()
         {
             TestAssignmentExample(typeof(XYWingHandler), "056200970749536812028079000000003129000920040290607008815792060902304080000005290", 1, "R5C6");
@@ -346,20 +346,20 @@ namespace SudoKu.Test
 
 
 
-        [TestMethod]
+        [Fact]
         public void TestClaimingInColumnHandler()
         {
             TestAssignmentExample(typeof(ClaimingInColumnHandler));
         }
 
-        [TestMethod]
+        [Fact]
         public void TestXYWingHandler2()
         {
 
             TestAssignmentExample(typeof(XYWingHandler));
         }
 
-        [TestMethod]
+        [Fact]
         public void TestForcingChainHandler3()
         {
             TestAssignmentExample(typeof(ForcingChainOnHandler), "104900853385140000070358000653714298741800536800635417007580300508403000430201085", 7, "R1C6");
@@ -369,27 +369,27 @@ namespace SudoKu.Test
         /// <summary>
         /// 
         /// </summary>
-        [TestMethod]
+        [Fact]
         public void TestForcingChainHandler7()
         {
             TestAssignmentExample(typeof(ForcingChainOnHandler), "000400900324006000060500040000000600040160800600085090718003000000000080400070023", 4, "R6C9");
         }
 
-        [TestMethod]
+        [Fact]
         public void TestForcingChainHandler8()
         {
             TestAssignmentExample(typeof(ForcingChainOnHandler), "318652007497381005600070138849010000531026009700890051900108500100200006203067014", 4, "R3C4");
         }
 
 
-        [TestMethod]
+        [Fact]
         public void TestForcingChainHandler5()
         {
             TestAssignmentExample(typeof(ForcingChainOnHandler), "007000000800439000490071000000000906002000040008103000000002308005300000000710052", 9, "R9C3");
         }
 
 
-        [TestMethod]
+        [Fact]
         public void TestForcingChainHandler1()
         {
             TestAssignmentExample(typeof(ForcingChainOnHandler));
@@ -397,47 +397,47 @@ namespace SudoKu.Test
         }
 
 
-        [TestMethod]
+        [Fact]
         public void TestForcingChainHandler2()
         {
             TestAssignmentExample(typeof(ForcingChainOnHandler), "060300570052041006000605100580004267429006315607002498006207000005410620290063700", 3, "R2C8");
         }
 
-        [TestMethod]
+        [Fact]
         public void TestForcingChainHandler4()
         {
             TestAssignmentExample(typeof(ForcingChainOnHandler), "030050400000004000200006090007600009080000500300800041073060120020003900050001374", 6, "R8C9");
         }
 
-        [TestMethod]
+        [Fact]
         public void TestForcingChainHandler6()
         {
             TestAssignmentExample(typeof(ForcingChainOnHandler), "000200581072001463000060279020006300743928156600300000237000014410702000008004000", 3, "R3C6");
         }
 
-        [TestMethod]
+        [Fact]
         public void TestHiddenSingleBlockHandler()
         {
             TestAssignmentExample(typeof(HiddenSingleBlockHandler));
         }
-        [TestMethod]
+        [Fact]
         public void TestImcompletedJellyfishHandler()
         {
             TestAssignmentExample(typeof(ImcompletedJellyfishHandler));
         }
 
-        [TestMethod]
+        [Fact]
         public void TestDymanicForcingChainHandler()
         {
             TestAssignmentExample(typeof(DymanicForcingChainHandler));
         }
-        [TestMethod]
+        [Fact]
         public void TestDiscontinuousNiceLoopHandler()
         {
             TestAssignmentExample(typeof(DiscontinuousNiceLoopHandler));
         }
 
-        [TestMethod]
+        [Fact]
         public void TestCannibalisticAICHandler()
         {
             TestAssignmentExample(typeof(CannibalisticAICHandler));
@@ -446,35 +446,35 @@ namespace SudoKu.Test
 
 
 
-        [TestMethod]
+        [Fact]
         public void TestImcompletedJellyfishHandler1()
         {
             TestAssignmentExample(typeof(ImcompletedJellyfishHandler), "204103580000020341103485600732954168005010900619832400001508200300240000026300004", 9, "R9C5");
         }
 
 
-        [TestMethod]
+        [Fact]
         public void TestXYChainHandler()
         {
             TestAssignmentExample(typeof(XYChainHandler));
         }
 
 
-        [TestMethod]
+        [Fact]
         public void TestHiddenQuadrupleHandler()
         {
             TestAssignmentExample(typeof(HiddenQuadrupleHandler));
         }
 
 
-        [TestMethod]
+        [Fact]
         public void TestXYZWingHandler()
         {
             TestAssignmentExample(typeof(XYZWingHandler));
         }
 
 
-        [TestMethod]
+        [Fact]
         public void TestRemotePairHandler()
         {
             TestAssignmentExample(typeof(RemotePairHandler));
@@ -483,93 +483,93 @@ namespace SudoKu.Test
 
 
 
-        [TestMethod]
+        [Fact]
         public void TestImcompletedSwordfishHandler()
         {
             TestAssignmentExample(typeof(ImcompletedSwordfishHandler));
         }
 
-        [TestMethod]
+        [Fact]
         public void TestNakedTripleHandler()
         {
             TestAssignmentExample(typeof(NakedTripleHandler));
         }
 
-        [TestMethod]
+        [Fact]
         public void TestEmptyRectangleHandler()
         {
             TestAssignmentExample(typeof(EmptyRectangleHandler));
         }
 
 
-        [TestMethod]
+        [Fact]
         public void TestNakedTripleHandler2()
         {
             TestAssignmentExample(typeof(NakedTripleHandler), "006300150045026000000000060090500700052670300700001005500000041004007000080090000", 6, "R7C5");
         }
 
-        [TestMethod]
+        [Fact]
         public void TestNakedTripleHandler3()
         {
             TestAssignmentExample(typeof(NakedTripleHandler), "500000300081300000000076900000060813013400009000000000200090004690000250000007000", 8, "R3C8");
         }
 
 
-        [TestMethod]
+        [Fact]
         public void TestNakedQuadrupleHandler()
         {
             TestAssignmentExample(typeof(NakedQuadrupleHandler));
         }
 
 
-        [TestMethod]
+        [Fact]
         public void TestDirectPointingHandler()
         {
             TestAssignmentExample(typeof(DirectPointingHandler));
         }
 
 
-        [TestMethod]
+        [Fact]
         public void TestHiddenSingleRowHandler()
         {
             TestAssignmentExample(typeof(HiddenSingleRowHandler));
         }
-        [TestMethod]
+        [Fact]
         public void TestHiddenTripleHandler()
         {
             TestAssignmentExample(typeof(HiddenTripleHandler));
         }
 
-        [TestMethod]
+        [Fact]
         public void TestHiddenPairHandler()
         {
             TestAssignmentExample(typeof(HiddenPairHandler));
         }
 
-        [TestMethod]
+        [Fact]
         public void TestNakedPairHandller()
         {
             TestAssignmentExample(typeof(NakedPairHandller));
         }
 
-        [TestMethod]
+        [Fact]
         public void TestWWingHandler()
         {
             TestAssignmentExample(typeof(WWingHandler));
         }
 
-        [TestMethod]
+        [Fact]
         public void TestSkyscraperHandler()
         {
             TestAssignmentExample(typeof(SkyscraperHandler));
         }
 
-        [TestMethod]
+        [Fact]
         public void TestTwoStringsKiteHandler()
         {
             TestAssignmentExample(typeof(TwoStringsKiteHandler));
         }
-        [TestMethod]
+        [Fact]
         public void TestTwoStringsKiteHandler1()
         {
             TestAssignmentExample(typeof(TwoStringsKiteHandler), "256009170010000003400001500645007281000182465821564739000210000102003807500008012", 4, "R7C9");
@@ -577,7 +577,7 @@ namespace SudoKu.Test
 
 
 
-        [TestMethod]
+        [Fact]
         public void TestWXYZWingHandler()
         {
             TestAssignmentExample(typeof(WXYZWingHandler));
@@ -585,7 +585,7 @@ namespace SudoKu.Test
 
 
 
-        [TestMethod]
+        [Fact]
         public void TestTurbotFishNormalHandler1()
         {
             TestAssignmentExample(typeof(TurbotFishNormalHandler));

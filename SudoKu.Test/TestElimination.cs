@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿
 using Sudoku.Core;
 using Sudoku.Tools;
 using System;
@@ -7,26 +7,27 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using Sudoku.Core.Model;
+using Xunit;
 
 namespace SudoKu.Test
 {
-    [TestClass]
+    
     public  class TestElimination
     {
-        [TestMethod]
+        [Fact]
         public void TestForcingChainOffHandler()
         {
             TestEliminationExample(typeof(ForcingChainOffHandler));
         }
 
 
-        [TestMethod]
+        [Fact]
         public void TestXRSize10Handler()
         {
             TestEliminationExample(typeof(XRSize10Handler));
         }
 
-        [TestMethod]
+        [Fact]
         public void TestLockedURType2Handler()
         {
             TestEliminationExample(typeof(LockedURType2Handler));
@@ -34,94 +35,94 @@ namespace SudoKu.Test
 
         
 
-        [TestMethod]
+        [Fact]
         public void TestAlignedTripleExclusionHandler1()
         {
             TestEliminationExample(typeof(AlignedTripleExclusionHandler), "205000000080000007060010902007039500010000078002000009070390000509060000000001300", 4, "R3C1");
         }
 
 
-        [TestMethod]
+        [Fact]
         public void TestXRSize6Type3Handler()
         {
             TestEliminationExample(typeof(XRSize6Type3Handler));
         }
-        [TestMethod]
+        [Fact]
         public void TestIncompleteVWXYZWingHandler()
         {
             TestEliminationExample(typeof(IncompleteVWXYZWingHandler));
         }
-        [TestMethod]
+        [Fact]
         public void TestVWXYZWingHandler()
         {
             TestEliminationExample(typeof(VWXYZWingHandler));
         }
 
         
-        [TestMethod]
+        [Fact]
         public void TestXWingHandler()
         {
             TestEliminationExample(typeof(XWingHandler));
         }
 
-        [TestMethod]
+        [Fact]
         public void TestAlignedPairExclusionHandler()
         {
             TestEliminationExample(typeof(AlignedPairExclusionHandler));
         }
 
-        [TestMethod]
+        [Fact]
         public void TestAlignedTripleExclusionHandler()
         {
             TestEliminationExample(typeof(AlignedTripleExclusionHandler));
         }
 
-        [TestMethod]
+        [Fact]
         public void TestAlignedQuadrupleExclusionHandler()
         {
             TestEliminationExample(typeof(AlignedQuadrupleExclusionHandler));
         }
 
         
-        [TestMethod]
+        [Fact]
         public void TestFinnedXwingHandler()
         {
             TestEliminationExample(typeof(FinnedXwingHandler));
         }
 
-        [TestMethod]
+        [Fact]
         public void TestImcompletedURType1Handler()
         {
             TestEliminationExample(typeof(ImcompletedURType1Handler));
         }
 
-        [TestMethod]
+        [Fact]
         public void TestSplitWingHandler()
         {
             TestEliminationExample(typeof(SplitWingHandler));
         }
 
 
-        [TestMethod]
+        [Fact]
         public void TestSashimiJellyfishHandler()
         {
             TestEliminationExample(typeof(SashimiJellyfishHandler));
         }
 
-        [TestMethod]
+        [Fact]
         public void TestSashimiSwordfishHandler()
         {
             TestEliminationExample(typeof(SashimiSwordfishHandler));
         }
 
-        [TestMethod]
+        [Fact]
         public void TestSashimiXwingHandler()
         {
             TestEliminationExample(typeof(SashimiXwingHandler));
         }
 
 
-        [TestMethod]
+        [Fact]
         public void TestSiameseSwordfishHandler()
         {
             TestEliminationExample(typeof(SiameseSwordfishHandler));
@@ -155,10 +156,10 @@ namespace SudoKu.Test
             var cellinfo =
                 ((ISudokuSolveHandler)Activator.CreateInstance(type, true)).Elimination(
                     qsudoku);
-            Assert.AreEqual(true, cellinfo.Exists(c => c.RrCc == positionString && c.Value == value));
+            Assert.True(cellinfo.Exists(c => c.RrCc == positionString && c.Value == value));
             Debug.WriteLine("cellinfo " + cellinfo.JoinString());
             qsudoku = qsudoku.ApplyCells(cellinfo);
-            Assert.AreEqual(true, new DanceLink().isValid(qsudoku.QueryString));
+            Assert.True((new DanceLink().isValid(qsudoku.QueryString)));
         }
 
         
