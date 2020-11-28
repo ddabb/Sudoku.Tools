@@ -269,7 +269,7 @@ namespace Sudoku.UI
 
             if (data?.GetData(DataFormats.UnicodeText) is string queryString)
             {
-                queryString = queryString.Replace("*", "0").Replace(".", "0").Replace("\t\t\r\n", "").Trim();
+                queryString = queryString.Replace("*", "0").Replace(".", "0").Replace("\t\t\r\n", "").Replace("\r\n", "").Trim();
                 if (queryString.Length == 81)
                 {
                     if (this.ctlSudoku.Sudoku is QSudoku formSudoku)
@@ -339,7 +339,22 @@ namespace Sudoku.UI
                 var safeFileName= openDialog.SafeFileName;
                 if (fileName.EndsWith(".txt"))
                 {
+                    var queryString = File.ReadAllText(fileName);
+                    queryString = queryString.Replace("*", "0").Replace(".", "0").Replace("\t\t\r\n", "").Replace("\r\n", "").Trim();
+                    if (queryString.Length == 81)
+                    {
+                        if (this.ctlSudoku.Sudoku is QSudoku formSudoku)
+                        {
+                            if (formSudoku.CurrentString != queryString)
+                            {
+                                QSudoku example = new QSudoku(queryString);
+                                this.ctlSudoku.Sudoku = example;
+                                this.ctlSudoku.RefreshSudokuPanel();
+                                InitUI();
+                            }
+                        }
 
+                    }
                 }
                 else
                 {
