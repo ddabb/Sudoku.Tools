@@ -10,99 +10,38 @@ namespace SudoKu.Test
 
     public  class TestElimination
     {
-        [Fact]
-        public void TestForcingChainOffHandler()
+        [Theory]
+        [InlineData(typeof(ForcingChainOffHandler))]
+        [InlineData(typeof(XRSize10Handler))]
+        [InlineData(typeof(LockedURType2Handler))]
+        [InlineData(typeof(XRSize6Type3Handler))]
+        [InlineData(typeof(IncompleteVWXYZWingHandler))]
+        [InlineData(typeof(VWXYZWingHandler))]
+        [InlineData(typeof(XWingHandler))]
+        [InlineData(typeof(AlignedPairExclusionHandler))]
+        [InlineData(typeof(AlignedTripleExclusionHandler))]
+        [InlineData(typeof(AlignedQuadrupleExclusionHandler))]
+        [InlineData(typeof(FinnedXwingHandler))]
+        [InlineData(typeof(ImcompletedURType1Handler))]
+        [InlineData(typeof(SplitWingHandler))]
+        [InlineData(typeof(SashimiJellyfishHandler))]
+        [InlineData(typeof(SashimiSwordfishHandler))]
+        [InlineData(typeof(SashimiXwingHandler))]
+        [InlineData(typeof(SiameseSwordfishHandler))]
+        public void TestElimination1(Type type)
         {
-            TestEliminationExample(typeof(ForcingChainOffHandler));
+            TestEliminationExample(type);
         }
-        [Fact]
-        public void TestXRSize10Handler()
+
+
+
+        [Theory]
+        [InlineData(typeof(AlignedTripleExclusionHandler), "205000000080000007060010902007039500010000078002000009070390000509060000000001300", 4, "R3C1")]
+        public void TestAlignedTripleExclusionHandler1(Type type, string queryString, int value, string positionString, SolveMethodEnum[] handlerEnums = null)
         {
-            TestEliminationExample(typeof(XRSize10Handler));
-        }
-        [Fact]
-        public void TestLockedURType2Handler()
-        {
-            TestEliminationExample(typeof(LockedURType2Handler));
-        }
-        
-        [Fact]
-        public void TestAlignedTripleExclusionHandler1()
-        {
-            TestEliminationExample(typeof(AlignedTripleExclusionHandler), "205000000080000007060010902007039500010000078002000009070390000509060000000001300", 4, "R3C1");
-        }
-        [Fact]
-        public void TestXRSize6Type3Handler()
-        {
-            TestEliminationExample(typeof(XRSize6Type3Handler));
-        }
-        [Fact]
-        public void TestIncompleteVWXYZWingHandler()
-        {
-            TestEliminationExample(typeof(IncompleteVWXYZWingHandler));
-        }
-        [Fact]
-        public void TestVWXYZWingHandler()
-        {
-            TestEliminationExample(typeof(VWXYZWingHandler));
-        }
-        
-        [Fact]
-        public void TestXWingHandler()
-        {
-            TestEliminationExample(typeof(XWingHandler));
-        }
-        [Fact]
-        public void TestAlignedPairExclusionHandler()
-        {
-            TestEliminationExample(typeof(AlignedPairExclusionHandler));
-        }
-        [Fact]
-        public void TestAlignedTripleExclusionHandler()
-        {
-            TestEliminationExample(typeof(AlignedTripleExclusionHandler));
-        }
-        [Fact]
-        public void TestAlignedQuadrupleExclusionHandler()
-        {
-            TestEliminationExample(typeof(AlignedQuadrupleExclusionHandler));
-        }
-        
-        [Fact]
-        public void TestFinnedXwingHandler()
-        {
-            TestEliminationExample(typeof(FinnedXwingHandler));
-        }
-        [Fact]
-        public void TestImcompletedURType1Handler()
-        {
-            TestEliminationExample(typeof(ImcompletedURType1Handler));
-        }
-        [Fact]
-        public void TestSplitWingHandler()
-        {
-            TestEliminationExample(typeof(SplitWingHandler));
-        }
-        [Fact]
-        public void TestSashimiJellyfishHandler()
-        {
-            TestEliminationExample(typeof(SashimiJellyfishHandler));
-        }
-        [Fact]
-        public void TestSashimiSwordfishHandler()
-        {
-            TestEliminationExample(typeof(SashimiSwordfishHandler));
-        }
-        [Fact]
-        public void TestSashimiXwingHandler()
-        {
-            TestEliminationExample(typeof(SashimiXwingHandler));
-        }
-        [Fact]
-        public void TestSiameseSwordfishHandler()
-        {
-            TestEliminationExample(typeof(SiameseSwordfishHandler));
-        }
+            TestEliminationExample(type, queryString, value, positionString, handlerEnums  );
+        } 
+
         
         private static void TestEliminationExample(Type type)
         {
