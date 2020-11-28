@@ -3,6 +3,7 @@
     <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
     <ApplicationIcon>sudoku.ico</ApplicationIcon>
     <UseWindowsForms>true</UseWindowsForms>
+    <OutputType>WinExe</OutputType>
   </PropertyGroup>
    <ItemGroup>
     <None Include="App.config" />

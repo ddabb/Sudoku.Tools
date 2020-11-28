@@ -65,6 +65,7 @@ namespace Sudoku.UI
             this.BtnGetAllHint = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.ctlSudoku = new Sudoku.UI.ctlSudoku();
             this.btnSavetoPicture = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -405,6 +406,16 @@ namespace Sudoku.UI
             this.splitContainer1.SplitterWidth = 6;
             this.splitContainer1.TabIndex = 13;
             // 
+            // ctlSudoku
+            // 
+            this.ctlSudoku.BackColor = System.Drawing.Color.White;
+            this.ctlSudoku.ImeMode = System.Windows.Forms.ImeMode.On;
+            this.ctlSudoku.Location = new System.Drawing.Point(14, 75);
+            this.ctlSudoku.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
+            this.ctlSudoku.Name = "ctlSudoku";
+            this.ctlSudoku.Size = new System.Drawing.Size(773, 759);
+            this.ctlSudoku.TabIndex = 0;
+            // 
             // btnSavetoPicture
             // 
             this.btnSavetoPicture.Location = new System.Drawing.Point(1112, 75);
@@ -428,6 +439,7 @@ namespace Sudoku.UI
             this.Controls.Add(this.btnApplyHint);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button1);
+            this.Controls.Add(this.ctlSudoku);
             this.Controls.Add(this.menuStrip1);
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
