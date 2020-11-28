@@ -2,7 +2,6 @@
 using Sudoku.Core.Model;
 using System.Collections.Generic;
 using System.Linq;
-
 namespace Sudoku.Tools
 {
     [AssignmentExample(3, "R8C6", "005238090000900600000700000826005901450192086100800452000007000004000000080519200")]
@@ -10,19 +9,15 @@ namespace Sudoku.Tools
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.CascadingLockedCandidates;
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
-
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             var temp = AssignmentCellByEliminationCell(qSudoku);
             return temp;
         }
-
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
             var allUnsetCells = qSudoku.AllUnSetCells;
-
-
             foreach (var kv in G.blockMaps)
             {
                 var key = kv.Key;
@@ -41,7 +36,6 @@ namespace Sudoku.Tools
                     var filterCell = allUnsetCells.Where(c => blockList.Contains(c.Block)).ToList();
                     if (filterCell.Count > 3)
                     {
-
                         foreach (var value in G.AllBaseValues)
                         {
                             var containsList = filterCell.Where(c => c.RestList.Contains(value)).ToList();
@@ -84,9 +78,7 @@ namespace Sudoku.Tools
                                                 };
                                                 cells.Add(nagetiveCell);
                                             }
-
                                             #endregion
-
                                         }
                                         else
                                         {
@@ -106,7 +98,6 @@ namespace Sudoku.Tools
                                                     };
                                                     cells.Add(singleCell);
                                                 }
-
                                                 var indexs = keyCells.Select(c => c.Index).ToList();
                                                 var nagetiveCell = new NegativeIndexsGroup(indexs, value, qSudoku)
                                                 {
@@ -120,35 +111,21 @@ namespace Sudoku.Tools
                                                         "不能为" + value+ "\t\t\r\n",
                                                     }
                                                 };
-
                                                 drawCells.Add(nagetiveCell);
                                                 nagetiveCell.drawCells = drawCells;
                                                 cells.Add(nagetiveCell);
-
                                             }
-
                                             #endregion
-
                                         }
-
                                     }
-
                                 }
-
                             }
                         }
-
                     }
-
                 }
             }
-
-
-
-
             return cells;
         }
-
         public override string GetDesc()
         {
             return "若候选数a在两个宫中，只出现在了特定两行的特定两列，则这两列的其余宫不包含候选数\t\t\r\n" +

@@ -9,23 +9,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Sudoku.Tools;
-
 namespace Sudoku.UI
 {
     public partial class AboutForm : Form
     {
     
-
         public AboutForm()
         {
             InitializeComponent();
             this.CenterScreen();
             this.Icon = Sudoku.UI.Resource.sudoku;
             this.versionText.Text= VersionString;
-
             this.authorText.Text = authorString;
         }
-
         public string VersionString
         {
             get { return "1.0.2.2"; }
@@ -36,9 +32,7 @@ namespace Sudoku.UI
         }
         private void label2_Click(object sender, EventArgs e)
         {
-
         }
-
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             if (sender is LinkLabel label)
@@ -47,10 +41,8 @@ namespace Sudoku.UI
             }
         
         }
-
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-
         }
     }
 }

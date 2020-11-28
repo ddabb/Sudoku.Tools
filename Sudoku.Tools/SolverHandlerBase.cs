@@ -3,41 +3,34 @@ using Sudoku.Core.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 namespace Sudoku.Tools
 {
     /// <summary>
     /// 求解数独基础类
     /// </summary>
     public abstract class SolverHandlerBase : ISudokuSolveHandler
-
     {
         public SolverHandlerBase()
         { }
         public abstract SolveMethodEnum methodType { get; }
         public abstract MethodClassify methodClassify { get; }
-
         public abstract string GetDesc();
-
         /// <summary>
         /// 出数
         /// </summary>
         /// <param name="qSudoku"></param>
         /// <returns></returns>
         public abstract List<CellInfo> Assignment(QSudoku qSudoku);
-
         /// <summary>
         /// 删数
         /// </summary>
         /// <param name="qSudoku"></param>
         /// <returns></returns>
         public abstract List<CellInfo> Elimination(QSudoku qSudoku);
-
         public bool IsSameRowOrSameColumn(int index1, int index2)
         {
             return IsSameRow(index1, index2) || IsSameColumn(index1, index2);
         }
-
         public bool IsSameBlock(int index1, int index2)
         {
             if (new PositiveCell(index1, 0, null).Block == new PositiveCell(index2, 0, null).Block)
@@ -46,7 +39,6 @@ namespace Sudoku.Tools
             }
             return false;
         }
-
         public List<CellInfo> AssignmentCellByEliminationCell(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
@@ -67,22 +59,17 @@ namespace Sudoku.Tools
                             postiveCell.drawCells = drawMessage;
                             cells.Add(postiveCell);
                         }
-
                     }
                 }
-
             }
-
             return cells;
         }
-
         /// <summary>
         /// 检查数值在数独中是否合规。
         /// </summary>
         /// <param name="sudoku"></param>
         /// <param name="value1"></param>
         /// <returns></returns>
-
         public bool IsVaildValue(QSudoku sudoku, int value1)
         {
             var result = true;
@@ -95,10 +82,8 @@ namespace Sudoku.Tools
             {
                 result = false;
             }
-
             return result;
         }
-
         public bool IsSameRow(int index1, int index2)
         {
             if (new PositiveCell(index1, 0, null).Row == new PositiveCell(index2, 0, null).Row)
@@ -107,7 +92,6 @@ namespace Sudoku.Tools
             }
             return false;
         }
-
         public bool IsSameColumn(int index1, int index2)
         {
             if (new PositiveCell(index1, 0, null).Column == new PositiveCell(index2, 0, null).Column)
@@ -116,7 +100,6 @@ namespace Sudoku.Tools
             }
             return false;
         }
-
         public bool IsSameRow(CellInfo index1, CellInfo index2)
         {
             if (index1.Row == index2.Row)
@@ -125,7 +108,6 @@ namespace Sudoku.Tools
             }
             return false;
         }
-
         public bool IsSameColumn(CellInfo index1, CellInfo index2)
         {
             if (index1.Column == index2.Column)
@@ -134,7 +116,6 @@ namespace Sudoku.Tools
             }
             return false;
         }
-
         public bool IsSameBlock(CellInfo index1, CellInfo index2)
         {
             if (index1.Block == index2.Block)
@@ -143,7 +124,6 @@ namespace Sudoku.Tools
             }
             return false;
         }
-
         /// <summary>
         /// 获取所有不在A位置就在B位置的候选数
         /// </summary>
@@ -157,8 +137,6 @@ namespace Sudoku.Tools
             allPossibleindex.AddRange(GetAllPossibleIndexInColumn(qSudoku, times));
             return allPossibleindex;
         }
-
-
         public static List<CellInfo> XRSizeCommonMethod(QSudoku qSudoku, int pairCount)
         {
             List<CellInfo> cells = new List<CellInfo>();
@@ -174,7 +152,6 @@ namespace Sudoku.Tools
                         indexCount.Add(index, checkCells.Count);
                     }
                 }
-
                 if (indexCount.Count >= 2)
                 {
                     var baseCellGroup = indexCount.Where(c => c.Value == pairCount).ToList();
@@ -187,7 +164,6 @@ namespace Sudoku.Tools
                             var otherIndex = otherCell.Key;
                             if (baseIndex == 3 && otherIndex == 5)
                             {
-
                             }
                             var ab = (from a in allunsetcell.Where(G.GetDirectionCells(direction, baseIndex))
                                       join b in allunsetcell.Where(G.GetDirectionCells(direction, otherIndex)) on 1 equals 1
@@ -213,7 +189,6 @@ namespace Sudoku.Tools
             }
             return cells;
         }
-
         /// <summary>
         /// 获取所有不在A位置就在B位置的候选数
         /// </summary>
@@ -224,13 +199,11 @@ namespace Sudoku.Tools
         {
             return GetAllPossibleIndex(qSudoku, times, c => c == Direction.Block);
         }
-
         public List<SolveMessage> MergeCellSolveLocationMessage(params CellInfo[] cells)
         {
             var orderList = cells.OrderBy(c => c.Index).ToList();
             return MergeCellSolveMessages(orderList);
         }
-
         private static List<SolveMessage> MergeCellSolveMessages(List<CellInfo> orderList)
         {
             List<SolveMessage> message = new List<SolveMessage>();
@@ -239,15 +212,12 @@ namespace Sudoku.Tools
                 message.Add(orderList[i].Location);
                 message.Add(",");
             }
-
             if (message.Count > 0)
             {
                 message = message.Take(message.Count - 1).ToList();
             }
-
             return message;
         }
-
         /// <summary>
         /// 简化表达N个单元格的坐标
         /// </summary>
@@ -259,7 +229,6 @@ namespace Sudoku.Tools
             cells = cells.OrderBy(c => c.Index).ToList();
             return MergeCellSolveMessages(cells);
         }
-
         /// <summary>
         /// 获取所有不在A位置就在B位置的候选数
         /// </summary>
@@ -268,10 +237,8 @@ namespace Sudoku.Tools
         /// <returns></returns>
         public List<PossibleIndex> GetAllPossibleIndexInColumn(QSudoku qSudoku, int times)
         {
-
             return GetAllPossibleIndex(qSudoku, times, c => c == Direction.Column);
         }
-
         /// <summary>
         /// 获取所有不在A位置就在B位置的候选数
         /// </summary>
@@ -280,11 +247,8 @@ namespace Sudoku.Tools
         /// <returns></returns>
         public List<PossibleIndex> GetAllPossibleIndex(QSudoku qSudoku, int times)
         {
-
             return GetAllPossibleIndex(qSudoku, times, c => true);
         }
-
-
         private List<PossibleIndex> GetAllPossibleIndex(QSudoku qSudoku, int times, Func<Direction, bool> predicate)
         {
             List<PossibleIndex> allPossibleindex = new List<PossibleIndex>();
@@ -294,7 +258,6 @@ namespace Sudoku.Tools
                 {
                     //待检查的单元格
                     var checkDirectionCells = qSudoku.AllUnSetCells.Where(G.GetDirectionCells(direction, directionIndex)).ToList();
-
                     var temp = (from value in G.AllBaseValues
                                 where qSudoku.GetPossibleIndex(value, checkDirectionCells).Count == times
                                 select new { direction, directionIndex, value }
@@ -302,14 +265,11 @@ namespace Sudoku.Tools
                     foreach (var item in temp)
                     {
                         allPossibleindex.Add(new PossibleIndex(direction, directionIndex, item.value, qSudoku.GetPossibleIndex(item.value, checkDirectionCells)));
-
                     }
-
                 }
             }
             return allPossibleindex;
         }
-
         /// <summary>
         /// 获取所有不在A位置就在B位置的候选数
         /// </summary>
@@ -320,7 +280,6 @@ namespace Sudoku.Tools
         {
             return GetAllPossibleIndex(qSudoku, times, c => c == Direction.Row);
         }
-
         public List<CellInfo> GetNakedSingleCell(QSudoku qSudoku, int speacilValue, List<CellInfo> PositiveCellsInColumn)
         {
             List<CellInfo> cells = new List<CellInfo>();
@@ -329,10 +288,8 @@ namespace Sudoku.Tools
             {
                 cells.Add(new PositiveCell(indexs.First(), speacilValue, qSudoku));
             }
-
             return cells;
         }
-
         /// <summary>
         /// 在指定方向上的指定(行,列，宫)，排除掉不能填入的位置，剩余候选数可以填写的位置。
         /// </summary>
@@ -362,13 +319,9 @@ namespace Sudoku.Tools
                     //Debug.WriteLine("speacialValue" + speacialValue + "location  " + string.Join(",", leftIndexs1));
                     cells.Add(new PositiveCell(leftIndexs1.First(), speacialValue, qSudoku));
                 }
-
             }
-
-
             return cells;
         }
-
         public Func<CellInfo, int> FindDirectionCondtion(Direction direction)
         {
             switch (direction)
@@ -385,19 +338,11 @@ namespace Sudoku.Tools
                 default:
                     throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
             }
-
         }
-
-
-
-
-
         public static bool IsVaildSudoku(string queryString)
         {
             return new DanceLink().isValid(queryString);
         }
-
-
         /// <summary>
         /// 将指定单元格范围的指定提示数的值画255, 192, 89
         /// </summary>
@@ -408,7 +353,6 @@ namespace Sudoku.Tools
         {
             return GetDrawPossibleCell(new List<int> { values }, cellList);
         }
-
         /// <summary>
         /// 将指定单元格范围的指定提示数的值画255, 192, 89
         /// </summary>
@@ -427,12 +371,9 @@ namespace Sudoku.Tools
                         cells.Add(new PossibleCell(item.Index, rest, item.Sudoku));
                     }
                 }
-
             }
-
             return cells;
         }
-
         /// <summary>
         /// 将指定单元格范围的指定提示数的值画255, 192, 89
         /// </summary>
@@ -451,12 +392,9 @@ namespace Sudoku.Tools
                         cells.Add(new PossibleCell(item.Index, rest, item.Sudoku));
                     }
                 }
-
             }
-
             return cells;
         }
-
         /// <summary>
         /// 将指定单元格范围的指定提示数的值画177,165,243
         /// </summary>
@@ -475,12 +413,9 @@ namespace Sudoku.Tools
                         cells.Add(new ChainCell(item.Index, rest, item.Sudoku));
                     }
                 }
-
             }
-
             return cells;
         }
-
         /// <summary>
         /// 将指定单元格范围的指定提示数的值画255, 192, 89
         /// </summary>
@@ -491,7 +426,6 @@ namespace Sudoku.Tools
         {
             return GetDrawChainCell(new List<int> { values }, cellList);
         }
-
         /// <summary>
         /// 将指定单元格范围的指定提示数的值画177,165,243
         /// </summary>
@@ -510,13 +444,9 @@ namespace Sudoku.Tools
                         cells.Add(new ChainCell(item.Index, rest, item.Sudoku));
                     }
                 }
-
             }
-
             return cells;
         }
-
-
         public List<CellInfo> GetDrawNakedCell(List<CellInfo> cellList, List<int> values)
         {
             List<CellInfo> cells = new List<CellInfo>();
@@ -533,12 +463,9 @@ namespace Sudoku.Tools
                         cells.Add(new NegativeCell(item.Index, rest, item.Sudoku));
                     }
                 }
-
             }
-
             return cells;
         }
-
         /// <summary>
         /// 将必定范围画红
         /// </summary>
@@ -557,13 +484,9 @@ namespace Sudoku.Tools
                         cells.Add(new NegativeCell(item.Index, rest, null));
                     }
                 }
-
             }
-
             return cells;
         }
-
-
         /// <summary>
         /// 将指定单元格范围的指定提示数的值画255, 192, 89
         /// </summary>
@@ -574,8 +497,6 @@ namespace Sudoku.Tools
         {
             return GetDrawNegativeCell(new List<int> { values }, cellList);
         }
-
-
         /// <summary>
         /// 将指定单元格范围的指定提示数的值画255, 192, 89
         /// </summary>
@@ -604,13 +525,9 @@ namespace Sudoku.Tools
                         cells.Add(new NegativeCell(item.Index, rest, null));
                     }
                 }
-
             }
-
             return cells;
         }
-
-
         /// <summary>
         /// 
         /// </summary>
@@ -624,14 +541,8 @@ namespace Sudoku.Tools
             {
                 chars[zeroloction] = '0';
             }
-
             return new string(chars);
-
         }
-
-
-
-
         /// <summary>
         /// 将','拼接的整数组成的字符串，还原成List<int>类型
         /// </summary>
@@ -641,22 +552,16 @@ namespace Sudoku.Tools
         {
             return index.Split(',').Select(c => Convert.ToInt32(c)).ToList();
         }
-
         public SolveMessage GetDirectionMessage(Direction d, int dirIndex)
         {
             return new SolveMessage(G.GetEnumDescription(d) + (dirIndex + 1), MessageType.Location);
         }
-
         public class AlignedDTO
         {
-
             public List<InitCell> initCells;
             public bool noValueToSet;
             public bool allHasValueToSet;
             public bool result;
-
-
-
             public AlignedDTO(bool allHasValueToSet, params InitCell[] kvs)
             {
                 initCells = kvs.ToList();
@@ -665,7 +570,6 @@ namespace Sudoku.Tools
                 {
                     var vailds = (from a in initCells
                                   join b in initCells on a.Value equals b.Value
-
                                   where a.Index < b.Index
                                   select new { a, b }).ToList();
                     result = !vailds.Exists(c => c.a.Row == c.b.Row || c.a.Column == c.b.Column || c.a.Block == c.b.Block);
@@ -675,9 +579,7 @@ namespace Sudoku.Tools
                     result = false;
                 }
             }
-
         }
-
         public List<CellInfo> NewMethod(QSudoku qSudoku, CellInfo cell1, List<AlignedDTO> dtos,List<CellInfo> all)
         {
             List<CellInfo> cells = new List<CellInfo>();
@@ -692,17 +594,14 @@ namespace Sudoku.Tools
                     {
                         negativeCell.drawCells.AddRange(GetDrawPossibleCell(item.RestList,item));
                     }
-
                     negativeCell.drawCells = negativeCell.drawCells.Where(c =>
                         !(c.CellType == CellType.Possible && c.Index == negativeCell.Index &&
                           c.Value == negativeCell.Value)).ToList();
                     cells.Add(negativeCell);
                 }
             }
-
             return cells;
         }
-
         public static void NewMethod1(List<CellInfo> temp, List<CellInfo> cells)
         {
             foreach (var cellx in temp)
@@ -713,9 +612,5 @@ namespace Sudoku.Tools
                 }
             }
         }
-
-
     }
-
-
 }

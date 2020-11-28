@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using Sudoku.Core.Model;
-
 namespace Sudoku.Tools
 {
     [AssignmentExample("")]
@@ -12,14 +11,12 @@ namespace Sudoku.Tools
         {
             return new List<CellInfo>();
         }
-
         public override SolveMethodEnum methodType => SolveMethodEnum.DistributedDisjointedSubset;
         public override MethodClassify methodClassify { get; }
         public override string GetDesc()
         {
             return "";
         }
-
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             return new List<CellInfo>();

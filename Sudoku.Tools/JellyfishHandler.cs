@@ -4,21 +4,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Sudoku.Core.Model;
-
 namespace Sudoku.Tools
 {
     [AssignmentExample("030150209000360050700490603001273800000519000003684700100000008320040000409001060")]
     public class JellyfishHandler :SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.Jellyfish;
-
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
-
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             return AssignmentCellByEliminationCell(qSudoku);
         }
-
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
@@ -55,7 +51,6 @@ namespace Sudoku.Tools
                                                         c.RestCount>1).Select(cell => new NegativeCell(cell.Index, value, qSudoku)
                     ).Cast<CellInfo>());
                 }
-
                 var filter2 = (from index1 in G.baseIndexs
                                join index2 in G.baseIndexs on 1 equals 1
                                join index3 in G.baseIndexs on 1 equals 1
@@ -84,14 +79,9 @@ namespace Sudoku.Tools
                                                         c.RestCount > 1).Select(cell => new NegativeCell(cell.Index, value, qSudoku)
                     ).Cast<CellInfo>());
                 }
-
-
-
             }
-
             return cells;
         }
-
         public override string GetDesc()
         {
             return "";

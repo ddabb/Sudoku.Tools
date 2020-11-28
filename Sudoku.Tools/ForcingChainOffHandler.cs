@@ -6,27 +6,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Sudoku.Core.Model;
-
 namespace Sudoku.Tools
 {
     [EliminationExample(9, "R4C4", "600070590000010008002600004006021000470806021000340600200003400300060000069080005")]
     public class ForcingChainOffHandler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.ForcingChainOff;
-
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
-
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             return AssignmentCellByEliminationCell(qSudoku);
         }
-
-
         public static List<CellInfo> traceCell = new List<CellInfo>();
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
-
             foreach (var cell1 in qSudoku.AllUnSetCells)
             {
                 foreach (var testValue in cell1.RestList)
@@ -41,7 +35,6 @@ namespace Sudoku.Tools
                     if (traceCell.Count == 1)
                     {
                         var temp = new NegativeCell(index1, testValue1, qSudoku);
-
                         var list = traceCell.First().GetAllParents().OrderBy(c => c.Level).ToList();
                         var temp1 = new List<SolveMessage>();
                         for (int i = 0; i < list.Count - 1; i++)
@@ -62,16 +55,13 @@ namespace Sudoku.Tools
                     {
                         //Debug.WriteLine("我还是可以进来");
                     }
-
                 }
             }
             return cells;
         }
-
         private void Fuc(CellInfo cell, ref List<CellInfo> initCellInfo)
         {
             //Debug.WriteLine("Fuc in  " + cell + "cell parent" + cell.Parent);
-
             if (!traceCell.Any())
             {
                 if (cell.IsError)
@@ -79,7 +69,6 @@ namespace Sudoku.Tools
                     traceCell.Add(cell);
                     return;
                 }
-
                 if (cell.GetAllParents()
                     .Any(c => c.Index == cell.Index && c.CellType == cell.CellType && c.Value == cell.Value)) return;
                 var temp = cell.NextCells;
@@ -101,7 +90,6 @@ namespace Sudoku.Tools
                 }
             }
         }
-
         private void Output(CellInfo found, ref List<string> infoList)
         {
             infoList.Insert(0, found.ToString());
@@ -110,7 +98,6 @@ namespace Sudoku.Tools
                 Output(found.Parent, ref infoList);
             }
         }
-
         public override string GetDesc()
         {
             return "";

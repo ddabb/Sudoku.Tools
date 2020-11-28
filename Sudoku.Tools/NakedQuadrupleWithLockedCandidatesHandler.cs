@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Sudoku.Core;
 using Sudoku.Core.Model;
-
 namespace Sudoku.Tools
 {
     [EliminationExample(1,"R4C1", "000840070010000805007105690076582000000471000000693700035914207709000510020050000")]
@@ -74,20 +73,13 @@ namespace Sudoku.Tools
                                    //     cells.Add(negativeCell);
                                     }
                                 }
-
-
                             }
-
                         }
-
-
                     }
                 }
-
             }
             return cells;
         }
-
         public override SolveMethodEnum methodType => SolveMethodEnum.NakedQuadrupleWithLockedCandidates;
         public override MethodClassify methodClassify { get; }
         public override string GetDesc()
@@ -96,7 +88,6 @@ namespace Sudoku.Tools
                    "若一个行内的显性四数组中，候选数a只出现在了某宫中，则该宫的其余行不包含该候选数。\t\t\r\n" +
                    "若一个列内的显性四数组中，候选数a只出现在了某宫中，则该宫的其余列不包含该候选数。\t\t\r\n";
         }
-
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             return AssignmentCellByEliminationCell(qSudoku);

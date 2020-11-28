@@ -5,7 +5,6 @@ using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using Sudoku.Core.Model;
-
 namespace Sudoku.Core
 {
     /// <summary>
@@ -17,17 +16,13 @@ namespace Sudoku.Core
         /// 1到9的候选数
         /// </summary>
         public static readonly List<int> AllBaseValues = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-
         /// <summary>
         /// 0到8，坐标从0开始，到8结束，每个方向都一致。
         /// </summary>
         public static readonly List<int> baseIndexs = new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
-
         public static List<string> alpha = new List<string> { "A", "B", "C", "D", "E", "F", "G", "H", "I" };
-
         public static List<string> RowListString = new List<string> { "R1", "R2", "R3", "R4", "R5", "R6", "R7", "R8", "R9" };
         public static List<string> ColumnListString = new List<string> { "C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9" };
-
         public static readonly List<int> allLocations = new List<int>
         {
             0,1,2,3,4,5,6,7,8,
@@ -39,10 +34,7 @@ namespace Sudoku.Core
             54,55,56,57,58,59,60,61,62,
             63,64,65,66,67,68,69,70,71,
             72,73,74,75,76,77,78,79,80
-
         };
-
-
         public static Dictionary<int, List<int>> blockMaps = new Dictionary<int, List<int>>
         {
             { 1, new List<int> { 0, 1, 2 } },
@@ -52,26 +44,19 @@ namespace Sudoku.Core
             { 5, new List<int> { 1, 4, 7 } },
             { 6, new List<int> { 2, 5, 8 } }
         };
-
-
         public static Dictionary<int, List<int>> RowblockMaps = new Dictionary<int, List<int>>
         {
             { 4, new List<int> { 0, 1, 2 } },
             { 5, new List<int> { 3, 4, 5 } },
             { 6, new List<int> { 6, 7, 8 } }
         };
-
         public static Dictionary<int, List<int>> ColumnblockMaps = new Dictionary<int, List<int>>
         {
             { 4, new List<int> { 0, 3, 6 } },
             { 5, new List<int> { 1, 4, 7 } },
             { 6, new List<int> { 2, 5, 8 } }
         };
-
         public static LocationType LocationType { get; set; } = LocationType.R1C1;
-
-
-
         /// <summary>
         /// 简化坐标
         /// </summary>
@@ -90,12 +75,8 @@ namespace Sudoku.Core
                 groups.Add(group1);
                 groups.Add(group2);
             }
-
             return groups;
-
         }
-
-
         /// <summary>
         /// 简化坐标
         /// </summary>
@@ -104,7 +85,6 @@ namespace Sudoku.Core
         /// <returns></returns>
         public static List<LocationGroup> MergeLocationDesc(List<CellInfo> cells)
         {
-
             if (CanMerge(cells))
             {
                 return new List<LocationGroup> { mergeGroups(cells) };
@@ -113,21 +93,14 @@ namespace Sudoku.Core
             {
                 var groups = cells.Select(c => new LocationGroup(new List<CellInfo> { c }, c.RrCc)).ToList();
                 groups = RecursionSimplify(groups);
-
-
                 return groups;
             }
         }
-
         public static List<LocationGroup> MergeLocationDesc(params CellInfo[] n)
         {
             var cells = n.ToList();
-
             return MergeLocationDesc(cells);
         }
-
-
-
         public static Color GetCellColor(CellInfo item)
         {
             Color color = Color.White;
@@ -135,12 +108,10 @@ namespace Sudoku.Core
             {
                 color = Color.FromArgb(134, 242, 128);
             }
-
             if (item.CellType == CellType.Possible)
             {
                 color = Color.FromArgb(255, 192, 89);
             }
-
             if (item.CellType == CellType.Chain)
             {
                 color = Color.FromArgb(177, 165, 243);
@@ -149,21 +120,16 @@ namespace Sudoku.Core
             {
                 color = Color.FromArgb(245, 165, 167);
             }
-
             return color;
         }
-
         public static List<LocationGroup> MergeLocationDesc(params int[] n)
         {
             var cells = n.Select(c => (CellInfo)new InitCell(c, 0, null)).ToList();
-
             return MergeLocationDesc(cells);
         }
-
         private static List<LocationGroup> RecursionSimplify(List<LocationGroup> groups)
         {
             var newGroups = groups.ToList();
-
             var filter = (from a in newGroups
                           join b in newGroups on 1 equals 1
                           where a.LocationDesc != b.LocationDesc
@@ -178,18 +144,12 @@ namespace Sudoku.Core
                 var newLocationGroup = MergeGroup(a, b);
                 left.Add(newLocationGroup);
                 return RecursionSimplify(left);
-
             }
             else
             {
                 return newGroups;
             }
-
-
         }
-
-
-
         /// <summary>
         /// 单元格是否合并成一个集合
         /// </summary>
@@ -202,7 +162,6 @@ namespace Sudoku.Core
             mergeCells.AddRange(cells2.ToList());
             return CanMerge(mergeCells);
         }
-
         /// <summary>
         /// 单元格是否合并成一个集合
         /// </summary>
@@ -216,20 +175,14 @@ namespace Sudoku.Core
             var mulIndexs = (from row in distintRow
                              join column in distintColumn on 1 equals 1
                              select row * 9 + column).ToList();
-
             if (mulIndexs.All(c => cellindexs.Contains(c)) && cellindexs.All(c => mulIndexs.Contains(c)))
             {
                 return true;
             }
             return false;
         }
-
-
-
-
         private static LocationGroup mergeGroups(List<CellInfo> cells)
         {
-
             var distintRow = cells.Select(c => c.Row).Distinct().ToList();
             var distintColumn = cells.Select(c => c.Column).Distinct().ToList();
             distintRow.Sort();
@@ -243,11 +196,9 @@ namespace Sudoku.Core
             {
                 var desc = "R" + distintRow.Select(c => c + 1).JoinStringWithEmpty() + "C" + distintColumn.Select(c => c + 1).JoinStringWithEmpty();
                 group = new LocationGroup(cells, desc);
-
             }
             return group;
         }
-
         private static LocationGroup MergeGroup(LocationGroup group1, LocationGroup group2)
         {
             var cells1 = group1.cells;
@@ -258,7 +209,6 @@ namespace Sudoku.Core
             LocationGroup mergedGroup = new LocationGroup(mergeCells, "");
             return mergeGroups(mergeCells);
         }
-
         /// <summary>
         /// 分析是否可以合并成同一个 坐标集合~
         /// </summary>
@@ -272,12 +222,9 @@ namespace Sudoku.Core
             cells.AddRange(group2.cells);
             return CanMerge(cells);
         }
-
-
         public static List<int> GetLocations(List<List<int>> initValues)
         {
             var tempList = new List<int>();
-
             int location = 0;
             foreach (var lists in initValues)
             {
@@ -287,14 +234,11 @@ namespace Sudoku.Core
                     {
                         tempList.Add(location);
                     }
-
                     location += 1;
                 }
             }
-
             return tempList;
         }
-
         public static string SwitchLocation(string str, int a, int b)
         {
             char[] newStr = str.ToCharArray();
@@ -319,12 +263,9 @@ namespace Sudoku.Core
                 {
                     tempList.Add(i);
                 }
-
             }
             return tempList;
         }
-
-
         public static List<List<int>> StringToList(string str)
         {
             str = str.Replace("*", "0").Replace(".", "").Replace("\t\t\r\n", "").Trim();
@@ -348,16 +289,11 @@ namespace Sudoku.Core
                     result[i][j] = Convert.ToInt32("" + arr[i * 9 + j]);
                 }
             }
-
-
             return result;
-
         }
-
         public static string GetEnumDescription(Enum enumSubitem)
         {
             string strValue = enumSubitem.ToString();
-
             FieldInfo fieldinfo = enumSubitem.GetType().GetField(strValue);
             Object[] objs = fieldinfo.GetCustomAttributes(typeof(DescriptionAttribute), false);
             if (objs == null || objs.Length == 0)
@@ -369,28 +305,20 @@ namespace Sudoku.Core
                 DescriptionAttribute da = (DescriptionAttribute)objs[0];
                 return da.Description;
             }
-
         }
-
         public static Func<CellInfo, bool> GetDirectionCells(Direction direction, int index)
         {
             return c => G.GetFilter(c, direction, index);
         }
-
         public static readonly List<Direction> AllDirection = new List<Direction> { Direction.Row, Direction.Column, Direction.Block };
-
-
         public static List<int> DistinctRow(List<CellInfo> cells)
         {
             return cells.Select(c => c.Row).Distinct().ToList();
         }
-
         public static List<int> DistinctColumn(List<CellInfo> cells)
         {
             return cells.Select(c => c.Column).Distinct().ToList();
         }
-
-
         public static List<int> DinstinctInt(params List<int>[] n)
         {
             List<int> result = new List<int>();
@@ -398,11 +326,9 @@ namespace Sudoku.Core
             {
                 result.AddRange(item);
             }
-
             result = result.Distinct().ToList();
             return result;
         }
-
         public static List<string> DinstinctCellRestString(params CellInfo[] n)
         {
             List<string> result = new List<string>();
@@ -410,11 +336,9 @@ namespace Sudoku.Core
             {
                 result.Add(item.RestString);
             }
-
             result = result.Distinct().ToList();
             return result;
         }
-
         public static List<int> MergeCellIndexs(params CellInfo[] n)
         {
             List<int> result = new List<int>();
@@ -422,11 +346,9 @@ namespace Sudoku.Core
             {
                 result.Add(item.Index);
             }
-
             result = result.Distinct().ToList();
             return result;
         }
-
         public static List<CellInfo> MergeCells(params CellInfo[] n)
         {
             List<CellInfo> result = new List<CellInfo>();
@@ -436,7 +358,6 @@ namespace Sudoku.Core
             }
             return result;
         }
-
         public static List<int> MergeCellRest(params CellInfo[] n)
         {
             List<int> result = new List<int>();
@@ -444,11 +365,9 @@ namespace Sudoku.Core
             {
                 result.AddRange(item.RestList);
             }
-
             result = result.Distinct().ToList();
             return result;
         }
-
         public static List<int> MergeCellBlocks(params CellInfo[] n)
         {
             List<int> result = new List<int>();
@@ -456,11 +375,9 @@ namespace Sudoku.Core
             {
                 result.Add(item.Block);
             }
-
             result = result.Distinct().ToList();
             return result;
         }
-
         public static List<int> MergeInt(params List<int>[] n)
         {
             List<int> result = new List<int>();
@@ -470,7 +387,6 @@ namespace Sudoku.Core
             }
             return result;
         }
-
         public static List<int> MergeInt(params int[] n)
         {
             List<int> result = new List<int>();
@@ -480,14 +396,12 @@ namespace Sudoku.Core
             }
             return result;
         }
-
         public static List<int> DistinctBlock(List<CellInfo> cells)
         {
             return cells.Select(c => c.Block).Distinct().ToList();
         }
         public static bool GetFilter(CellInfo cell, Direction direction, int index)
         {
-
             bool r = false;
             switch (direction)
             {
@@ -502,11 +416,6 @@ namespace Sudoku.Core
                     break;
             }
             return r;
-
         }
-
-
-
-
     }
 }

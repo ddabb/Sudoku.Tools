@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-
 namespace Sudoku.Core
 {
     public enum MethodClassify

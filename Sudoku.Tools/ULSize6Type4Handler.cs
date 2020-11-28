@@ -3,16 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sudoku.Core.Model;
-
 namespace Sudoku.Tools
 {
     [AssignmentExample(7, "R3C8", "640010300890300000230480500579132000362948715418567932156004893983651247724893156")]
     public class ULSize6Type4Handler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.ULSize6Type4;
-
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
-
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
@@ -46,7 +43,6 @@ namespace Sudoku.Tools
                                   ? e.Column == f.Column && e.Row == a.Row && f.Row == b.Row
                                   : e.Row == f.Row && e.Column == a.Column && f.Column == b.Column
                               select new { e, f }).ToList();
-
                     foreach (var item3 in ef)
                     {
                         var e = item3.e;
@@ -64,20 +60,16 @@ namespace Sudoku.Tools
                                     cells.Add(new PositiveCell(temp.First().Index, removeValue, qSudoku));
                                 }
                             }
-
                         }
                     }
-
                 }
             }
             return cells;
         }
-
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             return new List<CellInfo>();
         }
-
         public override string GetDesc()
         {
             return "";

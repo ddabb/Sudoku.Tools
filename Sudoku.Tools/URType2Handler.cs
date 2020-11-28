@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Sudoku.Core.Model;
-
 namespace Sudoku.Tools
 {
     
@@ -13,14 +12,11 @@ namespace Sudoku.Tools
     public class URType2Handler :SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.URType2;
-
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
-
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
             var allcheckCell = qSudoku.AllUnSetCells.Where(c => new List<int> { 2, 3 }.Contains(c.RestCount)).ToList();
-
             var filter = (from a in allcheckCell
                           join b in allcheckCell on a.RestString equals b.RestString
                           join c in allcheckCell on 1 equals 1
@@ -49,20 +45,12 @@ namespace Sudoku.Tools
                     }
                 }
             }
-
-
-
-
-
-
             return cells;
         }
-
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             return new List<CellInfo>();
         }
-
         public override string GetDesc()
         {
             return "";

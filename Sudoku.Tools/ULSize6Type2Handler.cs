@@ -3,18 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sudoku.Core.Model;
-
 namespace Sudoku.Tools
 {
     [AssignmentExample(1,"R3C2", "060000725257000000409572806045007000726308504000050670592700000004925367673000259")] //出数
                                                                                                              //060000725257000000409572806045007000726308504000050670592700000004925367673000259
-
     public class ULSize6Type2Handler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.ULSize6Type2;
-
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
-
         /// <summary>
         /// 满足 xyz,除去z 有xy 与该xyz 同行 或同列
         /// 满足 xyz,除去z 有xy 与该xyz 同行 或同列
@@ -25,13 +21,11 @@ namespace Sudoku.Tools
         {
             return AssignmentCellByEliminationCell(qSudoku);
         }
-
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
             var checkCells = qSudoku.AllUnSetCells;
             var restPair = qSudoku.AllUnSetCells.Where(c => c.RestCount == 2);
-
             var filter = (from x in checkCells
                           join y in checkCells on x.RestString equals y.RestString
                           where x.RestCount == 3
@@ -62,15 +56,10 @@ namespace Sudoku.Tools
                     {
                         cells.Add(new NegativeCell(cell.Index, value, qSudoku));
                     }
-
                 }
-
             }
-
-
             return cells;
         }
-
         public override string GetDesc()
         {
             return "";

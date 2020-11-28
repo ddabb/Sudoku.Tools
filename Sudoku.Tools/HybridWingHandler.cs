@@ -2,12 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Sudoku.Core.Model;
-
 namespace Sudoku.Tools
 {
-
-
-
     [AssignmentExample(5, "R6C1", "006020100238617549100080062003750400871346295004890000012460803480230601365178924", SolveMethodEnum.NakedPair)]
     public class HybridWingHandler : SolverHandlerBase
     {
@@ -15,7 +11,6 @@ namespace Sudoku.Tools
         {
             return AssignmentCellByEliminationCell(qSudoku);
         }
-
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
@@ -45,17 +40,13 @@ namespace Sudoku.Tools
                         cells.Add(new NegativeCell(keyCell.Index, unionValues.Except(b.RestList).First(), qSudoku));
                     }
                 }
-
             }
             return cells;
-
         }
-
         public override string GetDesc()
         {
             return "参考链文本";
         }
-
         public override SolveMethodEnum methodType => SolveMethodEnum.HybridWing;
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
     }

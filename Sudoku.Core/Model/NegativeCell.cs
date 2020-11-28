@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
 namespace Sudoku.Core.Model
 {
     public class NegativeCell : CellInfo
@@ -10,8 +9,6 @@ namespace Sudoku.Core.Model
         /// 前置肯定单元格
         /// </summary>
         public PositiveCell reductionBeforeCell;
-
-
         /// <summary>
         /// 后置肯定单元格链表
         /// </summary>
@@ -20,10 +17,7 @@ namespace Sudoku.Core.Model
         {
             this.CellType =CellType.Negative;
         }
-
         private List<CellInfo> temp;
-
-
         public override bool IsError
         {
             get
@@ -32,20 +26,14 @@ namespace Sudoku.Core.Model
                        GetAllParents().Count(c => c.Index == Index && c.CellType == CellType.Positive && c.Value == Value) > 0;
             }
         }
-
-
         public override List<CellInfo> NextCells
         {
             get
             {
-
                 return InitNextCells();
             }
-
         }
-
         public override string Desc => this.Location + "  不是：" + Value;
-
         /// <summary>
         /// 如果单元格X的值不为a,若单元格只能取a或b，则X的取值为b。
         /// 如果单元格X的值不为a，且同行，同宫，同列，只有另外一个位置X1可以取a,则X1的值为a。
@@ -53,9 +41,7 @@ namespace Sudoku.Core.Model
         /// <returns></returns>
         public override List<CellInfo> InitNextCells()
         {
-
             List<CellInfo> cells = new List<CellInfo>();
-
             if (this.RestCount == 2)
             {
                 PositiveCell positive = new PositiveCell(this.Index, RestList.First(c => c != Value), Sudoku)
@@ -68,7 +54,6 @@ namespace Sudoku.Core.Model
                 };
                 cells.Add(positive);
             }
-
             foreach (var item in GetPostiveCellInDirtion(UnSetCellInSameRow()).Where(item => !cells.Exists(c => c.Value == item.Value && c.Index == item.Index)))
             {
                 if (Sudoku.AllChainsIndex.Contains(item.Index))
@@ -83,7 +68,6 @@ namespace Sudoku.Core.Model
                 {
                     cells.Add(item);
                 }
-
             }
             foreach (var item in GetPostiveCellInDirtion(UnSetCellInSameBlock()).Where(item => !cells.Exists(c => c.Value == item.Value && c.Index == item.Index)))
             {
@@ -92,17 +76,14 @@ namespace Sudoku.Core.Model
                     cells.Add(item);
                 }
             }
-
             if (this.Parent != null)
                 cells = cells.Where(c => !(c.Index == Parent.Index && c.Value == Parent.Value)).ToList();
             return cells.ToList();
         }
-
         public override List<CellInfo> GetNextCellsFromSudokuCache()
         {
             throw new NotImplementedException();
         }
-
         private List<CellInfo> GetPostiveCellInDirtion(Func<CellInfo, bool> temp)
         {
             List<CellInfo> cells = new List<CellInfo>();
@@ -122,13 +103,10 @@ namespace Sudoku.Core.Model
             }
             return cells;
         }
-
-
         public List<PositiveCell> GetPositiveCellInfos(List<PossibleIndex> indexs, NegativeCell cell)
         {
             foreach (var unsetCell in this.RelatedUnsetCells)
             {
-
             }
             List<PositiveCell> cells = new List<PositiveCell>();
             var temp = indexs.Where(c => c.indexs.Count == 2 && c.indexs.Contains(cell.Index) && c.SpeacialValue == cell.Value).ToList();

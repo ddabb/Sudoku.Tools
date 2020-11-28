@@ -2,7 +2,6 @@
 using Sudoku.Core.Model;
 using System.Collections.Generic;
 using System.Linq;
-
 namespace Sudoku.Tools
 {
     [AssignmentExample(4, "R7C8", "900050030400100908006090402000970020004216800090030000803000200700009080049080006", SolveMethodEnum.ClaimingInColumn)] //todo 待移除8宫4列的4
@@ -12,7 +11,6 @@ namespace Sudoku.Tools
         {
             return AssignmentCellByEliminationCell(qSudoku);
         }
-
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
@@ -29,16 +27,13 @@ namespace Sudoku.Tools
                                     join cell2 in pairCells on 1 equals 1
                                     where cell1.Index != cell2.Index
                                     select new { cell1, cell2 }).ToList();
-
                         foreach (var item in list)
                         {
                             var cell1 = item.cell1;
                             var cell2 = item.cell2;
-
                             var intercells = qSudoku.GetPublicUnsetAreas(cell1, cell2);
                             foreach (var cell3 in intercells)
                             {
-
                                 foreach (var one in restList)
                                 {
                                     var other = restList.First(c => c != one);
@@ -46,13 +41,11 @@ namespace Sudoku.Tools
                                     {
                                         var cell1otherNextCell = new NegativeCell(cell1.Index, other, qSudoku).NextCells;
                                         var cell2otherNextCell = new NegativeCell(cell2.Index, other, qSudoku).NextCells;
-
                                         var cellkey = (from cell4 in cell1otherNextCell
                                                        join cell5 in cell2otherNextCell on cell4.Value equals cell5.Value
                                                        where cell4.Index != cell5.Index
                                                        && cell5.Block == cell4.Block
                                                        select new { cell4, cell5 }).ToList();
-
                                         foreach (var item1 in cellkey)
                                         {
                                             var cell4 = item1.cell4;
@@ -73,35 +66,20 @@ namespace Sudoku.Tools
                                                 cell.drawCells.Add(cell);
                                                 cells.Add(cell);
                                             }
-
                                         }
-
-
-
                                     }
-
                                 }
-
-
                             }
                         }
-
-
                     }
-
                 }
-
             }
-
-
             return cells;
         }
-
         public override string GetDesc()
         {
             return "参考链文本";
         }
-
         public override SolveMethodEnum methodType => SolveMethodEnum.LocalWing;
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
     }

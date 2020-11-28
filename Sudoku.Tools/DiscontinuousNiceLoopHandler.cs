@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Sudoku.Core.Model;
-
 namespace Sudoku.Tools
 {
     [AssignmentExample(7, "R1C1", "000080200005000040020005000962837000003214697174500832001000000697348521248751369")]
@@ -25,57 +24,35 @@ namespace Sudoku.Tools
                         var otherValues = rests.ToList().Except(new List<int> { restValue }).ToList();
                         //if (testValue1 == 5)
                         {
-
                             NegativeCell cell = new NegativeCell(index1, testValue1, qSudoku);
                             var nacells = new List<CellInfo>();
                             loop(cell, ref nacells, ref relatedIndex, ref otherValues);
-
                             List<int> removeValues = new List<int>();
                             foreach (var value in nacells.Select(c => c.Value))
                             {
                                 if (!removeValues.Contains(value))
                                 {
                                     removeValues.Add(value);
-
                                     NegativeCell cell1 = new NegativeCell(index1, value, qSudoku);
-
                                     cells.Add(cell1);
-
                                 }
                             }
-
-
                         }
-
-
-
-
-
                     }
-
                 }
-
-
             }
-
             return cells;
         }
-
         public override SolveMethodEnum methodType => SolveMethodEnum.DiscontinuousNiceLoop;
-
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
-
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             return AssignmentCellByEliminationCell(qSudoku);
         }
-
         private void loop(CellInfo cell, ref List<CellInfo> nacells, ref List<int> relatedIndex,
             ref List<int> otherValues)
         {
-
             if (nacells.Any()) return;
-
             if (cell.GetAllParents()
                 .Any(c => c.Index == cell.Index
                           && c.CellType == cell.CellType
@@ -83,10 +60,8 @@ namespace Sudoku.Tools
             {
                 return;
             }
-
             foreach (var nextCell in cell.NextCells)
             {
-
                 if (nextCell.CellType == CellType.Positive)
                 {
                     if (otherValues.Contains(nextCell.Value) && relatedIndex.Contains(nextCell.Index))
@@ -95,14 +70,11 @@ namespace Sudoku.Tools
                         {
                             nacells.Add(nextCell);
                         }
-
                     }
                 }
-
                 loop(nextCell, ref nacells, ref relatedIndex, ref otherValues);
             }
         }
-
         public override string GetDesc()
         {
             return "";

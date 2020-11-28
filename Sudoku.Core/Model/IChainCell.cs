@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-
 namespace Sudoku.Core.Model
 {
     public interface IChainCell
@@ -10,12 +9,9 @@ namespace Sudoku.Core.Model
        List<IChainCell> Children { get; set; }
        IChainCell Parent { get; set; }
     }
-
     public enum ThenType
     {
         ThenYes,
         ThenNo,
     }
-
-
 }

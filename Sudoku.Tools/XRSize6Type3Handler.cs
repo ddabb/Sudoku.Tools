@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Sudoku.Core.Model;
-
 namespace Sudoku.Tools
 {
     [EliminationExample(2,"R4C2","000400006200000970000005038006040003000601002800050760592104087074500009100002045",SolveMethodEnum.NakedPair)]
@@ -12,14 +11,11 @@ namespace Sudoku.Tools
     public class XRSize6Type3Handler :SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.XRSize6Type3;
-
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
-
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             return AssignmentCellByEliminationCell(qSudoku);
         }
-
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
@@ -98,12 +94,9 @@ namespace Sudoku.Tools
                         }
                     }
                 }
-
-
             }
             return cells;
         }
-
         public override string GetDesc()
         {
             return "";

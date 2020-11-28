@@ -3,16 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sudoku.Core.Model;
-
 namespace Sudoku.Tools
 {
     [AssignmentExample(1, "R6C5", "000074200200906740004520009100457928547892000002600574400705092005209403629040057")]
     public class ImcompletedSwordfishHandler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.ImcompletedSwordfish;
-
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
-
         /// <summary>
         /// 
         /// </summary>
@@ -22,30 +19,24 @@ namespace Sudoku.Tools
         {
             return AssignmentCellByEliminationCell(qSudoku);
         }
-
         public List<CellInfo> FindCell(List<CellInfo> allUnSetCell, int value)
         {
             List<CellInfo> results = new List<CellInfo>();
-
             var containsell = allUnSetCell.Where(c => c.RestList.Contains(value)).ToList();
-
             var indexss = (from index1 in G.baseIndexs
                            join index2 in G.baseIndexs on 1 equals 1
                            join index3 in G.baseIndexs on 1 equals 1
                            where index1 < index2
                                  && index2 < index3
                            select new List<int> { index1, index2, index3 }).ToList();
-
             foreach (var fiter in indexss.Select(indexlist => containsell.Where(c => indexlist.Contains(c.Row)).ToList()).Where(fiter => fiter.Count() > 5 && fiter.Count() < 9 && G.DistinctRow(fiter).Count == 3 && G.DistinctColumn(fiter).Count == 3))
             {
                 results = fiter;
             }
             return results;
         }
-
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
-
             List<CellInfo> cells = new List<CellInfo>();
             List<int> range = new List<int> { 2, 3 };
             List<int> sumrange = new List<int> { 6, 7, 8 };
@@ -76,7 +67,6 @@ namespace Sudoku.Tools
                                                         c.RestCount >1).Select(cell => new NegativeCell(cell.Index, value, qSudoku)
                     ).Cast<CellInfo>());
                 }
-
                 var filter2 = (from index1 in G.baseIndexs
                                join index2 in G.baseIndexs on 1 equals 1
                                join index3 in G.baseIndexs on 1 equals 1
@@ -101,14 +91,9 @@ namespace Sudoku.Tools
                                                         c.RestCount >1).Select(cell => new NegativeCell(cell.Index, value, qSudoku)
                     ).Cast<CellInfo>());
                 }
-
-
-
             }
-
             return cells;
         }
-
         public override string GetDesc()
         {
             return "";

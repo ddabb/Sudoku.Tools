@@ -1,5 +1,4 @@
 ﻿using System;
-
 namespace Sudoku.Core
 {
     public class DifficultuRatingAttribute : Attribute
@@ -8,7 +7,6 @@ namespace Sudoku.Core
         {
             this.difficultValue = difficultValue;
         }
-
         public double difficultValue { get; private set; }
     }
 }

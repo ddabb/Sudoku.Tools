@@ -2,18 +2,15 @@
 using Sudoku.Core.Model;
 using System.Collections.Generic;
 using System.Linq;
-
 namespace Sudoku.Tools
 {
     [EliminationExample(6, "R8C4", "080051700010027540570930002425700000708002056601500027060005000150000200847200095")]
-
     public class IncompleteVWXYZWingHandler : SolverHandlerBase
     {
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             return AssignmentCellByEliminationCell(qSudoku);
         }
-
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
@@ -70,9 +67,7 @@ namespace Sudoku.Tools
                             };
                             cells.Add(cell);
                         }
-
                     }
-
                     var list1 = qSudoku.AllUnSetCells
                         .Where(c => publicIndexs.Contains(c.Index) && c.RestList.Contains(intersectValue)).ToList();
                     if (list1.Count > 1)
@@ -92,21 +87,14 @@ namespace Sudoku.Tools
                         };
                         cells.Add(group);
                     }
-
                 }
-
             }
-
-
-
             return cells;
         }
-
         public override string GetDesc()
         {
             return "若五个单元格的候选数满足VZ,WZ,XZ,YZ,VWXY形式，且VWXY位于VZ,WZ,XZ,YZ的共同相关格上，则VZ,WZ,XZ,YZ的其余共同相关格不包含候选数Z。";
         }
-
         public override SolveMethodEnum methodType => SolveMethodEnum.IncompleteVWXYZWing;
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
     }

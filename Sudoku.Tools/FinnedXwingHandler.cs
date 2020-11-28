@@ -3,30 +3,23 @@ using Sudoku.Core.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 namespace Sudoku.Tools
 {
     [EliminationExample(7, "R2C4", "000800400203060050070050060092480010718526943000009280020090070537248691901005000")]
     public class FinnedXwingHandler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.FinnedXwing;
-
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
-
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             var temp= AssignmentCellByEliminationCell(qSudoku);
             return temp;
         }
-
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
             var allUnsetCells = qSudoku.AllUnSetCells;
             var valueRestMap = G.AllBaseValues.ToDictionary(value => value, value => allUnsetCells.Where(c => c.RestList.Contains(value)).ToList());
-
-
-
             foreach (var direction in G.AllDirection.Where(c => c != Direction.Block))
             {
                 var keys = (from key1 in G.RowblockMaps
@@ -53,27 +46,21 @@ namespace Sudoku.Tools
                                 if (direction == Direction.Row)
                                 {
                                     predicate = c => indexsItem.Contains(c.Row);
-
                                 }
                                 else
                                 {
                                     predicate = c => indexsItem.Contains(c.Column);
                                 }
-
                                 var filterCell = valueCells.Where(predicate).ToList();
-
                                 if (filterCell.Count() == 5)
                                 {
-
                                     var blocks = filterCell.Select(c => c.Block).Distinct().ToList();
                                     var distinctBlock = blocks.Count();
                                     if (distinctBlock == 4)
                                     {
                                         var distinctRow = filterCell.Select(c => c.Row).Distinct().Count();
                                         var distinctColumn = filterCell.Select(c => c.Column).Distinct().Count();
-
                                         var keyBlock = blocks.First(c => filterCell.Count(x => x.Block == c) == 2);
-
                                         var keyCells = new List<CellInfo>();
                                         if (direction == Direction.Column && distinctRow == 3 && distinctColumn == 2)
                                         {
@@ -83,10 +70,8 @@ namespace Sudoku.Tools
                                         {
                                             keyCells = filterCell.Where(x => filterCell.Where(c => c.Block == keyBlock).Select(c => c.Column).ToList().Contains(x.Column)).ToList();
                                         }
-
                                         if (keyCells.Count == 3)
                                         {
-
                                             var indexs = qSudoku.GetPublicUnsetAreaIndexs(keyCells);
                                             var removeCells = valueCells
                                                 .Where(c => c.Block == keyBlock && indexs.Contains(c.Index)).ToList();
@@ -95,32 +80,22 @@ namespace Sudoku.Tools
                                                 var negativeCell = new NegativeCell(removeCell.Index, value, qSudoku);
                                                 cells.Add(negativeCell);
                                             }
-
                                             if (removeCells.Count > 1)
                                             {
                                                 var negativeCell1 = new NegativeIndexsGroup(removeCells.Select(c => c.Index).ToList(), value, qSudoku);
                                                 cells.Add(negativeCell1);
                                             }
-
                                         }
-
-
                                     }
-
                                 }
                             }
    
-
                         }
-
-
                     }
                 }
             }
-
             return cells;
         }
-
         public override string GetDesc()
         {
             return "";

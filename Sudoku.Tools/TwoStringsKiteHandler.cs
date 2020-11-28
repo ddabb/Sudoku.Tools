@@ -3,10 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sudoku.Core.Model;
-
 namespace Sudoku.Tools
 {
-
     /// <summary>
     /// https://www.cnblogs.com/asdyzh/p/10145026.html
     /// </summary>
@@ -14,20 +12,16 @@ namespace Sudoku.Tools
     public class TwoStringsKiteHandler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.TwoStringsKite;
-
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
-
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             return AssignmentCellByEliminationCell(qSudoku);
         }
-
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
             var allunsetCell = qSudoku.AllUnSetCells;
             var possileIndex = GetAllPossibleIndexInRowOrColumn(qSudoku, 2);
-
             var pairs = (from chaina in possileIndex
                          join chainb in possileIndex on chaina.SpeacialValue equals chainb.SpeacialValue
                          where chaina.direction != chainb.direction
@@ -53,13 +47,11 @@ namespace Sudoku.Tools
                             blockCount.Add(eachBlock, 1);
                         }
                     }
-
                     var intersectIndex = allIndex.Where(c => blockCount[new PositiveCell(c, 0, qSudoku).Block] != 2).ToList();
                     var restCells = qSudoku.GetPublicUnsetAreas(intersectIndex[0], intersectIndex[1]);
                     foreach (var cell in restCells)
                     {
                         var rests = cell.RestList;
-
                         if (rests.Contains(rest))
                         {
                             cells.Add(new NegativeCell(cell.Index, rest, qSudoku) );
@@ -69,7 +61,6 @@ namespace Sudoku.Tools
             }
             return cells;
         }
-
         public override string GetDesc()
         {
             return "";

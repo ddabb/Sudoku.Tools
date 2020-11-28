@@ -3,7 +3,6 @@ using Sudoku.Core.Model;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-
 namespace Sudoku.Control
 {
     public class DrawGird
@@ -20,7 +19,6 @@ namespace Sudoku.Control
             this.DrawingCell = DrawingCell;
             this.SmallSpace = smallSpace;
         }
-
         /// <summary>
         /// panel的size=bigSpace*9+15;
         /// </summary>
@@ -28,10 +26,8 @@ namespace Sudoku.Control
         /// <returns></returns>
         private Dictionary<int, Pen> GetOffSet(int bigSpace)
         {
-
             return new Dictionary<int, Pen>()
             {
-
                 {1 + bigSpace * 0, Pens.Black},
                 {2 + bigSpace * 0, Pens.Black},
                 {3 + bigSpace * 1, Pens.Gray},
@@ -48,12 +44,10 @@ namespace Sudoku.Control
                 {14 + bigSpace * 9, Pens.Black},
             };
         }
-
         private int SmallSpace;
         public void DrawPanel(Graphics objGraphics)
         {
             var bigSpace = SmallSpace * 3;
-
             Rectangle rectangle = new Rectangle(0, 0, panelWidth, panel1Height);
             BufferedGraphics graphBuffer = (new BufferedGraphicsContext()).Allocate(objGraphics, rectangle);
             Graphics g = graphBuffer.Graphics;
@@ -61,19 +55,14 @@ namespace Sudoku.Control
             var bigFont = new Font("宋体", smallFont.Size * 3, FontStyle.Bold, GraphicsUnit.Point, 0);
             var lineweith = 1;
             g.FillRectangle(new SolidBrush(Color.White), rectangle);
-
             var offSets = GetOffSet(bigSpace);
-
             #region 画横线
-
             foreach (var kv in offSets)
             {
                 g.DrawLine(kv.Value, new Point(0, kv.Key), new Point(panelWidth, kv.Key));
                 g.DrawLine(kv.Value, new Point(kv.Key, 0), new Point(kv.Key, panel1Height));
             }
-
             #endregion
-
             QSudoku sudoku = Sudoku;
             if (sudoku != null)
             {
@@ -85,7 +74,6 @@ namespace Sudoku.Control
                         var color = Color.DarkOrange;
                         PaintCurrentCell(g, color, bigSpace, currentCell.Row, currentCell.Column);
                     }
-
                     if (item.Value != 0)
                     {
                         var stringvalue = "" + item.Value;
@@ -114,9 +102,7 @@ namespace Sudoku.Control
                         }
                     }
                 }
-
                 #region 绘制提示数信息
-
                 if (ShowCandidates && DrawingCell != null)
                 {
                     if (sudoku.AllCell[DrawingCell.Index].Value == 0)
@@ -124,20 +110,16 @@ namespace Sudoku.Control
                         DrawHint(DrawingCell, bigSpace, g, smallFont);
                     }
                 }
-
                 #endregion
             }
-
             ButtonBorderStyle style = ButtonBorderStyle.Solid;
             ControlPaint.DrawBorder(g, rectangle,
                 Color.FromArgb(255, 0xd7, 0xd7, 0xd7), 1, style,
                 Color.FromArgb(255, 0xd7, 0xd7, 0xd7), 1, style,
                 Color.FromArgb(255, 0xd7, 0xd7, 0xd7), 1, style,
                 Color.FromArgb(255, 0xd7, 0xd7, 0xd7), 1, style);
-
             graphBuffer.Render(objGraphics);
         }
-
         private void PaintCurrentCell(Graphics g, Color color, int bigSpace, int rowIndex, int columnIndex)
         {
             g.FillRectangle(new SolidBrush(color),
@@ -146,9 +128,6 @@ namespace Sudoku.Control
                         bigSpace * rowIndex + indexOffset[rowIndex] + 1),
                     new Size(bigSpace, bigSpace)));
         }
-
-
-
         /// <summary>
         /// 绘制提示内容
         /// </summary>
@@ -188,21 +167,14 @@ namespace Sudoku.Control
                         item.Row * bigSpace + indexOffset[item.Row] + (SmallSpace * ((item1 - 1) / 3)) +
                         +(SmallSpace - size.Height) / 2));
                 }
-
             }
             #endregion
-
             #region 绘制线条
             foreach (var item in cell.drawChains)
             {
-
             }
             #endregion
         }
-
-
-
-
         private Dictionary<int, int> indexOffset = new Dictionary<int, int>
         {
             {0 , 2 },
@@ -214,9 +186,6 @@ namespace Sudoku.Control
             {6 , 10},
             {7 , 11},
             {8 , 12},
-
         };
-
-
     }
 }

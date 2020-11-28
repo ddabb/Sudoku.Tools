@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace Sudoku.Core
 {
    public static class IntExtenstions
@@ -17,30 +16,22 @@ namespace Sudoku.Core
             else
             {
                 return Enum.GetValues(typeof(AllA1I9)).Cast<AllA1I9>().ToList()[input];
-
-
             }
         
             
         }
-
         public static SolveMessage RowDesc(this int input)
         {
             return new SolveMessage("R" + (input + 1), MessageType.Location);
         }
-
         public static SolveMessage ColumnDesc(this int input)
         {
             return new SolveMessage("C" + (input + 1), MessageType.Location);
         }
-
         public static SolveMessage BlockDesc(this int input)
         {
             return new SolveMessage("B" + (input + 1), MessageType.Location);
         }
-
     }
-
-
 }
 

@@ -4,17 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Sudoku.Core.Model;
-
-
 namespace Sudoku.Tools
 {
     [AssignmentExample(8, "R7C4","489172005651403002273056004300718459597364821814529003905001047748005006130047598")]
     public class ULSize6Type1Handler :SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.ULSize6Type1;
-
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
-
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells=new List<CellInfo>();
@@ -31,7 +27,6 @@ namespace Sudoku.Tools
                        && a2.Row == a0.Row
                        && a0.RestList.Intersect(a1.RestList).Count() == 2
                     select new { a1, a2, restString, indexs }).ToList();
-
                 foreach (var item in step)
                 {
                     var a1 = item.a1;
@@ -59,12 +54,10 @@ namespace Sudoku.Tools
             return cells;
      
         }
-
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             return new List<CellInfo>();
         }
-
         public override string GetDesc()
         {
             return "";

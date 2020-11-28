@@ -3,23 +3,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sudoku.Core.Model;
-
 namespace Sudoku.Tools
 {
     [AssignmentExample(4, "R2C7", "417329586056010000038050000581290640629540801374100295193405700745032000862971354")]
     public class ULSize6Type3Handler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.ULSize6Type3;
-
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
-
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
             var allUnSetCell = qSudoku.AllUnSetCells;
             var pairCells = allUnSetCell.Where(c => c.RestCount == 2).ToList();
             var otherCells = allUnSetCell.Where(c => c.RestCount > 2).ToList();
-
             var a0a1 = (from a0 in pairCells
                         join a1 in pairCells on a0.Block equals a1.Block
                         let restString = a0.RestString
@@ -29,9 +25,7 @@ namespace Sudoku.Tools
                         select new { a0, a1, restString, exceptIndexs }).ToList();
             foreach (var item in a0a1)
             {
-
                 var restString = item.restString;
-
                 var exceptIndexs = item.exceptIndexs;
                 var leftCells = allUnSetCell
                     .Where(c => !exceptIndexs.Contains(c.Index) && c.RestString == restString).ToList();
@@ -81,19 +75,11 @@ namespace Sudoku.Tools
                             var a5 = item3.a5;
                             cells.AddRange(NewMethod(qSudoku, a4, restList, a5, allUnSetCell));
                         }
-
                     }
                 }
-
-
-
-
-
             }
-
             return cells;
         }
-
         private List<CellInfo> NewMethod(QSudoku qSudoku, CellInfo a4, List<int> restList, CellInfo a5,
             List<CellInfo> allUnSetCell)
         {
@@ -134,15 +120,12 @@ namespace Sudoku.Tools
                     }
                 }
             }
-
             return cells;
         }
-
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             return new List<CellInfo>();
         }
-
         public override string GetDesc()
         {
             return "";

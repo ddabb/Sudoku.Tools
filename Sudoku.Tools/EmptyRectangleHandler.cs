@@ -2,7 +2,6 @@
 using Sudoku.Core.Model;
 using System.Collections.Generic;
 using System.Linq;
-
 namespace Sudoku.Tools
 {
     [AssignmentExample(9, "R4C9", "598643002003759648674128593457200830906307425032405060005904380341872956009530204")]
@@ -12,7 +11,6 @@ namespace Sudoku.Tools
         {
             List<CellInfo> cells = new List<CellInfo>();
             var allUnsetCell = qSudoku.AllUnSetCells;
-
             foreach (var value in G.AllBaseValues)
             {
                 var cellInfos = allUnsetCell.Where(c => c.RestList.Contains(value)).ToList();
@@ -25,7 +23,6 @@ namespace Sudoku.Tools
                     foreach (var interectCell in result)
                     {
                         var otherBlockCell = cellInfos.Where(c => c.Block != index).ToList();
-
                         var abc = (from a in otherBlockCell
                                    join b in otherBlockCell on 1 equals 1
                                    join c in otherBlockCell on 1 equals 1
@@ -47,16 +44,13 @@ namespace Sudoku.Tools
                                 cell.SolveMessages = new List<SolveMessage>
                                 {
                                     G.MergeLocationDesc(interectCell,aCell,bCell,cCell),
-
                                     new SolveMessage("中的"),
                                     new SolveMessage(" "+ value+" ", MessageType.Postive),
                                     new SolveMessage("构成空矩形"+"\t\t\r\n", MessageType.Important),
                                     new SolveMessage("所以"),
                                     new SolveMessage(cell.Location+"不为"+value+"\t\t\r\n", MessageType.Nagetive),
                                 };
-
                                 var drawCells = GetDrawPossibleCell(new List<int> { value }, blockCells);
-
                                 drawCells.AddRange(GetDrawPossibleCell(new List<int> { value }, G.MergeCells(aCell, bCell, cCell) ));
                                 drawCells.Add(cell);
                                 cell.drawCells = drawCells;
@@ -80,7 +74,6 @@ namespace Sudoku.Tools
                                 drawCells.Add(cell);
                                 cell.drawCells = drawCells;
                                 cells.Add(cell);
-
                             }
                         }
                     }
@@ -88,16 +81,12 @@ namespace Sudoku.Tools
             }
             return cells;
         }
-
         public override SolveMethodEnum methodType => SolveMethodEnum.EmptyRectangle;
-
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
-
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             return AssignmentCellByEliminationCell(qSudoku);
         }
-
         public override string GetDesc()
         {
             return "";

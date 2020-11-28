@@ -4,21 +4,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Sudoku.Core.Model;
-
 namespace Sudoku.Tools
 {
     [EliminationExample(1,"R6C6","893000076756080304142673859580020003429036705630000002214568937368297541975314008")]
     public class VWXYZWingHandler :SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.VWXYZWing;
-
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
-
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             return AssignmentCellByEliminationCell(qSudoku);
         }
-
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
@@ -29,7 +25,6 @@ namespace Sudoku.Tools
                 var checkcellRest = checkcell.RestList;
                 var relatedCell = checkcell.RelatedUnsetCells.Where(c =>
                     countRange.Contains(c.RestCount) && c.RestList.Intersect(checkcellRest).Any()).ToList();
-
                 var filter = (from x in relatedCell
                               join y in relatedCell on 1 equals 1
                               join z in relatedCell on 1 equals 1
@@ -85,7 +80,6 @@ namespace Sudoku.Tools
                                 cells.Add(negativeCell);
                             }
                         }
-
                         var list1 = qSudoku.AllUnSetCells
                                     .Where(c => publicIndexs.Contains(c.Index) && c.RestList.Contains(intersectValue)).ToList();
                         if (list1.Count > 1)
@@ -111,18 +105,11 @@ namespace Sudoku.Tools
                             cells.Add(cellgroup);
              
                         }
-
-
-
                     }
-
                 }
-
             }
-
             return cells;
         }
-
         public override string GetDesc()
         {
             return "若五个单元格的候选数满足VZ,WZ,XZ,YZ,VWXYZ形式，且VWXYZ位于VZ,WZ,XZ,YZ的共同相关格上，则VZ,WZ,XZ,YZ,VWXYZ的其余共同相关格不包含候选数Z。";

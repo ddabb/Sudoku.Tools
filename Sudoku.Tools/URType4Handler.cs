@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sudoku.Core.Model;
-
 namespace Sudoku.Tools
 {
     [AssignmentExample(6,"R9C2", "396002451451090782782451090645230008030000045100045030003500064500904020004020500")]
@@ -12,9 +11,7 @@ namespace Sudoku.Tools
     public class URType4Handler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.URType4;
-
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
-
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
@@ -30,10 +27,8 @@ namespace Sudoku.Tools
                 var b = cell.b;
                 var restString = a.RestString;
                 var restInt = a.RestList;
-
                 if (a.Row == b.Row)
                 {
-
                     var pairs1 = (from c in unCheckSell
                                   join d in unCheckSell on 1 equals 1
                                   where c.Row != a.Row && c.Row == d.Row
@@ -58,7 +53,6 @@ namespace Sudoku.Tools
                             select new PositiveCell(indexs.First(), cellValue, qSudoku));
                     }
                 }
-
                 if (a.Column == b.Column)
                 {
                     var pairs1 = (from c in unCheckSell
@@ -73,7 +67,6 @@ namespace Sudoku.Tools
                                   select new { c, d }).ToList();
                     foreach (var cell2 in pairs1)
                     {
-
                         cells.AddRange(
                                 //a b 中 restvalue的x y在 c d 列只存在于对应的两行
                                 from value in restInt
@@ -86,16 +79,13 @@ namespace Sudoku.Tools
                                 select new PositiveCell(indexs.First(), cellValue, qSudoku));
                     }
                 }
-
             }
             return cells;
         }
-
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             return new List<CellInfo>();
         }
-
         public override string GetDesc()
         {
             return "";

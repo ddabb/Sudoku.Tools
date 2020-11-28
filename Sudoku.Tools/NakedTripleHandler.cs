@@ -2,27 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using Sudoku.Core.Model;
-
 namespace Sudoku.Tools
 {
     [AssignmentExample(8, "R3C6", "390000700000000650507000349049380506601054983853000400900800134002940865400000297")]
     public class NakedTripleHandler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.NakedTriple;
-
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
-
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             return AssignmentCellByEliminationCell(qSudoku);
         }
-
-
-
-
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
-
             List<CellInfo> cells = new List<CellInfo>();
             var allUnSetCell = qSudoku.AllUnSetCells;
             List<int> possibleCount = new List<int> { 2, 3 };
@@ -77,20 +69,13 @@ namespace Sudoku.Tools
                                         cells.Add(negativeCell);
                                     }
                                 }
-
-
                             }
-
                         }
-
-
                     }
                 }
-
             }
             return cells;
         }
-
         public override string GetDesc()
         {
             return @"在某个行/列/宫内,若三个单元格只能填入a、b、c三个数,则该行/列/宫的其余单元格不能填入a、b、c。";

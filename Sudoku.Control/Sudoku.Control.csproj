@@ -15,7 +15,6 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
-
  
   <ItemGroup>
     <ProjectReference Include="..\Sudoku.Core\Sudoku.Core.csproj">
@@ -23,7 +22,6 @@
       <Name>Sudoku.Core</Name>
     </ProjectReference>
   </ItemGroup>
-
  
   <ItemGroup>
     <Folder Include="Properties\" />

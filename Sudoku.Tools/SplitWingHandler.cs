@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Sudoku.Core.Model;
-
 namespace Sudoku.Tools
 {
     [EliminationExample(2, "R8C1", "000058793093074185578931462010582934005169000982347651054726019009015006060093500")]
@@ -10,10 +9,8 @@ namespace Sudoku.Tools
     {
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
-
             return AssignmentCellByEliminationCell(qSudoku);
         }
-
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
@@ -28,7 +25,6 @@ namespace Sudoku.Tools
                     c.RestList.Contains(value1) && c.RestList.Contains(value2) && c.Index != item.Index).ToList();
                 if (filterCells.Count > 3)
                 {
-
                     //a R8C8 7
                     //b R9C8 2
                     //c R8C1 7
@@ -54,20 +50,14 @@ namespace Sudoku.Tools
                                   && abCells.Select(c => c.Block).Distinct().Count() == 2
                             select new {a, b, c, d, cellLists}
                         ).ToList();
-
-
-
                     foreach (var keyCell in keyCells)
                     {
                         var a = keyCell.a;
                         var b = keyCell.b;
                         var c = keyCell.c;
                         var d = keyCell.d;
-
                         var aNextCell = new NegativeCell(a.Index, value2, qSudoku).NextCells;
-
                         var cNextCell = new NegativeCell(c.Index, value2, qSudoku).NextCells;
-
                         if (aNextCell.Exists(x => x.Index == c.Index && x.Value == value2))
                         {
                             var bNextCell = new NegativeCell(b.Index, value1, qSudoku).NextCells;
@@ -80,12 +70,9 @@ namespace Sudoku.Tools
                                 var pb = new PositiveCell(b.Index, value1, qSudoku).NextCells; //b R9C8 2
                                 if (pa.Exists(x => x.Index == item.Index && x.Value == value2) &&
                                     pb.Exists(x => x.Index == item.Index && x.Value == value1))
-
-
                                 {
                                     var cell1 = new NegativeCell(c.Index, value1, qSudoku)
                                     {
-
                                         SolveMessages = MergeCellSolveLocationMessage(item, a, b, c, d)
                                     };
                                     cell1.SolveMessages.AddRange(new List<SolveMessage> {"value1是", value1 + "\t\t\r\n"});
@@ -94,33 +81,26 @@ namespace Sudoku.Tools
                                         {c.Index.LoctionDesc(), "不能为", value1});
                                     var cell2 = new NegativeCell(d.Index, value2, qSudoku)
                                     {
-
                                         SolveMessages = MergeCellSolveLocationMessage(item, a, b, c, d)
                                     };
                                     cell2.SolveMessages.AddRange(new List<SolveMessage> {"value1是", value1 + "\t\t\r\n"});
                                     cell2.SolveMessages.AddRange(new List<SolveMessage> {"value2是", value2 + "\t\t\r\n"});
                                     cell2.SolveMessages.AddRange(new List<SolveMessage>
                                         {d.Index.LoctionDesc(), "不能为", value2});
-
                                     cells.Add(cell1);
                                     cells.Add(cell2);
                                 }
                             }
                         }
-
                     }
-
                 }
             }
-
             return cells;
         }
-
         public override string GetDesc()
         {
             return "参考链文本";
         }
-
         public override SolveMethodEnum methodType => SolveMethodEnum.SplitWing;
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
     }

@@ -3,16 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sudoku.Core.Model;
-
 namespace Sudoku.Tools
 {
     [AssignmentExample(4,"R2C6","450106237073000165261573489316000578724865913005731642542317896130650724607002351")]
     public class RemotePairHandler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.RemotePair;
-
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
-
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
@@ -28,7 +25,6 @@ namespace Sudoku.Tools
                                                                                                b.Column == d.Column)
                             )
                             && c.Row != d.Row && c.Column != d.Column
-
                       select new { c, d }).ToList();
             foreach (var item in cd)
             {
@@ -42,12 +38,10 @@ namespace Sudoku.Tools
             }
             return cells;
         }
-
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             return new List<CellInfo>();
         }
-
         public override string GetDesc()
         {
             return "";

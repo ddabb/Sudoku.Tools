@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace Sudoku.Core.Model
 {
     /// <summary>
@@ -18,7 +17,6 @@ namespace Sudoku.Core.Model
         public CellType cellType;
         public List<ChainNode> AllParent;
         public List<IChainCell> allChainCells;
-
         public ChainNode(CellInfo startCellInfo,CellInfo endCellInfo, List<IChainCell> allChainCells)
         {
             this.Index = startCellInfo.Index;
@@ -26,7 +24,6 @@ namespace Sudoku.Core.Model
             this.cellType = startCellInfo.CellType;
        
         }
-
         public void Bulid()
         {
             if (this.cellType== CellType.Negative)
@@ -38,7 +35,6 @@ namespace Sudoku.Core.Model
                     
             }
         }
-
         /// <summary>
         /// 能找到一条这样的链；
         /// </summary>

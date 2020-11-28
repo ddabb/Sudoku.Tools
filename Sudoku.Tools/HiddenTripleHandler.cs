@@ -2,21 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using Sudoku.Core.Model;
-
 namespace Sudoku.Tools
 {
     [AssignmentExample(4, "R1C9", "015070000900040105834651000050097018108065000000180526403518000060030851581026043")]
     public class HiddenTripleHandler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.HiddenTriple;
-
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
-
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             return AssignmentCellByEliminationCell(qSudoku);
         }
-
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
@@ -26,7 +22,6 @@ namespace Sudoku.Tools
                 {
                     //待检查的单元格
                     var checkCells = qSudoku.AllUnSetCells.Where(G.GetDirectionCells(direction, index)).ToList();
-
                     if (checkCells.Count > 3)
                     {
                         Dictionary<CellInfo, List<int>> indexRest = new Dictionary<CellInfo, List<int>>();
@@ -61,7 +56,6 @@ namespace Sudoku.Tools
                                 var cell3 = groupCells[2];
                                 var drawCell = new List<CellInfo>();
                                 var allValues = new List<int>();
-
                                 foreach (var kv in kvs)
                                 {
                                     var cell = kv;
@@ -81,9 +75,7 @@ namespace Sudoku.Tools
                                             negativeCell.drawCells = drawCells;
                                             cells.Add(negativeCell);
                                         }
-
                                     }
-
                                 }
                                 var otherValues = allValues.Where(c => !values.Contains(c)).Distinct().ToList();
                                 foreach (var other in otherValues)
@@ -96,7 +88,6 @@ namespace Sudoku.Tools
                                         negativeCell.SolveMessages = new List<SolveMessage>
                                             {
                                                 "在",GetDirectionMessage(direction,index),"中",values.JoinString()+"只出现在",G.MergeLocationDesc(cell1,cell2,cell3),"之中\t\t\r\n所以",
-
                                             };
                                         for (int i = 0; i < indexs.Count; i++)
                                         {
@@ -110,27 +101,17 @@ namespace Sudoku.Tools
                                         var drawCells = GetDrawNakedCell(groupCells, values);
                                         negativeCell.drawCells = drawCells;
                                         cells.Add(negativeCell);
-
                                     }
-
                                 }
-
-
-
                             }
-
                         }
                     }
                 }
             }
             return cells;
         }
-
-
-
         public override string GetDesc()
         {
-
             return @"若在某行/列/宫中，候选者a,b,c只在单元格A,B,C中出现,则A,B,C只能填入a,b,c;可以删除A,B,C单元格中a,b,c以外的候选数。";
         }
     }

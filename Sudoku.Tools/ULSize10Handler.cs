@@ -5,16 +5,13 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using Sudoku.Core.Model;
-
 namespace Sudoku.Tools
 {
     [AssignmentExample(5, "R6C4","003400879008093002902068534009800007325047908087009000750284093294316785830975240")]
     public class ULSize10Handler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.ULSize10;
-
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
-
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
@@ -60,15 +57,12 @@ namespace Sudoku.Tools
                     }
                 }
             }
-
             return cells;
         }
-
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             return new List<CellInfo>();
         }
-
         public override string GetDesc()
         {
             return "";

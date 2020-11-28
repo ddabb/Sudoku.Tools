@@ -2,30 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using Sudoku.Core.Model;
-
 namespace Sudoku.Tools
 {
-
     [AssignmentExample(9, "R7C4", "000436517000280000006170000000061070001000000050804100000043761003610000000000394")]
     public class DirectPointingHandler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.DirectPointing;
-
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
-
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             return AssignmentCellByEliminationCell(qSudoku);
         }
-
-
-
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
             var allunsetcell = qSudoku.AllUnSetCells;
             var blocks = allunsetcell.Select(c => c.Block).Distinct().ToList();
-
             foreach (var blockindex in blocks)
             {
                 foreach (var value in G.AllBaseValues)
@@ -35,7 +27,6 @@ namespace Sudoku.Tools
                         var blockUnSetCell = allunsetcell.Where(c => c.Block == blockindex).ToList();
                         var directionIndex = blockUnSetCell.Where(c => c.RestList.Contains(value))
                             .Select(FindDirectionCondtion(direction)).Distinct().ToList();
-
                         if (directionIndex.Count == 1 && blockUnSetCell.Count(c => c.RestList.Contains(value)) != 1)
                         {
                             var index = directionIndex.First();
@@ -61,11 +52,9 @@ namespace Sudoku.Tools
                                     var drawCells = GetDrawPossibleCell(new List<int> { value },blockUnSetCell);
                                     drawCells.Add(cell1);
                                     cell1.drawCells = drawCells;
-
                                     cells.Add(cell1);
                                 }
                             }
-
                             var otherBlocks = checks.Select(c => c.Block).Distinct().ToList();// 该行/列其他宫
                             foreach (var block in otherBlocks)
                             {
@@ -84,7 +73,6 @@ namespace Sudoku.Tools
                                         "不能填入" + value + "\t\t\r\n"
                                     }
                                 };
-
                                 var drawCells = GetDrawPossibleCell(value,blockUnSetCell);
                                 drawCells.AddRange(GetDrawNegativeCell(value,otherCell));
                                 drawCells.Add(cell1);
@@ -97,7 +85,6 @@ namespace Sudoku.Tools
             }
             return cells;
         }
-
         public override string GetDesc()
         {
             return "若宫B中只有特定行R可以填入候选数a，则该行R的其余宫不能填入候选数a；\t\t\r\n" +

@@ -4,24 +4,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Sudoku.Core.Model;
-
 namespace Sudoku.Tools
 {
     [AssignmentExample("000074200200906740004520009100457928547892000002600574400705092005209403629040057")]
     public class SwordfishHandler :SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.Swordfish;
-
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
-
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             return AssignmentCellByEliminationCell(qSudoku);
         }
-
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
-
             List<CellInfo> cells = new List<CellInfo>();
             List<int> range = new List<int> { 3 };
             List<int> sumrange = new List<int> { 9 };
@@ -52,7 +47,6 @@ namespace Sudoku.Tools
                                                         c.RestCount>1).Select(cell => new NegativeCell(cell.Index, value, qSudoku)
                     ).Cast<CellInfo>());
                 }
-
                 var filter2 = (from index1 in G.baseIndexs
                                join index2 in G.baseIndexs on 1 equals 1
                                join index3 in G.baseIndexs on 1 equals 1
@@ -78,10 +72,8 @@ namespace Sudoku.Tools
                     ).Cast<CellInfo>());
                 }
             }
-
             return cells;
         }
-
         public override string GetDesc()
         {
             return "";

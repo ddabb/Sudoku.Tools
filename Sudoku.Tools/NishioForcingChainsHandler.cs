@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Sudoku.Core;
 using Sudoku.Core.Model;
-
 namespace Sudoku.Tools
 {
     [AssignmentExample(2,"R1C2", "706014593390000100100039000032000600018900300047300800409100030871063900203090010")]
@@ -15,14 +14,12 @@ namespace Sudoku.Tools
         {
             return new List<CellInfo>();
         }
-
         public override SolveMethodEnum methodType => SolveMethodEnum.NishioForcingChains;
         public override MethodClassify methodClassify { get; }
         public override string GetDesc()
         {
             return "";
         }
-
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             return new List<CellInfo>();

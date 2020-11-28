@@ -7,50 +7,34 @@ using System.Linq;
 using System.Windows.Forms;
 using Sudoku.Control;
 using Sudoku.Core.Model;
-
 namespace Sudoku.UI
 {
     public partial class ctlSudoku : UserControl
     {
-
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), Browsable(false)]
         public bool ShowCandidates { get; set; }
-
-
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), Browsable(false)]
         public QSudoku Sudoku { get; set; }
-
-
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), Browsable(false)]
         public CellInfo DrawingCell { get; set; }
-
         public static int SmallSpace { get; private set; } = 27;
-
         public static int BigSpace
         {
             get { return SmallSpace * 3; }
         }
-
         public ctlSudoku()
         {
             InitializeComponent();
             this.DoubleBuffered = true;
-
-
         }
-
         /// <summary>
         /// 没有在绘制
         /// </summary>
         public bool IsNotPainting = true;
-
-
-
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
             RefreshSudokuPanel();
         }
-
         /// <summary>
         /// panel的size=bigSpace*9+15;
         /// </summary>
@@ -58,10 +42,8 @@ namespace Sudoku.UI
         /// <returns></returns>
         private Dictionary<int, Pen> GetOffSet(int bigSpace)
         {
-
             return new Dictionary<int, Pen>()
             {
-
                 {1 + bigSpace * 0, Pens.Black},
                 {2 + bigSpace * 0, Pens.Black},
                 {3 + bigSpace * 1, Pens.Gray},
@@ -78,7 +60,6 @@ namespace Sudoku.UI
                 {14 + bigSpace * 9, Pens.Black},
             };
         }
-
         public static Dictionary<int, DisplacementIntervall> lengths = new Dictionary<int, DisplacementIntervall>()
         {
             {0,  new DisplacementIntervall{MaxValue = BigSpace*1+2  ,MinValue =Int32.MinValue}},//防止拖拽出边界
@@ -90,26 +71,21 @@ namespace Sudoku.UI
             {6,  new DisplacementIntervall{MaxValue = BigSpace*7+10 ,MinValue =BigSpace*6+8 } },
             {7,  new DisplacementIntervall{MaxValue = BigSpace*8+11 ,MinValue =BigSpace*7+10} },
             {8,  new DisplacementIntervall{MaxValue = Int32.MaxValue,           MinValue =BigSpace*8+11} },
-
         };
-
         public int GetIndex(int offset)
         {
             return (from kv in lengths where kv.Value.MinValue <= offset && kv.Value.MaxValue > offset select kv.Key).First();
         }
-
         public int GetCellIndex(int rowIndex, int columnIndex)
         {
             return rowIndex * 9 + columnIndex;
         }
-
         private void panel1_MouseMove(object sender, MouseEventArgs e)
         {
             if (IsNotPainting)
             {
                 var x = e.X;
                 var y = e.Y;
-
                 var columnIndex = GetIndex(x);
                 var rowIndex = GetIndex(y);
                 var cellIndex = GetCellIndex(rowIndex, columnIndex);
@@ -119,10 +95,7 @@ namespace Sudoku.UI
                     RefreshSudokuPanel();
                 }
             }
-
         }
-
-
         private Dictionary<int, int> indexOffset = new Dictionary<int, int>
         {
                {0 , 2 },
@@ -134,10 +107,7 @@ namespace Sudoku.UI
                {6 , 10},
                {7 , 11},
                {8 , 12},
-
         };
-
-
         public void RefreshSudokuPanel()
         {
             if (IsNotPainting)
@@ -154,19 +124,14 @@ namespace Sudoku.UI
                 var bigFont = new Font("宋体", smallFont.Size * 3, FontStyle.Bold, GraphicsUnit.Point, 0);
                 var lineweith = 1;
                 g.FillRectangle(new SolidBrush(Color.White), rectangle);
-
                 var offSets = GetOffSet(bigSpace);
-
                 #region 画横线
-
                 foreach (var kv in offSets)
                 {
                     g.DrawLine(kv.Value, new Point(0, kv.Key), new Point(panelWidth, kv.Key));
                     g.DrawLine(kv.Value, new Point(kv.Key, 0), new Point(kv.Key, panel1Height));
                 }
-
                 #endregion
-
                 QSudoku sudoku = Sudoku;
                 if (sudoku != null)
                 {
@@ -178,7 +143,6 @@ namespace Sudoku.UI
                             var color = Color.DarkOrange;
                             PaintCurrentCell(g, color, bigSpace, currentCell.Row, currentCell.Column);
                         }
-
                         if (item.Value != 0)
                         {
                             var stringvalue = "" + item.Value;
@@ -214,7 +178,6 @@ namespace Sudoku.UI
                         {
                             DrawHint(DrawingCell, bigSpace, g, smallFont);
                         }
-
                     }
                     #endregion
                 }
@@ -228,7 +191,6 @@ namespace Sudoku.UI
                 graphBuffer.Render(objGraphics);
             }
         }
-
         /// <summary>
         /// 绘制提示内容
         /// </summary>
@@ -256,18 +218,14 @@ namespace Sudoku.UI
                             item.Row * bigSpace + indexOffset[item.Row] + (SmallSpace * ((item1 - 1) / 3)) +
                             +(SmallSpace - size.Height) / 2));
                 }
-
             }
             #endregion
-
             #region 绘制线条
             foreach (var item in cell.drawChains)
             {
-
             }
             #endregion
         }
-
         private void PaintCurrentCell(Graphics g, Color color, int bigSpace, int rowIndex, int columnIndex)
         {
             g.FillRectangle(new SolidBrush(color),
@@ -276,25 +234,17 @@ namespace Sudoku.UI
                             bigSpace * rowIndex + indexOffset[rowIndex] + 1),
                         new Size(bigSpace, bigSpace)));
         }
-
-
-
         private void panel1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-
         }
-
         private void panel1_MouseClick(object sender, MouseEventArgs e)
         {
-
         }
-
         private void panel1_MouseLeave(object sender, System.EventArgs e)
         {
             Sudoku.CurrentCell = null;
             RefreshSudokuPanel();
         }
-
         private void RefreshRowPanel()
         {
             var objGraphics = rowPanel.CreateGraphics();
@@ -313,12 +263,8 @@ namespace Sudoku.UI
                     width,
                     BigSpace * i + heigth + indexOffset[i]);
             }
-
             graphBuffer.Render(objGraphics);
         }
-
-
-
         private void RefreshColumnPanel()
         {
             var objGraphics = columnPanel.CreateGraphics();
@@ -337,38 +283,24 @@ namespace Sudoku.UI
                     BigSpace * i + heigth + indexOffset[i],
                     0);
             }
-
             graphBuffer.Render(objGraphics);
         }
-
         private void rowPanel_Paint(object sender, PaintEventArgs e)
         {
-
             RefreshRowPanel();
         }
-
         private void columnPanel_Paint(object sender, PaintEventArgs e)
         {
             RefreshColumnPanel();
         }
-
         public void RetSetRowAndColumnFormat()
         {
             RefreshRowPanel();
             RefreshColumnPanel();
         }
-
-
         //keycode 37 = Left ←
         //keycode 38 = Up ↑
         //keycode 39 = Right →
         //keycode 40 = Down ↓
-
-
-
-
-
-
-
     }
 }

@@ -5,28 +5,23 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using Sudoku.Core.Model;
-
 namespace Sudoku.Tools
 {
     [AssignmentExample(6,"R8C7","860035900700068351530074020070810530005307100183540200020650703057400002010700495")]
     public class XYWingHandler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.XYWing;
-
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
-
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             return AssignmentCellByEliminationCell(qSudoku);
         }
-
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
             var checkCells = qSudoku.AllUnSetCells.Where(c => c.RestCount == 2).ToList();
             foreach (var checkCell in checkCells)
             {
-
                 var checkCellRest = checkCell.RestList;
                 var relatedCell = checkCell.RelatedUnsetCells;
                 var xy = (from x in relatedCell
@@ -48,7 +43,6 @@ namespace Sudoku.Tools
                     var xrest = item.xrest;
                     var yrest = item.yrest;
                     var removes = xrest.Intersect(yrest).ToList();
-
                     if (checkCellRest.Contains(xrest.Except(removes).First()) && checkCellRest.Contains(yrest.Except(removes).First()))
                     {
                         var removeValue = removes.First();
@@ -70,15 +64,10 @@ namespace Sudoku.Tools
                             }
                         }
                     }
-
-
-
                 }
             }
-
             return cells;
         }
-
         public override string GetDesc()
         {
             return "若三个双候选单元格的候选数满足XZ,YZ,XY形式，且XY位于XZ,YZ的共同相关格上，则XZ,YZ的其余共同相关格不包含候选数Z。";

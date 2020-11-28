@@ -2,21 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using Sudoku.Core.Model;
-
 namespace Sudoku.Tools
 {
     [EliminationExample(4, "R1C4", "000010900001209870029306451697023100482061000135000260000002610056134700010697000")]
     public class AlignedTripleExclusionHandler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.AlignedTripleExclusion;
-
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
-
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             return AssignmentCellByEliminationCell(qSudoku);
         }
-
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
@@ -48,31 +44,23 @@ namespace Sudoku.Tools
                                         {
                                             var mergeList = G.MergeInt(value1, value2,value3);
                                             bool allHasValueToSet = qSudoku.AllUnSetCells.Where(c => checkIndex.Contains(c.Index)).ToList().All(c => c.RestList.Except(mergeList).Any());
-
-
                                             dtos.Add(new AlignedDTO(allHasValueToSet, new InitCell(index1, value1), new InitCell(index2, value2), new InitCell(index3, value3)));
                                         }
        
                                     }
-
                                 }
-
                                 List<CellInfo> all = G.MergeCells(cell1, cell2, cell3);
                                 foreach (var item in all)
                                 {
                                     NewMethod1(NewMethod(qSudoku, item, dtos, all), cells);
-
                                 }
                             }
                         }
                     }
    
-
                 }
             }
-
             return cells;
-
         }
      
         public override string GetDesc()
@@ -80,5 +68,4 @@ namespace Sudoku.Tools
             return "若三个候选数格X,Y,Z值任意组合，当X为x时，若无论Y,Z任意组合，该三个单元格的共同相关格都没有有效数字可以填，则X不为x。";
         }
     }
-
 }

@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-
 namespace Sudoku.Core
 {
     public class RandomHelper
     {
-
         /// <summary>
         /// 根据随机数范围获取一定数量的随机数
         /// </summary>
@@ -23,21 +21,16 @@ namespace Sudoku.Core
         {
             List<int> randomList = new List<int>();
             int nValue = 0;
-
             #region 是否包含最大最小值，默认包含最小值，不包含最大值
-
             if (!isIncludeMinNum)
             {
                 minNum = minNum + 1;
             }
-
             if (isIncludeMaxNum)
             {
                 maxNum = maxNum + 1;
             }
-
             #endregion
-
             if (isSame)
             {
                 for (int i = 0; randomList.Count < ResultCount; i++)
@@ -58,7 +51,6 @@ namespace Sudoku.Core
                     }
                 }
             }
-
             return randomList;
         }
     }

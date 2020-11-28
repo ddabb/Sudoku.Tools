@@ -5,32 +5,23 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using Sudoku.Core.Model;
-
 namespace Sudoku.Tools
 {
-
     [AssignmentExample(9,"R1C7","805630070003705800027081305236894157481257030579163284702300000304000700198076023")]
     public class SkyscraperHandler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.Skyscraper;
-
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
-
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             return AssignmentCellByEliminationCell(qSudoku);
         }
-
-
-
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
             int times = 2;
-
             List<PossibleIndex> allPossibleindex1 = GetAllPossibleIndexInRowOrColumn(qSudoku, times);
             var pair = (from a in allPossibleindex1
-
                         join c in allPossibleindex1 on a.SpeacialValue equals c.SpeacialValue
                         where a.indexs.JoinString() != c.indexs.JoinString()
                         && !IsSameBlock(a.indexs[0], a.indexs[1])
@@ -55,13 +46,11 @@ namespace Sudoku.Tools
                 {
                     cellindex1 = item.a.indexs[1];
                     cellindex2 = item.c.indexs[1];
-
                 }
                 else
                 {
                     cellindex1 = item.a.indexs[0];
                     cellindex2 = item.c.indexs[0];
-
                 }
                 rest = qSudoku.GetPublicUnsetAreas(item.a.indexs[1], item.c.indexs[1]);
                 var filter = rest.Where(c => c.RestCount >1 && c.RestList.Contains(SpeacialValue)).ToList();
@@ -82,14 +71,9 @@ namespace Sudoku.Tools
                     };
                     cells.Add(cell1); ;
                 }
-
             }
-
-
-
             return cells;
         }
-
         public override string GetDesc()
         {
             return "";

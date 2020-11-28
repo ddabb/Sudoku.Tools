@@ -4,10 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using Sudoku.Core.Model;
-
 namespace Sudoku.Tools
 {
-
     [AssignmentExample(9, "R5C9", "000806172817923546062070983006000400100680730003000600054090867708460301601708204"
         , SolveMethodEnum.HiddenPair
         , SolveMethodEnum.HiddenPair
@@ -15,14 +13,11 @@ namespace Sudoku.Tools
     public class XRSize6Type2Handler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.XRSize6Type2;
-
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
-
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             return AssignmentCellByEliminationCell(qSudoku);
         }
-
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
@@ -81,7 +76,6 @@ namespace Sudoku.Tools
                                 
                             }
                         }
-
                     }
                     else
                     {
@@ -105,17 +99,13 @@ namespace Sudoku.Tools
                                     var cell = new NegativeCell(item3.Index, removeValue, qSudoku);
                                     cells.Add(cell);
                                 }
-
                             }
                         }
-
                     }
                 }
-
             }
             return cells;
         }
-
         public override string GetDesc()
         {
             return "";

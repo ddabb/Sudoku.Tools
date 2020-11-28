@@ -2,7 +2,6 @@
 using Sudoku.Core.Model;
 using System.Collections.Generic;
 using System.Linq;
-
 namespace Sudoku.Tools
 {
     [AssignmentExample(7, "R6C4", "000040601001560204006100079607010900019600007020090816532971468978436100164258793")]
@@ -35,8 +34,6 @@ namespace Sudoku.Tools
                     var a = item.a;
                     var b = item.b;
                     var c = item.c;
-
-
                     var publicIndexs = item.a.RelatedUnsetIndexs
                         .Intersect(item.b.RelatedUnsetIndexs)
                         .Intersect(item.c.RelatedUnsetIndexs).ToList();
@@ -63,7 +60,6 @@ namespace Sudoku.Tools
                             };
                             cells.Add(cell);
                         }
-
                     }
                     var list1 = qSudoku.AllUnSetCells
                         .Where(c => publicIndexs.Contains(c.Index) && c.RestList.Contains(intersectValue)).ToList();
@@ -74,7 +70,6 @@ namespace Sudoku.Tools
                         group.drawCells.AddRange(GetDrawPossibleCell(a.RestList, a));
                         group.drawCells.AddRange(GetDrawPossibleCell(b.RestList, b));
                         group.drawCells.AddRange(GetDrawPossibleCell(c.RestList, c));
-
                         group.drawCells.AddRange(GetDrawPossibleCell(checkCell.RestList, checkCell));
                         group.drawCells.AddRange(GetDrawNegativeCell(intersectValue, list1));
                         group.SolveMessages = new List<SolveMessage>
@@ -85,23 +80,15 @@ namespace Sudoku.Tools
                         cells.Add(group);
                     }
                 }
-
             }
-
-
             return cells;
-
         }
-
         public override SolveMethodEnum methodType => SolveMethodEnum.IncompleteWXYZWing;
-
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
-
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             return AssignmentCellByEliminationCell(qSudoku);
         }
-
         public override string GetDesc()
         {
             return "若四个单元格的候选数满足WZ,XZ,YZ,WXY形式，且WXY位于WZ,XZ,YZ的共同相关格上，则WZ,XZ,YZ的其余共同相关格不包含候选数Z。";

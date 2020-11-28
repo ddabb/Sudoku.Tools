@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
 namespace Sudoku.Core.Model
 {
     /// <summary>
@@ -17,17 +16,13 @@ namespace Sudoku.Core.Model
         public EliminationExampleAttribute(string queryString)
         {
             this.queryString = queryString;
-
         }
-
         public EliminationExampleAttribute(int positionValue, string positionString, string queryString)
         {
             this.queryString = queryString;
             this.value = positionValue;
             this.positionString = positionString;
-
         }
-
         public EliminationExampleAttribute(int positionValue, string positionString, string queryString, params SolveMethodEnum[] solveHandlers)
         {
             this.queryString = queryString;
@@ -35,8 +30,6 @@ namespace Sudoku.Core.Model
             this.positionString = positionString;
             this.SolveHandlers = solveHandlers;
         }
-
-
         public EliminationExampleAttribute(int positionValue, string positionString, string queryString, params KeyValuePair<int,int>[] removeValues)
         {
             this.queryString = queryString;
@@ -44,6 +37,5 @@ namespace Sudoku.Core.Model
             this.positionString = positionString;
             this.removeValues = removeValues;
         }
-
     }
 }

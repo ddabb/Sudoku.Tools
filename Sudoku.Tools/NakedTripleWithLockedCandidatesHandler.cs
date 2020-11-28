@@ -2,28 +2,22 @@
 using Sudoku.Core.Model;
 using System.Collections.Generic;
 using System.Linq;
-
 namespace Sudoku.Tools
 {
-
     [AssignmentExample(8, "R9C7", "154703200072100004030402000040028000280917046010340020020071090790004102061239057")]
     public class NakedTripleWithLockedCandidatesHandler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.NakedTripleWithLockedCandidates;
-
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
-
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             return AssignmentCellByEliminationCell(qSudoku);
         }
-
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
             var allUnsetCell = qSudoku.AllUnSetCells;
             var filterCells = allUnsetCell.Where(c => c.RestCount == 3).ToList();
-
             var pairCells = (from a in filterCells
                              join b in filterCells on a.Block equals b.Block
                              let rests = a.RestList
@@ -59,15 +53,9 @@ namespace Sudoku.Tools
                         cells.Add(group);
                     }
                 }
-
-
-
             }
-
-
             return cells;
         }
-
         public override string GetDesc()
         {
             return "若一个行内的显性三数组中，候选数a只出现在了某宫中，则该宫的其余行不包含该候选数。\t\t\r\n" +

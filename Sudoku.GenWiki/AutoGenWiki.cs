@@ -9,7 +9,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-
 namespace Sudoku.GenWiki
 {
     public class AutoGenWiki
@@ -26,13 +25,10 @@ namespace Sudoku.GenWiki
             {
                 var fileName = Path.Combine(folder, "数独技巧", G.GetEnumDescription(handler.methodType) + ".md");
                 List<string> allString = new List<string>();
-
                 var desc = handler.GetDesc();
-
                 allString.Add("");
                 allString.Add("## 技巧描述");
                 allString.Add(string.IsNullOrEmpty(desc) ? "请联系作者,要求其补充描述。" : desc);
-
                 var type = handler.GetType();
                 object[] objs = type.GetCustomAttributes(typeof(AssignmentExampleAttribute), true);
                 if (objs.Count() == 1)
@@ -75,25 +71,15 @@ namespace Sudoku.GenWiki
                                     allString.Add("## 出数描述");
                                     allString.Add(solveMessage.JoinStringWithEmpty() + "\t\t\r\n");
                                 }
-
                             }
-
                             allString.Add("## 出数数独特征码" );
                             allString.Add(a.queryString + "\t\t\r\n");
-
-
-
                         }
-
                     }
                 }
-
-
-
                 object[] objs1 = type.GetCustomAttributes(typeof(EliminationExampleAttribute), true);
                 if (handler is SplitWingHandler t)
                 {
-
                 }
                 if (objs1.Count() == 1)
                 {
@@ -104,7 +90,6 @@ namespace Sudoku.GenWiki
                             allString.Add("");
                             allString.Add("## 删数示例");
                            
-
                             var positionString = e.positionString;
                             var qsudoku = new QSudoku(e.queryString);
                             var handers = e.SolveHandlers;
@@ -128,7 +113,6 @@ namespace Sudoku.GenWiki
                                     cellinfo.First(c => c.RrCc == positionString && c.Value == e.value);
                                 Draw(drawingCell, qsudoku, @"D:\Git\Sudoku.Tools\Images\EliminationExample",
                                     G.GetEnumDescription(handler.methodType));
-
                                 allString.Add("");
                                 allString.Add("<p align= \"center\" >");
                                 allString.Add(" <img src = \"/ddabb/Sudoku.Tools/blob/master/Images/EliminationExample/" + UrlEncode(G.GetEnumDescription(handler.methodType) + ".jpg") + "\" />");
@@ -144,39 +128,26 @@ namespace Sudoku.GenWiki
                             }
                             allString.Add("## 删数数独特征码");
                             allString.Add(e.queryString + "\t\t\r\n");
-
                         }
                     }
                 }
                 allString.Add("该文件由[AutoGenWiki.cs](https://github.com/ddabb/Sudoku.Tools/blob/master/Sudoku.GenWiki/AutoGenWiki.cs)自动生成");
                 File.WriteAllLines(fileName, allString);
             }
-
-
-
-
-
             var sidebarFile = Path.Combine(folder, "_Sidebar.md");
             List<string> fileStrs = new List<string>();
             fileStrs.Add("## 软件现状");
             fileStrs.Add("");
             fileStrs.Add("* [" + "软件现状" + "](https://github.com/ddabb/Sudoku.Tools/wiki/task_list)");
-
             fileStrs.Add("## 基础文档");
             fileStrs.Add("");
-
             foreach (var handler in handlers)
             {
                 var name = G.GetEnumDescription(handler.methodType);
-
                 fileStrs.Add("* [" + name + "](" + "https://github.com/ddabb/Sudoku.Tools/wiki/" + UrlEncode(name) + ")");
-
             }
             File.WriteAllLines(sidebarFile, fileStrs);
-
         }
-
-
         public static void Draw(CellInfo DrawingCell, QSudoku sudoku, string subDirectory, string fileName)
         {
             var panelWidth = 745;
@@ -185,36 +156,24 @@ namespace Sudoku.GenWiki
             var ShowCandidates = true;
             using (Bitmap bmp = new Bitmap(745, 745))
             {
-
                 using (Graphics g = Graphics.FromImage(bmp))
                 {
                     var rect = new Rectangle(new Point(0, 0), bmp.Size);
-
                     g.FillRectangle(new SolidBrush(Color.White), rect);
-
-
                     var bigSpace = SmallSpace * 3;
-
                     Rectangle rectangle = new Rectangle(0, 0, panelWidth, panel1Height);
-
                     var smallFont = new Font("宋体", 18f, FontStyle.Bold, GraphicsUnit.Point, 0);
                     var bigFont = new Font("宋体", smallFont.Size * 3, FontStyle.Bold, GraphicsUnit.Point, 0);
                     var lineweith = 1;
                     g.FillRectangle(new SolidBrush(Color.White), rectangle);
-
                     var offSets = GetOffSet(bigSpace);
-
                     #region 画横线
-
                     foreach (var kv in offSets)
                     {
                         g.DrawLine(kv.Value, new Point(0, kv.Key), new Point(panelWidth, kv.Key));
                         g.DrawLine(kv.Value, new Point(kv.Key, 0), new Point(kv.Key, panel1Height));
                     }
-
                     #endregion
-
-
                     if (sudoku != null)
                     {
                         foreach (var item in sudoku.AllCell)
@@ -225,7 +184,6 @@ namespace Sudoku.GenWiki
                                 var color = Color.DarkOrange;
                                 PaintCurrentCell(g, color, bigSpace, currentCell.Row, currentCell.Column);
                             }
-
                             if (item.Value != 0)
                             {
                                 var stringvalue = "" + item.Value;
@@ -254,9 +212,7 @@ namespace Sudoku.GenWiki
                                 }
                             }
                         }
-
                         #region 绘制提示数信息
-
                         if (ShowCandidates && DrawingCell != null)
                         {
                             if (sudoku.AllCell[DrawingCell.Index].Value == 0)
@@ -264,31 +220,19 @@ namespace Sudoku.GenWiki
                                 DrawHint(DrawingCell, bigSpace, g, smallFont, sudoku, SmallSpace);
                             }
                         }
-
                         #endregion
                     }
-
                     ButtonBorderStyle style = ButtonBorderStyle.Solid;
                     ControlPaint.DrawBorder(g, rectangle,
                         Color.FromArgb(255, 0xd7, 0xd7, 0xd7), 1, style,
                         Color.FromArgb(255, 0xd7, 0xd7, 0xd7), 1, style,
                         Color.FromArgb(255, 0xd7, 0xd7, 0xd7), 1, style,
                         Color.FromArgb(255, 0xd7, 0xd7, 0xd7), 1, style);
-
-
                     var filePath = Path.Combine(subDirectory, fileName + ".jpg");
                     bmp.Save(filePath, System.Drawing.Imaging.ImageFormat.Jpeg);
                 }
-
-
             }
-
-
-
-
         }
-
-
         private static Dictionary<int, int> indexOffset = new Dictionary<int, int>
         {
             {0 , 2 },
@@ -300,11 +244,7 @@ namespace Sudoku.GenWiki
             {6 , 10},
             {7 , 11},
             {8 , 12},
-
         };
-
-
-
         /// <summary>
         /// 绘制提示内容
         /// </summary>
@@ -332,19 +272,14 @@ namespace Sudoku.GenWiki
                         item.Row * bigSpace + indexOffset[item.Row] + (SmallSpace * ((item1 - 1) / 3)) +
                         +(SmallSpace - size.Height) / 2));
                 }
-
             }
             #endregion
-
             #region 绘制线条
             foreach (var item in cell.drawChains)
             {
-
             }
             #endregion
         }
-
-
         /// <summary>
         /// panel的size=bigSpace*9+15;
         /// </summary>
@@ -352,10 +287,8 @@ namespace Sudoku.GenWiki
         /// <returns></returns>
         private static Dictionary<int, Pen> GetOffSet(int bigSpace)
         {
-
             return new Dictionary<int, Pen>()
             {
-
                 {1 + bigSpace * 0, Pens.Black},
                 {2 + bigSpace * 0, Pens.Black},
                 {3 + bigSpace * 1, Pens.Gray},
@@ -372,7 +305,6 @@ namespace Sudoku.GenWiki
                 {14 + bigSpace * 9, Pens.Black},
             };
         }
-
         public static void PaintCurrentCell(Graphics g, Color color, int bigSpace, int rowIndex, int columnIndex)
         {
             g.FillRectangle(new SolidBrush(color),
@@ -381,7 +313,6 @@ namespace Sudoku.GenWiki
                         bigSpace * rowIndex + indexOffset[rowIndex] + 1),
                     new Size(bigSpace, bigSpace)));
         }
-
         public static string UrlEncode(string str)
         {
             StringBuilder sb = new StringBuilder();
@@ -390,12 +321,8 @@ namespace Sudoku.GenWiki
             {
                 sb.Append(@"%" + Convert.ToString(byStr[i], 16));
             }
-
             return (sb.ToString());
         }
-
-
     }
-
 }
 

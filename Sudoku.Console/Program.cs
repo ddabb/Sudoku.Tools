@@ -8,7 +8,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Sudoku.Core.Model;
-
 namespace Sudoku.Console
 {
     public class StaticTools
@@ -37,23 +36,14 @@ namespace Sudoku.Console
                 //return;
                 ConsoleAssignmentExample(typeof(ForcingChainOnHandler));
                 //ConsoleEliminationExample(typeof(FinnedXwingHandler));
-
-
-
-
                 return;
-
             }
             else
             {
                 tryFindSudoku(5);
                 return;
             }
-
-
-
         }
-
         private static void ConsoleAssignmentExample(Type type)
         {
             object[] objs = type.GetCustomAttributes(typeof(AssignmentExampleAttribute), true);
@@ -65,10 +55,8 @@ namespace Sudoku.Console
             var handers = a.SolveHandlers;
             ConsoleAssignmentExample(type, queryString, value, positionString,handers);
         }
-
         private static void ConsoleAssignmentExample(Type type, string queryString, int value, string positionString, SolveMethodEnum[] handlerEnums = null)
         {
-
             var qsudoku = new QSudoku(queryString);
             if (handlerEnums != null)
             {
@@ -82,12 +70,10 @@ namespace Sudoku.Console
             var cellinfo =
                 ((ISudokuSolveHandler)Activator.CreateInstance(type, true)).Assignment(
                     qsudoku);
-
             Debug.WriteLine("cellinfo " + cellinfo.JoinString());
             qsudoku = qsudoku.ApplyCells(cellinfo);
        
         }
-
         public static List<ISudokuSolveHandler> SolveHandlers
         {
             get
@@ -95,13 +81,11 @@ namespace Sudoku.Console
                 Assembly[] assemblies = new Assembly[] { typeof(SolverHandlerBase).Assembly };
                 var builder = new ContainerBuilder();
                 builder.RegisterAssemblyTypes(assemblies).AsImplementedInterfaces();
-
                 IContainer container = builder.Build();
                 List<ISudokuSolveHandler> solveHandlers = container.Resolve<IEnumerable<ISudokuSolveHandler>>().ToList();
                 return solveHandlers;
             }
         }
-
         private static void ConsoleEliminationExample(Type type)
         {
             object[] objs = type.GetCustomAttributes(typeof(EliminationExampleAttribute), true);
@@ -112,29 +96,21 @@ namespace Sudoku.Console
             var positionString = a.positionString;
             ConsoleEliminationExample(type, queryString, value, positionString);
         }
-
         private static void ConsoleEliminationExample(Type type, string queryString, int value, string positionString)
         {
             var qsudoku = new QSudoku(queryString);
             var cellinfo =
                 ((ISudokuSolveHandler)Activator.CreateInstance(type, true)).Elimination(
                     qsudoku);
-
             Debug.WriteLine("cellinfo " + cellinfo.JoinString());
             qsudoku = qsudoku.ApplyCells(cellinfo);
             Debug.WriteLine("isValid " + new DanceLink().isValid(qsudoku.QueryString));
         }
-
         public static List<Type> types1 = new List<Type>();
-
         public static void tryFindSudoku(int count = 50)
         {
-
             var solveCount = 0;
             var unsolveCount = 0;
-
-
-
             do
             {
                 QSudoku example;
@@ -148,9 +124,7 @@ namespace Sudoku.Console
                 {
                     example = new MinimalPuzzleFactory().Make(new SudokuBuilder().MakeWholeSudoku());
                 }
-
                 Debug.WriteLine("example init " + example.QueryString);
-
                 if (SolveSudoku(example))
                 {
                     solveCount += 1;
@@ -159,20 +133,12 @@ namespace Sudoku.Console
                 else
                 {
                     unsolveCount += 1;
-
-
-
                 }
-
             } while (unsolveCount < count);
-
             Debug.WriteLine("tryFindSudoku end");
-
         }
-
         public static List<string> queryStrings = new List<string>
             {
-
                 "000070146000006329006300875000463298603200750000000000100600087062900010800014002"
                 ,"001000035430109872000003601000030008900002306350800004100320069243000187000018203"
                 ,"000008000072600100180040006000900560000400729709006000010734000347500600000060347"
@@ -200,11 +166,9 @@ namespace Sudoku.Console
             var initString = example.QueryString;
             IContainer container = builder.Build();
             var solveHandlers = container.Resolve<IEnumerable<ISudokuSolveHandler>>().OrderBy(c => (int)c.methodType).ToList();
-
             for (int i = 0; i < solveHandlers.Count; i++)
             {
                 var handler = solveHandlers[i];
-
                 try
                 {
                     if (!types1.Contains(handler.GetType()))
@@ -219,7 +183,6 @@ namespace Sudoku.Console
                             Debug.WriteLine("handler  " + handler.GetType().ToString());
                             Debug.WriteLine("cellinfo" + cellinfos.JoinString("\t\t\r\n"));
                             Debug.WriteLine("example before" + example.QueryString + "isvalid" + new DanceLink().isValid(example.QueryString));
-
                             example = example.ApplyCells(cellinfos);
                             Debug.WriteLine("example after " + example.QueryString + "isvalid" + new DanceLink().isValid(example.QueryString));
                             if (example.IsAllSeted)
@@ -233,8 +196,6 @@ namespace Sudoku.Console
                     {
                         continue;
                     }
-
-
                 }
                 catch (Exception ex)
                 {
@@ -243,7 +204,6 @@ namespace Sudoku.Console
                         types1.Add(handler.GetType());
                     }
                 }
-
             }
             if (!example.IsAllSeted)
             {
@@ -251,17 +211,12 @@ namespace Sudoku.Console
                 SaveTohtml(example.QueryString);
                 SaveToTXT(example.QueryString);
                 SaveToTXT(example.QueryString, initString);
-
-
             }
             return example.IsAllSeted;
-
         }
-
         public static void SaveToTXT(string queryString, string initstring = null, string end = ".txt")
         {
             string str2 = "";
-
             dynamic type = typeof(QSudoku);
             string currentDirectory = Path.GetDirectoryName(type.Assembly.Location);
             string saveDirectory = Path.Combine(currentDirectory, "UnSolveSudoku");
@@ -270,11 +225,9 @@ namespace Sudoku.Console
             {
                 Directory.CreateDirectory(saveDirectory);
             }
-
             if (string.IsNullOrEmpty(initstring))
             {
                 initstring = queryString;
-
             }
             else
             {
@@ -283,10 +236,7 @@ namespace Sudoku.Console
             string filePath2 = Path.Combine(saveDirectory, queryString + end);
             File.WriteAllText(filePath2, initstring);
             Debug.WriteLine("文件" + filePath2 + " 已生成");
-
-
         }
-
         public static void SaveTohtml(string queryString)
         {
             string str2 = "";
@@ -296,13 +246,10 @@ namespace Sudoku.Console
             if (manifestResourceStream != null)
             {
                 StreamReader reader = new StreamReader(manifestResourceStream);
-
                 str2 = reader.ReadToEnd();
                 reader.Close();
                 manifestResourceStream.Close();
-
             }
-
             dynamic type = typeof(QSudoku);
             string currentDirectory = Path.GetDirectoryName(type.Assembly.Location);
             string saveDirectory = Path.Combine(currentDirectory, "UnSolveSudoku");
@@ -318,11 +265,6 @@ namespace Sudoku.Console
             string filePath = Path.Combine(saveDirectory, queryString + ".html");
             File.WriteAllText(filePath, str2.Replace("replaceMark", queryString));
             Debug.WriteLine("文件" + filePath + " 已生成");
-
-
         }
-
-
-
     }
 }

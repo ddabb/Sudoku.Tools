@@ -4,21 +4,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Sudoku.Core.Model;
-
 namespace Sudoku.Tools
 {
     [AssignmentExample(5,"R5C4","000000000000040329000651847000000500000000473008473296004000900000005180060180700")]
     public  class HiddenSingleColumnHandler:SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.HiddenSingleColumn;
-
         public override MethodClassify methodClassify => MethodClassify.SudokuRules;
-
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
             var allUnSetCell = qSudoku.AllUnSetCells;
-
             foreach (var index in G.baseIndexs)
             {
                 List<int> allRest = new List<int>();
@@ -27,7 +23,6 @@ namespace Sudoku.Tools
                 {
                     allRest.AddRange(cell.RestList);
                 }
-
                 foreach (var value in G.AllBaseValues)
                 {
                     if (allRest.Count(c => c == value) == 1)
@@ -47,12 +42,10 @@ namespace Sudoku.Tools
             }
             return cells;
         }
-
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>(); return cells;
         }
-
         public override string GetDesc()
         {
             return "列内只有一个位置可以填入候选数x，则该位置的值为x。";

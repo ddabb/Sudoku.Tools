@@ -2,16 +2,13 @@
 using System;
 using System.Collections.Generic;
 using Sudoku.Core.Model;
-
 namespace Sudoku.Tools
 {
     [AssignmentExample(5, "R2C9", "900400613320190700000000009000017008000000000700360000800000000009045086253001004")]
     public class NakedSingleHandler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.NakedSingle;
-
         public override MethodClassify methodClassify => MethodClassify.SudokuRules;
-
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cellInfo = new List<CellInfo>();
@@ -25,19 +22,15 @@ namespace Sudoku.Tools
                         SolveMessages = new List<SolveMessage> { index.Location, " 只能够填入 ", restList[0] }
                     };
                     cell.drawCells.Add(cell);
-
                     cellInfo.Add(cell);
                 }
             }
             return cellInfo;
-
         }
-
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             return new List<CellInfo>();
         }
-
         public override string GetDesc()
         {
             return "单元格只有一个候选数可以填。";

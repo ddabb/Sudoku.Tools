@@ -1,16 +1,11 @@
 # -*- coding: utf-8 -*-
 import glob as gb
 import cv2
-
-
 ## 获取numbers文件夹下所有文件路径
-
 img_path = gb.glob("numbers\\*")
-
 k = 0
 labels = []
 samples =  []
-
 ## 对每一张图片进行处理
 for path in img_path:
     img  = cv2.imread(path)       
@@ -94,13 +89,11 @@ for path in img_path:
 ## 这里才引入numpy是因为前面引入的话会自动把所有的list编程np.array
 ## 感觉array的append没有list的好用...        
 import numpy as np
-
 ## 这里还是把它们保存成了np.array...
 samples = np.array(samples,np.float32)
 #samples = samples.reshape((samples.size,1))
 labels = np.array(labels,np.float32)
 labels = labels.reshape((labels.size,1))
-
 np.save('samples.npy',samples)
 np.save('label.npy',labels)
  

@@ -4,28 +4,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Sudoku.Core.Model;
-
 namespace Sudoku.Tools
 {
-
-
     [AssignmentExample(4,"R8C4","738591624691800357254367891382000010049030780067008032423685179975003268816009543")]
     public class URType3NakedTripleHandler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.URType3NakedTriple;
-
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
-
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             return AssignmentCellByEliminationCell(qSudoku);
         }
-
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
             var allUnsetCells = qSudoku.AllUnSetCells;
-
             var pairCells = (from a in allUnsetCells
                              join b in allUnsetCells on a.RestString equals b.RestString
                              let sameRow = a.Row == b.Row
@@ -41,21 +34,17 @@ namespace Sudoku.Tools
                 var indexs = item.indexs;
                 var sameRow = item.sameRow;
                 var filterCell = allUnsetCells.Where(c => !indexs.Contains(c.Index)).ToList();
-
                 var filter2 = (from c in filterCell
                                join d in filterCell on 1 equals 1
-
                                let interc = c.RestList.Intersect(rest).ToList()
                                let interd = d.RestList.Intersect(rest).ToList()
                                let exceptC = c.RestList.Except(rest).ToList()
                                let exceptD = d.RestList.Except(rest).ToList()
                                let indexCD = G.MergeCellIndexs(c, d)
                                where c.Index < d.Index
-
                                && (sameRow ?
                                  c.Column == a.Column && d.Column == b.Column && c.Row == d.Row
                                : c.Row == a.Row && d.Row == b.Row && c.Column == d.Column)
-
                                 && interc.Count == 2
                                && interd.Count == 2
                                select new { c, d, exceptC, exceptD, indexCD }).ToList();
@@ -140,21 +129,13 @@ namespace Sudoku.Tools
                                     }
                                     cells.Add(nagetiveCell);
                                 }
-
                             }
-
                         }
-
                     }
-
                 }
-
-
-
             }
             return cells;
         }
-
         public override string GetDesc()
         {
             return "若a,b在一个矩形的四个顶点中都存在，且其中一行（列）满足a，b构成显性数对，另外一行（列）S2上存在另外两个单元格满足四个单元格只能填入a，b，c，d，e六个数，则S2所在行(列)剩余5个单元格不包含c，d，e三个候选数。\t\t\r\n";

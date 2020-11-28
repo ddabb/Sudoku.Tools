@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Sudoku.Core.Model;
-
 namespace Sudoku.Core
 {
    /// <summary>
@@ -14,7 +13,6 @@ namespace Sudoku.Core
     {
         public List<CellInfo> IfCellInfos;
         public List<CellInfo> ThenCellInfos;
-
         public string SolveDesc;
         public CellInfo finallyCell;
     }

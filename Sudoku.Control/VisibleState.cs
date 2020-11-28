@@ -6,14 +6,11 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Sudoku.Core;
-
 namespace Sudoku.Control
 {
     public class VisibleState
     {
-
         public static int[] visibleState = new[] { 0, 1 };
-
         public static List<Dictionary<int,int>> allVisibleState = (from v1 in visibleState
                                                          join v2 in visibleState on 1 equals 1
                                                          join v3 in visibleState on 1 equals 1
@@ -26,10 +23,8 @@ namespace Sudoku.Control
                                                          select new Dictionary<int,int>() { {1, v1 }, 
                                                              
                                                              { 2, v2 },  { 3, v3 },  { 4, v4 },  { 5, v5 },  { 6, v6 }, { 7, v7 }, { 8, v8 }, { 9, v9 } }).ToList();
-
         public static void BatchDrawing()
         {
-
             try
             {
                 var SmallSpace = 27;
@@ -44,7 +39,6 @@ namespace Sudoku.Control
                     panel.Size = new Size(bigSpace, bigSpace);
                     using (Bitmap bmp = new Bitmap(panel.Size.Width, panel.Size.Height))
                     {
-
                         using (Graphics g = Graphics.FromImage(bmp))
                         {
                             var rect = new Rectangle(new Point(0, 0), bmp.Size);
@@ -56,7 +50,6 @@ namespace Sudoku.Control
                             };
                       
                             g.FillRectangle(new SolidBrush(Color.White), rect);
-
                             if (test.Any(c => c.Value != 0))
                             {
                                 subFolder = "Hint" + test.Where(c=>c.Value!=0).Select(c=>c.Key).JoinString();
@@ -80,11 +73,9 @@ namespace Sudoku.Control
                                                 +(SmallSpace - size.Height) / 2));
                                    
                                     }
-
                                 }
                                 g.Save();
                                 var filePath = Path.Combine(subDirectory, subFolder + ".jpg") ;
-
                                 bmp.Save(filePath, System.Drawing.Imaging.ImageFormat.Jpeg);
                             }
                             else
@@ -98,20 +89,15 @@ namespace Sudoku.Control
                                 var filePath = Path.Combine(subDirectory, subFolder + ".jpg");
                                 bmp.Save(filePath, System.Drawing.Imaging.ImageFormat.Jpeg);
                             }
-
                         
-
                         }
-
               
                     }
-
                 }
                 var bigFont = new Font("宋体", smallFont.Size * 3, FontStyle.Bold, GraphicsUnit.Point, 0);
                 foreach (var item in G.AllBaseValues)
                 {
                     Panel panel = new Panel();
-
                     panel.Size = new Size(bigSpace, bigSpace);
                     using (Bitmap bmp = new Bitmap(panel.Size.Width, panel.Size.Height))
                     {
@@ -140,11 +126,7 @@ namespace Sudoku.Control
                                 (bigSpace - size.Height) / 2);
                             var filePath = Path.Combine(subDirectory, subFolder + ".jpg");
                             bmp.Save(filePath, System.Drawing.Imaging.ImageFormat.Jpeg);
-
-
                         }
-
-
                     }
                 }
             }
@@ -153,8 +135,6 @@ namespace Sudoku.Control
                 Debug.WriteLine("BatchDrawing" + e);
                 throw;
             }
-
-
         }
     }
 }

@@ -3,23 +3,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sudoku.Core.Model;
-
 namespace Sudoku.Tools
 {
     [AssignmentExample(5, "R1C6", "390000700000000650507000349049380506601054983853000400900800134002940865400000297")] //已调整
     public class NakedQuadrupleHandler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.NakedQuadruple;
-
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
-
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
-
             return AssignmentCellByEliminationCell(qSudoku);
         }
-
-
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
@@ -82,20 +76,13 @@ namespace Sudoku.Tools
                                         cells.Add(negativeCell);
                                     }
                                 }
-
-
                             }
-
                         }
-
-
                     }
                 }
-
             }
             return cells;
         }
-
         public override string GetDesc()
         {
             return @"在某个行/列/宫内,若四个单元格只能填入a、b、c、d四个数,则该行/列/宫的其余单元格不能填入a、b、c、d。";

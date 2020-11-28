@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace Sudoku.Core
 {
     /// <summary>
@@ -150,7 +149,5 @@ namespace Sudoku.Core
             GetCombination(ref list, t, t.Length, n, temp, n);
             return list;
         }
-
-
     }
 }

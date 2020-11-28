@@ -4,7 +4,6 @@ using Sudoku.Tools;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-
 namespace Sudoku.UI
 {
     /// <summary>
@@ -19,7 +18,6 @@ namespace Sudoku.UI
                 Assembly[] assemblies = new Assembly[] { typeof(SolverHandlerBase).Assembly };
                 var builder = new ContainerBuilder();
                 builder.RegisterAssemblyTypes(assemblies).AsImplementedInterfaces();
-
                 IContainer container = builder.Build();
                 List<ISudokuSolveHandler> solveHandlers = container.Resolve<IEnumerable<ISudokuSolveHandler>>().ToList();
                 return solveHandlers;

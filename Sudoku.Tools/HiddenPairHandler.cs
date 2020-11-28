@@ -4,21 +4,17 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Sudoku.Core.Model;
-
 namespace Sudoku.Tools
 {
     [AssignmentExample(8, "R1C9", "400090700007810400080060050800130007000070000170028005068051024513249876042080501")]//已调整
     public class HiddenPairHandler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.HiddenPair;
-
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
-
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             return AssignmentCellByEliminationCell(qSudoku);
         }
-
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             var indexscount = 2;
@@ -42,9 +38,7 @@ namespace Sudoku.Tools
                 var coupleIndexs = possbleIndexs.Where(c => c.direction == direaction).GroupBy(c => c.indexs.JoinString()).Where(c => c.Count() > 1).ToList();
                 foreach (var item in coupleIndexs)
                 {
-
                     var indexs = ConvertToInts(item.Key);
-
                     if (indexs.Exists(c => qSudoku.GetRest(c).Count() > restCount))//和显性数对区分
                     {
                         var pairIndexs = possbleIndexs.Where(c => c.indexs.JoinString() == item.Key).ToList();
@@ -62,7 +56,6 @@ namespace Sudoku.Tools
                         var value2 = values[1];
                         var d = pairIndexs.First().direction;
                         var dirIndex = pairIndexs.First().directionIndex;
-
                         foreach (var index in indexs1)
                         {
                             foreach (var value in qSudoku.GetRest(index).Except(values).ToList())
@@ -76,7 +69,6 @@ namespace Sudoku.Tools
                                     "两个单元格内","\t\t\r\n",
                                     index.LoctionDesc(),
                                     "不能填入"+value+"\t\t\r\n"
-
                                 };
                                 cell.drawCells = new List<CellInfo>
                                 {
@@ -89,19 +81,12 @@ namespace Sudoku.Tools
                                 cells.Add(cell);
                             }
                         }
-
-
                     }
                 }
                 Debug.WriteLine("");
             }
-
-
             return cells;
         }
-
-
-
         public override string GetDesc()
         {
             return @"若在某行/列/宫中，候选者a,b只在单元格A,B中出现,则A,B只能填入a,b,可以删除A,B单元格中a,b以外的候选数。";

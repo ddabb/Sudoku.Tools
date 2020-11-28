@@ -2,16 +2,13 @@
 using Sudoku.Core.Model;
 using System.Collections.Generic;
 using System.Linq;
-
 namespace Sudoku.Tools
 {
     [AssignmentExample(7, "R1C9", "000109030190700006300286001581472003900568002600391785700915008210007050050020000")]
     public class WXYZWingHandler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.WXYZWing;
-
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
-
         /// <summary>
         /// 142ms
         /// </summary>
@@ -21,7 +18,6 @@ namespace Sudoku.Tools
         {
             return AssignmentCellByEliminationCell(qSudoku);
         }
-
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
@@ -32,11 +28,9 @@ namespace Sudoku.Tools
                 var checkcellRest = checkcell.RestList;
                 var relatedCell = checkcell.RelatedUnsetCells.Where(c =>
                     countRange.Contains(c.RestCount) && c.RestList.Intersect(checkcellRest).Any()).ToList();
-
                 var filter = (from x in relatedCell
                               join y in relatedCell on 1 equals 1
                               join z in relatedCell on 1 equals 1
-
                               let indexs = new List<int> { x.Index, y.Index, z.Index, checkcell.Index }
                               let xrest = x.RestList
                               let yrest = y.RestList
@@ -83,7 +77,6 @@ namespace Sudoku.Tools
                                 cells.Add(negativeCell);
                             }
                         }
-
                         var list1 = qSudoku.AllUnSetCells
                                     .Where(c => publicIndexs.Contains(c.Index) && c.RestList.Contains(intersectValue)).ToList();
                         if (list1.Count > 1)
@@ -108,18 +101,11 @@ namespace Sudoku.Tools
                             };
                             cells.Add(cellgroup);
                         }
-
-
-
                     }
-
                 }
-
             }
-
             return cells;
         }
-
         public override string GetDesc()
         {
             return "若四个单元格的候选数满足WZ,XZ,YZ,WXYZ形式，且WXYZ位于WZ,XZ,YZ的共同相关格上，则WZ,XZ,YZ,WXYZ的其余共同相关格不包含候选数Z。";

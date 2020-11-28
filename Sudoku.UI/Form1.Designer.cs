@@ -1,5 +1,4 @@
 ﻿using System.Windows.Forms;
-
 namespace Sudoku.UI
 {
     partial class Form1
@@ -8,7 +7,6 @@ namespace Sudoku.UI
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
-
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
@@ -21,9 +19,7 @@ namespace Sudoku.UI
             }
             base.Dispose(disposing);
         }
-
         #region Windows Form Designer generated code
-
         /// <summary>
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
@@ -456,11 +452,8 @@ namespace Sudoku.UI
             this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
-
         #endregion
-
         private ctlSudoku ctlSudoku;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileMenuItem;
@@ -496,7 +489,6 @@ namespace Sudoku.UI
         private ToolStripMenuItem ResetToolStripMenuItem;
         private SplitContainer splitContainer1;
         private ToolStripMenuItem AssignmentExampleToolStripMenuItem;
-
         private Button btnSavetoPicture;
         private ToolStripMenuItem EliminationExampleToolStripMenuItem;
     }

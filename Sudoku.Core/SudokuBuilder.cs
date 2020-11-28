@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Text;
 using MathNet.Numerics;
 using MathNet.Numerics.LinearAlgebra.Double;
-
 namespace Sudoku.Core
 {
     public class SudokuBuilder
@@ -23,7 +22,6 @@ namespace Sudoku.Core
             Debug.WriteLine("新生成的完整数独是：" + result);
             return new RSudoku(result);
         }
-
         public  string ListToString(List<List<int>> tempquestion)
         {
             StringBuilder sb = new StringBuilder();
@@ -36,15 +34,12 @@ namespace Sudoku.Core
             }
             return sb.ToString();
         }
-
-
         /// <summary>
         /// 生成基本的数独
         /// </summary>
         /// <returns></returns>
         private List<List<int>> GetBaseSudoku(List<int> list1)
         {
-
             var list2 = moveToTail(list1, 3);
             var list3 = moveToTail(list1, 6);
             var list4 = moveToTail(list1, 1);
@@ -56,7 +51,6 @@ namespace Sudoku.Core
             var a = new List<List<int>> { list1, list2, list3, list4, list5, list6, list7, list8, list9 };
             return a;
         }
-
         /// <summary>
         /// 交换行列顺序，增加随机性
         /// </summary>
@@ -70,22 +64,17 @@ namespace Sudoku.Core
                 var inner = a[i];
                 for (int j = 0; j < inner.Count; j++)
                 {
-
                     doubles[i, j] = a[i][j];
                 }
-
             }
-
             var matrix = DenseMatrix.OfArray(doubles);
             for (int i = 0; i < 10; i++)
             {
                 var permutations = new Permutation(UnOrderlist());
-
                 matrix.PermuteRows(permutations);
                 var permutations1 = new Permutation(UnOrderlist());
                 matrix.PermuteColumns(permutations1);
             }
-
             for (int i = 0; i < matrix.RowCount; i++)
             {
                 for (int j = 0; j < matrix.ColumnCount; j++)
@@ -93,10 +82,8 @@ namespace Sudoku.Core
                     a[i][j] = (int)matrix[i, j];
                 }
             }
-
             return a;
         }
-
         /// <summary>
         /// 打乱顺序的数组
         /// </summary>
@@ -125,7 +112,6 @@ namespace Sudoku.Core
                     b.Add(list[i]);
                 }
             }
-
             b.AddRange(a);
             return b;
         }

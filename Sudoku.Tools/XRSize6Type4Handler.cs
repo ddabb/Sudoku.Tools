@@ -2,21 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using Sudoku.Core.Model;
-
 namespace Sudoku.Tools
 {
     [AssignmentExample(7, "R1C3", "120846003008193200900275081400050008002081000890460300080524100219738060700619832", SolveMethodEnum.HiddenPair)]
     public class XRSize6Type4Handler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.XRSize6Type4;
-
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
-
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             return AssignmentCellByEliminationCell(qSudoku);
         }
-
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
@@ -50,7 +46,6 @@ namespace Sudoku.Tools
                 var value2 = tempValue[1];
                 if (acSameRow)
                 {
-
                     var cellList = (from cell1 in allUnsetCells
                                     join cell2 in allUnsetCells on cell1.Column equals cell2.Column
                                     let column = cell1.Column
@@ -83,8 +78,6 @@ namespace Sudoku.Tools
                             cells.Add(new NegativeIndexsGroup(new List<int> { cell1.Index, cell2.Index }, value1, qSudoku) );
                         }
                     }
-
-
                 }
                 else
                 {
@@ -120,14 +113,10 @@ namespace Sudoku.Tools
                             cells.Add(new NegativeIndexsGroup(new List<int> { cell1.Index, cell2.Index }, value1, qSudoku));
                         }
                     }
-
-
                 }
             }
-
             return cells;
         }
-
         public override string GetDesc()
         {
             return "";

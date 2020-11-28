@@ -4,24 +4,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Sudoku.Core.Model;
-
 namespace Sudoku.Tools
 {
     [AssignmentExample(8,"R9C5","200000003080030050003402100001205400000090000009308600002506900090020070400000001")]
     public class ImcompletedJellyfishHandler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.ImcompletedJellyfish;
-
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
-
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             return AssignmentCellByEliminationCell(qSudoku);
         }
-
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
-
             List<CellInfo> cells = new List<CellInfo>();
             List<int> range = new List<int> { 2, 3, 4 };
             List<int> sumrange = new List<int> { 8, 9, 10, 11, 12, 13, 14, 15 };
@@ -56,7 +51,6 @@ namespace Sudoku.Tools
                                                         c.RestCount >1).Select(cell => new NegativeCell(cell.Index, value, qSudoku)
                     ).Cast<CellInfo>());
                 }
-
                 var filter2 = (from index1 in G.baseIndexs
                                join index2 in G.baseIndexs on 1 equals 1
                                join index3 in G.baseIndexs on 1 equals 1
@@ -85,14 +79,9 @@ namespace Sudoku.Tools
                                                         c.RestCount > 1).Select(cell => new PositiveCell(cell.Index, value, qSudoku)
                     ).Cast<CellInfo>());
                 }
-
-
-
             }
-
             return cells;
         }
-
         public override string GetDesc()
         {
             return "";

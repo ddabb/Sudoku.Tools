@@ -1,20 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-
 namespace Sudoku.Core.Model
 {
     public class NegativeIndexsGroup : CellInfo
     {
-
-
         public NegativeIndexsGroup(List<int> index, int value, QSudoku sudoku) : base(index, value, sudoku)
         {
             this.CellType = CellType.NegativeIndexsGroup;
-
-
         }
-
-
         public override bool IsError { get; }
         public override List<CellInfo> InitNextCells()
         {
@@ -39,7 +32,6 @@ namespace Sudoku.Core.Model
                     };
                     positive.Fromto.toIndex = positive.Index;
                     cells.Add(positive);
-
                 }
                 
             }
@@ -59,9 +51,7 @@ namespace Sudoku.Core.Model
                     };
                     positive.Fromto.toIndex = positive.Index;
                     cells.Add(positive);
-
                 }
-
             }
             var blocks = removeCells.Select(c => c.Block).Distinct().ToList();
             foreach (var block in blocks)
@@ -79,19 +69,14 @@ namespace Sudoku.Core.Model
                     };
                     positive.Fromto.toIndex = positive.Index;
                     cells.Add(positive);
-
                 }
-
             }
-
             return cells;
         }
-
         public override List<CellInfo> GetNextCellsFromSudokuCache()
         {
             return new List<CellInfo>();
         }
-
         public override List<CellInfo> NextCells
         {
             get
@@ -101,11 +86,9 @@ namespace Sudoku.Core.Model
                 //{
                 //    return list;
                 //}
-
                 return InitNextCells();
             }
         }
-
         public override string Desc =>"";
     }
 }

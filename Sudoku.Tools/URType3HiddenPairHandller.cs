@@ -2,7 +2,6 @@
 using Sudoku.Core.Model;
 using System.Collections.Generic;
 using System.Linq;
-
 namespace Sudoku.Tools
 {
     [AssignmentExample(4, "R4C6", "000900004400000500760080000290000100071209005004710902100840000907025801002190000", SolveMethodEnum.NakedQuadruple)]
@@ -12,12 +11,10 @@ namespace Sudoku.Tools
         {
             return AssignmentCellByEliminationCell(qSudoku);
         }
-
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
             var allUnsetCells = qSudoku.AllUnSetCells;
-
             var pairCells = (from a in allUnsetCells
                              join b in allUnsetCells on a.RestString equals b.RestString
                              let sameRow = a.Row == b.Row
@@ -33,17 +30,14 @@ namespace Sudoku.Tools
                 var indexs = item.indexs;
                 var sameRow = item.sameRow;
                 var filterCell = allUnsetCells.Where(c => !indexs.Contains(c.Index)).ToList();
-
                 var filter2 = (from c in filterCell
                                join d in filterCell on 1 equals 1
-
                                let interc = c.RestList.Intersect(rest).ToList()
                                let interd = d.RestList.Intersect(rest).ToList()
                                let exceptC = c.RestList.Except(rest).ToList()
                                let exceptD = d.RestList.Except(rest).ToList()
                                let indexCD = G.MergeCellIndexs(c, d)
                                where c.Index < d.Index
-
                                && (sameRow ?
                                  c.Column == a.Column && d.Column == b.Column && c.Row == d.Row
                                : c.Row == a.Row && d.Row == b.Row && c.Column == d.Column)
@@ -62,22 +56,18 @@ namespace Sudoku.Tools
                     var keyValue1 = rest[0];
                     var keyValue2 = rest[1];
                     var findvalues = (from value1 in otherValues
-
                                       select new { value1 }
                                                                       ).ToList();
-
                     var HiddenValues = new List<int> { keyValue1, keyValue2 };
                     var findCell = (filterCells.Where(c => c.RestList.Contains(keyValue1) || c.RestList.Contains(keyValue2))).ToList();
                     if (findCell.Count == 3 && HiddenValues.All(value => filterCells.Count(cell1 => cell1.RestList.Contains(value)) > 0))
                     {
-
                         var allRemoveValues = new List<int>();
                         var removeCells = findCell.Where(c => !indexCD.Contains(c.Index));
                         var locations = removeCells.Select(c => c.Location).ToList();
                         foreach (var keyCell in removeCells)
                         {
                             var removeValues = keyCell.RestList.Except(HiddenValues).ToList();
-
                             allRemoveValues.AddRange(removeValues);
                             if (removeValues.Any())
                             {
@@ -106,8 +96,6 @@ namespace Sudoku.Tools
                                         });
                                     cells.Add(nagetiveCell1);
                                 }
-
-
                                 var nagetiveCell = new NegativeValuesGroup(keyCell.Index, removeValues, qSudoku)
                                 {
                                     SolveMessages = new List<SolveMessage>
@@ -131,9 +119,7 @@ namespace Sudoku.Tools
                                         });
                                 cells.Add(nagetiveCell);
                             }
-
                         }
-
                         foreach (var value in G.AllBaseValues)
                         {
                             if (allRemoveValues.Count(c => c == value) > 1)
@@ -156,29 +142,15 @@ namespace Sudoku.Tools
                                 cells.Add(nagetiveCell);
                             }
                         }
-
-
                     }
-
-
-
-
-
-
-
                 }
-
-
-
             }
             return cells;
         }
-
         public override string GetDesc()
         {
             return "若a,b在一个矩形的四个顶点中都存在，且其中存在一行(列)S1满足a,b构成显性数对，另外一行(列)S2上，a,b只在三个单元格中存在，则第三个单元格不包含a和b之外的其余候选数。\t\t\r\n";
         }
-
         public override SolveMethodEnum methodType => SolveMethodEnum.URType3HiddenPair;
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
     }

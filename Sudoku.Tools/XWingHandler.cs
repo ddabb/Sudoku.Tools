@@ -2,26 +2,18 @@
 using Sudoku.Core.Model;
 using System.Collections.Generic;
 using System.Linq;
-
 namespace Sudoku.Tools
 {
-
-
     [AssignmentExample(7, "R3C7", "050092000200508900900106025395467218621859473487001596500904002049003057002015049")]
     [EliminationExample(8, "R9C2", "000300100500401090001028600090800001008017002010040800004085000300102040002634000")]
-
     public class XWingHandler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.XWing;
-
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
-
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             return AssignmentCellByEliminationCell(qSudoku);
-
         }
-
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
@@ -36,16 +28,13 @@ namespace Sudoku.Tools
                         if (indexs.Count() == 2)
                         {
                             PossibleIndex index = new PossibleIndex(direction, directionIndex, speacilValue, indexs);
-
                             possibleIndexs.Add(index);
                         }
-
                     }
                 }
                 foreach (var item in G.AllBaseValues)
                 {
                     var signleRowOrColumnIndexs = possibleIndexs.Where(c => c.SpeacialValue == item);
-
                     var listAll = (from a in signleRowOrColumnIndexs
                                    join b in signleRowOrColumnIndexs on 1 equals 1
                                    where a.indexs[0] < b.indexs[0]
@@ -64,20 +53,15 @@ namespace Sudoku.Tools
                             cells.AddRange(XwingWithNakeSingle(qSudoku, subCells, item));
                         }
                     }
-
-
                 }
-
             }
             return cells;
         }
-
         public override string GetDesc()
         {
             return "若候选数a在特定两行，只出现在特定两列，且这四个候选数位于4个宫内，则这两行两列的其余单元格中不包含候选数a；\t\t\r\n" +
                    "若候选数a在特定两列，只出现在特定两行，且这四个候选数位于4个宫内，则这两行两列的其余单元格中不包含候选数a；\t\t\r\n";
         }
-
         internal List<CellInfo> XwingWithNakeSingle(QSudoku qSudoku, List<CellInfo> subCells, int speacilValue)
         {
             List<CellInfo> cells = new List<CellInfo>();
@@ -86,7 +70,6 @@ namespace Sudoku.Tools
                 var distinctrow = subCells.Select(c => c.Row).Distinct().ToList();
                 var distinctcolumn = subCells.Select(c => c.Column).Distinct().ToList();
                 var filterCells = qSudoku.GetFilterCell(c => c.Value == 0 && c.RestList.Contains(speacilValue) && (distinctcolumn.Contains(c.Column) || distinctrow.Contains(c.Row)) && !subCells.Exists(keyCell => c.Row == keyCell.Row && c.Column == keyCell.Column));
-
                 foreach (var item in filterCells)
                 {
                     var rests = item.RestList;
@@ -100,13 +83,11 @@ namespace Sudoku.Tools
                         {
                             G.MergeLocationDesc(subCells),"的"+speacilValue+ "构成"+G.GetEnumDescription(this.methodType)+"\t\t\r\n",
                             "所以",negativeCell.Location,"不能为"+speacilValue+"\t\t\r\n",
-
                         };
                         cells.Add(negativeCell);
                     }
                 }
             }
-
             return cells;
         }
     }

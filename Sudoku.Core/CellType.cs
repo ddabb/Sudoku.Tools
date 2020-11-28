@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-
 namespace Sudoku.Core
 {
     /// <summary>

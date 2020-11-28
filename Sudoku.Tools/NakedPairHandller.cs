@@ -2,23 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using Sudoku.Core.Model;
-
 namespace Sudoku.Tools
 {
     [AssignmentExample(3, "R8C2", "980006375376850140000700860569347218000000537723581496000205780000000950000008620")]
     public class NakedPairHandller : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.NakedPair;
-
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
-
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             return AssignmentCellByEliminationCell(qSudoku);
         }
-
-
-
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
@@ -74,21 +68,13 @@ namespace Sudoku.Tools
                                         cells.Add(negativeCell);
                                     }
                                 }
-
-
                             }
-
                         }
-
-
                     }
                 }
-
             }
-
             return cells;
         }
-
         public override string GetDesc()
         {
             return @"在某个行/列/宫内,若两个单元格都只能填入a或者b,则该行/列/宫的其余单元格不能填入a或者b。";

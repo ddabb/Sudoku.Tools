@@ -2,7 +2,6 @@
 using Sudoku.Core.Model;
 using System.Collections.Generic;
 using System.Linq;
-
 namespace Sudoku.Tools
 {
     //关注TestForcingChainHandler4
@@ -11,16 +10,12 @@ namespace Sudoku.Tools
     public class ForcingChainOnHandler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.ForcingChainOn;
-
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
-
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
-
             //var c = (from start in qSudoku.NegativeCell2PostiveCell
             //    join end in qSudoku.NegativeCell2PostiveCell on start.thentype equals end.thentype
-
             //    where start.negativeCell.Value == end.PostiveCell.Value
             //          && start.negativeCell.Index == end.PostiveCell.Index
             //          && start.PostiveCell.Index != end.negativeCell.Index
@@ -28,7 +23,6 @@ namespace Sudoku.Tools
             //         select new { start, end }).ToList();
             //foreach (var item in c)
             //{
-
             //    var start = item.start;
             //    var end = item.end;
             //    if (start.negativeCell.Index == 6 && end.PostiveCell.Index == 6)
@@ -41,22 +35,14 @@ namespace Sudoku.Tools
             //            {
             //                temp2Cells.AddRange(qSudoku.AllChainCells.Where(c => c.thentype == ThenType.ThenYes && c.negativeCell.Equals(temp1.negativeCell)).ToList()); 
             //            }
-
             //          var node=  new ChainNode(start.negativeCell, end.PostiveCell, qSudoku.AllChainCells);
             //          if (node.CanFindChain)
             //          {
                           
             //          }
-
             //        }
             //    }
             //}
-
-
-
-
-
-
             foreach (var cell1 in qSudoku.AllUnSetCells)
             {
                 foreach (var testValue in cell1.RestList)
@@ -71,7 +57,6 @@ namespace Sudoku.Tools
                     if (traceCell.Count == 1)
                     {
                         var temp = new PositiveCell(index1, testValue1, qSudoku) { CellType = CellType.Positive };
-
                         var list = traceCell.First().GetAllParents().OrderBy(c => c.Level).ToList();
                         var temp1 = new List<SolveMessage>();
                         for (int i = 0; i < list.Count - 1; i++)
@@ -91,25 +76,18 @@ namespace Sudoku.Tools
                     {
                         //Debug.WriteLine("我还是可以进来");
                     }
-
                 }
             }
             return cells;
-
         }
-
-
         public object BulidTree(CellInfo cell, List<IChainCell> allChainCells)
         {
-
             return new object();
         }
-
         public static List<CellInfo> traceCell = new List<CellInfo>();
         private void Fuc(CellInfo cell, ref List<CellInfo> initCellInfo)
         {
             //Debug.WriteLine("Fuc in  " + cell + "cell parent" + cell.Parent);
-
             if (traceCell.Any()) return;
             if (cell.IsError)
             {
@@ -133,13 +111,9 @@ namespace Sudoku.Tools
                         initCellInfo.Add(item);
                         Fuc(item, ref initCellInfo);
                     }
-
                 }
-
             }
-
         }
-
         private void Output(CellInfo found, ref List<string> infoList)
         {
             infoList.Insert(0, found.ToString());
@@ -148,14 +122,10 @@ namespace Sudoku.Tools
                 Output(found.Parent, ref infoList);
             }
         }
-
-
-
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             return new List<CellInfo>();
         }
-
         public override string GetDesc()
         {
             return "";

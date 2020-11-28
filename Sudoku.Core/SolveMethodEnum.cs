@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-
 namespace Sudoku.Core
 {
     /// <summary>
@@ -193,7 +192,6 @@ namespace Sudoku.Core
         ForcingChainOff,
         [DifficultuRating(9.1)]
         DymanicForcingChain,
-
         NishioForcingChains,
         ImcompletedJellyfish,
     }

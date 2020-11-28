@@ -2,7 +2,6 @@
 using Sudoku.Core.Model;
 using System.Collections.Generic;
 using System.Linq;
-
 namespace Sudoku.Tools
 {
     [AssignmentExample(1, "R8C9", "578136294004289705002574180459321800381765942726948500067853420845602300203407658")] //正确的
@@ -11,9 +10,7 @@ namespace Sudoku.Tools
     public class BugType1Handler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.BugType1;
-
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
-
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
@@ -23,7 +20,6 @@ namespace Sudoku.Tools
             {
                 if (checkcells.Count(c => c.RestCount == 2) == checkcells.Count - 1)
                 {
-
                     var c1 = (from value in G.AllBaseValues
                               let setCount = setCell.Count(c => c.Value == value)
                               let restCount = checkcells.Count(c => c.RestList.Contains(value))
@@ -62,13 +58,10 @@ namespace Sudoku.Tools
             }
             return cells;
         }
-
-
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             return new List<CellInfo>();
         }
-
         public override string GetDesc()
         {
             return "若所有候选数格中，只存在一个单元格只能填入3个候选数，其余都是两个候选数。\t\t\r\n" +

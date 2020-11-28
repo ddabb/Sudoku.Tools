@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-
 namespace Sudoku.Core.Model
 {
     /// <summary>
@@ -13,15 +12,12 @@ namespace Sudoku.Core.Model
         public string positionString;
         public SolveMethodEnum[] SolveHandlers;
         public KeyValuePair<int, int>[] removeValues;
-
         public AssignmentExampleAttribute(int positionValue,string positionString, string queryString)
         {
             this.queryString = queryString;
             this.value = positionValue;
             this.positionString = positionString;
-
         }
-
         public AssignmentExampleAttribute(int positionValue, string positionString, string queryString,params SolveMethodEnum[] solveHandlers)
         {
             this.queryString = queryString;
@@ -29,7 +25,6 @@ namespace Sudoku.Core.Model
             this.positionString = positionString;
             this.SolveHandlers = solveHandlers;
         }
-
         public AssignmentExampleAttribute(int positionValue, string positionString, string queryString, params KeyValuePair<int, int>[] removeValues)
         {
             this.queryString = queryString;
@@ -37,7 +32,6 @@ namespace Sudoku.Core.Model
             this.positionString = positionString;
             this.removeValues = removeValues;
         }
-
         public AssignmentExampleAttribute(string queryString)
         {
             this.queryString = queryString;

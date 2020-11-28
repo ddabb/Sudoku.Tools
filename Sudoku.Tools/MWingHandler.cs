@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Sudoku.Core.Model;
-
 namespace Sudoku.Tools
 {
     [AssignmentExample(1, "R5C2", "703001006000700030090600207000475801007382000548196372001064720070000000600807409")]
@@ -12,7 +11,6 @@ namespace Sudoku.Tools
         {
             return AssignmentCellByEliminationCell(qSudoku);
         }
-
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
@@ -79,17 +77,14 @@ namespace Sudoku.Tools
             }
             return cells;
         }
-
         public  int GetOne(List<int> list,int index)
         {
             return list[index];
         }
-
         public override string GetDesc()
         {
             return "参考链文本";
         }
-
         public override SolveMethodEnum methodType => SolveMethodEnum.MWing;
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
     }

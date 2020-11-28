@@ -2,21 +2,17 @@
 using Sudoku.Core.Model;
 using System.Collections.Generic;
 using System.Linq;
-
 namespace Sudoku.Tools
 {
     [AssignmentExample(8, "R1C1", "012009600600012094749635821428397100397156482156020009904573210070261940201900007")]
     public class WWingHandler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.WWing;
-
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
-
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             return AssignmentCellByEliminationCell(qSudoku);
         }
-
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
@@ -42,7 +38,6 @@ namespace Sudoku.Tools
                     var speacialValue = IndexPairs.SpeacialValue;
                     if (IndexPairs.direction == Direction.Row)
                     {
-
                         if (IsSameColumn(ab.a.Index, index1) && IsSameColumn(ab.b.Index, index2) || (
                             IsSameColumn(ab.a.Index, index2) && IsSameColumn(ab.b.Index, index1)
                             ))
@@ -78,7 +73,6 @@ namespace Sudoku.Tools
                             foreach (var cell in removeCells)
                             {
                                 var rests = cell.RestList;
-
                                 var negativeCell = new NegativeCell(cell.Index, rest, qSudoku);
                                 negativeCell.drawCells.AddRange(GetDrawChainCell(restInts, ab.a, ab.b));
                                 var chaina = new ChainCell(index1, speacialValue, qSudoku);
@@ -95,14 +89,10 @@ namespace Sudoku.Tools
                             }
                         }
                     }
-
                 }
-
             }
-
             return cells;
         }
-
         public override string GetDesc()
         {
             return "参考链文本";

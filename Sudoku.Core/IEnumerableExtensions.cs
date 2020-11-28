@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-
 namespace Sudoku.Core
 {
     public static class IEnumerableExtensions
@@ -8,7 +7,6 @@ namespace Sudoku.Core
         {
             return string.Join(separationCharacter, @this);
         }
-
         public static string JoinStringWithEmpty<T>(this IEnumerable<T> @this)
         {
             return @this.JoinString("");

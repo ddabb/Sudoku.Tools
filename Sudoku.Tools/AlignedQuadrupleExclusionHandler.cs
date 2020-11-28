@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Sudoku.Core;
 using Sudoku.Core.Model;
-
 namespace Sudoku.Tools
 {
     [EliminationExample(7,"R8C2", "109340050850000143364510000003850001080691030600034580000080320208003015030025908",SolveMethodEnum.DirectPointing,SolveMethodEnum.NakedTriple)]//测试用例待优化
@@ -15,7 +14,6 @@ namespace Sudoku.Tools
         {
             return new List<CellInfo>();
         }
-
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
@@ -52,47 +50,30 @@ namespace Sudoku.Tools
                                                 {
                                                     var mergeList = G.MergeInt(value1, value2, value3, value4);
                                                     bool allHasValueToSet = qSudoku.AllUnSetCells.Where(c => checkIndex.Contains(c.Index)).ToList().All(c => c.RestList.Except(mergeList).Any());
-
-
                                                     dtos.Add(new AlignedDTO(allHasValueToSet, new InitCell(index1, value1), new InitCell(index2, value2), new InitCell(index3, value3), new InitCell(index4, value4)));
                                                 }
                                    
                                             }
-
                                         }
-
                                     }
-
                                     List<CellInfo> all = G.MergeCells(cell1, cell2, cell3, cell4);
                                     foreach (var item in all)
                                     {
                                         NewMethod1(NewMethod(qSudoku, item, dtos, all), cells);
-
                                     }
-
-
-
                                 }
                             }
                         }
-
                     }
-
-
                 }
             }
-
             return cells;
         }
-
   
-
         public override string GetDesc()
         {
-
             return "若四个候选数格X,Y,Z,W值任意组合，当X为x时，若无论W,Y,Z任意组合，该四个单元格的共同相关格存在单元格没有有效数字可以填，则X不为x。";
         }
-
         public override SolveMethodEnum methodType=>SolveMethodEnum.AlignedQuadrupleExclusion;
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
     }

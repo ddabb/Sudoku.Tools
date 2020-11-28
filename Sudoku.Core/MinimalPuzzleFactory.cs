@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using Sudoku.Core.Model;
-
 namespace Sudoku.Core
 {
     /// <summary>
@@ -24,13 +23,9 @@ namespace Sudoku.Core
                    var allVaildQueryString= GetSubString(queryString).Where(c => new DanceLink().isValid(c)).ToList();
                    queryString = allVaildQueryString[rm.Next(0, allVaildQueryString.Count)];
                 }
-
             } while (!flag);
-
             return new QSudoku(queryString);
         }
-
-
         /// <summary>
         /// step1：对于输入的字符串,需要能生成一个有效数独。
         /// step2：所有子字符串都没有办法构成有效数据
@@ -49,7 +44,6 @@ namespace Sudoku.Core
             }
             return false;     
         }
-
         public static List<string> GetSubString(string str)
         {
             var result = new List<string>();
@@ -58,10 +52,8 @@ namespace Sudoku.Core
             {
                 result.Add(SetZero(str, location));
             }
-
             return result;
         }
-
         /// <summary>
         /// 获取数独字符串的所有非0的位置
         /// </summary>
@@ -77,11 +69,9 @@ namespace Sudoku.Core
                 {
                     tempList.Add(i);
                 }
-
             }
             return tempList;
         }
-
         /// <summary>
         /// 
         /// </summary>
@@ -93,7 +83,6 @@ namespace Sudoku.Core
             var chars = str.ToCharArray();
             chars[location] = '0';
             return new string(chars);
-
         }
     }
 }

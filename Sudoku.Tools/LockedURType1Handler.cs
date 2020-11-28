@@ -3,16 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sudoku.Core.Model;
-
 namespace Sudoku.Tools
 {
     [AssignmentExample(5, "R5C1", "748359126001726840026400705200040387074030009180070004402507608017003452805204070")]
     public class LockedURType1Handler : SolverHandlerBase
     {
         public override SolveMethodEnum methodType => SolveMethodEnum.LockedURType1;
-
         public override MethodClassify methodClassify => MethodClassify.SudokuTechniques;
-
         public override List<CellInfo> Assignment(QSudoku qSudoku)
         {
             List<CellInfo> cells = new List<CellInfo>();
@@ -54,27 +51,18 @@ namespace Sudoku.Tools
                             var findCells = allUnsetCell.Where(cell => cell.RestList.Contains(positiveValue) && (sameRow ? cell.Row == c.Row : cell.Column == c.Column) && !cdIndexs.Contains(cell.Index)).ToList();
                             if (findCells.Count == 1)
                             {
-
                                 cells.Add(new PositiveCell(findCells.First().Index, positiveValue, qSudoku));
                             }
-
                         }
                     }
                 }
-
-
-
             }
-
-
             return cells;
         }
-
         public override List<CellInfo> Elimination(QSudoku qSudoku)
         {
             return new List<CellInfo>();
         }
-
         public override string GetDesc()
         {
             return "";
